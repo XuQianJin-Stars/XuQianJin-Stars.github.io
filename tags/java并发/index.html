@@ -5,8 +5,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 大数据 实时计算 机器学习">
-    <meta name="description" content="分类 | ForwardXu">
+    <meta name="keywords" content="标签: java并发, 大数据 实时计算 机器学习">
+    <meta name="description" content="标签: java并发 | ForwardXu">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>分类 | ForwardXu</title>
+    <title>标签: java并发 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -237,94 +237,92 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
     
 
-<div id="category-cloud" class="container chip-container">
+<div id="tags" class="container chip-container">
     <div class="card">
         <div class="card-content">
-            <div class="tag-title center-align">文章分类</div>
+            <div class="tag-title center-align">文章标签</div>
             <div class="tag-chips">
                 
                 
-                
-                <a href="/categories/algorithm/" title="algorithm: 35">
+                <a href="/tags/algorithm/" title="algorithm: 35">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F9EBEA;">algorithm
+                             chip-default " data-tagname="algorithm" style="background-color: #F9EBEA;">algorithm
                         <span class="tag-length">35</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/java/" title="java: 3">
+                <a href="/tags/java容器/" title="java容器: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F5EEF8;">java
-                        <span class="tag-length">3</span>
+                             chip-default " data-tagname="java容器" style="background-color: #F5EEF8;">java容器
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
+                
+                <a href="/tags/java基础/" title="java基础: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="java基础" style="background-color: #D5F5E3;">java基础
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java并发/" title="java并发: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active " data-tagname="java并发" style="background-color: #E8F8F5;">java并发
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
                 
             </div>
         </div>
     </div>
 </div>
 
-    
-    <style type="text/css">
-    #category-radar {
-        width: 100%;
-        height: 360px;
-    }
-</style>
+    <div class="container">
+        
 
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="category-radar" class="card-content"></div>
+        <article>
+            <div class="row tags-posts">
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="java并发" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/24/java/java-bing-fa/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Java并发">
+                                
+                                <span class="card-title">Java并发</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </article>
     </div>
-</div>
-
-<script type="text/javascript" src="/libs/echarts/echarts.min.js"></script>
-<script type="text/javascript">
-    let radarChart = echarts.init(document.getElementById('category-radar'));
-
-    
-
-    let option = {
-        title: {
-            left: 'center',
-            text: '文章分类雷达图',
-            textStyle: {
-                fontWeight: 500,
-                fontSize: 22
-            }
-        },
-        tooltip: {},
-        radar: {
-            name: {
-                textStyle: {
-                    color: '#3C4858'
-                }
-            },
-            indicator: [{"name":"algorithm","max":38},{"name":"java","max":38}],
-            nameGap: 5,
-            center: ['50%','55%'],
-            radius: '66%'
-        },
-        series: [{
-            type: 'radar',
-            color: ['#3ecf8e'],
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data : [
-                {
-                    value : [35,3],
-                    name : '文章分类数量'
-                }
-            ]
-        }]
-    };
-
-    radarChart.setOption(option);
-</script>
-    
-
 </main>
+
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">
