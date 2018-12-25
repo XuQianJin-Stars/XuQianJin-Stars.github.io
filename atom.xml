@@ -263,33 +263,6 @@
   </entry>
   
   <entry>
-    <title>缓存</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/xi-tong-she-ji/huan-cun/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/xi-tong-she-ji/huan-cun/</id>
-    <published>2018-12-24T14:44:00.000Z</published>
-    <updated>2018-12-24T14:53:26.277Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;缓存&quot;&gt;&lt;a href=&quot;#缓存&quot; class=&quot;headerlink&quot; title=&quot;缓存&quot;&gt;&lt;/a&gt;缓存&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="系统设计" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="缓存" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E7%BC%93%E5%AD%98/"/>
-    
-  </entry>
-  
-  <entry>
     <title>集群</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/xi-tong-she-ji/ji-qun/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/xi-tong-she-ji/ji-qun/</id>
@@ -314,6 +287,33 @@
     
     
       <category term="集群" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%9B%86%E7%BE%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>缓存</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/xi-tong-she-ji/huan-cun/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/xi-tong-she-ji/huan-cun/</id>
+    <published>2018-12-24T14:44:00.000Z</published>
+    <updated>2018-12-24T14:53:26.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;缓存&quot;&gt;&lt;a href=&quot;#缓存&quot; class=&quot;headerlink&quot; title=&quot;缓存&quot;&gt;&lt;/a&gt;缓存&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="系统设计" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/"/>
+    
+    
+      <category term="缓存" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E7%BC%93%E5%AD%98/"/>
     
   </entry>
   
