@@ -5,13 +5,14 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="单链表中圆环的开始节点, 大数据 实时计算 机器学习">
-    <meta name="description" content="单链表中圆环的开始节点问题
-这个题目说的是，给你一个单链表，你要返回这个链表中，圆环的开始节点。如果单链表无环，就返回空指针。
+    <meta name="keywords" content="单链表中间节点, 大数据 实时计算 机器学习">
+    <meta name="description" content="单链表中间节点问题
+这个题目说的是，给你一个单链表，你要返回它正中间的节点。如果链表节点数量是偶数个，这个时候正中间有两个节点，你要返回它们中第二个节点。
 比如说，给你的单链表是：
 
-1 -&gt; 2 -&gt; 4 -&gt; 8 -&gt; 2
-// 最后的 2 和前面的 2 是同一个">
+0 -&gt; 1 -&gt; 2 -&gt; 4 -&gt; 8
+
+你要返回的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>单链表中圆环的开始节点 | ForwardXu</title>
+    <title>单链表中间节点 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -214,13 +215,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        单链表中圆环的开始节点
+                        单链表中间节点
                     </div>
                 </div>
             </div>
@@ -335,6 +336,10 @@
                     <span class="chip bg-color">algorithm</span>
                 </a>
                 
+                <a href="/tags/链表/" target="_blank">
+                    <span class="chip bg-color">链表</span>
+                </a>
+                
             </div>
             
             <div class="post-info">
@@ -357,14 +362,17 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="单链表中圆环的开始节点"><a href="#单链表中圆环的开始节点" class="headerlink" title="单链表中圆环的开始节点"></a>单链表中圆环的开始节点</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一个单链表，你要返回这个链表中，圆环的开始节点。如果单链表无环，就返回空指针。</p>
+                <h2 id="单链表中间节点"><a href="#单链表中间节点" class="headerlink" title="单链表中间节点"></a>单链表中间节点</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你一个单链表，你要返回它正中间的节点。如果链表节点数量是偶数个，这个时候正中间有两个节点，你要返回它们中第二个节点。</p>
 <pre class=" language-markdown"><code class="language-markdown">比如说，给你的单链表是：
 
-1 -> 2 -> 4 -> 8 -> 2
-// 最后的 2 和前面的 2 是同一个节点
+0 -> 1 -> 2 -> 4 -> 8
 
-这个链表中存在环，并且环的开始节点是 2，于是你要返回节点 2。
+你要返回的正中间节点是 2。如果给你的链表有偶数个节点，比如：
+
+0 -> 1 -> 2 -> 4
+
+正中间的节点是 1 和 2，你要返回它们中第二个节点，也就是节点 2。
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
@@ -378,28 +386,24 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
-  <span class="token keyword">public</span> ListNode <span class="token function">startNodeOfCycleHashSet</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    Set<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>ListNode p <span class="token operator">=</span> head<span class="token punctuation">;</span> p <span class="token operator">!=</span> null<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> p<span class="token punctuation">;</span>
-      set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">getMiddleNodeTwoPass</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ListNode p <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> p <span class="token operator">!=</span> null<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token operator">++</span>len<span class="token punctuation">;</span>
+    p <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> p<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
   <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
-  <span class="token keyword">public</span> ListNode <span class="token function">startNodeOfCycleTwoPointer</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">getMiddleNodeOnePass</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     ListNode fast <span class="token operator">=</span> head<span class="token punctuation">,</span> slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
     <span class="token keyword">while</span> <span class="token punctuation">(</span>fast <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
       slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>fast <span class="token operator">==</span> slow<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span>ListNode p <span class="token operator">=</span> head<span class="token punctuation">;</span> p <span class="token operator">!=</span> slow<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">,</span> slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> slow<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> slow<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -542,7 +546,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-18-dan-lian-biao-zhong-yuan-huan-de-kai-shi-jie-dian/" class="b-link-green">单链表中圆环的开始节点</a>
+                    <a href="/2018/12/09/suan-fa/dan-lian-biao-zhong-jian-jie-dian/" class="b-link-green">单链表中间节点</a>
                 </p>
             </div>
         </div>
@@ -566,19 +570,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-2-qiu-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-5-shi-xian-ping-fang-gen-han-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="求两个有序数组的中位数">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="实现平方根函数">
                         
-                        <span class="card-title">求两个有序数组的中位数</span>
+                        <span class="card-title">实现平方根函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">求两个有序数组的中位数问题
-这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以递增排序的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。
-这里两个数</div>
+                    <div class="summary">实现平方根函数问题
+这个题目说的是，你要实现一个函数，来计算非负整数 n 的平方根，平方根只需返回整数部分即可。
+比如，使用你实现的函数来计算 9 的平方根是 3：
+
+f(9) = 3
+
+由于 8 的平方根是 2 点几，使用你实现的函数只需</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -611,26 +619,26 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-17-dan-lian-biao-zhong-jian-jie-dian/">
+                <a href="/2018/12/08/suan-fa/2018-12-08-suan-fa-1-hui-wen-shu-zi-pan-duan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="单链表中间节点">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="回文数字判断">
                         
-                        <span class="card-title">单链表中间节点</span>
+                        <span class="card-title">回文数字判断</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">单链表中间节点问题
-这个题目说的是，给你一个单链表，你要返回它正中间的节点。如果链表节点数量是偶数个，这个时候正中间有两个节点，你要返回它们中第二个节点。
-比如说，给你的单链表是：
+                    <div class="summary">回文数字判断问题
+这个题目说的是，给你一个整数，你要判断它是否是一个回文数字。所谓回文数字就是，你正着读和反着读都是同一个数字。
+比如，给你的数字是：
 
-0 -> 1 -> 2 -> 4 -> 8
+12321
 
-你要返回的</div>
+无论你从左向右读，还是从右向左读，都是 12321，所以它是一个回文数字</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-08
                             </span>
                         <span class="publish-author">
                             

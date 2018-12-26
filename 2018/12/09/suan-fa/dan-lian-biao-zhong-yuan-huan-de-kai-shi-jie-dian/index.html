@@ -5,12 +5,13 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="链表划分, 大数据 实时计算 机器学习">
-    <meta name="description" content="链表划分问题
-这个题目说的是，给你一个单链表和一个数字，你要把小于这个数字的节点都移到链表前面，大于等于这个数字的节点都移到链表后面。并且在较小和较大的这两堆节点中，节点之间的相对顺序保持不变。
+    <meta name="keywords" content="单链表中圆环的开始节点, 大数据 实时计算 机器学习">
+    <meta name="description" content="单链表中圆环的开始节点问题
+这个题目说的是，给你一个单链表，你要返回这个链表中，圆环的开始节点。如果单链表无环，就返回空指针。
 比如说，给你的单链表是：
 
-0 -&gt; 4 -">
+1 -&gt; 2 -&gt; 4 -&gt; 8 -&gt; 2
+// 最后的 2 和前面的 2 是同一个">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>链表划分 | ForwardXu</title>
+    <title>单链表中圆环的开始节点 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -213,13 +214,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        链表划分
+                        单链表中圆环的开始节点
                     </div>
                 </div>
             </div>
@@ -334,6 +335,10 @@
                     <span class="chip bg-color">algorithm</span>
                 </a>
                 
+                <a href="/tags/链表/" target="_blank">
+                    <span class="chip bg-color">链表</span>
+                </a>
+                
             </div>
             
             <div class="post-info">
@@ -349,24 +354,21 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-12
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
                 </span>
             </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="链表划分"><a href="#链表划分" class="headerlink" title="链表划分"></a>链表划分</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一个单链表和一个数字，你要把小于这个数字的节点都移到链表前面，大于等于这个数字的节点都移到链表后面。并且在较小和较大的这两堆节点中，节点之间的相对顺序保持不变。</p>
+                <h2 id="单链表中圆环的开始节点"><a href="#单链表中圆环的开始节点" class="headerlink" title="单链表中圆环的开始节点"></a>单链表中圆环的开始节点</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你一个单链表，你要返回这个链表中，圆环的开始节点。如果单链表无环，就返回空指针。</p>
 <pre class=" language-markdown"><code class="language-markdown">比如说，给你的单链表是：
 
-0 -> 4 -> 2 -> 1 -> 8 -> 1
+1 -> 2 -> 4 -> 8 -> 2
+// 最后的 2 和前面的 2 是同一个节点
 
-给你的数字是 2。小于 2 的节点有 0/1/1 共 3 个，大于等于 2 的节点有 4/2/8 共 3 个。因此重新划分后得到的链表是：
-
-0 -> 1 -> 1 -> 4 -> 2 -> 8
-
-可以看到，较小的那一堆 0/1/1 三个节点保持了在原链表中的相对顺序，较大的那一堆 4/2/8 三个节点也保持了在原链表中的相对顺序。
+这个链表中存在环，并且环的开始节点是 2，于是你要返回节点 2。
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
@@ -380,23 +382,28 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
-  <span class="token keyword">public</span> ListNode <span class="token function">partitionAndPreserveOrder</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    ListNode smaller <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> greater <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    ListNode ps <span class="token operator">=</span> smaller<span class="token punctuation">,</span> pg <span class="token operator">=</span> greater<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">startNodeOfCycleHashSet</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Set<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span>ListNode p <span class="token operator">=</span> head<span class="token punctuation">;</span> p <span class="token operator">!=</span> null<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ps<span class="token punctuation">.</span>next <span class="token operator">=</span> p<span class="token punctuation">;</span>
-        ps <span class="token operator">=</span> ps<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        pg<span class="token punctuation">.</span>next <span class="token operator">=</span> p<span class="token punctuation">;</span>
-        pg <span class="token operator">=</span> pg<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> p<span class="token punctuation">;</span>
+      set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">startNodeOfCycleTwoPointer</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ListNode fast <span class="token operator">=</span> head<span class="token punctuation">,</span> slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>fast <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>fast <span class="token operator">==</span> slow<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>ListNode p <span class="token operator">=</span> head<span class="token punctuation">;</span> p <span class="token operator">!=</span> slow<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">,</span> slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> slow<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-    ps<span class="token punctuation">.</span>next <span class="token operator">=</span> greater<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    pg<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> smaller<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> null<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -539,7 +546,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/12/suan-fa/2018-12-09-suan-fa-26-lian-biao-hua-fen/" class="b-link-green">链表划分</a>
+                    <a href="/2018/12/09/suan-fa/dan-lian-biao-zhong-yuan-huan-de-kai-shi-jie-dian/" class="b-link-green">单链表中圆环的开始节点</a>
                 </p>
             </div>
         </div>
@@ -563,31 +570,24 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/shu-zu-de-quan-pai-lie/">
+                <a href="/2018/12/09/suan-fa/you-xu-lian-biao-shan-chu-chong-fu-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="数组的全排列">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="有序链表删除重复节点">
                         
-                        <span class="card-title">数组的全排列</span>
+                        <span class="card-title">有序链表删除重复节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数组的全排列问题
-这个题目说的是，给你一个整数数组，并且数组中没有重复元素，你要返回这个数组所有可能的排列。
-比如说给你的数组是：
+                    <div class="summary">有序链表删除重复节点问题
+这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把它们全删掉，留下只出现一次的节点，最后返回处理后的单链表。
+比如说，给你的有序单链表是：
 
-0, 1, 2
-
-你要返回的所有排列是：
-
-0, 1, 2
-0, 2, 1
-1, 0, 2
-1, 2, 0</div>
+1 -> 1 -> 2 -> 4</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
                         </span>
                         <span class="publish-author">
                             
@@ -608,6 +608,10 @@
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -617,32 +621,21 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/12/suan-fa/2018-12-09-suan-fa-25-er-cha-shu-zhong-xu-bian-li/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-3-shi-xian-lru-huan-cun/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="二叉树中序遍历">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="实现 LRU 缓存">
                         
-                        <span class="card-title">二叉树中序遍历</span>
+                        <span class="card-title">实现 LRU 缓存</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉树中序遍历问题
-这个题目说的是，给你一个二叉树，你要返回一个数组，表示二叉树中序遍历的结果。
-比如说，给你的二叉树是：
-
-     1
-   /   \
-  2     3
-   \
-    4
-   /
-  5
-
-你要返回的中序遍历结</div>
+                    <div class="summary">实现 LRU 缓存问题
+这个题目说的是，你要实现一个 LRU 缓存，提供 get 和 put 两个操作，并且要求两个操作的时间复杂度都是 O(1)。另外为了简单起见，在这个题目中，key 和 value 都是整数值，并且 value 只为正</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-12
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
                             </span>
                         <span class="publish-author">
                             
