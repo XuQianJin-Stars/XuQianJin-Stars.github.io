@@ -1,19 +1,27 @@
-[{
-    "avatar": "http://image.luokangyuan.com/1_qq_27922023.jpg",
-    "name": "码酱",
-    "introduction": "我不是大佬，只是在追寻大佬的脚步",
-    "url": "http://luokangyuan.com/",
+[
+{
+    "avatar": "http://wuchong.me/images/default_avatar.jpg",
+    "name": "Jark",
+    "introduction": "当你的才华还撑不起你的野心时，你就应该静下心来学习。",
+    "url": "http://wuchong.me/",
     "title": "前去学习"
-}, {
-    "avatar": "http://image.luokangyuan.com/4027734.jpeg",
-    "name": "闪烁之狐",
-    "introduction": "编程界大佬，技术牛，人还特别好，不懂的都可以请教大佬",
-    "url": "https://blinkfox.github.io/",
+},{
+    "avatar": "https://yqfile.alicdn.com/img_04dbae1cb7a68da63bfce3fdc6bf7976.jpg@64h_64w_2e",
+    "name": "金竹",
+    "introduction": "Alibaba technical expert And Apache Flink Committer.",
+    "url": "https://yq.aliyun.com/articles/666043?spm=a2c4e.11153940.blogcont679659.22.65d256e71Rv27y",
     "title": "前去学习"
-}, {
-    "avatar": "http://image.luokangyuan.com/avatar.jpg",
-    "name": "ja_rome",
-    "introduction": "平凡的脚步也可以走出伟大的行程",
-    "url": "ttps://me.csdn.net/jlh912008548",
+},{
+    "avatar": "https://ssl.iteblog.com/pic/spark/spark-logo_iteblog.jpg",
+    "name": "过往记忆",
+    "introduction": "专注于大数据技术与应用",
+    "url": "https://www.iteblog.com/",
     "title": "前去学习"
-}]
+},{
+    "avatar": "https://ssl.iteblog.com/pic/flink/apache-flink-logo-cute-squirrel.png",
+    "name": "vinoyang",
+    "introduction": "alone coder",
+    "url": "http://vinoyang.com/",
+    "title": "前去学习"
+}
+]
