@@ -5,12 +5,12 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="合并两个有序链表, 大数据 实时计算 机器学习">
-    <meta name="description" content="合并两个有序链表问题
-这个题目说的是，给你两个递增排序的链表，你要把它们合成一个链表，并且保持递增排序。另外要求，新链表上的节点使用的就是旧的两个链表上的节点，不能创建新节点。
-比如说，给你的两个链表 L1 和 L2，分别是：
+    <meta name="keywords" content="有序数组中查找数字的开始和结束下标, 大数据 实时计算 机器学习">
+    <meta name="description" content="有序数组中查找数字的开始和结束下标问题
+这个题目说的是，给你一个递增排序的数组和一个目标值，你要找到目标值在这个数组中的开始下标和结束下标。如果找不到目标值，就返回 [-1, -1]。
+比如说，给你的递增数组是：
 
-L1: 1">
+1, 2, 2, 4, ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@ L1: 1">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>合并两个有序链表 | ForwardXu</title>
+    <title>有序数组中查找数字的开始和结束下标 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -213,13 +213,13 @@ L1: 1">
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        合并两个有序链表
+                        有序数组中查找数字的开始和结束下标
                     </div>
                 </div>
             </div>
@@ -349,55 +349,67 @@ L1: 1">
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-12
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-26
                 </span>
             </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="合并两个有序链表"><a href="#合并两个有序链表" class="headerlink" title="合并两个有序链表"></a>合并两个有序链表</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你两个递增排序的链表，你要把它们合成一个链表，并且保持递增排序。另外要求，新链表上的节点使用的就是旧的两个链表上的节点，不能创建新节点。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的两个链表 L1 和 L2，分别是：
+                <h2 id="有序数组中查找数字的开始和结束下标"><a href="#有序数组中查找数字的开始和结束下标" class="headerlink" title="有序数组中查找数字的开始和结束下标"></a>有序数组中查找数字的开始和结束下标</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你一个<strong>递增排序</strong>的数组和一个目标值，你要找到目标值在这个数组中的开始下标和结束下标。如果找不到目标值，就返回 [-1, -1]。</p>
+<pre class=" language-markdown"><code class="language-markdown">比如说，给你的递增数组是：
 
-L1: 1 -> 3
+1, 2, 2, 4, 4, 8, 8
 
-L2: 2 -> 4 -> 6
+给你的目标值是 2。2 在这个数组中的开始下标是 1，结束下标是 2，于是你要返回：
 
-合并后的链表就是：
+[1, 2]
 
-1 -> 2 -> 3 -> 4 -> 6
+如果给你的目标值是 0，0 不在这个数组中，因此你要返回：
+
+[-1, -1]
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
-
-    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      val <span class="token operator">=</span> x<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
+  <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">findFirstAndLastPosition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">,</span> start <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        start <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        end <span class="token operator">=</span> j<span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>start<span class="token punctuation">,</span> end<span class="token punctuation">}</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
-  <span class="token comment" spellcheck="true">// Time: O(m+n), Space: O(1)</span>
-  <span class="token keyword">public</span> ListNode <span class="token function">mergeTwoSortedLists</span><span class="token punctuation">(</span>ListNode l1<span class="token punctuation">,</span> ListNode l2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    ListNode dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
-
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> l2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>l1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> l2<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        p<span class="token punctuation">.</span>next <span class="token operator">=</span> l1<span class="token punctuation">;</span>
-        l1 <span class="token operator">=</span> l1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        p<span class="token punctuation">.</span>next <span class="token operator">=</span> l2<span class="token punctuation">;</span>
-        l2 <span class="token operator">=</span> l2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">binarySearchLastOne</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> low <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> high <span class="token operator">=</span> nums<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>low <span class="token operator">&lt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> mid <span class="token operator">=</span> low <span class="token operator">+</span> <span class="token punctuation">(</span>high <span class="token operator">-</span> low<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>target <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> high <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token keyword">else</span> low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> high<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> null<span class="token punctuation">)</span> p<span class="token punctuation">.</span>next <span class="token operator">=</span> l1<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>l2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> p<span class="token punctuation">.</span>next <span class="token operator">=</span> l2<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Time: O(log(n)), Space: O(1)</span>
+  <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">binarySearchFirstAndLastPosition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> end <span class="token operator">=</span> <span class="token function">binarySearchLastOne</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token function">binarySearchLastOne</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> target<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> start <span class="token operator">&lt;=</span> end <span class="token operator">&amp;&amp;</span> end <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>start<span class="token punctuation">,</span> end<span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -540,7 +552,7 @@ L2: 2 -> 4 -> 6
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/12/suan-fa/2018-12-09-suan-fa-30-he-bing-liang-ge-you-xu-lian-biao/" class="b-link-green">合并两个有序链表</a>
+                    <a href="/2018/12/26/suan-fa/you-xu-shu-zu-zhong-cha-zhao-shu-zi-de-kai-shi-he-jie-shu-xia-biao/" class="b-link-green">有序数组中查找数字的开始和结束下标</a>
                 </p>
             </div>
         </div>
@@ -562,27 +574,27 @@ L2: 2 -> 4 -> 6
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
-                <a href="/2018/12/12/suan-fa/2018-12-09-suan-fa-31-he-bing-liang-ge-you-xu-shu-zu/">
+                <a href="/2018/12/26/suan-fa/you-xu-shu-zu-zhong-cha-zhao-shu-zi-de-kai-shi-he-jie-shu-xia-biao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="合并两个有序数组">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="有序数组中查找数字的开始和结束下标">
                         
-                        <span class="card-title">合并两个有序数组</span>
+                        <span class="card-title">有序数组中查找数字的开始和结束下标</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">合并两个有序数组问题
-这个题目说的是，给你两个递增排序的数组，你要把第二个数组合并到第一个，并使其仍然保持递增排序。两个数组中的元素个数会显式地给出，并且第一个数组的大小可以容纳下两个数组中所有的元素。
-比如说给你的两个数组是：
+                    <div class="summary">有序数组中查找数字的开始和结束下标问题
+这个题目说的是，给你一个递增排序的数组和一个目标值，你要找到目标值在这个数组中的开始下标和结束下标。如果找不到目标值，就返回 [-1, -1]。
+比如说，给你的递增数组是：
 
-2, 4</div>
+1, 2, 2, 4, </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -595,6 +607,7 @@ L2: 2 -> 4 -> 6
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -611,29 +624,35 @@ L2: 2 -> 4 -> 6
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-16-hua-dong-chuang-kou-zhong-de-zui-da-zhi/">
+                <a href="/2018/12/26/flink/flink-table-sql-xi-lie-zhi-source/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="滑动窗口中的最大值">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Flink-Table-SQL系列之source">
                         
-                        <span class="card-title">滑动窗口中的最大值</span>
+                        <span class="card-title">Flink-Table-SQL系列之source</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">滑动窗口中的最大值问题
-这个题目说的是，给你一个整数数组和整数 k，k 表示滑动窗口的大小，滑动窗口从左向右滑过数组，每移动一个位置，你要计算出当前滑动窗口内 k 个数字的最大值。最后返回这个最大值数组。
-比如说，给你的数组是 0, 4, </div>
+                    <div class="summary">Flink-Table-SQL系列之Source
+一、概览
+二、磁盘操作
+
+一、概览Java 的 I/O 大概可以分成以下几类：
+
+磁盘操作：File
+字节操作：InputStream 和 OutputStream
+字符操作：Reader </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/flink/" class="post-category" target="_blank">
+                                    flink
                                 </a>
                             
                             
@@ -643,8 +662,8 @@ L2: 2 -> 4 -> 6
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/Flink-Table-SQL/" target="_blank">
+                        <span class="chip bg-color">Flink-Table-SQL</span>
                     </a>
                     
                 </div>
