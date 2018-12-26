@@ -5,9 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="数据流中第 K 大的元素, 大数据 实时计算 机器学习">
-    <meta name="description" content="数据流中第 K 大的元素问题
-这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，整数数组作为初始数据流。第二个是 add 函数，接收一个整数表">
+    <meta name="keywords" content="求两个单链表之和, 大数据 实时计算 机器学习">
+    <meta name="description" content="求两个单链表之和问题
+这个题目说的是，给你两个非空的单链表，它们代表两个非负整数，并且逆序表示。你要将这两个数求和，并将结果以链表形式返回。你不需要考虑前导 0 这种情况，也就说 3 不会表示成 003 这样子。
+比如说给你的两个链接表是：">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>数据流中第 K 大的元素 | ForwardXu</title>
+    <title>求两个单链表之和 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -210,13 +211,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        数据流中第 K 大的元素
+                        求两个单链表之和
                     </div>
                 </div>
             </div>
@@ -346,55 +347,55 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-26
                 </span>
             </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="数据流中第-K-大的元素"><a href="#数据流中第-K-大的元素" class="headerlink" title="数据流中第 K 大的元素"></a>数据流中第 K 大的元素</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，<strong>整数数组作为初始数据流</strong>。第二个是 add 函数，接收一个整数表示新流入的数据，然后返回当前第 K 大的元素。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的 K 是 3，初始的数组是：
+                <h2 id="求两个单链表之和"><a href="#求两个单链表之和" class="headerlink" title="求两个单链表之和"></a>求两个单链表之和</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你两个非空的单链表，它们代表两个非负整数，并且逆序表示。你要将这两个数求和，并将结果以链表形式返回。你不需要考虑前导 0 这种情况，也就说 3 不会表示成 003 这样子。</p>
+<pre class=" language-markdown"><code class="language-markdown">比如说给你的两个链接表是：
 
-1, 5, 2, 8
+1 -> 2 -> 3
+6 -> 7 -> 8 -> 9
 
-这时假如调用 add 函数增加一个数字 9，数据流变成：
+1 -> 2 -> 3 表示的整数是 321，6 -> 7 -> 8 -> 9 表示的整数是 9876。我们需要输出的是它们求和后的链表：
 
-1, 5, 2, 8, 9
-
-你要返回第 3 大的元素是 5。
-
-假如再调用 add 函数增加一个数字 0，数据流变成：
-
-1, 5, 2, 8, 9, 0
-
-这时你要返回的第 3 大元素仍然是 5。
+7 -> 9 -> 1 -> 0 -> 1
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">KthLargestElementInStream</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    ListNode next<span class="token punctuation">;</span>
 
-    <span class="token keyword">private</span> Queue<span class="token operator">&lt;</span>Integer<span class="token operator">></span> minHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PriorityQueue</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> k<span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// Time: O(n*log(k))</span>
-    <span class="token keyword">public</span> <span class="token function">KthLargestElementInStream</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>k <span class="token operator">=</span> k<span class="token punctuation">;</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      val <span class="token operator">=</span> x<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 
-    <span class="token comment" spellcheck="true">// Time: O(log(k))</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>minHeap<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        minHeap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>val <span class="token operator">></span> minHeap<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        minHeap<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        minHeap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Time: O(max(m, n)), Space: O(max(m, n))</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">addTwoLinkedListNumbers</span><span class="token punctuation">(</span>ListNode l1<span class="token punctuation">,</span> ListNode l2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ListNode dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> carry <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> null <span class="token operator">||</span> l2 <span class="token operator">!=</span> null <span class="token operator">||</span> carry <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> sum <span class="token operator">=</span> carry<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        sum <span class="token operator">+=</span> l1<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+        l1 <span class="token operator">=</span> l1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
-      <span class="token keyword">return</span> minHeap<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>l2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        sum <span class="token operator">+=</span> l2<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+        l2 <span class="token operator">=</span> l2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      p<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>sum <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      carry <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -537,7 +538,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-8-shu-ju-liu-zhong-di-k-da-de-yuan-su/" class="b-link-green">数据流中第 K 大的元素</a>
+                    <a href="/2018/12/26/suan-fa/qiu-liang-ge-dan-lian-biao-zhi-he/" class="b-link-green">求两个单链表之和</a>
                 </p>
             </div>
         </div>
@@ -561,29 +562,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-11-qu-jian-he-bing/">
+                <a href="/2018/12/26/suan-fa/lian-biao-de-xiang-jiao-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="区间合并">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="链表的相交节点">
                         
-                        <span class="card-title">区间合并</span>
+                        <span class="card-title">链表的相交节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">区间合并问题
-这个题目说的是，给你一个区间集合，你要把有重叠的区间合并起来。
-比如说，给你的区间集合是：
-
-[1, 8]
-[2, 4]
-[9, 10]
-[10, 16]
-
-这 4 个区间里，[1, 8] 区间包含了 [2, 4] 区间，于是</div>
+                    <div class="summary">链表的相交节点问题
+这个题目说的是，给你两个单链表，你要找到它们相交的第一个节点。如果两个链表没有相交，则返回空指针。假设链表无环，并且你不能改变它的原始结构。另外要求算法是线性时间复杂度，空间复杂度要求是 O(1)。
+比如说，两条链表分别</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
                         </span>
                         <span class="publish-author">
                             
@@ -613,31 +607,24 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-4-zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/12/26/suan-fa/you-xu-shu-zu-zhong-cha-zhao-shu-zi-de-kai-shi-he-jie-shu-xia-biao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="最长回文子串">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="有序数组中查找数字的开始和结束下标">
                         
-                        <span class="card-title">最长回文子串</span>
+                        <span class="card-title">有序数组中查找数字的开始和结束下标</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">最长回文子串问题
-这个题目说的是，给你一个字符串，你要在它所有的回文子串中，找到长度最长的子串，并返回它。
-比如说，给你的字符串是：
+                    <div class="summary">有序数组中查找数字的开始和结束下标问题
+这个题目说的是，给你一个递增排序的数组和一个目标值，你要找到目标值在这个数组中的开始下标和结束下标。如果找不到目标值，就返回 [-1, -1]。
+比如说，给你的递增数组是：
 
-abcbab
-
-你要返回的最长回文子串是：
-
-abcba
-
-代码
-public class AlgoCa</div>
+1, 2, 2, 4, </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
                             </span>
                         <span class="publish-author">
                             
