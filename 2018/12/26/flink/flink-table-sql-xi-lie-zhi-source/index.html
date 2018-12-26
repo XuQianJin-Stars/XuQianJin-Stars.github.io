@@ -5,19 +5,16 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="数组的全排列, 大数据 实时计算 机器学习">
-    <meta name="description" content="数组的全排列问题
-这个题目说的是，给你一个整数数组，并且数组中没有重复元素，你要返回这个数组所有可能的排列。
-比如说给你的数组是：
+    <meta name="keywords" content="Flink-Table-SQL系列之source, 大数据 实时计算 机器学习">
+    <meta name="description" content="Flink-Table-SQL系列之Source
+一、概览
+二、磁盘操作
 
-0, 1, 2
+一、概览Java 的 I/O 大概可以分成以下几类：
 
-你要返回的所有排列是：
-
-0, 1, 2
-0, 2, 1
-1, 0, 2
-1, 2, 0">
+磁盘操作：File
+字节操作：InputStream 和 OutputStream
+字符操作：Reader ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -25,7 +22,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>数组的全排列 | ForwardXu</title>
+    <title>Flink-Table-SQL系列之source | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -220,13 +217,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        数组的全排列
+                        Flink-Table-SQL系列之source
                     </div>
                 </div>
             </div>
@@ -246,8 +243,8 @@
             
             <div class="article-tag">
                 
-                <a href="/tags/algorithm/" target="_blank">
-                    <span class="chip bg-color">algorithm</span>
+                <a href="/tags/Flink-Table-SQL/" target="_blank">
+                    <span class="chip bg-color">Flink-Table-SQL</span>
                 </a>
                 
             </div>
@@ -257,65 +254,50 @@
                 <span class="post-cate">
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
-                    <a href="/categories/algorithm/" class="post-category" target="_blank">
-                        algorithm
+                    <a href="/categories/flink/" class="post-category" target="_blank">
+                        flink
                     </a>
                     
                 </span>
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-16
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-26
                 </span>
             </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="数组的全排列"><a href="#数组的全排列" class="headerlink" title="数组的全排列"></a>数组的全排列</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一个整数数组，并且数组中没有重复元素，你要返回这个数组所有可能的排列。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说给你的数组是：
-
-0, 1, 2
-
-你要返回的所有排列是：
-
-0, 1, 2
-0, 2, 1
-1, 0, 2
-1, 2, 0
-2, 0, 1
-2, 1, 0
-</code></pre>
-<p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
-
-  <span class="token keyword">void</span> <span class="token function">permuteRec</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> start<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">>></span> result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      result<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> start<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Collections<span class="token punctuation">.</span><span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> start<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">permuteRec</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Collections<span class="token punctuation">.</span><span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> start<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+                <h2 id="Flink-Table-SQL系列之Source"><a href="#Flink-Table-SQL系列之Source" class="headerlink" title="Flink-Table-SQL系列之Source"></a>Flink-Table-SQL系列之Source</h2><ul>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20IO.md#%E4%B8%80%E6%A6%82%E8%A7%88">一、概览</a></li>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20IO.md#%E4%BA%8C%E7%A3%81%E7%9B%98%E6%93%8D%E4%BD%9C">二、磁盘操作</a></li>
+</ul>
+<h1 id="一、概览"><a href="#一、概览" class="headerlink" title="一、概览"></a>一、概览</h1><p>Java 的 I/O 大概可以分成以下几类：</p>
+<ul>
+<li>磁盘操作：File</li>
+<li>字节操作：InputStream 和 OutputStream</li>
+<li>字符操作：Reader 和 Writer</li>
+<li>对象操作：Serializable</li>
+<li>网络操作：Socket</li>
+<li>新的输入/输出：NIO</li>
+</ul>
+<h1 id="二、磁盘操作"><a href="#二、磁盘操作" class="headerlink" title="二、磁盘操作"></a>二、磁盘操作</h1><p>File 类可以用于表示文件和目录的信息，但是它不表示文件的内容。</p>
+<p>递归地列出一个目录下所有文件：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">listAllFiles</span><span class="token punctuation">(</span>File dir<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> null <span class="token operator">||</span> <span class="token operator">!</span>dir<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(n*n!), Space: O(n)</span>
-  <span class="token keyword">public</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">>></span> <span class="token function">permute</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">>></span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token operator">:</span> nums<span class="token punctuation">)</span> list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">permuteRec</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>dir<span class="token punctuation">.</span><span class="token function">isFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>dir<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>File file <span class="token operator">:</span> dir<span class="token punctuation">.</span><span class="token function">listFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">listAllFiles</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>从 Java7 开始，可以使用 Paths 和 Files 代替 File。</p>
 
             </div>
             <hr>
@@ -454,7 +436,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/16/suan-fa/shu-zu-de-quan-pai-lie/" class="b-link-green">数组的全排列</a>
+                    <a href="/2018/12/26/flink/flink-table-sql-xi-lie-zhi-source/" class="b-link-green">Flink-Table-SQL系列之source</a>
                 </p>
             </div>
         </div>
@@ -476,45 +458,49 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/2018-12-09-suan-fa-28-bu-yong-jia-jian-qiu-liang-shu-zhi-he/">
+                <a href="/2018/12/26/flink/flink-table-sql-xi-lie-zhi-source/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="不用+-求两数之和">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Flink-Table-SQL系列之source">
                         
-                        <span class="card-title">不用+-求两数之和</span>
+                        <span class="card-title">Flink-Table-SQL系列之source</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">不用+/-求两数之和问题
-这个题目说的是，给你两个整数，在不使用 +/- 这两个运算符的前提下，求它们的和。
-代码
-public class AlgoCasts {
+                    <div class="summary">Flink-Table-SQL系列之Source
+一、概览
+二、磁盘操作
 
-  public int getSumRecursive(int a, </div>
+一、概览Java 的 I/O 大概可以分成以下几类：
+
+磁盘操作：File
+字节操作：InputStream 和 OutputStream
+字符操作：Reader </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/flink/" class="post-category" target="_blank">
+                                    flink
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/Flink-Table-SQL/" target="_blank">
+                        <span class="chip bg-color">Flink-Table-SQL</span>
                     </a>
                     
                 </div>
@@ -526,26 +512,22 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/tiao-shu-zu/">
+                <a href="/2018/12/26/suan-fa/pai-xu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="跳数组">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="排序">
                         
-                        <span class="card-title">跳数组</span>
+                        <span class="card-title">排序</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">跳数组问题
-这个题目说的是，给你一个非负整数数组，数组中的每个数字表示那个位置上可以向后跳的最大步数。一开始你站在下标为 0 的位置，你要判断是否可以跳到数组最后的位置。
-比如说，给你的数组 a 是：
-
-2, 4, 0, 1, 2
-
-一开始</div>
+                    <div class="summary">排序待排序的元素需要实现 Java 的 Comparable 接口，该接口有 compareTo() 方法，可以用它来判断两个元素的大小关系。
+研究排序算法的成本模型时，计算的是比较和交换的次数。
+使用辅助函数 less() 和 swap(</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
                             </span>
                         <span class="publish-author">
                             
