@@ -266,21 +266,22 @@
                 <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>待排序的元素需要实现 Java 的 Comparable 接口，该接口有 compareTo() 方法，可以用它来判断两个元素的大小关系。</p>
 <p>研究排序算法的成本模型时，计算的是比较和交换的次数。</p>
 <p>使用辅助函数 less() 和 swap() 来进行比较和交换的操作，使得代码的可读性和可移植性更好。</p>
-<pre><code>public abstract class Sort&lt;T extends Comparable&lt;T&gt;&gt; {
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Sort</span><span class="token operator">&lt;</span>T <span class="token keyword">extends</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token punctuation">{</span>
 
-    public abstract void sort(T[] nums);
+    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span>T<span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    protected boolean less(T v, T w) {
-        return v.compareTo(w) &lt; 0;
-    }
+    <span class="token keyword">protected</span> <span class="token keyword">boolean</span> <span class="token function">less</span><span class="token punctuation">(</span>T v<span class="token punctuation">,</span> T w<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> v<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    protected void swap(T[] a, int i, int j) {
-        T t = a[i];
-        a[i] = a[j];
-        a[j] = t;
-    }
-}
-</code></pre><h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择出数组中的最小元素，将它与数组的第一个元素交换位置。再从剩下的元素中选择出最小的元素，将它与数组的第二个元素交换位置。不断进行这样的操作，直到将整个数组排序。</p>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span>T<span class="token punctuation">[</span><span class="token punctuation">]</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        T t <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择出数组中的最小元素，将它与数组的第一个元素交换位置。再从剩下的元素中选择出最小的元素，将它与数组的第二个元素交换位置。不断进行这样的操作，直到将整个数组排序。</p>
 <p>选择排序需要 ~N2/2 次比较和 ~N 次交换，它的运行时间与输入无关，这个特点使得它对一个已经排序的数组也需要这么多的比较和交换操作。</p>
 <p><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/pics/37e79a32-95a9-4503-bdb1-159527e628b8.png"><img src="https://github.com/CyC2018/CS-Notes/raw/master/docs/notes/pics/37e79a32-95a9-4503-bdb1-159527e628b8.png" alt="img"></a></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Selection</span><span class="token operator">&lt;</span>T <span class="token keyword">extends</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token keyword">extends</span> <span class="token class-name">Sort</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
@@ -931,22 +932,24 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/24/shu-ju-ku/leetcode-database-ti-jie/">
+                <a href="/2018/12/24/xi-tong-she-ji/gong-ji-ji-zhu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Leetcode-Database 题解">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="攻击技术">
                         
-                        <span class="card-title">Leetcode-Database 题解</span>
+                        <span class="card-title">攻击技术</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Leetcode-Database 题解
-595. Big Countries
-627. Swap Salary
-620. Not Boring Movies
-596. Classes More Than 5 Students
-182. D</div>
+                    <div class="summary">攻击技术
+一、跨站脚本攻击
+二、跨站请求伪造
+三、SQL 注入攻击
+四、拒绝服务攻击
+参考资料
+
+一、跨站脚本攻击概念跨站脚本攻击（Cross-Site Scripting, XSS），可以将代码注入到用户浏览的网页上，这种代码包括 HTM</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
@@ -955,8 +958,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据库/" class="post-category" target="_blank">
-                                    数据库
+                            <a href="/categories/系统设计/" class="post-category" target="_blank">
+                                    系统设计
                                 </a>
                             
                             
@@ -966,8 +969,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Leetcode-Database-题解/" target="_blank">
-                        <span class="chip bg-color">Leetcode-Database 题解</span>
+                    <a href="/tags/攻击技术/" target="_blank">
+                        <span class="chip bg-color">攻击技术</span>
                     </a>
                     
                 </div>
