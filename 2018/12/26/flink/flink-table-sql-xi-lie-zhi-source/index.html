@@ -34,8 +34,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 </head>
 
@@ -376,7 +375,7 @@
 </ul>
 <h1 id="二、磁盘操作"><a href="#二、磁盘操作" class="headerlink" title="二、磁盘操作"></a>二、磁盘操作</h1><p>File 类可以用于表示文件和目录的信息，但是它不表示文件的内容。</p>
 <p>递归地列出一个目录下所有文件：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">listAllFiles</span><span class="token punctuation">(</span>File dir<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">listAllFiles</span><span class="token punctuation">(</span>File dir<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> null <span class="token operator">||</span> <span class="token operator">!</span>dir<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -388,7 +387,7 @@
         <span class="token function">listAllFiles</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p>从 Java7 开始，可以使用 Paths 和 Files 代替 File。</p>
 
             </div>
@@ -552,22 +551,21 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/26/suan-fa/pan-duan-dan-lian-biao-shi-fou-you-huan/">
+                <a href="/2018/12/26/suan-fa/you-xu-shu-zu-zhong-cha-zhao-shu-zi-de-kai-shi-he-jie-shu-xia-biao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="判断单链表是否有环">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="有序数组中查找数字的开始和结束下标">
                         
-                        <span class="card-title">判断单链表是否有环</span>
+                        <span class="card-title">有序数组中查找数字的开始和结束下标</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">判断单链表是否有环问题
-这个题目说的是，给你一个单链表，你要判断它是否会形成环，也就是链表的最后一个节点指向了前面一个已经存在的节点。
-代码
-public class AlgoCasts {
+                    <div class="summary">有序数组中查找数字的开始和结束下标问题
+这个题目说的是，给你一个递增排序的数组和一个目标值，你要找到目标值在这个数组中的开始下标和结束下标。如果找不到目标值，就返回 [-1, -1]。
+比如说，给你的递增数组是：
 
-  public class ListNode</div>
+1, 2, 2, 4, </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
@@ -589,10 +587,6 @@ public class AlgoCasts {
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>

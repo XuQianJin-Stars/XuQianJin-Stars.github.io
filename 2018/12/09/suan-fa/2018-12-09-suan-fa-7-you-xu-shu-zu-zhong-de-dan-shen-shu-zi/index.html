@@ -30,8 +30,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 </head>
 
@@ -359,14 +358,14 @@
             <div id="articleContent">
                 <h2 id="有序数组中的单身数字"><a href="#有序数组中的单身数字" class="headerlink" title="有序数组中的单身数字"></a>有序数组中的单身数字</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一个<strong>排好序</strong>的整数数组，里面的数字都出现两次，只有一个数字出现了一次，我们管它叫单身数字，你要写代码找到这个单身数字。</p>
-<pre class="line-numbers language-markdown"><code class="language-markdown">比如说给你的有序数组是：
+<pre class=" language-markdown"><code class="language-markdown">比如说给你的有序数组是：
 
 1, 1, 2, 2, 4, 4, 6, 8, 8
 
 这个数组里 6 只出现了一次，因此你要返回的数字就是 6。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p><strong>代码</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
   <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">singleNumInSortedArrayWithXOR</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -393,7 +392,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
             </div>
             <hr>
@@ -556,22 +555,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-9-sui-ji-xi-pai/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-6-han-ming-ju-chi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="随机洗牌">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="汉明距离">
                         
-                        <span class="card-title">随机洗牌</span>
+                        <span class="card-title">汉明距离</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">随机洗牌问题
-这个题目说的是，给你一个整数数组表示一副牌，你要写一个随机洗牌函数来返回这个数组的一个排列。并且要保证每次返回的排列都是等概率的。假设已经给你一个完美的随机数生成器。
-代码
-public class AlgoCasts {
+                    <div class="summary">汉明距离问题
+这个题目说的是，给你两个整数，你要计算出它们的二进制表示中，相应的二进制位有多少个是不同的。这个不同的个数，也称为这两个整数的汉明距离。
+比如说，给你的两个整数是 3 和 8。它们的二进制表示分别是：
 
-</div>
+3: 0011
+8: </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -604,21 +603,18 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/you-xu-lian-biao-shan-chu-chong-fu-jie-dian/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-8-shu-ju-liu-zhong-di-k-da-de-yuan-su/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="有序链表删除重复节点">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="数据流中第 K 大的元素">
                         
-                        <span class="card-title">有序链表删除重复节点</span>
+                        <span class="card-title">数据流中第 K 大的元素</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">有序链表删除重复节点问题
-这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把它们全删掉，留下只出现一次的节点，最后返回处理后的单链表。
-比如说，给你的有序单链表是：
-
-1 -> 1 -> 2 -> 4</div>
+                    <div class="summary">数据流中第 K 大的元素问题
+这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，整数数组作为初始数据流。第二个是 add 函数，接收一个整数表</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -640,10 +636,6 @@ public class AlgoCasts {
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>

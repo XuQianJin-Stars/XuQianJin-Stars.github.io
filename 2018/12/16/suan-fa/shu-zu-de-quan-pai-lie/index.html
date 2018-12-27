@@ -37,8 +37,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 </head>
 
@@ -366,7 +365,7 @@
             <div id="articleContent">
                 <h2 id="数组的全排列"><a href="#数组的全排列" class="headerlink" title="数组的全排列"></a>数组的全排列</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一个整数数组，并且数组中没有重复元素，你要返回这个数组所有可能的排列。</p>
-<pre class="line-numbers language-markdown"><code class="language-markdown">比如说给你的数组是：
+<pre class=" language-markdown"><code class="language-markdown">比如说给你的数组是：
 
 0, 1, 2
 
@@ -378,9 +377,9 @@
 1, 2, 0
 2, 0, 1
 2, 1, 0
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p><strong>代码</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token keyword">void</span> <span class="token function">permuteRec</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> start<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">>></span> result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -407,7 +406,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
             </div>
             <hr>
@@ -619,27 +618,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/2018-12-16-suan-fa-32-er-cha-shu-de-zui-xiao-shen-du/">
+                <a href="/2018/12/16/suan-fa/2018-12-09-suan-fa-28-bu-yong-jia-jian-qiu-liang-shu-zhi-he/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="二叉树的最小深度">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="不用+-求两数之和">
                         
-                        <span class="card-title">二叉树的最小深度</span>
+                        <span class="card-title">不用+-求两数之和</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉树的最小深度问题
-这个题目说的是，给你一棵二叉树，你要找到从根节点到最近的叶子节点的深度。
-比如说，给你的二叉树是：
+                    <div class="summary">不用+/-求两数之和问题
+这个题目说的是，给你两个整数，在不使用 +/- 这两个运算符的前提下，求它们的和。
+代码
+public class AlgoCasts {
 
-     1
-   /   \
-  2     4
-       / \
-      8  16
-
-这棵树有 3 个</div>
+  public int getSumRecursive(int a, </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16

@@ -37,8 +37,7 @@ public class AlgoCasts {">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 </head>
 
@@ -366,16 +365,16 @@ public class AlgoCasts {">
             <div id="articleContent">
                 <h2 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。</p>
-<pre class="line-numbers language-markdown"><code class="language-markdown">比如说给你的字符串是：
+<pre class=" language-markdown"><code class="language-markdown">比如说给你的字符串是：
 
 abcde
 
 你要返回左右反转后的字符串：
 
 edcba
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p><strong>代码</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
   <span class="token keyword">public</span> String <span class="token function">reverseString</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -390,7 +389,7 @@ edcba
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
             </div>
             <hr>
@@ -553,23 +552,23 @@ edcba
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-15-hui-wen-fen-ge/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-13-lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回文分割">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="路径和是否等于给定值">
                         
-                        <span class="card-title">回文分割</span>
+                        <span class="card-title">路径和是否等于给定值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">回文分割问题
-这个题目说的是，给你一个字符串，你要把它分割成子串，并且每个子串都是回文串。你要返回所有可能的子串集合。
-比如说，给你的字符串是：
+                    <div class="summary">路径和是否等于给定值问题
+这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
+比如说，给你的二叉树是：
 
-aad
-
-它有两种可能的分割方法。一种是分割成 aa 和 d。aa 是回文串，d 作为单个字</div>
+    1
+  /   \
+ 2     </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -602,23 +601,23 @@ aad
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-10-shu-zu-zhong-di-k-da-de-yuan-su/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-24-zui-chang-hui-wen-chuan-de-chang-du/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数组中第 K 大的元素">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="最长回文串的长度">
                         
-                        <span class="card-title">数组中第 K 大的元素</span>
+                        <span class="card-title">最长回文串的长度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数组中第 K 大的元素问题
-这个题目说的是，给你一个整数数组和一个整数 K，你要找到数组中第 K 大的元素。
-比如说，给你的整数数组是：
+                    <div class="summary">最长回文串的长度问题
+这个题目说的是，给你一个包含大小写英文字母的字符串，你要用这些字母构建一个最长的回文字符串，并返回它的长度。
+比如说，给你的字符串 s 是：
 
-4, 2, 8, 1, 8
+aaabccdd
 
-整数 K 是 2。这个数组中第 2 大的元素是 8，因此你要返回 8。</div>
+你能用它构建的回文串的最大长度是 7，因此你要返回的就</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09

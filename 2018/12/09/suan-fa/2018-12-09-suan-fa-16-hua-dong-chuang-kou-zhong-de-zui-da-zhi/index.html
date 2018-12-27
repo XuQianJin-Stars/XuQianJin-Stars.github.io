@@ -28,8 +28,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 </head>
 
@@ -357,7 +356,7 @@
             <div id="articleContent">
                 <h2 id="滑动窗口中的最大值"><a href="#滑动窗口中的最大值" class="headerlink" title="滑动窗口中的最大值"></a>滑动窗口中的最大值</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一个整数数组和整数 k，k 表示滑动窗口的大小，滑动窗口从左向右滑过数组，每移动一个位置，你要计算出当前滑动窗口内 k 个数字的最大值。最后返回这个最大值数组。</p>
-<pre class="line-numbers language-markdown"><code class="language-markdown">比如说，给你的数组是 0, 4, 2, 1, 0, 8, 2，给你的滑动窗口大小 k 等于 3。我们使用大小为 3 的滑动窗口，来找到这个最大值序列。
+<pre class=" language-markdown"><code class="language-markdown">比如说，给你的数组是 0, 4, 2, 1, 0, 8, 2，给你的滑动窗口大小 k 等于 3。我们使用大小为 3 的滑动窗口，来找到这个最大值序列。
 
 <span class="token list punctuation">*</span> 第一个滑动窗口内的数字是 0, 4, 2，最大值为 4
 <span class="token list punctuation">*</span> 移动窗口，窗口内数字变为 4, 2, 1，最大值仍然为 4
@@ -366,9 +365,9 @@
 <span class="token list punctuation">*</span> 继续移动窗口，最后窗口内的数字变为 0, 8, 2，最大值仍然是 8
 
 这时滑动窗口再移动的话，窗口内的数字就不足 k 个，于是结束处理过程。最后就得到了最大值数组 4, 4, 2, 8, 8。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p><strong>代码</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token comment" spellcheck="true">// Time: O(k*n), Space: O(1)</span>
   <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">maxNumInSlidingWindowBruteForce</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -421,7 +420,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
             </div>
             <hr>
@@ -584,19 +583,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-19-er-cha-sou-suo-shu-zhong-shan-chu-jie-dian/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-15-hui-wen-fen-ge/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="二叉搜索树中删除节点">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回文分割">
                         
-                        <span class="card-title">二叉搜索树中删除节点</span>
+                        <span class="card-title">回文分割</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉搜索树中删除节点问题
-这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。
-比如说，给你的二</div>
+                    <div class="summary">回文分割问题
+这个题目说的是，给你一个字符串，你要把它分割成子串，并且每个子串都是回文串。你要返回所有可能的子串集合。
+比如说，给你的字符串是：
+
+aad
+
+它有两种可能的分割方法。一种是分割成 aa 和 d。aa 是回文串，d 作为单个字</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -629,21 +632,18 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-14-yong-you-xu-shu-zu-gou-jian-er-cha-sou-suo-shu/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-3-shi-xian-lru-huan-cun/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="用有序数组构建二叉搜索树">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="实现 LRU 缓存">
                         
-                        <span class="card-title">用有序数组构建二叉搜索树</span>
+                        <span class="card-title">实现 LRU 缓存</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">用有序数组构建二叉搜索树问题
-这个题目说的是，给你一个递增排序的数组，你要用它构建一棵平衡的二叉搜索树。所谓平衡，是指对于这棵二叉搜索树上的每一个节点，它左右子树的高度差不能大于 1。
-比如说，给你的递增数组是：
-
-1, 2, 4, 8, </div>
+                    <div class="summary">实现 LRU 缓存问题
+这个题目说的是，你要实现一个 LRU 缓存，提供 get 和 put 两个操作，并且要求两个操作的时间复杂度都是 O(1)。另外为了简单起见，在这个题目中，key 和 value 都是整数值，并且 value 只为正</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09

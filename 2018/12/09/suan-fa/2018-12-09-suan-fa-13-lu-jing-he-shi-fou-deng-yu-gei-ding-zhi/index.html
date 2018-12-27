@@ -32,8 +32,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 </head>
 
@@ -361,7 +360,7 @@
             <div id="articleContent">
                 <h2 id="路径和是否等于给定值"><a href="#路径和是否等于给定值" class="headerlink" title="路径和是否等于给定值"></a>路径和是否等于给定值</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。</p>
-<pre class="line-numbers language-markdown"><code class="language-markdown">比如说，给你的二叉树是：
+<pre class=" language-markdown"><code class="language-markdown">比如说，给你的二叉树是：
 
 <span class="token code keyword">    1</span>
   /   \
@@ -370,9 +369,9 @@
 <span class="token code keyword">     8  16</span>
 
 给你的整数是 13。在这棵二叉树中存在一条从根到叶子节点的路径 1->4->8，路径上的数字加起来等于 13，于是要返回 true。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p><strong>代码</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TreeNode</span> <span class="token punctuation">{</span>
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
@@ -415,7 +414,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
             </div>
             <hr>
@@ -578,23 +577,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-10-shu-zu-zhong-di-k-da-de-yuan-su/">
+                <a href="/2018/12/09/suan-fa/dan-lian-biao-zhong-jian-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数组中第 K 大的元素">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="单链表中间节点">
                         
-                        <span class="card-title">数组中第 K 大的元素</span>
+                        <span class="card-title">单链表中间节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数组中第 K 大的元素问题
-这个题目说的是，给你一个整数数组和一个整数 K，你要找到数组中第 K 大的元素。
-比如说，给你的整数数组是：
+                    <div class="summary">单链表中间节点问题
+这个题目说的是，给你一个单链表，你要返回它正中间的节点。如果链表节点数量是偶数个，这个时候正中间有两个节点，你要返回它们中第二个节点。
+比如说，给你的单链表是：
 
-4, 2, 8, 1, 8
+0 -> 1 -> 2 -> 4 -> 8
 
-整数 K 是 2。这个数组中第 2 大的元素是 8，因此你要返回 8。</div>
+你要返回的</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -618,6 +617,10 @@
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -627,19 +630,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-19-er-cha-sou-suo-shu-zhong-shan-chu-jie-dian/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-22-fan-zhuan-zi-fu-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="二叉搜索树中删除节点">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="反转字符串">
                         
-                        <span class="card-title">二叉搜索树中删除节点</span>
+                        <span class="card-title">反转字符串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉搜索树中删除节点问题
-这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。
-比如说，给你的二</div>
+                    <div class="summary">反转字符串问题
+这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。
+比如说给你的字符串是：
+
+abcde
+
+你要返回左右反转后的字符串：
+
+edcba
+
+代码
+public class AlgoCasts {</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
