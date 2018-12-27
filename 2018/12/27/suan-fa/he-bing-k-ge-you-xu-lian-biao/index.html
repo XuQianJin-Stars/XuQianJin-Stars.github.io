@@ -5,10 +5,13 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="求两个有序数组的中位数, 大数据 实时计算 机器学习">
-    <meta name="description" content="求两个有序数组的中位数问题
-这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以递增排序的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。
-这里两个数">
+    <meta name="keywords" content="合并K个有序链表, 大数据 实时计算 机器学习">
+    <meta name="description" content="合并K个有序链表问题
+这个题目说的是，给你 K 个递增排序的单链表，你要把它们合成一个链表，并且保持递增排序。合成链表的节点直接使用 K 个链表中的节点即可，无需创建新节点。
+比如说，给你以下 3 个有序链表：
+
+1 -&gt; 2 -&gt; 4
+1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>求两个有序数组的中位数 | ForwardXu</title>
+    <title>合并K个有序链表 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -211,13 +214,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        求两个有序数组的中位数
+                        合并K个有序链表
                     </div>
                 </div>
             </div>
@@ -332,6 +335,10 @@
                     <span class="chip bg-color">algorithm</span>
                 </a>
                 
+                <a href="/tags/链表/" target="_blank">
+                    <span class="chip bg-color">链表</span>
+                </a>
+                
             </div>
             
             <div class="post-info">
@@ -347,7 +354,7 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-27
                 </span>
 				
 				<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
@@ -357,70 +364,90 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="求两个有序数组的中位数"><a href="#求两个有序数组的中位数" class="headerlink" title="求两个有序数组的中位数"></a>求两个有序数组的中位数</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以<strong>递增排序</strong>的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。</p>
-<p>这里两个数组中位数的意思是，两个数组合到一起排序后，位于中间的那个数，如果一共有偶数个，则是位于中间的两个数的平均数。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的两个数组是：
+                <h2 id="合并K个有序链表"><a href="#合并K个有序链表" class="headerlink" title="合并K个有序链表"></a>合并K个有序链表</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你 K 个递增排序的单链表，你要把它们合成一个链表，并且保持递增排序。合成链表的节点直接使用 K 个链表中的节点即可，无需创建新节点。</p>
+<pre class=" language-markdown"><code class="language-markdown">比如说，给你以下 3 个有序链表：
 
-1, 3
-2
+1 -> 2 -> 4
+1 -> 4 -> 8
+0 -> 2
 
-它们放在一起排序后是：
+合并后的有序链表是：
 
-1, 2, 3
-
-所以中位数就是 2。
-
-再比如说，给你的两个数组是：
-
-1, 3
-2, 4
-
-它们放在一起排序后是：
-
-1, 2, 3, 4
-
-所以中位数就是 (2 + 3) / 2 = 2.5。
+0 -> 1 -> 1 -> 2 -> 2 -> 4 -> 4 -> 8
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">findMedianSortedArrays</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> total <span class="token operator">=</span> nums1<span class="token punctuation">.</span>length <span class="token operator">+</span> nums2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>total <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">return</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> total <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-      <span class="token keyword">double</span> a <span class="token operator">=</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> total <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">double</span> b <span class="token operator">=</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> total <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    ListNode next<span class="token punctuation">;</span>
+
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      val <span class="token operator">=</span> x<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 
-  <span class="token comment" spellcheck="true">// Time: O(log(k)) &lt;= O(log(m+n)), Space: O(1)</span>
-  <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> len1 <span class="token operator">=</span> nums1<span class="token punctuation">.</span>length<span class="token punctuation">,</span> len2 <span class="token operator">=</span> nums2<span class="token punctuation">.</span>length<span class="token punctuation">,</span> base1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> base2 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>len1 <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> nums2<span class="token punctuation">[</span>base2 <span class="token operator">+</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>len2 <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> nums1<span class="token punctuation">[</span>base1 <span class="token operator">+</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>nums1<span class="token punctuation">[</span>base1<span class="token punctuation">]</span><span class="token punctuation">,</span> nums2<span class="token punctuation">[</span>base2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> ListNode <span class="token function">mergeTwoSortedLists</span><span class="token punctuation">(</span>ListNode l1<span class="token punctuation">,</span> ListNode l2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ListNode dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
 
-      <span class="token keyword">int</span> i <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>k <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> len1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">int</span> j <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>k <span class="token operator">-</span> i<span class="token punctuation">,</span> len2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">int</span> a <span class="token operator">=</span> nums1<span class="token punctuation">[</span>base1 <span class="token operator">+</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> b <span class="token operator">=</span> nums2<span class="token punctuation">[</span>base2 <span class="token operator">+</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> j <span class="token operator">==</span> k <span class="token operator">&amp;&amp;</span> a <span class="token operator">==</span> b<span class="token punctuation">)</span> <span class="token keyword">return</span> a<span class="token punctuation">;</span>
-
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">&lt;=</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        base1 <span class="token operator">+=</span> i<span class="token punctuation">;</span>
-        len1 <span class="token operator">-=</span> i<span class="token punctuation">;</span>
-        k <span class="token operator">-=</span> i<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> l2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>l1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> l2<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        p<span class="token punctuation">.</span>next <span class="token operator">=</span> l1<span class="token punctuation">;</span>
+        l1 <span class="token operator">=</span> l1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        p<span class="token punctuation">.</span>next <span class="token operator">=</span> l2<span class="token punctuation">;</span>
+        l2 <span class="token operator">=</span> l2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">>=</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        base2 <span class="token operator">+=</span> j<span class="token punctuation">;</span>
-        len2 <span class="token operator">-=</span> j<span class="token punctuation">;</span>
-        k <span class="token operator">-=</span> j<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+      p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> null<span class="token punctuation">)</span> p<span class="token punctuation">.</span>next <span class="token operator">=</span> l1<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>l2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> p<span class="token punctuation">.</span>next <span class="token operator">=</span> l2<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">// Time: O(k*n), Space: O(1)</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">mergeKSortedListsOneByOne</span><span class="token punctuation">(</span>ListNode<span class="token punctuation">[</span><span class="token punctuation">]</span> lists<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>lists <span class="token operator">==</span> null <span class="token operator">||</span> lists<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    ListNode result <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>ListNode list<span class="token operator">:</span> lists<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      result <span class="token operator">=</span> <span class="token function">mergeTwoSortedLists</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">// Time: O(n*log(k)), Space: O(k)</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">mergeKSortedListsMinHeap</span><span class="token punctuation">(</span>ListNode<span class="token punctuation">[</span><span class="token punctuation">]</span> lists<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>lists <span class="token operator">==</span> null <span class="token operator">||</span> lists<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    Queue<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> q <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PriorityQueue</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> a<span class="token punctuation">.</span>val <span class="token operator">-</span> b<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>ListNode list<span class="token operator">:</span> lists<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>list <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+        q<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ListNode dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>q<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ListNode min <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      p<span class="token punctuation">.</span>next <span class="token operator">=</span> min<span class="token punctuation">;</span>
+      p <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>min<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> q<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>min<span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">private</span> ListNode <span class="token function">merge</span><span class="token punctuation">(</span>ListNode<span class="token punctuation">[</span><span class="token punctuation">]</span> lists<span class="token punctuation">,</span> <span class="token keyword">int</span> start<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> end<span class="token punctuation">)</span> <span class="token keyword">return</span> lists<span class="token punctuation">[</span>start<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">></span> end<span class="token punctuation">)</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> mid <span class="token operator">=</span> start <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    ListNode left <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span>lists<span class="token punctuation">,</span> start<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ListNode right <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span>lists<span class="token punctuation">,</span> mid<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> end<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">mergeTwoSortedLists</span><span class="token punctuation">(</span>left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">// Time: O(n*log(k)), Space: O(log(k))</span>
+  <span class="token keyword">public</span> ListNode <span class="token function">mergeKSortedListsDivideConquer</span><span class="token punctuation">(</span>ListNode<span class="token punctuation">[</span><span class="token punctuation">]</span> lists<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>lists <span class="token operator">==</span> null <span class="token operator">||</span> lists<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">merge</span><span class="token punctuation">(</span>lists<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> lists<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -563,7 +590,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-2-qiu-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/" class="b-link-green">求两个有序数组的中位数</a>
+                    <a href="/2018/12/27/suan-fa/he-bing-k-ge-you-xu-lian-biao/" class="b-link-green">合并K个有序链表</a>
                 </p>
             </div>
         </div>
@@ -587,22 +614,26 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-21-pa-lou-ti-de-zui-xiao-dai-jie/">
+                <a href="/2018/12/27/suan-fa/you-xu-lian-biao-qu-chong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="爬楼梯的最小代价">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="有序链表去重">
                         
-                        <span class="card-title">爬楼梯的最小代价</span>
+                        <span class="card-title">有序链表去重</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">爬楼梯的最小代价问题
-这个题目说的是，给你一个整数数组，数组中的整数表示爬对应阶楼梯的代价。你可以从第 0 阶或第 1 阶楼梯开始爬，每次可以向上爬 1 阶或 2 阶。那么请问，爬完这个楼梯的最小代价是多少？
-比如说，给你的代价数组 c 是</div>
+                    <div class="summary">有序链表去重问题
+这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把重复的去掉，只保留一个即可。最后返回去重后的单链表。
+比如说，给你的有序单链表是：
+
+1 -> 1 -> 2 -> 2 -> 4
+
+</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
                         </span>
                         <span class="publish-author">
                             
@@ -623,6 +654,10 @@
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -632,22 +667,31 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-19-er-cha-sou-suo-shu-zhong-shan-chu-jie-dian/">
+                <a href="/2018/12/27/suan-fa/dan-lian-biao-pai-xu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="二叉搜索树中删除节点">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="单链表排序">
                         
-                        <span class="card-title">二叉搜索树中删除节点</span>
+                        <span class="card-title">单链表排序</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉搜索树中删除节点问题
-这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。
-比如说，给你的二</div>
+                    <div class="summary">单链表排序问题
+这个题目说的是，给你一个单链表，你要写一个函数，对它进行排序，然后返回排序后的链表。
+比如说，给你的单链表是：
+
+4 -> 8 -> 2 -> 1
+
+你要返回排序后的链表：
+
+1 -> 2 -> 4 -> 8
+
+代码
+pub</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
                             </span>
                         <span class="publish-author">
                             
@@ -666,6 +710,10 @@
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>

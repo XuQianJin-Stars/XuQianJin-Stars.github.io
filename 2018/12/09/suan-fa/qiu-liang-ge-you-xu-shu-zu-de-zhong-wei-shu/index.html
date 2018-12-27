@@ -5,14 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="回文数字判断, 大数据 实时计算 机器学习">
-    <meta name="description" content="回文数字判断问题
-这个题目说的是，给你一个整数，你要判断它是否是一个回文数字。所谓回文数字就是，你正着读和反着读都是同一个数字。
-比如，给你的数字是：
-
-12321
-
-无论你从左向右读，还是从右向左读，都是 12321，所以它是一个回文数字">
+    <meta name="keywords" content="求两个有序数组的中位数, 大数据 实时计算 机器学习">
+    <meta name="description" content="求两个有序数组的中位数问题
+这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以递增排序的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。
+这里两个数">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>回文数字判断 | ForwardXu</title>
+    <title>求两个有序数组的中位数 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -215,13 +211,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        回文数字判断
+                        求两个有序数组的中位数
                     </div>
                 </div>
             </div>
@@ -351,7 +347,7 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-08
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
                 </span>
 				
 				<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
@@ -361,46 +357,70 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="回文数字判断"><a href="#回文数字判断" class="headerlink" title="回文数字判断"></a>回文数字判断</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一个整数，你要判断它是否是一个回文数字。所谓回文数字就是，你正着读和反着读都是同一个数字。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如，给你的数字是：
+                <h2 id="求两个有序数组的中位数"><a href="#求两个有序数组的中位数" class="headerlink" title="求两个有序数组的中位数"></a>求两个有序数组的中位数</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以<strong>递增排序</strong>的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。</p>
+<p>这里两个数组中位数的意思是，两个数组合到一起排序后，位于中间的那个数，如果一共有偶数个，则是位于中间的两个数的平均数。</p>
+<pre class=" language-markdown"><code class="language-markdown">比如说，给你的两个数组是：
 
-12321
+1, 3
+2
 
-无论你从左向右读，还是从右向左读，都是 12321，所以它是一个回文数字，你要返回 true。
+它们放在一起排序后是：
 
-再比如说：
+1, 2, 3
 
--232
+所以中位数就是 2。
 
-你从左向右读是 -232，但从右向左读则是 232-，和 -232 不一样，因此它不是一个回文数字，你要返回 false。
+再比如说，给你的两个数组是：
+
+1, 3
+2, 4
+
+它们放在一起排序后是：
+
+1, 2, 3, 4
+
+所以中位数就是 (2 + 3) / 2 = 2.5。
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
-  <span class="token comment" spellcheck="true">// Time: O(m), Space: O(1)</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindromeString</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    String str <span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">!=</span> str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-      <span class="token operator">++</span>i<span class="token punctuation">;</span>
-      <span class="token operator">--</span>j<span class="token punctuation">;</span>
+  <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">findMedianSortedArrays</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> total <span class="token operator">=</span> nums1<span class="token punctuation">.</span>length <span class="token operator">+</span> nums2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>total <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> total <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">double</span> a <span class="token operator">=</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> total <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">double</span> b <span class="token operator">=</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> total <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
-  <span class="token comment" spellcheck="true">// Time: O(m), Space: O(1)</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> tmp <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token keyword">long</span> y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>tmp <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">int</span> num <span class="token operator">=</span> tmp <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
-      y <span class="token operator">=</span> y <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> num<span class="token punctuation">;</span>
-      tmp <span class="token operator">=</span> tmp <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Time: O(log(k)) &lt;= O(log(m+n)), Space: O(1)</span>
+  <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">findKthSmallestInSortedArrays</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> len1 <span class="token operator">=</span> nums1<span class="token punctuation">.</span>length<span class="token punctuation">,</span> len2 <span class="token operator">=</span> nums2<span class="token punctuation">.</span>length<span class="token punctuation">,</span> base1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> base2 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>len1 <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> nums2<span class="token punctuation">[</span>base2 <span class="token operator">+</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>len2 <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> nums1<span class="token punctuation">[</span>base1 <span class="token operator">+</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>nums1<span class="token punctuation">[</span>base1<span class="token punctuation">]</span><span class="token punctuation">,</span> nums2<span class="token punctuation">[</span>base2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">int</span> i <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>k <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> len1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">int</span> j <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>k <span class="token operator">-</span> i<span class="token punctuation">,</span> len2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">int</span> a <span class="token operator">=</span> nums1<span class="token punctuation">[</span>base1 <span class="token operator">+</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> b <span class="token operator">=</span> nums2<span class="token punctuation">[</span>base2 <span class="token operator">+</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> j <span class="token operator">==</span> k <span class="token operator">&amp;&amp;</span> a <span class="token operator">==</span> b<span class="token punctuation">)</span> <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">&lt;=</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        base1 <span class="token operator">+=</span> i<span class="token punctuation">;</span>
+        len1 <span class="token operator">-=</span> i<span class="token punctuation">;</span>
+        k <span class="token operator">-=</span> i<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">>=</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        base2 <span class="token operator">+=</span> j<span class="token punctuation">;</span>
+        len2 <span class="token operator">-=</span> j<span class="token punctuation">;</span>
+        k <span class="token operator">-=</span> j<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> y <span class="token operator">==</span> x<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -543,7 +563,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/08/suan-fa/2018-12-08-suan-fa-1-hui-wen-shu-zi-pan-duan/" class="b-link-green">回文数字判断</a>
+                    <a href="/2018/12/09/suan-fa/qiu-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/" class="b-link-green">求两个有序数组的中位数</a>
                 </p>
             </div>
         </div>
@@ -567,26 +587,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-11-qu-jian-he-bing/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-13-lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="区间合并">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="路径和是否等于给定值">
                         
-                        <span class="card-title">区间合并</span>
+                        <span class="card-title">路径和是否等于给定值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">区间合并问题
-这个题目说的是，给你一个区间集合，你要把有重叠的区间合并起来。
-比如说，给你的区间集合是：
+                    <div class="summary">路径和是否等于给定值问题
+这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
+比如说，给你的二叉树是：
 
-[1, 8]
-[2, 4]
-[9, 10]
-[10, 16]
-
-这 4 个区间里，[1, 8] 区间包含了 [2, 4] 区间，于是</div>
+    1
+  /   \
+ 2     </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -617,28 +634,27 @@
         
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">本篇</div>
+            <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/08/suan-fa/2018-12-08-suan-fa-1-hui-wen-shu-zi-pan-duan/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-12-xun-zhao-tian-ji-xian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="回文数字判断">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="寻找天际线">
                         
-                        <span class="card-title">回文数字判断</span>
+                        <span class="card-title">寻找天际线</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">回文数字判断问题
-这个题目说的是，给你一个整数，你要判断它是否是一个回文数字。所谓回文数字就是，你正着读和反着读都是同一个数字。
-比如，给你的数字是：
+                    <div class="summary">寻找天际线问题
+这个题目说的是，给你一组矩形表示的楼房，它们的底边在同一水平线上，并且楼房之间可以相邻，也可以重叠。你要找到这组楼房的轮廓线或者叫天际线，并返回这个轮廓线的关键点。
+代码
+public class AlgoCasts {
 
-12321
-
-无论你从左向右读，还是从右向左读，都是 12321，所以它是一个回文数字</div>
+</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-08
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
                             </span>
                         <span class="publish-author">
                             
@@ -652,7 +668,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
