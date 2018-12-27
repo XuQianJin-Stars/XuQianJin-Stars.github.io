@@ -207,11 +207,11 @@
   </entry>
   
   <entry>
-    <title>MySQL</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/mysql/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/mysql/</id>
+    <title>SQL基本使用</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/sql-ji-ben-shi-yong/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/sql-ji-ben-shi-yong/</id>
     <published>2018-12-24T14:44:00.000Z</published>
-    <updated>2018-12-25T12:39:19.564Z</updated>
+    <updated>2018-12-25T12:29:51.511Z</updated>
     
     <summary type="html">
     
@@ -219,8 +219,7 @@
       
         
         
-          &lt;h2 id=&quot;MySQL&quot;&gt;&lt;a href=&quot;#MySQL&quot; class=&quot;headerlink&quot; title=&quot;MySQL&quot;&gt;&lt;/a&gt;MySQL&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;一、索引&lt;ul&gt;
+          &lt;h2 id=&quot;SQL基本使用&quot;&gt;&lt;a href=&quot;#SQL基本使用&quot; class=&quot;headerlink&quot; title=&quot;SQL基本使用&quot;&gt;&lt;/a&gt;SQL基本使用&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a
         
       
@@ -230,7 +229,7 @@
       <category term="数据库" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="MySQL" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/MySQL/"/>
+      <category term="SQL基本使用" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/SQL%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   
@@ -509,11 +508,11 @@
   </entry>
   
   <entry>
-    <title>SQL基本使用</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/sql-ji-ben-shi-yong/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/sql-ji-ben-shi-yong/</id>
+    <title>MySQL</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/mysql/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/24/shu-ju-ku/mysql/</id>
     <published>2018-12-24T14:44:00.000Z</published>
-    <updated>2018-12-25T12:29:51.511Z</updated>
+    <updated>2018-12-25T12:39:19.564Z</updated>
     
     <summary type="html">
     
@@ -521,7 +520,8 @@
       
         
         
-          &lt;h2 id=&quot;SQL基本使用&quot;&gt;&lt;a href=&quot;#SQL基本使用&quot; class=&quot;headerlink&quot; title=&quot;SQL基本使用&quot;&gt;&lt;/a&gt;SQL基本使用&lt;/h2&gt;&lt;ul&gt;
+          &lt;h2 id=&quot;MySQL&quot;&gt;&lt;a href=&quot;#MySQL&quot; class=&quot;headerlink&quot; title=&quot;MySQL&quot;&gt;&lt;/a&gt;MySQL&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;一、索引&lt;ul&gt;
 &lt;li&gt;&lt;a
         
       
@@ -531,7 +531,7 @@
       <category term="数据库" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="SQL基本使用" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/SQL%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+      <category term="MySQL" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/MySQL/"/>
     
   </entry>
   
