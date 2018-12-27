@@ -5,16 +5,12 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Flink-Table-SQL系列之source, 大数据 实时计算 机器学习">
-    <meta name="description" content="Flink-Table-SQL系列之Source
-一、概览
-二、磁盘操作
+    <meta name="keywords" content="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment, 大数据 实时计算 机器学习">
+    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、介绍目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:
 
-一、概览Java 的 I/O 大概可以分成以下几类：
 
-磁盘操作：File
-字节操作：InputStream 和 OutputStream
-字符操作：Reader ">
+
+Table">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Flink-Table-SQL系列之source | ForwardXu</title>
+    <title>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -217,13 +213,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Flink-Table-SQL系列之source
+                        Flink1.7 Table API&amp;SQL源码系列之TableEnvironment
                     </div>
                 </div>
             </div>
@@ -353,7 +349,7 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-26
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-27
                 </span>
 				
 				<span id="busuanzi_container_page_pv">阅读次数&nbsp<span id="busuanzi_value_page_pv"></span>
@@ -363,11 +359,36 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Flink-Table-SQL系列之Source"><a href="#Flink-Table-SQL系列之Source" class="headerlink" title="Flink-Table-SQL系列之Source"></a>Flink-Table-SQL系列之Source</h2><ul>
-<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20IO.md#%E4%B8%80%E6%A6%82%E8%A7%88">一、概览</a></li>
-<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20IO.md#%E4%BA%8C%E7%A3%81%E7%9B%98%E6%93%8D%E4%BD%9C">二、磁盘操作</a></li>
-</ul>
-<h1 id="一、概览"><a href="#一、概览" class="headerlink" title="一、概览"></a>一、概览</h1><p>Java 的 I/O 大概可以分成以下几类：</p>
+                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>目前Flink1.7版本<code>TableEnvironment</code>从<code>Java</code>和<code>Scala</code>编程语言，<code>流</code>和<code>批</code>计算模型来来分为以下4种:</p>
+<table>
+<thead>
+<tr>
+<th>TableEnvironment</th>
+<th>流处理</th>
+<th>批处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Java</td>
+<td>StreamTableEnvironment</td>
+<td>BatchTableEnvironment</td>
+</tr>
+<tr>
+<td>Scala</td>
+<td>StreamTableEnvironment</td>
+<td>TableEnvironment</td>
+</tr>
+<tr>
+<td>Scala</td>
+<td>BatchTableEnvironment</td>
+<td>TableEnvironment</td>
+</tr>
+</tbody>
+</table>
+<p>TableEnvironment的继承关系如下图所示：</p>
+<p><img src="https://graph.baidu.com/resource/146ebd9c3cd267dafa87f01545898831.jpg" alt="微信截图_20181227162110"></p>
+<p>Java 的 I/O 大概可以分成以下几类：</p>
 <ul>
 <li>磁盘操作：File</li>
 <li>字节操作：InputStream 和 OutputStream</li>
@@ -530,7 +551,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/26/flink/flink-table-sql-xi-lie-zhi-source/" class="b-link-green">Flink-Table-SQL系列之source</a>
+                    <a href="/2018/12/27/flink/flink1.7-table-api-sql-yuan-ma-xi-lie-zhi-tableenvironment/" class="b-link-green">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</a>
                 </p>
             </div>
         </div>
@@ -552,28 +573,77 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
-                <a href="/2018/12/26/suan-fa/pan-duan-dan-lian-biao-shi-fou-you-huan/">
+                <a href="/2018/12/27/flink/flink1.7-table-api-sql-yuan-ma-xi-lie-zhi-tableenvironment/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="判断单链表是否有环">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Flink1.7 Table API&SQL源码系列之TableEnvironment">
                         
-                        <span class="card-title">判断单链表是否有环</span>
+                        <span class="card-title">Flink1.7 Table API&SQL源码系列之TableEnvironment</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">判断单链表是否有环问题
-这个题目说的是，给你一个单链表，你要判断它是否会形成环，也就是链表的最后一个节点指向了前面一个已经存在的节点。
-代码
-public class AlgoCasts {
+                    <div class="summary">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment一、介绍目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:
 
-  public class ListNode</div>
+
+
+Table</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/flink/" class="post-category" target="_blank">
+                                    flink
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Flink-Table-SQL/" target="_blank">
+                        <span class="chip bg-color">Flink-Table-SQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2018/12/27/suan-fa/dan-lian-biao-shan-chu-shu-zi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="单链表删除数字">
+                        
+                        <span class="card-title">单链表删除数字</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">单链表删除数字问题
+这个题目说的是，给你一个单链表和一个数字，你要删除节点上数字等于给定数字的那些节点，然后返回删除节点后的单链表。
+比如说，给你的单链表是：
+
+1 -> 2 -> 4 -> 1 -> 8 -> 1
+
+要删除的数字是 1。那</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -595,51 +665,6 @@ public class AlgoCasts {
                     
                     <a href="/tags/链表/" target="_blank">
                         <span class="chip bg-color">链表</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
-            <div class="card">
-                <a href="/2018/12/26/suan-fa/pai-xu/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="排序">
-                        
-                        <span class="card-title">排序</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">排序待排序的元素需要实现 Java 的 Comparable 接口，该接口有 compareTo() 方法，可以用它来判断两个元素的大小关系。
-研究排序算法的成本模型时，计算的是比较和交换的次数。
-使用辅助函数 less() 和 swap(</div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
                     </a>
                     
                 </div>
