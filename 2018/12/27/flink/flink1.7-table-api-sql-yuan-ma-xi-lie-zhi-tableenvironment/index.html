@@ -6,11 +6,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment, 大数据 实时计算 机器学习">
-    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、介绍目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:
-
-
-
-Table">
+    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责: 　　1、在内部目录中注册一个Table 　　2、">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -359,7 +355,9 @@ Table">
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:</p>
+                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>TableEnvironment是Table API和SQL集成的核心概念，它主要负责:<br> 　　1、在内部目录中注册一个Table<br> 　　2、注册一个外部目录<br> 　　3、执行SQL查询<br> 　　4、注册一个用户自定义函数(标量、表及聚合)<br> 　　5、将DataStream或者DataSet转换成Table<br> 　　6、持有ExecutionEnvironment或者StreamExecutionEnvironment的引用<br> 一个Table总是会绑定到一个指定的TableEnvironment中，相同的查询不同的TableEnvironment是无法通过join、union合并在一起。</p>
+<p>TableEnvironment可以通过调用带有参数StreamExecutionEnvironment或者ExecutionEnvironment和一个可选参数TableConfig的静态方法<code>TableEnvironment.getTableEnvironment()</code>来创建。TableConf可以用来配置TableEnvironment或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)</p>
+<p>目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:</p>
 <table>
 <thead>
 <tr>
@@ -386,23 +384,7 @@ Table">
 </tbody>
 </table>
 <p>TableEnvironment的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
-<h1 id="二、磁盘操作"><a href="#二、磁盘操作" class="headerlink" title="二、磁盘操作"></a>二、磁盘操作</h1><p>File 类可以用于表示文件和目录的信息，但是它不表示文件的内容。</p>
-<p>递归地列出一个目录下所有文件：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">listAllFiles</span><span class="token punctuation">(</span>File dir<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> null <span class="token operator">||</span> <span class="token operator">!</span>dir<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>dir<span class="token punctuation">.</span><span class="token function">isFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>dir<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>File file <span class="token operator">:</span> dir<span class="token punctuation">.</span><span class="token function">listFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">listAllFiles</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>从 Java7 开始，可以使用 Paths 和 Files 代替 File。</p>
-<h1 id="三、正在讨论及改进"><a href="#三、正在讨论及改进" class="headerlink" title="三、正在讨论及改进"></a>三、正在讨论及改进</h1><p><a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#</a></p>
+<h1 id="二、TableEnvironment源码分析"><a href="#二、TableEnvironment源码分析" class="headerlink" title="二、TableEnvironment源码分析"></a>二、TableEnvironment源码分析</h1><h2 id="https-www-jianshu-com-p-6bc5b4e6f163"><a href="#https-www-jianshu-com-p-6bc5b4e6f163" class="headerlink" title="https://www.jianshu.com/p/6bc5b4e6f163"></a><a href="https://www.jianshu.com/p/6bc5b4e6f163" target="_blank" rel="noopener">https://www.jianshu.com/p/6bc5b4e6f163</a></h2><h1 id="三、正在讨论及改进"><a href="#三、正在讨论及改进" class="headerlink" title="三、正在讨论及改进"></a>三、正在讨论及改进</h1><p><a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#</a></p>
 
             </div>
             <hr>
@@ -575,11 +557,7 @@ Table">
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment一、介绍目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:
-
-
-
-Table</div>
+                    <div class="summary">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责: 　　1、在内部目录中注册一个Table 　　2、</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
