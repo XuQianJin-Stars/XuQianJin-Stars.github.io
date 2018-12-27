@@ -28,7 +28,8 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </head>
 
@@ -356,7 +357,7 @@
             <div id="articleContent">
                 <h2 id="二叉搜索树中删除节点"><a href="#二叉搜索树中删除节点" class="headerlink" title="二叉搜索树中删除节点"></a>二叉搜索树中删除节点</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的二叉搜索树是：
+<pre class="line-numbers language-markdown"><code class="language-markdown">比如说，给你的二叉搜索树是：
 
 <span class="token code keyword">    1</span>
    / \
@@ -381,9 +382,9 @@
 <span class="token code keyword">    2</span>
 
 这两个都是有效的二叉搜索树，返回其中一个即可。
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TreeNode</span> <span class="token punctuation">{</span>
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
@@ -415,7 +416,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr>
@@ -578,19 +579,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-2-qiu-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-13-lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="求两个有序数组的中位数">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="路径和是否等于给定值">
                         
-                        <span class="card-title">求两个有序数组的中位数</span>
+                        <span class="card-title">路径和是否等于给定值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">求两个有序数组的中位数问题
-这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以递增排序的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。
-这里两个数</div>
+                    <div class="summary">路径和是否等于给定值问题
+这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
+比如说，给你的二叉树是：
+
+    1
+  /   \
+ 2     </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09

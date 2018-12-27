@@ -34,7 +34,8 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </head>
 
@@ -362,7 +363,7 @@
             <div id="articleContent">
                 <h2 id="反转单词"><a href="#反转单词" class="headerlink" title="反转单词"></a>反转单词</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一个字符串，你要写一个函数反转这个字符串中的单词，然后返回处理后的字符串。注意，单词之间只用一个空格隔开。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说给你的字符串是：
+<pre class="line-numbers language-markdown"><code class="language-markdown">比如说给你的字符串是：
 
 "I am busy."
 
@@ -371,9 +372,9 @@
 "I ma .ysub"
 
 注意，最后的句号要连同单词一起反转。
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
   <span class="token keyword">public</span> String <span class="token function">reverseWords</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -394,7 +395,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr>
@@ -557,21 +558,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-7-you-xu-shu-zu-zhong-de-dan-shen-shu-zi/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-6-han-ming-ju-chi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="有序数组中的单身数字">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="汉明距离">
                         
-                        <span class="card-title">有序数组中的单身数字</span>
+                        <span class="card-title">汉明距离</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">有序数组中的单身数字问题
-这个题目说的是，给你一个排好序的整数数组，里面的数字都出现两次，只有一个数字出现了一次，我们管它叫单身数字，你要写代码找到这个单身数字。
-比如说给你的有序数组是：
+                    <div class="summary">汉明距离问题
+这个题目说的是，给你两个整数，你要计算出它们的二进制表示中，相应的二进制位有多少个是不同的。这个不同的个数，也称为这两个整数的汉明距离。
+比如说，给你的两个整数是 3 和 8。它们的二进制表示分别是：
 
-1, 1, 2, 2, 4, 4, 6, 8, </div>
+3: 0011
+8: </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -604,28 +606,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-22-fan-zhuan-zi-fu-chuan/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-4-zui-chang-hui-wen-zi-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="反转字符串">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="最长回文子串">
                         
-                        <span class="card-title">反转字符串</span>
+                        <span class="card-title">最长回文子串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">反转字符串问题
-这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。
-比如说给你的字符串是：
+                    <div class="summary">最长回文子串问题
+这个题目说的是，给你一个字符串，你要在它所有的回文子串中，找到长度最长的子串，并返回它。
+比如说，给你的字符串是：
 
-abcde
+abcbab
 
-你要返回左右反转后的字符串：
+你要返回的最长回文子串是：
 
-edcba
+abcba
 
 代码
-public class AlgoCasts {</div>
+public class AlgoCa</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09

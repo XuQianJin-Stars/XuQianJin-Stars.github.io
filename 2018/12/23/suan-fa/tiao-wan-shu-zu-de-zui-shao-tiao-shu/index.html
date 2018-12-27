@@ -28,7 +28,8 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </head>
 
@@ -356,7 +357,7 @@
             <div id="articleContent">
                 <h2 id="跳完数组的最少跳数"><a href="#跳完数组的最少跳数" class="headerlink" title="跳完数组的最少跳数"></a>跳完数组的最少跳数</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你一个<strong>非负整数</strong>数组，数组中的每个数字表示那个位置上可以向后跳的<strong>最大</strong>步数。一开始你站在下标为 0 的位置，你要计算出<strong>最少</strong>需要跳几次才能到达数组最后位置。如果无法到达数组最后位置，则返回 -1。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的数组 a 是：
+<pre class="line-numbers language-markdown"><code class="language-markdown">比如说，给你的数组 a 是：
 
 2, 4, 0, 1, 2
 
@@ -367,9 +368,9 @@
 2, 1, 0, 4
 
 一开始如果跳 2 步，到达 0，不能再跳。一开始如果跳 1 步，到达 1，可以向后再跳 1 步。但跳 1 步后仍然到达 0，不能再跳。因此对于这个数组，你没办法跳到最后的位置，返回 -1。
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
   <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">numOfJumpToLast</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -405,7 +406,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr>
@@ -622,23 +623,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/tiao-shu-zu/">
+                <a href="/2018/12/16/suan-fa/2018-12-09-suan-fa-28-bu-yong-jia-jian-qiu-liang-shu-zhi-he/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="跳数组">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="不用+-求两数之和">
                         
-                        <span class="card-title">跳数组</span>
+                        <span class="card-title">不用+-求两数之和</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">跳数组问题
-这个题目说的是，给你一个非负整数数组，数组中的每个数字表示那个位置上可以向后跳的最大步数。一开始你站在下标为 0 的位置，你要判断是否可以跳到数组最后的位置。
-比如说，给你的数组 a 是：
+                    <div class="summary">不用+/-求两数之和问题
+这个题目说的是，给你两个整数，在不使用 +/- 这两个运算符的前提下，求它们的和。
+代码
+public class AlgoCasts {
 
-2, 4, 0, 1, 2
-
-一开始</div>
+  public int getSumRecursive(int a, </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16

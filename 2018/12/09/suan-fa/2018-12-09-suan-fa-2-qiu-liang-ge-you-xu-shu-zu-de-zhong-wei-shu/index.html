@@ -28,7 +28,8 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </head>
 
@@ -357,7 +358,7 @@
                 <h2 id="求两个有序数组的中位数"><a href="#求两个有序数组的中位数" class="headerlink" title="求两个有序数组的中位数"></a>求两个有序数组的中位数</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以<strong>递增排序</strong>的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。</p>
 <p>这里两个数组中位数的意思是，两个数组合到一起排序后，位于中间的那个数，如果一共有偶数个，则是位于中间的两个数的平均数。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的两个数组是：
+<pre class="line-numbers language-markdown"><code class="language-markdown">比如说，给你的两个数组是：
 
 1, 3
 2
@@ -378,9 +379,9 @@
 1, 2, 3, 4
 
 所以中位数就是 (2 + 3) / 2 = 2.5。
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">findMedianSortedArrays</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">int</span> total <span class="token operator">=</span> nums1<span class="token punctuation">.</span>length <span class="token operator">+</span> nums2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
@@ -421,7 +422,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr>
@@ -584,28 +585,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-22-fan-zhuan-zi-fu-chuan/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-5-shi-xian-ping-fang-gen-han-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="反转字符串">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="实现平方根函数">
                         
-                        <span class="card-title">反转字符串</span>
+                        <span class="card-title">实现平方根函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">反转字符串问题
-这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。
-比如说给你的字符串是：
+                    <div class="summary">实现平方根函数问题
+这个题目说的是，你要实现一个函数，来计算非负整数 n 的平方根，平方根只需返回整数部分即可。
+比如，使用你实现的函数来计算 9 的平方根是 3：
 
-abcde
+f(9) = 3
 
-你要返回左右反转后的字符串：
-
-edcba
-
-代码
-public class AlgoCasts {</div>
+由于 8 的平方根是 2 点几，使用你实现的函数只需</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -638,19 +634,22 @@ public class AlgoCasts {</div>
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-19-er-cha-sou-suo-shu-zhong-shan-chu-jie-dian/">
+                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-6-han-ming-ju-chi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="二叉搜索树中删除节点">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="汉明距离">
                         
-                        <span class="card-title">二叉搜索树中删除节点</span>
+                        <span class="card-title">汉明距离</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉搜索树中删除节点问题
-这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。
-比如说，给你的二</div>
+                    <div class="summary">汉明距离问题
+这个题目说的是，给你两个整数，你要计算出它们的二进制表示中，相应的二进制位有多少个是不同的。这个不同的个数，也称为这两个整数的汉明距离。
+比如说，给你的两个整数是 3 和 8。它们的二进制表示分别是：
+
+3: 0011
+8: </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09

@@ -27,7 +27,8 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </head>
 
@@ -355,7 +356,7 @@
             <div id="articleContent">
                 <h2 id="数据流中第-K-大的元素"><a href="#数据流中第-K-大的元素" class="headerlink" title="数据流中第 K 大的元素"></a>数据流中第 K 大的元素</h2><p><strong>问题</strong></p>
 <p>这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，<strong>整数数组作为初始数据流</strong>。第二个是 add 函数，接收一个整数表示新流入的数据，然后返回当前第 K 大的元素。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的 K 是 3，初始的数组是：
+<pre class="line-numbers language-markdown"><code class="language-markdown">比如说，给你的 K 是 3，初始的数组是：
 
 1, 5, 2, 8
 
@@ -370,9 +371,9 @@
 1, 5, 2, 8, 9, 0
 
 这时你要返回的第 3 大元素仍然是 5。
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
   <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">KthLargestElementInStream</span> <span class="token punctuation">{</span>
 
@@ -398,7 +399,7 @@
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr>
@@ -561,22 +562,21 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-12-xun-zhao-tian-ji-xian/">
+                <a href="/2018/12/09/suan-fa/you-xu-lian-biao-shan-chu-chong-fu-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="寻找天际线">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="有序链表删除重复节点">
                         
-                        <span class="card-title">寻找天际线</span>
+                        <span class="card-title">有序链表删除重复节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">寻找天际线问题
-这个题目说的是，给你一组矩形表示的楼房，它们的底边在同一水平线上，并且楼房之间可以相邻，也可以重叠。你要找到这组楼房的轮廓线或者叫天际线，并返回这个轮廓线的关键点。
-代码
-public class AlgoCasts {
+                    <div class="summary">有序链表删除重复节点问题
+这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把它们全删掉，留下只出现一次的节点，最后返回处理后的单链表。
+比如说，给你的有序单链表是：
 
-</div>
+1 -> 1 -> 2 -> 4</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -600,6 +600,10 @@ public class AlgoCasts {
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -609,26 +613,23 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-11-qu-jian-he-bing/">
+                <a href="/2018/12/09/suan-fa/dan-lian-biao-zhong-jian-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="区间合并">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="单链表中间节点">
                         
-                        <span class="card-title">区间合并</span>
+                        <span class="card-title">单链表中间节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">区间合并问题
-这个题目说的是，给你一个区间集合，你要把有重叠的区间合并起来。
-比如说，给你的区间集合是：
+                    <div class="summary">单链表中间节点问题
+这个题目说的是，给你一个单链表，你要返回它正中间的节点。如果链表节点数量是偶数个，这个时候正中间有两个节点，你要返回它们中第二个节点。
+比如说，给你的单链表是：
 
-[1, 8]
-[2, 4]
-[9, 10]
-[10, 16]
+0 -> 1 -> 2 -> 4 -> 8
 
-这 4 个区间里，[1, 8] 区间包含了 [2, 4] 区间，于是</div>
+你要返回的</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -650,6 +651,10 @@ public class AlgoCasts {
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>
