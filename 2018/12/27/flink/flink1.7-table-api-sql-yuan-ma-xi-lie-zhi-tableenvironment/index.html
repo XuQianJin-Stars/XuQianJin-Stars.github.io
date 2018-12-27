@@ -356,7 +356,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>TableEnvironment是Table API和SQL集成的核心概念，它主要负责:<br> 　　1、在内部目录中注册一个Table<br> 　　2、注册一个外部目录<br> 　　3、执行SQL查询<br> 　　4、注册一个用户自定义函数(标量、表及聚合)<br> 　　5、将DataStream或者DataSet转换成Table<br> 　　6、持有ExecutionEnvironment或者StreamExecutionEnvironment的引用<br> 一个Table总是会绑定到一个指定的TableEnvironment中，相同的查询不同的TableEnvironment是无法通过join、union合并在一起。</p>
-<p>TableEnvironment可以通过调用带有参数StreamExecutionEnvironment或者ExecutionEnvironment和一个可选参数TableConfig的静态方法<code>TableEnvironment.getTableEnvironment()</code>来创建。TableConf可以用来配置TableEnvironment或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)</p>
+<p>TableEnvironment可以通过调用带有参数StreamExecutionEnvironment或者ExecutionEnvironment和一个可选参数TableConfig的静态方法<strong><code>TableEnvironment.getTableEnvironment()</code></strong>来创建。TableConf可以用来配置TableEnvironment或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
 <p>目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:</p>
 <table>
 <thead>
