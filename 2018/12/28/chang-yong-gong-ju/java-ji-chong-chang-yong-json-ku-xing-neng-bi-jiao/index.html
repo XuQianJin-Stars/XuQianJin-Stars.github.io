@@ -420,7 +420,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.9.4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
 </code></pre>
-<h3 id="四个库的工具类"><a href="#四个库的工具类" class="headerlink" title="四个库的工具类"></a>四个库的工具类</h3><pre class=" language-java"><code class="language-java">FastJsonUtil<span class="token punctuation">.</span>javapublic <span class="token keyword">class</span> <span class="token class-name">FastJsonUtil</span> <span class="token punctuation">{</span>
+<h3 id="四个库的工具类"><a href="#四个库的工具类" class="headerlink" title="四个库的工具类"></a>四个库的工具类</h3><h4 id="FastJsonUtil-java"><a href="#FastJsonUtil-java" class="headerlink" title="FastJsonUtil.java"></a>FastJsonUtil.java</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FastJsonUtil</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">bean2Json</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> JSON<span class="token punctuation">.</span><span class="token function">toJSONString</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -429,7 +429,8 @@
         <span class="token keyword">return</span> JSON<span class="token punctuation">.</span><span class="token function">parseObject</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">,</span> objClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-GsonUtil<span class="token punctuation">.</span>javapublic <span class="token keyword">class</span> <span class="token class-name">GsonUtil</span> <span class="token punctuation">{</span>
+</code></pre>
+<h4 id="GsonUtil-java"><a href="#GsonUtil-java" class="headerlink" title="GsonUtil.java"></a>GsonUtil.java</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GsonUtil</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token keyword">static</span> Gson gson <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">bean2Json</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -447,7 +448,8 @@ GsonUtil<span class="token punctuation">.</span>javapublic <span class="token ke
         <span class="token keyword">return</span> gson<span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>je<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-JacksonUtil<span class="token punctuation">.</span>javapublic <span class="token keyword">class</span> <span class="token class-name">JacksonUtil</span> <span class="token punctuation">{</span>
+</code></pre>
+<h4 id="JacksonUtil-java"><a href="#JacksonUtil-java" class="headerlink" title="JacksonUtil.java"></a>JacksonUtil.java</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JacksonUtil</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token keyword">static</span> ObjectMapper mapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">bean2Json</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -468,7 +470,8 @@ JacksonUtil<span class="token punctuation">.</span>javapublic <span class="token
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-JsonLibUtil<span class="token punctuation">.</span>javapublic <span class="token keyword">class</span> <span class="token class-name">JsonLibUtil</span> <span class="token punctuation">{</span>
+</code></pre>
+<h4 id="JsonLibUtil-java"><a href="#JsonLibUtil-java" class="headerlink" title="JsonLibUtil.java"></a>JsonLibUtil.java</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsonLibUtil</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">bean2Json</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         JSONObject jsonObject <span class="token operator">=</span> JSONObject<span class="token punctuation">.</span><span class="token function">fromObject</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
