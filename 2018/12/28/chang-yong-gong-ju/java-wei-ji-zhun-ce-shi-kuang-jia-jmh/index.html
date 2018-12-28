@@ -1,0 +1,1051 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java微基准测试框架JMH, 大数据 实时计算 机器学习">
+    <meta name="description" content="Java微基准测试框架JMHJMH，即Java Microbenchmark Harness，这是专门用于进行代码的微基准测试的一套工具API。
+JMH 由 OpenJDK/Oracle 里面那群开发了 Java 编译器的大牛们所开发 。何">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java微基准测试框架JMH | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java微基准测试框架JMH
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/开发工具/" target="_blank">
+                    <span class="chip bg-color">开发工具</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate" style="margin-right: 0px">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/常用工具/" class="post-category" target="_blank">
+                        常用工具
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-28
+                </span>
+				
+				<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Java微基准测试框架JMH"><a href="#Java微基准测试框架JMH" class="headerlink" title="Java微基准测试框架JMH"></a>Java微基准测试框架JMH</h2><p>JMH，即Java Microbenchmark Harness，这是专门用于进行代码的微基准测试的一套工具API。</p>
+<p>JMH 由 OpenJDK/Oracle 里面那群开发了 Java 编译器的大牛们所开发 。何谓 Micro Benchmark 呢？ 简单地说就是在 method 层面上的 benchmark，精度可以精确到微秒级。</p>
+<p>Java的基准测试需要注意的几个点：</p>
+<ul>
+<li>测试前需要预热。</li>
+<li>防止无用代码进入测试方法中。</li>
+<li>并发测试。</li>
+<li>测试结果呈现。</li>
+</ul>
+<p>比较典型的使用场景：</p>
+<ol>
+<li>当你已经找出了热点函数，而需要对热点函数进行进一步的优化时，就可以使用 JMH 对优化的效果进行定量的分析。</li>
+<li>想定量地知道某个函数需要执行多长时间，以及执行时间和输入 n 的相关性</li>
+<li>一个函数有两种不同实现（例如JSON序列化/反序列化有Jackson和Gson实现），不知道哪种实现性能更好</li>
+</ol>
+<p>尽管 JMH 是一个相当不错的 Micro Benchmark Framework，但很无奈的是网上能够找到的文档比较少，而官方也没有提供比较详细的文档，对使用造成了一定的障碍。 但是有个好消息是官方的 <a href="http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/" target="_blank" rel="noopener">Code Sample</a> 写得非常浅显易懂， 推荐在需要详细了解 JMH 的用法时可以通读一遍——本文则会介绍 JMH 最典型的用法和部分常用选项。</p>
+<h2 id="第一个例子"><a href="#第一个例子" class="headerlink" title="第一个例子"></a>第一个例子</h2><h3 id="添加maven依赖"><a href="#添加maven依赖" class="headerlink" title="添加maven依赖"></a>添加maven依赖</h3><p>如果使用maven项目，只需要添加如下依赖：</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- JMH--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.openjdk.jmh<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jmh-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${jmh.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.openjdk.jmh<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jmh-generator-annprocess<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${jmh.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="编写性能测试"><a href="#编写性能测试" class="headerlink" title="编写性能测试"></a>编写性能测试</h3><p>接下来我写一个比较字符串连接操作的时候，直接使用字符串相加和使用StringBuilder的append方式的性能比较测试：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * 比较字符串直接相加和StringBuilder的效率
+ *
+ * @author XiongNeng
+ * @version 1.0
+ * @since 2018/1/7
+ */</span>
+<span class="token annotation punctuation">@BenchmarkMode</span><span class="token punctuation">(</span>Mode<span class="token punctuation">.</span>Throughput<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Warmup</span><span class="token punctuation">(</span>iterations <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Measurement</span><span class="token punctuation">(</span>iterations <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> time <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> timeUnit <span class="token operator">=</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Threads</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Fork</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@OutputTimeUnit</span><span class="token punctuation">(</span>TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringBuilderBenchmark</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringAdd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String a <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            a <span class="token operator">+=</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringBuilderAdd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span>String a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="执行方式"><a href="#执行方式" class="headerlink" title="执行方式"></a>执行方式</h3><p>这个代码里面有好多注解，你第一次见可能不知道什么意思。先不用管，我待会一一介绍。</p>
+<p>我们来运行这个测试，运行JMH基准测试有多种方式，一个是生成jar文件执行， 一个是直接写main函数或写单元测试执行。</p>
+<p>一般对于大型的测试，需要测试时间比较久，线程比较多的话，就需要去写好了丢到linux程序里执行， 不然本机执行很久时间什么都干不了了。</p>
+<pre class=" language-shell"><code class="language-shell">mvn clean package
+java -jar target/benchmarks.jar
+</code></pre>
+<p>先编译打包之后，然后执行就可以了。当然在执行的时候可以输入-h参数来看帮助。</p>
+<p>另外如果对于一些小的测试，比如我写的上面这个小例子，在IDE里面就可以完成了，丢到linux上去太麻烦。 这时候可以在里面添加一个main函数如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> RunnerException <span class="token punctuation">{</span>
+    Options options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OptionsBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">include</span><span class="token punctuation">(</span>StringBuilderBenchmark<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">output</span><span class="token punctuation">(</span><span class="token string">"E:/Benchmark.log"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">new</span> <span class="token class-name">Runner</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这里其实也比较简单，new个Options，然后传入要运行哪个测试，选择基准测试报告输出文件地址，然后通过Runner的run方法就可以跑起来了。</p>
+<h3 id="报告结果"><a href="#报告结果" class="headerlink" title="报告结果"></a>报告结果</h3><p>我们跑一下这个基准测试，完成后打开<code>E:/Benchmark.log</code>，结果如下：</p>
+<pre class=" language-java"><code class="language-java"># JMH version<span class="token operator">:</span> <span class="token number">1.20</span>
+# VM version<span class="token operator">:</span> JDK <span class="token number">1.8</span><span class="token punctuation">.</span>0_131<span class="token punctuation">,</span> VM <span class="token number">25.131</span><span class="token operator">-</span>b11
+# VM invoker<span class="token operator">:</span> C<span class="token operator">:</span>\Program Files\Java\jdk1<span class="token number">.8</span><span class="token punctuation">.</span>0_131\jre\bin\java<span class="token punctuation">.</span>exe
+# VM options<span class="token operator">:</span> <span class="token operator">-</span>javaagent<span class="token operator">:</span>E<span class="token operator">:</span>\Program Files\JetBrains\IntelliJ IDEA <span class="token number">2017.3</span>\lib\idea_rt<span class="token punctuation">.</span>jar<span class="token operator">=</span><span class="token number">62744</span><span class="token operator">:</span>E<span class="token operator">:</span>\Program Files\JetBrains\IntelliJ IDEA <span class="token number">2017.3</span>\bin <span class="token operator">-</span>Dfile<span class="token punctuation">.</span>encoding<span class="token operator">=</span>UTF<span class="token operator">-</span><span class="token number">8</span>
+# Warmup<span class="token operator">:</span> <span class="token number">3</span> iterations<span class="token punctuation">,</span> <span class="token number">1</span> s each
+# Measurement<span class="token operator">:</span> <span class="token number">10</span> iterations<span class="token punctuation">,</span> <span class="token number">5</span> s each
+# Timeout<span class="token operator">:</span> <span class="token number">10</span> min per iteration
+# Threads<span class="token operator">:</span> <span class="token number">16</span> threads<span class="token punctuation">,</span> will synchronize iterations
+# Benchmark mode<span class="token operator">:</span> Throughput<span class="token punctuation">,</span> ops<span class="token operator">/</span>time
+# Benchmark<span class="token operator">:</span> com<span class="token punctuation">.</span>xncoding<span class="token punctuation">.</span>benchmark<span class="token punctuation">.</span>string<span class="token punctuation">.</span>StringBuilderBenchmark<span class="token punctuation">.</span>testStringAdd
+
+# Run progress<span class="token operator">:</span> <span class="token number">0.00</span><span class="token operator">%</span> complete<span class="token punctuation">,</span> ETA <span class="token number">00</span><span class="token operator">:</span><span class="token number">03</span><span class="token operator">:</span><span class="token number">32</span>
+# Fork<span class="token operator">:</span> <span class="token number">1</span> of <span class="token number">2</span>
+# Warmup Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">7332.410</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">8758.506</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">9078.783</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">8824.713</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">9084.977</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">9412.712</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">4</span><span class="token operator">:</span> <span class="token number">8843.631</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">5</span><span class="token operator">:</span> <span class="token number">9030.556</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">6</span><span class="token operator">:</span> <span class="token number">9090.677</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">7</span><span class="token operator">:</span> <span class="token number">9493.148</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">8</span><span class="token operator">:</span> <span class="token number">8664.593</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">9</span><span class="token operator">:</span> <span class="token number">8835.227</span> ops<span class="token operator">/</span>ms
+Iteration  <span class="token number">10</span><span class="token operator">:</span> <span class="token number">8570.212</span> ops<span class="token operator">/</span>ms
+
+# Run progress<span class="token operator">:</span> <span class="token number">25.00</span><span class="token operator">%</span> complete<span class="token punctuation">,</span> ETA <span class="token number">00</span><span class="token operator">:</span><span class="token number">03</span><span class="token operator">:</span><span class="token number">15</span>
+# Fork<span class="token operator">:</span> <span class="token number">2</span> of <span class="token number">2</span>
+# Warmup Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">5350.686</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">8862.238</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">8086.594</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">9105.306</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">8288.588</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">9307.902</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">4</span><span class="token operator">:</span> <span class="token number">9195.150</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">5</span><span class="token operator">:</span> <span class="token number">8715.555</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">6</span><span class="token operator">:</span> <span class="token number">9075.069</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">7</span><span class="token operator">:</span> <span class="token number">9041.037</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">8</span><span class="token operator">:</span> <span class="token number">9187.099</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">9</span><span class="token operator">:</span> <span class="token number">9145.134</span> ops<span class="token operator">/</span>ms
+Iteration  <span class="token number">10</span><span class="token operator">:</span> <span class="token number">9124.229</span> ops<span class="token operator">/</span>ms
+
+
+Result <span class="token string">"com.xncoding.benchmark.string.StringBuilderBenchmark.testStringAdd"</span><span class="token operator">:</span>
+  <span class="token number">9001.776</span> ±<span class="token punctuation">(</span><span class="token number">99.9</span><span class="token operator">%</span><span class="token punctuation">)</span> <span class="token number">253.496</span> ops<span class="token operator">/</span>ms <span class="token punctuation">[</span>Average<span class="token punctuation">]</span>
+  <span class="token punctuation">(</span>min<span class="token punctuation">,</span> avg<span class="token punctuation">,</span> max<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">8288.588</span><span class="token punctuation">,</span> <span class="token number">9001.776</span><span class="token punctuation">,</span> <span class="token number">9493.148</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stdev <span class="token operator">=</span> <span class="token number">291.926</span>
+  <span class="token function">CI</span> <span class="token punctuation">(</span><span class="token number">99.9</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">8748.280</span><span class="token punctuation">,</span> <span class="token number">9255.272</span><span class="token punctuation">]</span> <span class="token punctuation">(</span>assumes normal distribution<span class="token punctuation">)</span>
+
+
+# JMH version<span class="token operator">:</span> <span class="token number">1.20</span>
+# VM version<span class="token operator">:</span> JDK <span class="token number">1.8</span><span class="token punctuation">.</span>0_131<span class="token punctuation">,</span> VM <span class="token number">25.131</span><span class="token operator">-</span>b11
+# VM invoker<span class="token operator">:</span> C<span class="token operator">:</span>\Program Files\Java\jdk1<span class="token number">.8</span><span class="token punctuation">.</span>0_131\jre\bin\java<span class="token punctuation">.</span>exe
+# VM options<span class="token operator">:</span> <span class="token operator">-</span>javaagent<span class="token operator">:</span>E<span class="token operator">:</span>\Program Files\JetBrains\IntelliJ IDEA <span class="token number">2017.3</span>\lib\idea_rt<span class="token punctuation">.</span>jar<span class="token operator">=</span><span class="token number">62744</span><span class="token operator">:</span>E<span class="token operator">:</span>\Program Files\JetBrains\IntelliJ IDEA <span class="token number">2017.3</span>\bin <span class="token operator">-</span>Dfile<span class="token punctuation">.</span>encoding<span class="token operator">=</span>UTF<span class="token operator">-</span><span class="token number">8</span>
+# Warmup<span class="token operator">:</span> <span class="token number">3</span> iterations<span class="token punctuation">,</span> <span class="token number">1</span> s each
+# Measurement<span class="token operator">:</span> <span class="token number">10</span> iterations<span class="token punctuation">,</span> <span class="token number">5</span> s each
+# Timeout<span class="token operator">:</span> <span class="token number">10</span> min per iteration
+# Threads<span class="token operator">:</span> <span class="token number">16</span> threads<span class="token punctuation">,</span> will synchronize iterations
+# Benchmark mode<span class="token operator">:</span> Throughput<span class="token punctuation">,</span> ops<span class="token operator">/</span>time
+# Benchmark<span class="token operator">:</span> com<span class="token punctuation">.</span>xncoding<span class="token punctuation">.</span>benchmark<span class="token punctuation">.</span>string<span class="token punctuation">.</span>StringBuilderBenchmark<span class="token punctuation">.</span>testStringBuilderAdd
+
+# Run progress<span class="token operator">:</span> <span class="token number">50.00</span><span class="token operator">%</span> complete<span class="token punctuation">,</span> ETA <span class="token number">00</span><span class="token operator">:</span><span class="token number">02</span><span class="token operator">:</span><span class="token number">07</span>
+# Fork<span class="token operator">:</span> <span class="token number">1</span> of <span class="token number">2</span>
+# Warmup Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">27202.528</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">26500.586</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">27190.346</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">27891.257</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">28704.541</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">27785.951</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">4</span><span class="token operator">:</span> <span class="token number">26841.454</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">5</span><span class="token operator">:</span> <span class="token number">26024.288</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">6</span><span class="token operator">:</span> <span class="token number">25592.494</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">7</span><span class="token operator">:</span> <span class="token number">25626.875</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">8</span><span class="token operator">:</span> <span class="token number">25302.248</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">9</span><span class="token operator">:</span> <span class="token number">25519.780</span> ops<span class="token operator">/</span>ms
+Iteration  <span class="token number">10</span><span class="token operator">:</span> <span class="token number">25275.334</span> ops<span class="token operator">/</span>ms
+
+# Run progress<span class="token operator">:</span> <span class="token number">75.00</span><span class="token operator">%</span> complete<span class="token punctuation">,</span> ETA <span class="token number">00</span><span class="token operator">:</span><span class="token number">01</span><span class="token operator">:</span><span class="token number">02</span>
+# Fork<span class="token operator">:</span> <span class="token number">2</span> of <span class="token number">2</span>
+# Warmup Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">30376.008</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">25131.064</span> ops<span class="token operator">/</span>ms
+# Warmup Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">25622.342</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">1</span><span class="token operator">:</span> <span class="token number">25386.845</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">2</span><span class="token operator">:</span> <span class="token number">25825.139</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">3</span><span class="token operator">:</span> <span class="token number">26029.607</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">4</span><span class="token operator">:</span> <span class="token number">25531.748</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">5</span><span class="token operator">:</span> <span class="token number">25374.934</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">6</span><span class="token operator">:</span> <span class="token number">25204.530</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">7</span><span class="token operator">:</span> <span class="token number">22934.211</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">8</span><span class="token operator">:</span> <span class="token number">23907.677</span> ops<span class="token operator">/</span>ms
+Iteration   <span class="token number">9</span><span class="token operator">:</span> <span class="token number">24337.963</span> ops<span class="token operator">/</span>ms
+Iteration  <span class="token number">10</span><span class="token operator">:</span> <span class="token number">24660.626</span> ops<span class="token operator">/</span>ms
+
+
+Result <span class="token string">"com.xncoding.benchmark.string.StringBuilderBenchmark.testStringBuilderAdd"</span><span class="token operator">:</span>
+  <span class="token number">25687.875</span> ±<span class="token punctuation">(</span><span class="token number">99.9</span><span class="token operator">%</span><span class="token punctuation">)</span> <span class="token number">1167.955</span> ops<span class="token operator">/</span>ms <span class="token punctuation">[</span>Average<span class="token punctuation">]</span>
+  <span class="token punctuation">(</span>min<span class="token punctuation">,</span> avg<span class="token punctuation">,</span> max<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">22934.211</span><span class="token punctuation">,</span> <span class="token number">25687.875</span><span class="token punctuation">,</span> <span class="token number">28704.541</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stdev <span class="token operator">=</span> <span class="token number">1345.019</span>
+  <span class="token function">CI</span> <span class="token punctuation">(</span><span class="token number">99.9</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">24519.920</span><span class="token punctuation">,</span> <span class="token number">26855.830</span><span class="token punctuation">]</span> <span class="token punctuation">(</span>assumes normal distribution<span class="token punctuation">)</span>
+
+
+# Run complete<span class="token punctuation">.</span> Total time<span class="token operator">:</span> <span class="token number">00</span><span class="token operator">:</span><span class="token number">04</span><span class="token operator">:</span><span class="token number">08</span>
+
+Benchmark                                     Mode  Cnt      Score      Error   Units
+StringBuilderBenchmark<span class="token punctuation">.</span>testStringAdd         thrpt   <span class="token number">20</span>   <span class="token number">9001.776</span> ±  <span class="token number">253.496</span>  ops<span class="token operator">/</span>ms
+StringBuilderBenchmark<span class="token punctuation">.</span>testStringBuilderAdd  thrpt   <span class="token number">20</span>  <span class="token number">25687.875</span> ± <span class="token number">1167.955</span>  ops<span class="token operator">/</span>ms
+</code></pre>
+<p>仔细看，三大部分，第一部分是字符串用加号连接执行的结果，第二部分是StringBuilder执行的结果，第三部分就是两个的简单结果比较。这里注意我们forks传的2，所以每个测试有两个fork结果。</p>
+<p>前两部分是一样的，简单说下。首先会写出每部分的一些参数设置，然后是预热迭代执行（Warmup Iteration）， 然后是正常的迭代执行（Iteration），最后是结果（Result）。这些看看就好，我们最关注的就是第三部分， 其实也就是最终的结论。千万别看歪了，他输出的也确实很不爽，error那列其实没有内容，score的结果是xxx ± xxx，单位是每毫秒多少个操作。可以看到，StringBuilder的速度还确实是要比String进行文字叠加的效率好太多。</p>
+<h2 id="注解介绍"><a href="#注解介绍" class="headerlink" title="注解介绍"></a>注解介绍</h2><p>好了，当你对JMH有了一个基本认识后，现在来详细解释一下前面代码中的各个注解含义。</p>
+<h3 id="BenchmarkMode"><a href="#BenchmarkMode" class="headerlink" title="@BenchmarkMode"></a>@BenchmarkMode</h3><p>基准测试类型。这里选择的是Throughput也就是吞吐量。根据源码点进去，每种类型后面都有对应的解释，比较好理解，吞吐量会得到单位时间内可以进行的操作数。</p>
+<ul>
+<li>Throughput: 整体吞吐量，例如“1秒内可以执行多少次调用”。</li>
+<li>AverageTime: 调用的平均时间，例如“每次调用平均耗时xxx毫秒”。</li>
+<li>SampleTime: 随机取样，最后输出取样结果的分布，例如“99%的调用在xxx毫秒以内，99.99%的调用在xxx毫秒以内”</li>
+<li>SingleShotTime: 以上模式都是默认一次 iteration 是 1s，唯有 SingleShotTime 是只运行一次。往往同时把 warmup 次数设为0，用于测试冷启动时的性能。</li>
+<li>All(“all”, “All benchmark modes”);</li>
+</ul>
+<h3 id="Warmup"><a href="#Warmup" class="headerlink" title="@Warmup"></a>@Warmup</h3><p>上面我们提到了，进行基准测试前需要进行预热。一般我们前几次进行程序测试的时候都会比较慢， 所以要让程序进行几轮预热，保证测试的准确性。其中的参数iterations也就非常好理解了，就是预热轮数。</p>
+<p>为什么需要预热？因为 JVM 的 JIT 机制的存在，如果某个函数被调用多次之后，JVM 会尝试将其编译成为机器码从而提高执行速度。所以为了让 benchmark 的结果更加接近真实情况就需要进行预热。</p>
+<h3 id="Measurement"><a href="#Measurement" class="headerlink" title="@Measurement"></a>@Measurement</h3><p>度量，其实就是一些基本的测试参数。</p>
+<ol>
+<li>iterations 进行测试的轮次</li>
+<li>time 每轮进行的时长</li>
+<li>timeUnit 时长单位</li>
+</ol>
+<p>都是一些基本的参数，可以根据具体情况调整。一般比较重的东西可以进行大量的测试，放到服务器上运行。</p>
+<h3 id="Threads"><a href="#Threads" class="headerlink" title="@Threads"></a>@Threads</h3><p>每个进程中的测试线程，这个非常好理解，根据具体情况选择，一般为cpu乘以2。</p>
+<h3 id="Fork"><a href="#Fork" class="headerlink" title="@Fork"></a>@Fork</h3><p>进行 fork 的次数。如果 fork 数是2的话，则 JMH 会 fork 出两个进程来进行测试。</p>
+<h3 id="OutputTimeUnit"><a href="#OutputTimeUnit" class="headerlink" title="@OutputTimeUnit"></a>@OutputTimeUnit</h3><p>这个比较简单了，基准测试结果的时间类型。一般选择秒、毫秒、微秒。</p>
+<h3 id="Benchmark"><a href="#Benchmark" class="headerlink" title="@Benchmark"></a>@Benchmark</h3><p>方法级注解，表示该方法是需要进行 benchmark 的对象，用法和 JUnit 的 @Test 类似。</p>
+<h3 id="Param"><a href="#Param" class="headerlink" title="@Param"></a>@Param</h3><p>属性级注解，@Param 可以用来指定某项参数的多种情况。特别适合用来测试一个函数在不同的参数输入的情况下的性能。</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="@Setup"></a>@Setup</h3><p>方法级注解，这个注解的作用就是我们需要在测试之前进行一些准备工作，比如对一些数据的初始化之类的。</p>
+<h3 id="TearDown"><a href="#TearDown" class="headerlink" title="@TearDown"></a>@TearDown</h3><p>方法级注解，这个注解的作用就是我们需要在测试之后进行一些结束工作，比如关闭线程池，数据库连接等的，主要用于资源的回收等。</p>
+<h3 id="State"><a href="#State" class="headerlink" title="@State"></a>@State</h3><p>当使用@Setup参数的时候，必须在类上加这个参数，不然会提示无法运行。</p>
+<p>State 用于声明某个类是一个“状态”，然后接受一个 Scope 参数用来表示该状态的共享范围。 因为很多 benchmark 会需要一些表示状态的类，JMH 允许你把这些类以依赖注入的方式注入到 benchmark 函数里。Scope 主要分为三种。</p>
+<ol>
+<li>Thread: 该状态为每个线程独享。</li>
+<li>Group: 该状态为同一个组里面所有线程共享。</li>
+<li>Benchmark: 该状态在所有线程间共享。</li>
+</ol>
+<p>关于State的用法，官方的 code sample 里有比较好的<a href="http://hg.openjdk.java.net/code-tools/jmh/file/cb9aa824b55a/jmh-samples/src/main/java/org/openjdk/jmh/samples/JMHSample_03_States.java" target="_blank" rel="noopener">例子</a>。</p>
+<h2 id="第二个例子"><a href="#第二个例子" class="headerlink" title="第二个例子"></a>第二个例子</h2><p>再来看一个更常规一点性能测试的例子，</p>
+<p>计算 1 ~ n 之和，比较串行算法和并行算法的效率，看 n 在大约多少时并行算法开始超越串行算法</p>
+<p>首先定义一个表示这两种实现的接口：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Calculator
+ *
+ * @author XiongNeng
+ * @version 1.0
+ * @since 2018/1/7
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Calculator</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * calculate sum of an integer array
+     *
+     * @param numbers
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * shutdown pool or reclaim any related resources
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>具体的两种实现代码我就不贴了，主要说明一下串行算法和并行算法实现原理：</p>
+<ul>
+<li>串行算法：使用 for-loop 来计算 n 个正整数之和。</li>
+<li>并行算法：将所需要计算的 n 个正整数分成 m 份，交给 m 个线程分别计算出和以后，再把它们的结果相加。</li>
+</ul>
+<p>进行 benchmark 的代码如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * 自然数求和的串行和并行算法性能测试
+ *
+ * @author XiongNeng
+ * @version 1.0
+ * @since 2018/1/7
+ */</span>
+<span class="token annotation punctuation">@BenchmarkMode</span><span class="token punctuation">(</span>Mode<span class="token punctuation">.</span>AverageTime<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@OutputTimeUnit</span><span class="token punctuation">(</span>TimeUnit<span class="token punctuation">.</span>MICROSECONDS<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@State</span><span class="token punctuation">(</span>Scope<span class="token punctuation">.</span>Benchmark<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SecondBenchmark</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Param</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"10000"</span><span class="token punctuation">,</span> <span class="token string">"100000"</span><span class="token punctuation">,</span> <span class="token string">"1000000"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> length<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Calculator singleThreadCalc<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Calculator multiThreadCalc<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        Options opt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OptionsBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">include</span><span class="token punctuation">(</span>SecondBenchmark<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">forks</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">warmupIterations</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">measurementIterations</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Collection<span class="token operator">&lt;</span>RunResult<span class="token operator">></span> results <span class="token operator">=</span>  <span class="token keyword">new</span> <span class="token class-name">Runner</span><span class="token punctuation">(</span>opt<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ResultExporter<span class="token punctuation">.</span><span class="token function">exportResult</span><span class="token punctuation">(</span><span class="token string">"单线程与多线程求和性能"</span><span class="token punctuation">,</span> results<span class="token punctuation">,</span> <span class="token string">"length"</span><span class="token punctuation">,</span> <span class="token string">"微秒"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">singleThreadBench</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> singleThreadCalc<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">multiThreadBench</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> multiThreadCalc<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Setup</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">prepare</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        numbers <span class="token operator">=</span> IntStream<span class="token punctuation">.</span><span class="token function">rangeClosed</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        singleThreadCalc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SinglethreadCalculator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        multiThreadCalc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MultithreadCalculator</span><span class="token punctuation">(</span>Runtime<span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">availableProcessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@TearDown</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        singleThreadCalc<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        multiThreadCalc<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>我在自己的笔记本电脑上跑下来的结果，总数在10000时并行算法不如串行算法， 总数达到100000时并行算法开始和串行算法接近，总数达到1000000时并行算法所耗时间约是串行算法的一半左右。</p>
+<p><a href="https://xnstatic-1253397658.file.myqcloud.com/jmh01.png" target="_blank" rel="noopener"><img src="https://xnstatic-1253397658.file.myqcloud.com/jmh01.png" alt="img"></a></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="http://irfen.me/java-jmh-simple-microbenchmark/" target="_blank" rel="noopener">Java使用JMH进行简单的基准测试Benchmark</a></li>
+<li><a href="http://blog.dyngr.com/blog/2016/10/29/introduction-of-jmh/" target="_blank" rel="noopener">Java 并发编程笔记：JMH 性能测试框架</a></li>
+<li><a href="http://tutorials.jenkov.com/java-performance/jmh.html" target="_blank" rel="noopener">JMH - Java Microbenchmark Harness</a></li>
+</ul>
+<p>本文转载自:  <a href="https://www.xncoding.com/2018/01/07/java/jmh.html" target="_blank" rel="noopener">Java微基准测试框架JMH</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2018/12/28/chang-yong-gong-ju/java-wei-ji-zhun-ce-shi-kuang-jia-jmh/" class="b-link-green">Java微基准测试框架JMH</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="/2018/12/28/chang-yong-gong-ju/java-ji-chong-chang-yong-json-ku-xing-neng-bi-jiao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java几种常用JSON库性能比较">
+                        
+                        <span class="card-title">Java几种常用JSON库性能比较</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Java几种常用JSON库性能比较上一篇介绍了Java性能测试框架JMH的使用方法，本篇通过JMH来测试一下Java中几种常见的JSON解析库的性能。 每次都在网上看到别人说什么某某库性能是如何如何的好，碾压其他的库。但是百闻不如一见，只有</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/常用工具/" class="post-category" target="_blank">
+                                    常用工具
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2018/12/28/chang-yong-gong-ju/yong-idea-gen-zong-java-yuan-ma-de-ji-qiao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="用IDEA跟踪Java源码的技巧">
+                        
+                        <span class="card-title">用IDEA跟踪Java源码的技巧</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">用IDEA跟踪Java源码的技巧之前关于 IDEA 的文章，我已经写了三篇，没想到挺受大家喜欢的。读本文前，可以先读一下我之前写的这几篇文章来提前做个热身。
+谈谈我与 Intellij IDEA 的故事
+Intellij IDEA 中我一直</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/常用工具/" class="post-category" target="_blank">
+                                    常用工具
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+			<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+</body>
+</html>
