@@ -459,11 +459,11 @@
   </entry>
   
   <entry>
-    <title>单链表排序</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/</id>
+    <title>合并K个有序链表</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/he-bing-k-ge-you-xu-lian-biao/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/he-bing-k-ge-you-xu-lian-biao/</id>
     <published>2018-12-27T14:51:00.000Z</published>
-    <updated>2018-12-27T14:56:23.515Z</updated>
+    <updated>2018-12-27T14:54:17.181Z</updated>
     
     <summary type="html">
     
@@ -471,7 +471,8 @@
       
         
         
-          &lt;h2 id=&quot;单链表排序&quot;&gt;&lt;a href=&quot;#单链表排序&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;合并K个有序链表&quot;&gt;&lt;a href=&quot;#合并K个有序链表&quot; class=&quot;headerlink&quot; title=&quot;合并K个有序链表&quot;&gt;&lt;/a&gt;合并K个有序链表&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你 K
         
       
     
@@ -487,11 +488,11 @@
   </entry>
   
   <entry>
-    <title>合并K个有序链表</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/he-bing-k-ge-you-xu-lian-biao/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/he-bing-k-ge-you-xu-lian-biao/</id>
+    <title>单链表排序</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/</id>
     <published>2018-12-27T14:51:00.000Z</published>
-    <updated>2018-12-27T14:54:17.181Z</updated>
+    <updated>2018-12-27T14:56:23.515Z</updated>
     
     <summary type="html">
     
@@ -499,8 +500,7 @@
       
         
         
-          &lt;h2 id=&quot;合并K个有序链表&quot;&gt;&lt;a href=&quot;#合并K个有序链表&quot; class=&quot;headerlink&quot; title=&quot;合并K个有序链表&quot;&gt;&lt;/a&gt;合并K个有序链表&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你 K
+          &lt;h2 id=&quot;单链表排序&quot;&gt;&lt;a href=&quot;#单链表排序&quot; class=&quot;headerlink&quot;
         
       
     
