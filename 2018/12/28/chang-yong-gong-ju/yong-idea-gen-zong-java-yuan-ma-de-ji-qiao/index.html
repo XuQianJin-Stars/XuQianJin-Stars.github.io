@@ -5,16 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="反转单词, 大数据 实时计算 机器学习">
-    <meta name="description" content="反转单词问题
-这个题目说的是，给你一个字符串，你要写一个函数反转这个字符串中的单词，然后返回处理后的字符串。注意，单词之间只用一个空格隔开。
-比如说给你的字符串是：
-
-&#34;I am busy.&#34;
-
-反转这个字符串中的 3 个单词，得到：
-
-&#34;">
+    <meta name="keywords" content="用IDEA跟踪Java源码的技巧, 大数据 实时计算 机器学习">
+    <meta name="description" content="用IDEA跟踪Java源码的技巧之前关于 IDEA 的文章，我已经写了三篇，没想到挺受大家喜欢的。读本文前，可以先读一下我之前写的这几篇文章来提前做个热身。
+谈谈我与 Intellij IDEA 的故事
+Intellij IDEA 中我一直">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>反转单词 | ForwardXu</title>
+    <title>用IDEA跟踪Java源码的技巧 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -217,13 +211,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        反转单词
+                        用IDEA跟踪Java源码的技巧
                     </div>
                 </div>
             </div>
@@ -334,8 +328,8 @@
             
             <div class="article-tag">
                 
-                <a href="/tags/algorithm/" target="_blank">
-                    <span class="chip bg-color">algorithm</span>
+                <a href="/tags/开发工具/" target="_blank">
+                    <span class="chip bg-color">开发工具</span>
                 </a>
                 
             </div>
@@ -345,15 +339,15 @@
                 <span class="post-cate" style="margin-right: 0px">
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
-                    <a href="/categories/algorithm/" class="post-category" target="_blank">
-                        algorithm
+                    <a href="/categories/常用工具/" class="post-category" target="_blank">
+                        常用工具
                     </a>
                     
                 </span>
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-28
                 </span>
 				
 				<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
@@ -363,41 +357,59 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="反转单词"><a href="#反转单词" class="headerlink" title="反转单词"></a>反转单词</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一个字符串，你要写一个函数反转这个字符串中的单词，然后返回处理后的字符串。注意，单词之间只用一个空格隔开。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说给你的字符串是：
-
-"I am busy."
-
-反转这个字符串中的 3 个单词，得到：
-
-"I ma .ysub"
-
-注意，最后的句号要连同单词一起反转。
-</code></pre>
-<p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
-  <span class="token keyword">public</span> String <span class="token function">reverseWords</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> null <span class="token operator">||</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> s<span class="token punctuation">;</span>
-    <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> c <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;</span> c<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">while</span> <span class="token punctuation">(</span>end <span class="token operator">&lt;</span> c<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> c<span class="token punctuation">[</span>end<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">' '</span><span class="token punctuation">)</span> <span class="token operator">++</span>end<span class="token punctuation">;</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> start<span class="token punctuation">,</span> j <span class="token operator">=</span> end<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> j<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">,</span> <span class="token operator">--</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">char</span> tmp <span class="token operator">=</span> c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        c<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> c<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        c<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      start <span class="token operator">=</span> end <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-      end <span class="token operator">=</span> start<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
+                <h2 id="用IDEA跟踪Java源码的技巧"><a href="#用IDEA跟踪Java源码的技巧" class="headerlink" title="用IDEA跟踪Java源码的技巧"></a>用IDEA跟踪Java源码的技巧</h2><p>之前关于 IDEA 的文章，我已经写了三篇，没想到挺受大家喜欢的。读本文前，可以先读一下我之前写的这几篇文章来提前做个热身。</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247485196&amp;idx=1&amp;sn=9160d260e7f4cf5941f27c884a62e8e5&amp;chksm=e8fe9b05df891213e2ce2b46824f7c67cac7e5be10e84aa8102e9c65edec5cc40a40550ac9a7&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">谈谈我与 Intellij IDEA 的故事</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247485334&amp;idx=1&amp;sn=017d57f85f7e75a25309c7b95235e70b&amp;chksm=e8fe9b9fdf8912891b93a420c98718db9fff874fe5d16f66e55e6dd401ad13856ff1287070d1&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Intellij IDEA 中我一直在用的几个插件</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247485958&amp;idx=1&amp;sn=b1a7b68324b0eb250982129359c7ce20&amp;chksm=e8fe960fdf891f19ed4067094300acfe7744bda3190c6ba81e274573abc0eef448218add953c&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">IDEA 2018.3 EAP，我只看好你这四个功能！</a></p>
+<p>其实不乏有读者问我，如何才能熟练的掌握 IDEA？我跟他说，如果某天你真的关掉了 Tab 页，习惯用 Ctrl + E 快捷键，那么你算开始入门了。</p>
+<p>长期关注我的读者，应该知道我前几天写的《<a href="http://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247485911&amp;idx=1&amp;sn=d6cd116c643a1460f95324b3619c3102&amp;chksm=e8fe95dedf891cc88f12a8558f28a6627ab8ecc205819a11dbce097ab85700c513970198e8be&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">怎么读 Tomcat 源码？</a>》，该文只是教你把 Tomcat 的开发环境搭建起来，并没有指导你怎么来读源码。正好这几天跟群里的同学讨论如何利用 IDEA 来跟踪源码，我正好用这篇文章来总结一下。</p>
+<p>还是那句话，拿起键盘就是<strong>干</strong>！</p>
+<p>本文还是以 Tomcat 源码为例。</p>
+<h2 id="生成类继承图"><a href="#生成类继承图" class="headerlink" title="生成类继承图"></a><strong>生成类继承图</strong></h2><p>先给各位读者看下面这张类继承图，也是我之前所写的一篇文章中提到过的《<a href="http://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247485660&amp;idx=1&amp;sn=a80d3c8937ec432e6a9518e10ea75543&amp;chksm=e8fe94d5df891dc3ff8cb9f0647952dd874b8e3edebc17114507012a694f1ca2d455361f6cc5&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">工作五年难道必须要读源码吗？</a>》，是不是一目了然。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd5LAY8B98slwCzbMibI8Zsibh0YW4pW3Y9JK1pvBqTz4SZIJZP0BO2p7XrsG31H1PZdPiawvicynqkxxw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>怎么生成呢？在你所在的类里面点击右键，会出现上下文菜单 Diagrams | Show Diagram，或者快捷键 Ctrl+Alt+Shift+U，便会进入一个类继承图面板。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJ82YCA5ndgjqIVAlhf6T38pLYD2P9naVh2icYknDGWHE3mp13jYoDibhg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>其实，在群里有读者说，该功能一次只显示一个类，很不方便，可不可以在同一个面板内显示更多的类呢？可以明确的告诉你，是可以的。有两种方式可供参考。</p>
+<p>一是，对于项目不熟悉的情况下，选中其中的某一个类或者接口，点击右键出现上下文选择菜单，选择自己的子类「Ctrl+Alt+B」或者父类「Ctrl+Alt+P」即可。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJtDibwU6fYCBGGhJDN7ppCD0qNjmNG2sSS1jdIwkV2EXic32c9Kprh1Vg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>二是，对项目熟悉的情况下，直接敲空格，搜索你需要添加的类到面板即可。</p>
+<p>对于我而言，我还是喜欢 IDEA 这种生成类图的方式，让我专注于目前的某一个类或者某几个类。那可不可以显示整个项目的类图呢？是可以的，但需要利用 IDEA 的插件 —— CodeIris「见下图」。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJC0umhf1X8OhZhkjiaUt0zymLNcsNdbh0qib15gg5FIKqvF0cWV8xOTzA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<blockquote>
+<p>官网地址：plugin.codeiris.com</p>
+</blockquote>
+<p>到底好不好用？感觉上还不错，毕竟这个插件我用的少，不做过多评论，这里可以看一个老外的评论。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJmmAZD6TRSqBPOF5ncULZCwWJ6JuIUJhynafvosjE6AQ7PRKyb4BAMw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>关于类图的生成工具都是次要的，主要在于它能帮助我们直观的分析这个类的关系以及项目的整体结构。</p>
+<h2 id="查看类"><a href="#查看类" class="headerlink" title="查看类"></a><strong>查看类</strong></h2><p>上面已经说了查看类继承图关系的方法，其实我们还有另一种方式来查看，那就是 Ctrl + H 快捷键。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJWMG0JWfKFSKJNL55Vw0fLXqVkVjPftD0rIwY0cJNndBI059iamM4cpw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>如果你要查看一个类里面定义的变量在那些地方被调用，那么需要掌握一下 Ctrl+Alt+F7 这个快捷键，是不是一目了然。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJVicVT3HUkRqUlnaULldoibJLIleGeyxaxBqCdJY4Cnx919OW6TVibsPpQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>如果你要看一个类里面有那些方法，有两个快捷键可供选择 Alt+7 或者 Ctrl+F12，而我更喜欢 Ctrl+F12。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJZJQviaRpPmpat1HbsuGXw3umIKThlrgscl04jicx9kweaEggYqfMMYeA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>有时候，我们需要看一个类/方法的实现类/方法，这时，我们需要用 Ctrl+Alt+B 这个快捷键。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJz4BXMfl7ibRiaFbp2TKJe6AZo545TXXsTNwoUCQNCetXIS5xM6fQoT5w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>如果你需要查看某个方法的调用链关系，那么就请记住这个快捷键  Ctrl+Alt+H 吧，请注意图中红色的标注部分。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJt43pHiblHibA3hdAjlgxkG4xcaicOeFkCZ7M2ib2XBxjFdHiclegcQFPVhg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>其实查看某个方法被那些地方调用，还有一个快捷键 Ctrl+B。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJsDaVuPgstqGlN0PuHRicqhFs2Nibgib6B0ZLqFnA77sxxPGyxBX3D0BDA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>最有意思的是，在跟读者聊天中，一个读者说，跳过去了，但是跳不回来了，尴尬。。。</p>
+<p>其实跳回来也是有快捷键的 Ctrl+Alt+左方向键，你还可以试试右方向键。</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a><strong>调试</strong></h2><p>当你成为程序员第一天开始，这个技巧就是你必须要掌握的，我在这里说几点我常用的技巧吧。</p>
+<p>关于源码阅读的时候，我习惯用一个万能方法，也许会帮助到你，不清楚的地方就打印调用栈信息，详情如下。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJN2dKHzdZvGYMBGiaH9r4ZUArZgfBQVnNOH6SynpIF61wc9BtAWiaVbxA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>IDEA 调试中有一个牛逼的功能，那便是计算表达式 Alt+F8，见下图。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJZdVCpJ42C6XibjpicZWm3qrla2EiarpO9M4ZaGmRaFgicfuF6K9btYP53A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>有没有觉得很屌？</p>
+<p>其实 IDEA 还有很多细节的地方做得特别棒，需要你慢慢琢磨。之前我们群里一个同学以为找到了一个 IDEA 的 bug，后来，发现那不是 bug，只是我们不会用它而已《<a href="http://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247485483&amp;idx=1&amp;sn=4cd57831fb6fb7eb0d178f18834bc172&amp;chksm=e8fe9422df891d34fe77cf278d0a650f1fb934b6491f864566c1512dfbbad3541a120a610905&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Struts，你为何死不悔改！</a>》。</p>
+<p>好了，今天的分享就到这里了。</p>
+<p>……</p>
+<p><strong>今日要闻</strong>：一个出现在 Reddit 上面的牛逼程序员。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/R5ic1icyNBNd6TIJDaHFBj9nHFZylSmyWJTVicVDbofjyop37KQbPFib5SIxjJs2dSdibvTEyKlS8FkFK2IKylKlIag/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>他叫 Ivan Kutskir「伊万·库茨基尔」，做了一个免费的 Photoshop 替代品 PhotoPea，目前正被 150 万人使用。他从 5 年前开始做了，已经超过了 7000 小时「每天约 5 小时」。据他所述，他前三年半的时间里，没有从 PhotoPea 赚过一分钱。后来，他在 PhotoPea 官网最右侧加了一个竖条谷歌联盟广告，才开始赚钱，他目前通过广告收入能过上布拉格的体面生活。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><strong>参考</strong></h2><p><a href="https://www.reddit.com/r/IAmA/comments/9urjmg/i_made_a_free_alternative_to_photoshop_that_is" target="_blank" rel="noopener">https://www.reddit.com/r/IAmA/comments/9urjmg/i_made_a_free_alternative_to_photoshop_that_is</a></p>
+<p><a href="https://www.photopea.com" target="_blank" rel="noopener">https://www.photopea.com</a></p>
+<p>本文转载自:  <a href="https://mp.weixin.qq.com/s/lNvy0FhmZ7DYdRKBmVWvqA" target="_blank" rel="noopener">用 IDEA 跟踪 Java 源码的技巧</a></p>
 
             </div>
             <hr>
@@ -536,7 +548,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-23-fan-zhuan-dan-ci/" class="b-link-green">反转单词</a>
+                    <a href="/2018/12/28/chang-yong-gong-ju/yong-idea-gen-zong-java-yuan-ma-de-ji-qiao/" class="b-link-green">用IDEA跟踪Java源码的技巧</a>
                 </p>
             </div>
         </div>
@@ -558,25 +570,75 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-19-er-cha-sou-suo-shu-zhong-shan-chu-jie-dian/">
+                <a href="/2018/12/28/chang-yong-gong-ju/yong-idea-gen-zong-java-yuan-ma-de-ji-qiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="二叉搜索树中删除节点">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="用IDEA跟踪Java源码的技巧">
                         
-                        <span class="card-title">二叉搜索树中删除节点</span>
+                        <span class="card-title">用IDEA跟踪Java源码的技巧</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉搜索树中删除节点问题
-这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。
-比如说，给你的二</div>
+                    <div class="summary">用IDEA跟踪Java源码的技巧之前关于 IDEA 的文章，我已经写了三篇，没想到挺受大家喜欢的。读本文前，可以先读一下我之前写的这几篇文章来提前做个热身。
+谈谈我与 Intellij IDEA 的故事
+Intellij IDEA 中我一直</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/常用工具/" class="post-category" target="_blank">
+                                    常用工具
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2018/12/27/suan-fa/you-xu-lian-biao-qu-chong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="有序链表去重">
+                        
+                        <span class="card-title">有序链表去重</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">有序链表去重问题
+这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把重复的去掉，只保留一个即可。最后返回去重后的单链表。
+比如说，给你的有序单链表是：
+
+1 -> 1 -> 2 -> 2 -> 4
+
+</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -596,58 +658,8 @@
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
-            <div class="card">
-                <a href="/2018/12/09/suan-fa/2018-12-09-suan-fa-4-zui-chang-hui-wen-zi-chuan/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="最长回文子串">
-                        
-                        <span class="card-title">最长回文子串</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">最长回文子串问题
-这个题目说的是，给你一个字符串，你要在它所有的回文子串中，找到长度最长的子串，并返回它。
-比如说，给你的字符串是：
-
-abcbab
-
-你要返回的最长回文子串是：
-
-abcba
-
-代码
-public class AlgoCa</div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>
