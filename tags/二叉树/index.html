@@ -1,0 +1,926 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="标签: 二叉树, 大数据 实时计算 机器学习">
+    <meta name="description" content="标签: 二叉树 | ForwardXu">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>标签: 二叉树 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+<div class="bg-cover  about-cover" style="background-image: url('/medias/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+                <div class="brand">
+                    <div class="title center-align">
+                    
+                        星辰
+                    
+                    </div>
+
+                    <div class="description center-align">
+                    
+                        当你的才华还撑不起你的野心时，你就应该静下心来学习。
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+// Dynamically switch banner pictures every day.
+$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+</script>
+
+<main class="content">
+
+    
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">文章标签</div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/Flink-Table-SQL/" title="Flink-Table-SQL: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="Flink-Table-SQL" style="background-color: #F9EBEA;">Flink-Table-SQL
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/消息队列/" title="消息队列: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="消息队列" style="background-color: #F5EEF8;">消息队列
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/系统设计基础/" title="系统设计基础: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="系统设计基础" style="background-color: #D5F5E3;">系统设计基础
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/algorithm/" title="algorithm: 57">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="algorithm" style="background-color: #E8F8F5;">algorithm
+                        <span class="tag-length">57</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/链表/" title="链表: 13">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="链表" style="background-color: #FEF9E7;">链表
+                        <span class="tag-length">13</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/开发工具/" title="开发工具: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="开发工具" style="background-color: #F8F9F9;">开发工具
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/攻击技术/" title="攻击技术: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="攻击技术" style="background-color: #82E0AA;">攻击技术
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/缓存/" title="缓存: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="缓存" style="background-color: #D7BDE2;">缓存
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/集群/" title="集群: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="集群" style="background-color: #A3E4D7;">集群
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/面向对象思想/" title="面向对象思想: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="面向对象思想" style="background-color: #85C1E9;">面向对象思想
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Leetcode-Database-题解/" title="Leetcode-Database 题解: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="Leetcode-Database 题解" style="background-color: #F8C471;">Leetcode-Database 题解
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/MySQL/" title="MySQL: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="MySQL" style="background-color: #F9E79F;">MySQL
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/SQL基本使用/" title="SQL基本使用: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="SQL基本使用" style="background-color: #82E0AA;">SQL基本使用
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/分布式/" title="分布式: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="分布式" style="background-color: #E8F8F5;">分布式
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java-IO/" title="java IO: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="java IO" style="background-color: #FEF9E7;">java IO
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Redis/" title="Redis: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="Redis" style="background-color: #F9EBEA;">Redis
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/数据库系统原理/" title="数据库系统原理: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="数据库系统原理" style="background-color: #F9E79F;">数据库系统原理
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java容器/" title="java容器: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="java容器" style="background-color: #A3E4D7;">java容器
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java基础/" title="java基础: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="java基础" style="background-color: #F9EBEA;">java基础
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java虚拟机/" title="java虚拟机: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="java虚拟机" style="background-color: #FFF;">java虚拟机
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java并发/" title="java并发: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="java并发" style="background-color: #F9EBEA;">java并发
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/设计模式/" title="设计模式: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " data-tagname="设计模式" style="background-color: #85C1E9;">设计模式
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/二叉树/" title="二叉树: 17">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active " data-tagname="二叉树" style="background-color: #D5F5E3;">二叉树
+                        <span class="tag-length">17</span>
+                    </span>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+
+        <article>
+            <div class="row tags-posts">
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/jian-yan-er-cha-sou-suo-shu/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="检验二叉搜索树">
+                                
+                                <span class="card-title">检验二叉搜索树</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/he-bing-er-cha-shu/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="合并二叉树">
+                                
+                                <span class="card-title">合并二叉树</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-xiang-tong/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="判断二叉树是否相同">
+                                
+                                <span class="card-title">判断二叉树是否相同</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-ping-heng/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="判断二叉树是否平衡">
+                                
+                                <span class="card-title">判断二叉树是否平衡</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/yong-zhong-xu-he-hou-xu-bian-li-xu-lie-gou-jian-er-cha-shu/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="用前序和中序遍历序列构建二叉树">
+                                
+                                <span class="card-title">用前序和中序遍历序列构建二叉树</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/er-cha-shu-de-ni-ceng-xu-bian-li/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="二叉树的逆层序遍历">
+                                
+                                <span class="card-title">二叉树的逆层序遍历</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="用中序和后序遍历序列构建二叉树">
+                                
+                                <span class="card-title">用中序和后序遍历序列构建二叉树</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/er-cha-shu-de-zui-da-shen-du/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="二叉树的最大深度">
+                                
+                                <span class="card-title">二叉树的最大深度</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/er-cha-shu-de-ceng-xu-bian-li/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="二叉树的层序遍历">
+                                
+                                <span class="card-title">二叉树的层序遍历</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/er-cha-shu-qian-xu-bian-li/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="二叉树前序遍历">
+                                
+                                <span class="card-title">二叉树前序遍历</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/er-cha-sou-suo-shu-zhong-cha-zhao-shu-zi/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="二叉搜索树中查找数字">
+                                
+                                <span class="card-title">二叉搜索树中查找数字</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="article tag-post col s12 m6 l4" data-tags="algorithm, 二叉树" data-aos="fade-up">
+                    <div class="card">
+                        <a href="/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-dui-cheng/">
+                            <div class="card-image tag-image">
+                                
+                                
+                                <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="判断二叉树是否对称">
+                                
+                                <span class="card-title">判断二叉树是否对称</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </article>
+    </div>
+</main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a class="left btn-floating btn-large disabled">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">1 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a href="/tags/二叉树/page/2/" class="right btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+			<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+</body>
+</html>
