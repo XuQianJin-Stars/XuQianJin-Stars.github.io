@@ -6,10 +6,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment, 大数据 实时计算 机器学习">
-    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责:
-
-在内部目录中注册一个Table
-注册一个外部目">
+    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、TableEnvironment的示例使用为了更好的直观的理解TableEnvironment,下面我给出了Java和Scala代码使用示例。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -358,23 +355,7 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>TableEnvironment是Table API和SQL集成的核心概念，它主要负责:</p>
-<ol>
-<li>在内部目录中注册一个Table</li>
-<li>注册一个外部目录</li>
-<li>执行SQL查询</li>
-<li>注册一个用户自定义函数(标量、表及聚合)</li>
-<li>将DataStream或者DataSet转换成Table</li>
-<li><p>持有ExecutionEnvironment或者StreamExecutionEnvironment的引用</p>
-<p>一个Table总是会绑定到一个指定的<strong>TableEnvironment</strong>中，相同的查询不同的<strong>TableEnvironment</strong>是无法通过join、union合并在一起。</p>
-</li>
-</ol>
-<p>TableEnvironment可以通过调用带有参数<strong>StreamExecutionEnvironment</strong>或者<strong>ExecutionEnvironment</strong>和一个可选参数TableConfig的静态方法<strong>TableEnvironment.getTableEnvironment()</strong>来创建。<strong>TableConf</strong>可以用来配置<strong>TableEnvironment</strong>或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
-<p>目前Flink1.7版本<strong>TableEnvironment</strong>从Java和Scala编程语言，流和批计算模型来来分为以下4种实体类:</p>
-<p>Java分为：<strong>StreamTableEnvironment</strong>(流)和<strong>BatchTableEnvironment</strong>(批)</p>
-<p>Scala分为：<strong>StreamTableEnvironment</strong>(流)和<strong>BatchTableEnvironment</strong>(批)</p>
-<p><strong>TableEnvironment</strong>的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
-<h1 id="二、TableEnvironment的示例使用"><a href="#二、TableEnvironment的示例使用" class="headerlink" title="二、TableEnvironment的示例使用"></a>二、TableEnvironment的示例使用</h1><p>为了更好的直观的理解TableEnvironment,下面我给出了Java和Scala代码使用示例。</p>
+                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、TableEnvironment的示例使用"><a href="#一、TableEnvironment的示例使用" class="headerlink" title="一、TableEnvironment的示例使用"></a>一、TableEnvironment的示例使用</h1><p>为了更好的直观的理解TableEnvironment,下面我给出了Java和Scala代码使用示例。</p>
 <h2 id="Java代码示例"><a href="#Java代码示例" class="headerlink" title="Java代码示例"></a>Java代码示例</h2><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 对于批处理程序来说使用 ExecutionEnvironment 来替换 StreamExecutionEnvironment</span>
 StreamExecutionEnvironment env <span class="token operator">=</span> StreamExecutionEnvironment<span class="token punctuation">.</span><span class="token function">getExecutionEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -394,7 +375,7 @@ Table sqlResult <span class="token operator">=</span> tableEnv<span class="token
 <span class="token comment" spellcheck="true">// 用来更新执行Insert语句</span>
 tableEnv<span class="token punctuation">.</span><span class="token function">sqlUpdate</span><span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// 将Table API 种的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
+<span class="token comment" spellcheck="true">// 将Table API中的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
 tapiResult<span class="token punctuation">.</span><span class="token function">insertInto</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="Scala代码示例"><a href="#Scala代码示例" class="headerlink" title="Scala代码示例"></a>Scala代码示例</h2><pre class=" language-scala"><code class="language-scala">    <span class="token comment" spellcheck="true">// 对于批处理程序来说使用 ExecutionEnvironment 来替换 StreamExecutionEnvironment</span>
@@ -415,12 +396,48 @@ tapiResult<span class="token punctuation">.</span><span class="token function">i
     <span class="token comment" spellcheck="true">// 用来更新执行Insert语句</span>
     tableEnv<span class="token punctuation">.</span>sqlUpdate<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// 将Table API 种的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
+    <span class="token comment" spellcheck="true">// 将Table API中的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
     tapiResult<span class="token punctuation">.</span>insertInto<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
 
     <span class="token comment" spellcheck="true">// 执行</span>
     env<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
+<h1 id="二、理解TableEnvironment"><a href="#二、理解TableEnvironment" class="headerlink" title="二、理解TableEnvironment"></a>二、理解TableEnvironment</h1><p><strong>TableEnvironment</strong>是Table API和SQL集成的核心概念，从上面示例看出它主要负责:</p>
+<ol>
+<li>在内部目录中注册一个Table</li>
+<li>注册一个外部目录</li>
+<li>执行SQL查询</li>
+<li>注册一个用户自定义函数(标量、表及聚合)</li>
+<li>将DataStream或者DataSet转换成Table</li>
+<li><p>持有ExecutionEnvironment或者StreamExecutionEnvironment的引用</p>
+<p>一个Table总是会绑定到一个指定的<strong>TableEnvironment</strong>中，相同的查询不同的<strong>TableEnvironment</strong>是无法通过join、union合并在一起。</p>
+</li>
+</ol>
+<p>TableEnvironment可以通过调用带有参数<strong>StreamExecutionEnvironment</strong>或者<strong>ExecutionEnvironment</strong>和一个可选参数TableConfig的静态方法<strong>TableEnvironment.getTableEnvironment()</strong>来创建。<strong>TableConf</strong>可以用来配置<strong>TableEnvironment</strong>或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
+<p>目前Flink1.7版本<strong>TableEnvironment</strong>从Java和Scala编程语言，流和批计算模型来来分为以下3个抽象类和4个实体类:</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>类名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>抽象类</td>
+<td>TableEnvironment(基类)，StreamTableEnvironment和BatchTableEnvironment</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>StreamTableEnvironment和BatchTableEnvironment</td>
+</tr>
+<tr>
+<td>Scala</td>
+<td>StreamTableEnvironment和BatchTableEnvironment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TableEnvironment</strong>的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
 <h1 id="三、TableEnvironment的抽象与实现"><a href="#三、TableEnvironment的抽象与实现" class="headerlink" title="三、TableEnvironment的抽象与实现"></a>三、TableEnvironment的抽象与实现</h1><h2 id="1）TableEnvironment抽象类"><a href="#1）TableEnvironment抽象类" class="headerlink" title="1）TableEnvironment抽象类"></a>1）TableEnvironment抽象类</h2><p>TableEnvironment基类在源码<strong>org.apache.flink.table.api</strong>包中，StreamTableEnvironment和BatchTableEnvironment这两个抽象类继承于基类TableEnvironment。接下来先介绍TableEnvironment基类。</p>
 <h3 id="1-TableEnvironment基类做了什么"><a href="#1-TableEnvironment基类做了什么" class="headerlink" title="1. TableEnvironment基类做了什么"></a>1. TableEnvironment基类做了什么</h3><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/**
   * The abstract base class for batch and stream TableEnvironments.
@@ -640,10 +657,7 @@ tapiResult<span class="token punctuation">.</span><span class="token function">i
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责:
-
-在内部目录中注册一个Table
-注册一个外部目</div>
+                    <div class="summary">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment一、TableEnvironment的示例使用为了更好的直观的理解TableEnvironment,下面我给出了Java和Scala代码使用示例。</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-29
