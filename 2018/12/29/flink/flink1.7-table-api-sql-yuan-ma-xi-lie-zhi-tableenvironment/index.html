@@ -367,49 +367,60 @@ StreamTableEnvironment tableEnv <span class="token operator">=</span> TableEnvir
 tableEnv<span class="token punctuation">.</span><span class="token function">registerTable</span><span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>            <span class="token comment" spellcheck="true">// 或者</span>
 tableEnv<span class="token punctuation">.</span><span class="token function">registerTableSource</span><span class="token punctuation">(</span><span class="token string">"table2"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// 或者</span>
 tableEnv<span class="token punctuation">.</span><span class="token function">registerExternalCatalog</span><span class="token punctuation">(</span><span class="token string">"extCat"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//注册外部的Catalog目录</span>
+<span class="token comment" spellcheck="true">//将datastream注册成一个 Table</span>
+tableEnv<span class="token punctuation">.</span><span class="token function">registerDataStream</span><span class="token punctuation">(</span><span class="token string">"stream1"</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//注册一个 udf</span>
+tableEnv<span class="token punctuation">.</span><span class="token function">registerFunction</span><span class="token punctuation">(</span><span class="token string">"addFun1"</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
 
 <span class="token comment" spellcheck="true">// 从Table API的查询中创建一个Table</span>
 Table tapiResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span><span class="token function">scan</span><span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">// 从SQL查询中创建一个Table</span>
 Table sqlResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span><span class="token function">sqlQuery</span><span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 用来更新执行Insert语句</span>
+<span class="token comment" spellcheck="true">// 用来更新执行Insert语句 目前值支持Insert</span>
 tableEnv<span class="token punctuation">.</span><span class="token function">sqlUpdate</span><span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">// 将Table API中的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
 tapiResult<span class="token punctuation">.</span><span class="token function">insertInto</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 执行</span>
+env<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="Scala代码示例"><a href="#Scala代码示例" class="headerlink" title="Scala代码示例"></a>Scala代码示例</h2><pre class=" language-scala"><code class="language-scala">    <span class="token comment" spellcheck="true">// 对于批处理程序来说使用 ExecutionEnvironment 来替换 StreamExecutionEnvironment</span>
-    <span class="token keyword">val</span> env <span class="token operator">=</span> StreamExecutionEnvironment<span class="token punctuation">.</span>getExecutionEnvironment
+<h2 id="Scala代码示例"><a href="#Scala代码示例" class="headerlink" title="Scala代码示例"></a>Scala代码示例</h2><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">// 对于批处理程序来说使用 ExecutionEnvironment 来替换 StreamExecutionEnvironment</span>
+<span class="token keyword">val</span> env <span class="token operator">=</span> StreamExecutionEnvironment<span class="token punctuation">.</span>getExecutionEnvironment
 
-    <span class="token comment" spellcheck="true">// 创建一个TableEnvironment</span>
-    <span class="token keyword">val</span> tableEnv <span class="token operator">=</span> TableEnvironment<span class="token punctuation">.</span>getTableEnvironment<span class="token punctuation">(</span>env<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 创建一个TableEnvironment</span>
+<span class="token keyword">val</span> tableEnv <span class="token operator">=</span> TableEnvironment<span class="token punctuation">.</span>getTableEnvironment<span class="token punctuation">(</span>env<span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// 注册一个 Table</span>
-    tableEnv<span class="token punctuation">.</span>registerTable<span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>           <span class="token comment" spellcheck="true">// 或者</span>
-    tableEnv<span class="token punctuation">.</span>registerTableSource<span class="token punctuation">(</span><span class="token string">"table2"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">// 或者</span>
-    tableEnv<span class="token punctuation">.</span>registerExternalCatalog<span class="token punctuation">(</span><span class="token string">"extCat"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//注册外部的Catalog目录</span>
+<span class="token comment" spellcheck="true">// 注册一个 Table</span>
+tableEnv<span class="token punctuation">.</span>registerTable<span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>           <span class="token comment" spellcheck="true">// 或者</span>
+tableEnv<span class="token punctuation">.</span>registerTableSource<span class="token punctuation">(</span><span class="token string">"table2"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">// 或者</span>
+tableEnv<span class="token punctuation">.</span>registerExternalCatalog<span class="token punctuation">(</span><span class="token string">"extCat"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//注册外部的Catalog目录</span>
+<span class="token comment" spellcheck="true">//将datastream注册成一个 Table</span>
+tableEnv<span class="token punctuation">.</span>registerDataStream<span class="token punctuation">(</span><span class="token string">"stream1"</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//注册一个 udf</span>
+tableEnv<span class="token punctuation">.</span>registerFunction<span class="token punctuation">(</span><span class="token string">"addFun1"</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// 从Table API的查询中创建一个Table</span>
-    <span class="token keyword">val</span> tapiResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span>scan<span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// 从SQL查询中创建一个Table</span>
-    <span class="token keyword">val</span> sqlResult  <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span>sqlQuery<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ..."</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// 用来更新执行Insert语句</span>
-    tableEnv<span class="token punctuation">.</span>sqlUpdate<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 从Table API的查询中创建一个Table</span>
+<span class="token keyword">val</span> tapiResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span>scan<span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 从SQL查询中创建一个Table</span>
+<span class="token keyword">val</span> sqlResult  <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span>sqlQuery<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ..."</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 用来更新执行Insert语句 目前值支持Insert</span>
+tableEnv<span class="token punctuation">.</span>sqlUpdate<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// 将Table API中的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
-    tapiResult<span class="token punctuation">.</span>insertInto<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 将Table API中的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
+tapiResult<span class="token punctuation">.</span>insertInto<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// 执行</span>
-    env<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 执行</span>
+env<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <h1 id="二、理解TableEnvironment"><a href="#二、理解TableEnvironment" class="headerlink" title="二、理解TableEnvironment"></a>二、理解TableEnvironment</h1><p><strong>TableEnvironment</strong>是Table API和SQL集成的核心概念，从上面示例看出它主要负责:</p>
 <ol>
 <li>在内部目录中注册一个Table</li>
 <li>注册一个外部目录</li>
-<li>执行SQL查询</li>
+<li>执行SQL查询或执行Insert语句更新</li>
 <li>注册一个用户自定义函数(标量、表及聚合)</li>
 <li>将DataStream或者DataSet转换成Table</li>
-<li><p>持有ExecutionEnvironment或者StreamExecutionEnvironment的引用</p>
+<li><p>持有<strong>ExecutionEnvironment</strong>或者<strong>StreamExecutionEnvironment</strong>的引用</p>
 <p>一个Table总是会绑定到一个指定的<strong>TableEnvironment</strong>中，相同的查询不同的<strong>TableEnvironment</strong>是无法通过join、union合并在一起。</p>
 </li>
 </ol>
