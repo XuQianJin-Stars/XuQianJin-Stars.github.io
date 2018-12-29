@@ -361,7 +361,7 @@
 <h4 id="1）Java-是如何实现跨平台的？"><a href="#1）Java-是如何实现跨平台的？" class="headerlink" title="1）Java 是如何实现跨平台的？"></a>1）Java 是如何实现跨平台的？</h4><p><strong>注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM</strong></p>
 <p>答：我们编写的 Java 源码，编译后会生成一种 .class 文件，称为字节码文件。Java 虚拟机（JVM）就是负责将字节码文件翻译成特定平台下的机器码然后运行，也就是说，只要在不同平台上安装对应的 JVM，就可以运行字节码文件，运行我们编写的 Java 程序。</p>
 <p>而这个过程，我们编写的 Java 程序没有做任何改变，仅仅是通过 JVM 这一 “中间层” ，就能在不同平台上运行，真正实现了 “一次编译，到处运行” 的目的。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57ib5iaVicFpibadricV9fCpO2yFUbMrGn4ahN4XyNaM5g0rSxKgZtcuoJRJA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/1.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/1.png" alt="img"></a></p>
 <h4 id="2）什么是-JVM-？"><a href="#2）什么是-JVM-？" class="headerlink" title="2）什么是 JVM ？"></a>2）什么是 JVM ？</h4><p>解析：不仅仅是基本概念，还有 JVM 的作用。</p>
 <p>答：JVM，即 Java Virtual Machine，Java 虚拟机。它通过模拟一个计算机来达到一个计算机所具有的的计算功能。JVM 能够跨计算机体系结构来执行 Java 字节码，主要是由于 JVM 屏蔽了与各个计算机平台相关的软件或者硬件之间的差异，使得与平台相关的耦合统一由 JVM 提供者来实现。</p>
 <h4 id="3）JVM-由哪些部分组成？"><a href="#3）JVM-由哪些部分组成？" class="headerlink" title="3）JVM 由哪些部分组成？"></a>3）JVM 由哪些部分组成？</h4><p>解析：这是对 JVM 体系结构的考察</p>
@@ -372,14 +372,14 @@
 <li>内存区，将内存划分成若干个区以模拟实际机器上的存储、记录和调度功能模块，如实际机器上的各种功能的寄存器或者 PC 指针的记录器等</li>
 <li>本地方法调用，调用 C 或 C++ 实现的本地方法的代码返回结果</li>
 </ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57dgxN4SgfmEtD0KBGQwZYQEwGThZ0CgwRKqShpF6XGE2s9LwCfOUnDA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/2.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/2.png" alt="img"></a></p>
 <h4 id="4）类加载器是有了解吗？"><a href="#4）类加载器是有了解吗？" class="headerlink" title="4）类加载器是有了解吗？"></a>4）类加载器是有了解吗？</h4><p>解析：底层原理的考察，其中涉及到类加载器的概念，功能以及一些底层的实现。</p>
 <p>答：顾名思义，类加载器（class loader）用来加载 Java 类到 Java 虚拟机中。一般来说，Java 虚拟机使用 Java 类的方式如下：Java 源程序（.java 文件）在经过 Java 编译器编译之后就被转换成 Java 字节代码（.class 文件）。</p>
 <p>类加载器负责读取 Java 字节代码，并转换成 java.lang.Class类的一个实例。每个这样的实例用来表示一个 Java 类。通过此实例的 newInstance()方法就可以创建出该类的一个对象。实际的情况可能更加复杂，比如 Java 字节代码可能是通过工具动态生成的，也可能是通过网络下载的。</p>
 <p><strong>面试官：Java 虚拟机是如何判定两个 Java 类是相同的？</strong></p>
 <p>答：Java 虚拟机不仅要看类的全名是否相同，还要看加载此类的类加载器是否一样。只有两者都相同的情况，才认为两个类是相同的。即便是同样的字节代码，被不同的类加载器加载之后所得到的类，也是不同的。比如一个 Java 类 com.example.Sample，编译之后生成了字节代码文件 Sample.class。两个不同的类加载器 ClassLoaderA和 ClassLoaderB分别读取了这个 Sample.class文件，并定义出两个 java.lang.Class类的实例来表示这个类。这两个实例是不相同的。对于 Java 虚拟机来说，它们是不同的类。试图对这两个类的对象进行相互赋值，会抛出运行时异常 ClassCastException。</p>
 <h4 id="5）类加载器是如何加载-class-文件的？"><a href="#5）类加载器是如何加载-class-文件的？" class="headerlink" title="5）类加载器是如何加载 class 文件的？"></a>5）类加载器是如何加载 class 文件的？</h4><p>答：下图所示是 ClassLoader 加载一个 class 文件到 JVM 时需要经过的步骤：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57kFUq2loWwrRHGoJ9yeXUOIzU3anw42OL3OIkExg78CR8Yop1yMnAPQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/3.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/3.png" alt="img"></a></p>
 <p>第一个阶段是找到 .class 文件并把这个文件包含的字节码加载到内存中</p>
 <p>第二阶段又可以分为三个步骤，分别是字节码验证、Class 类数据结构分析及相应的内存分配和最后的符号表的链接</p>
 <p>第三个阶段是类中静态属性和初始化赋值，以及静态块的执行等</p>
@@ -463,7 +463,7 @@
 </blockquote>
 <h4 id="7）双亲委派模型（Parent-Delegation-Model）？"><a href="#7）双亲委派模型（Parent-Delegation-Model）？" class="headerlink" title="7）双亲委派模型（Parent Delegation Model）？"></a>7）双亲委派模型（Parent Delegation Model）？</h4><p>解析：类的加载过程采用双亲委派机制，这种机制能更好的保证 Java 平台的安全性</p>
 <p>答：类加载器 ClassLoader 是具有层次结构的，也就是父子关系，其中，Bootstrap 是所有类加载器的父亲，如下图所示：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN5796qRjGiaUp6icM17UBNAnnbLglfuCIqIQ7Uas1GkN05nuKtkFWbuSdBA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/4.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/4.png" alt="img"></a></p>
 <p>该模型要求除了顶层的 Bootstrap class loader 启动类加载器外，其余的类加载器都应当有自己的父类加载器。子类加载器和父类加载器不是以继承（Inheritance）的关系来实现，而是通过组合（Composition）关系来复用父加载器的代码。每个类加载器都有自己的命名空间（由该加载器及所有父类加载器所加载的类组成，在同一个命名空间中，不会出现类的完整名字（包括类的包名）相同的两个类；在不同的命名空间中，有可能会出现类的完整名字（包括类的包名）相同的两个类）</p>
 <p><strong>面试官：双亲委派模型的工作过程？</strong></p>
 <p>答：</p>
@@ -479,7 +479,7 @@
 <p>解析：这是对于使用这种模型来组织累加器的好处</p>
 <p>答：主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
 <p><strong>二：JVM内存管理</strong></p>
-<h4 id="1）JVM-内存划分："><a href="#1）JVM-内存划分：" class="headerlink" title="1）JVM 内存划分："></a>1）JVM 内存划分：</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57bI52xZGTmod0v79LbeLO9QBxpEicxTclNzuha8avGibxgCdQG6nR438w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<h4 id="1）JVM-内存划分："><a href="#1）JVM-内存划分：" class="headerlink" title="1）JVM 内存划分："></a>1）JVM 内存划分：</h4><p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/5.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/5.png" alt="img"></a></p>
 <p>答：</p>
 <ol>
 <li><p>方法区（线程共享）：各个线程共享的一个区域，用于存储虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。虽然 Java 虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却又一个别名叫做 Non-Heap（非堆），目的应该是与 Java 堆区分开来。</p>
@@ -506,18 +506,18 @@
 <li>空间分配担保。每次进行Minor GC时，JVM会计算Survivor区移至老年区的对象的平均大小，如果这个值大于老年区的剩余值大小则进行一次Full GC，如果小于检查HandlePromotionFailure设置，如果true则只进行Monitor GC,如果false则进行Full GC。</li>
 </ul>
 <h4 id="3）Java-的内存模型："><a href="#3）Java-的内存模型：" class="headerlink" title="3）Java 的内存模型："></a>3）Java 的内存模型：</h4><p>答：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57icEcKTW8YicutAOD4YhWwbGibk6gF5VxBadicCsljdXePTV9lnmwwvibWFQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/6.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/6.png" alt="img"></a></p>
 <p>Java 虚拟机规范中试图定义一种 Java 内存模型（Java Memory Model, JMM）来屏蔽掉各层硬件和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果。</p>
 <p>Java 内存模型规定了所有的变量都存储在主内存（Main Memory）中。每条线程还有自己的工作内存（Working Memory），线程的工作内存中保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作（读取、赋值等）都必须在主内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方工作内存中的变量，线程间的变量值的传递均需要通过主内存来完成，线程、主内存、工作内存三者的关系如上图。</p>
 <p><strong>面试官：两个线程之间是如何通信的呢？</strong></p>
 <p>答：在<strong>共享内存</strong>的并发模型里，线程之间共享程序的公共状态，线程之间通过写-读内存中的公共状态来隐式进行通信，典型的共享内存通信方式就是通过共享对象进行通信。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57PfYkGj8zGsgQhXhibML6UibrOZNeBK4oOAQic2oU9icu4zzXZJWUmOR8zA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/7.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/7.png" alt="img"></a></p>
 <p>例如上图线程 A 与 线程 B 之间如果要通信的话，那么就必须经历下面两个步骤：</p>
 <ul>
 <li>1.首先，线程 A 把本地内存 A 更新过得共享变量刷新到主内存中去</li>
 <li>2.然后，线程 B 到主内存中去读取线程 A 之前更新过的共享变量</li>
 </ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN5733O9CWsLUMZBOHlMxbKUUicULR10H9MiarcxXs1fe85mIAdIicY9rD94g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/8.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/8.png" alt="img"></a></p>
 <p>在<strong>消息传递</strong>的并发模型里，线程之间没有公共状态，线程之间必须通过明确的发送消息来显式进行通信，在 Java 中典型的消息传递方式就是 wait() 和 notify()。</p>
 <h4 id="5）内存屏障？"><a href="#5）内存屏障？" class="headerlink" title="5）内存屏障？"></a>5）内存屏障？</h4><p>解析：在这之前应该对重排序的问题有所了解，这里我找到一篇很好的文章分享一下：Java内存访问重排序的研究</p>
 <p>答：内存屏障，又称内存栅栏，是一组处理器指令，用于实现对内存操作的顺序限制。</p>
@@ -555,7 +555,7 @@
 </blockquote>
 <h4 id="7）简述一下-Java-中创建一个对象的过程？"><a href="#7）简述一下-Java-中创建一个对象的过程？" class="headerlink" title="7）简述一下 Java 中创建一个对象的过程？"></a>7）简述一下 Java 中创建一个对象的过程？</h4><p>解析：回答这个问题首先就要清楚类的生命周期</p>
 <p>答：下图展示的是类的生命周期流向：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57VlRLkquvh6Sd7UicXmX2UOjE7NmPLOF5kRUs3cIxnTMSGXTTibGYFhhg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/9.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/9.png" alt="img"></a></p>
 <p>Java中对象的创建就是在堆上分配内存空间的过程，此处说的对象创建仅限于new关键字创建的普通Java对象，不包括数组对象的创建。</p>
 <p>大致过程如下：</p>
 <p><strong>1.检测类是否被加载：</strong></p>
@@ -579,7 +579,7 @@
 <p><strong>5.执行 init 方法：</strong></p>
 <p>执行完上面的步骤之后，在虚拟机里这个对象就算创建成功了，但是对于Java程序来说还需要执行init方法才算真正的创建完成，因为这个时候对象只是被初始化零值了，还没有真正的去根据程序中的代码分配初始值，调用了init方法之后，这个对象才真正能使用。</p>
 <p>到此为止一个对象就产生了，这就是new关键字创建对象的过程。过程如下：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN570h5ic9jflxgf5Kpah1oe23CicdZyLYSEXiaG6EYSe2LBsne6gJ9w7ublQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/10.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/10.png" alt="img"></a></p>
 <blockquote>
 <p>参考文章：Java创建对象的过程简介</p>
 </blockquote>
@@ -595,11 +595,11 @@
 <ul>
 <li>句柄定位：Java 堆会画出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息</li>
 </ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/M7B64fHXISsbRGDZNELDP3VibTMCmbN57SgDqrQeh5KSkZVMhhXN7KLSQMgZeAUzAQxEzfjerj4UO6No5qZpydw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/11.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/11.png" alt="img"></a></p>
 <ul>
 <li>直接指针访问：java堆对象的不居中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是对象地址</li>
 </ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/M7B64fHXISsbRGDZNELDP3VibTMCmbN57p92Z9aiaRCbzNwsk0ZmOK2EOKbPTQQeX0ogsonhKjYIiaj61PtSGYUHQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/12.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/12.png" alt="img"></a></p>
 <p><strong>比较：使用直接指针就是速度快，使用句柄reference指向稳定的句柄，对象被移动改变的也只是句柄中实例数据的指针，而reference本身并不需要修改。</strong></p>
 <p><strong>三：相关面试题整理</strong></p>
 <h4 id="1）64-位-JVM-中，int-的长度是多数？"><a href="#1）64-位-JVM-中，int-的长度是多数？" class="headerlink" title="1）64 位 JVM 中，int 的长度是多数？"></a>1）64 位 JVM 中，int 的长度是多数？</h4><p>答：Java 中，int 类型变量的长度是一个固定值，与平台无关，都是 32 位或者 4 个字节。意思就是说，在 32 位 和 64 位 的Java 虚拟机中，int 类型的长度是相同的。</p>
@@ -611,7 +611,7 @@
 <h4 id="4）你能保证-GC-执行吗？"><a href="#4）你能保证-GC-执行吗？" class="headerlink" title="4）你能保证 GC 执行吗？"></a>4）你能保证 GC 执行吗？</h4><p>答：不能，虽然你可以调用 System.gc() 或者 Runtime.gc()，但是没有办法保证 GC 的执行。</p>
 <h4 id="5）怎么获取-Java-程序使用的内存？堆使用的百分比？"><a href="#5）怎么获取-Java-程序使用的内存？堆使用的百分比？" class="headerlink" title="5）怎么获取 Java 程序使用的内存？堆使用的百分比？"></a>5）怎么获取 Java 程序使用的内存？堆使用的百分比？</h4><p>答：可以通过 java.lang.Runtime 类中与内存相关方法来获取剩余的内存，总内存及最大堆内存。通过这些方法你也可以获取到堆使用的百分比及堆内存的剩余空间。Runtime.freeMemory() 方法返回剩余空间的字节数，Runtime.totalMemory() 方法总内存的字节数，Runtime.maxMemory() 返回最大内存的字节数。</p>
 <h4 id="6）Java-中堆和栈有什么区别？"><a href="#6）Java-中堆和栈有什么区别？" class="headerlink" title="6）Java 中堆和栈有什么区别？"></a>6）Java 中堆和栈有什么区别？</h4><p>答：JVM 中堆和栈属于不同的内存区域，使用目的也不同。栈常用于保存方法帧和局部变量，而对象总是在堆上分配。栈通常都比堆小，也不会在多个线程之间共享，而堆被整个 JVM 的所有线程共享。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/M7B64fHXISsbRGDZNELDP3VibTMCmbN57ruDB02PzdvibBQLtiaGxJIbzhoq9WaCbuibrIngXrZxRPmozgxqnCgIkA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/13.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/13.png" alt="img"></a></p>
 <p><strong>-END-</strong></p>
 <p>本文转载自:  <a href="https://mp.weixin.qq.com/s/SMXeSMllqmeV8qdreHn8Jw" target="_blank" rel="noopener">面试系列-Jvm看这篇就够了</a></p>
 
