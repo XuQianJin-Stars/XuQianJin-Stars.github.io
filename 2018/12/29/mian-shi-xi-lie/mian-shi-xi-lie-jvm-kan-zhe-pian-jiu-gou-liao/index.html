@@ -523,8 +523,7 @@
 <p>答：内存屏障，又称内存栅栏，是一组处理器指令，用于实现对内存操作的顺序限制。</p>
 <p><strong>面试官：内存屏障为何重要？</strong></p>
 <p>答：对主存的一次访问一般花费硬件的数百次时钟周期。处理器通过缓存（caching）能够从数量级上降低内存延迟的成本这些缓存为了性能重新排列待定内存操 作的顺序。也就是说，程序的读写操作不一定会按照它要求处理器的顺序执行。当数据是不可变的，同时/或者数据限制在线程范围内，这些优化是无害的。如果把 这些优化与对称多处理（symmetric multi-processing）和共享可变状态（shared mutable state）结合，那么就是一场噩梦。当基于共享可变状态的内存操作被重新排序时，程序可能行为不定。一个线程写入的数据可能被其他线程可见，原因是数据 写入的顺序不一致。适当的放置内存屏障通过强制处理器顺序执行待定的内存操作来避免这个问题。</p>
-<h4 id="5）类似-Xms、-Xmn这些参数的含义："><a href="#5）类似-Xms、-Xmn这些参数的含义：" class="headerlink" title="5）类似-Xms、-Xmn这些参数的含义："></a>5）类似-Xms、-Xmn这些参数的含义：</h4><p>答：</p>
-<p>堆内存分配：</p>
+<h4 id="5）类似-Xms、-Xmn这些参数的含义："><a href="#5）类似-Xms、-Xmn这些参数的含义：" class="headerlink" title="5）类似-Xms、-Xmn这些参数的含义："></a>5）类似-Xms、-Xmn这些参数的含义：</h4><p>答：堆内存分配：</p>
 <ol>
 <li>JVM初始分配的内存由-Xms指定，默认是物理内存的1/64</li>
 <li>JVM最大分配的内存由-Xmx指定，默认是物理内存的1/4</li>
@@ -538,8 +537,7 @@
 <li>-Xmn2G：设置年轻代大小为2G。</li>
 <li>-XX:SurvivorRatio，设置年轻代中Eden区与Survivor区的比值。</li>
 </ol>
-<h4 id="6）内存泄漏和内存溢出"><a href="#6）内存泄漏和内存溢出" class="headerlink" title="6）内存泄漏和内存溢出"></a>6）内存泄漏和内存溢出</h4><p>答：</p>
-<p>概念：</p>
+<h4 id="6）内存泄漏和内存溢出"><a href="#6）内存泄漏和内存溢出" class="headerlink" title="6）内存泄漏和内存溢出"></a>6）内存泄漏和内存溢出</h4><p>答：概念：</p>
 <ol>
 <li>内存溢出指的是内存不够用了。</li>
 <li>内存泄漏是指对象可达，但是没用了。即本该被GC回收的对象并没有被回收</li>
@@ -604,10 +602,12 @@
 <p><strong>三：相关面试题整理</strong></p>
 <h4 id="1）64-位-JVM-中，int-的长度是多数？"><a href="#1）64-位-JVM-中，int-的长度是多数？" class="headerlink" title="1）64 位 JVM 中，int 的长度是多数？"></a>1）64 位 JVM 中，int 的长度是多数？</h4><p>答：Java 中，int 类型变量的长度是一个固定值，与平台无关，都是 32 位或者 4 个字节。意思就是说，在 32 位 和 64 位 的Java 虚拟机中，int 类型的长度是相同的。</p>
 <h4 id="2）怎样通过-Java-程序来判断-JVM-是-32-位-还是-64-位？"><a href="#2）怎样通过-Java-程序来判断-JVM-是-32-位-还是-64-位？" class="headerlink" title="2）怎样通过 Java 程序来判断 JVM 是 32 位 还是 64 位？"></a>2）怎样通过 Java 程序来判断 JVM 是 32 位 还是 64 位？</h4><p>答：Sun有一个Java System属性来确定JVM的位数：32或64：</p>
-<pre><code>sun.arch.data.model=32 // 32 bit JVMsun.arch.data.model=64 // 64 bit JVM
-</code></pre><p>我可以使用以下语句来确定 JVM 是 32 位还是 64 位：</p>
-<pre><code>System.getProperty(&quot;sun.arch.data.model&quot;)
-</code></pre><h4 id="3）32-位-JVM-和-64-位-JVM-的最大堆内存分别是多数？"><a href="#3）32-位-JVM-和-64-位-JVM-的最大堆内存分别是多数？" class="headerlink" title="3）32 位 JVM 和 64 位 JVM 的最大堆内存分别是多数？"></a>3）32 位 JVM 和 64 位 JVM 的最大堆内存分别是多数？</h4><p>答：理论上说上 32 位的 JVM 堆内存可以到达 2^32，即 4GB，但实际上会比这个小很多。不同操作系统之间不同，如 Windows 系统大约 1.5 GB，Solaris 大约 3GB。64 位 JVM允许指定最大的堆内存，理论上可以达到 2^64，这是一个非常大的数字，实际上你可以指定堆内存大小到 100GB。甚至有的 JVM，如 Azul，堆内存到 1000G 都是可能的。</p>
+<pre class=" language-java"><code class="language-java">sun<span class="token punctuation">.</span>arch<span class="token punctuation">.</span>data<span class="token punctuation">.</span>model<span class="token operator">=</span><span class="token number">32</span> <span class="token comment" spellcheck="true">// 32 bit JVMsun.arch.data.model=64 // 64 bit JVM</span>
+</code></pre>
+<p>我可以使用以下语句来确定 JVM 是 32 位还是 64 位：</p>
+<pre class=" language-java"><code class="language-java">System<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">"sun.arch.data.model"</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="3）32-位-JVM-和-64-位-JVM-的最大堆内存分别是多数？"><a href="#3）32-位-JVM-和-64-位-JVM-的最大堆内存分别是多数？" class="headerlink" title="3）32 位 JVM 和 64 位 JVM 的最大堆内存分别是多数？"></a>3）32 位 JVM 和 64 位 JVM 的最大堆内存分别是多数？</h4><p>答：理论上说上 32 位的 JVM 堆内存可以到达 2^32，即 4GB，但实际上会比这个小很多。不同操作系统之间不同，如 Windows 系统大约 1.5 GB，Solaris 大约 3GB。64 位 JVM允许指定最大的堆内存，理论上可以达到 2^64，这是一个非常大的数字，实际上你可以指定堆内存大小到 100GB。甚至有的 JVM，如 Azul，堆内存到 1000G 都是可能的。</p>
 <h4 id="4）你能保证-GC-执行吗？"><a href="#4）你能保证-GC-执行吗？" class="headerlink" title="4）你能保证 GC 执行吗？"></a>4）你能保证 GC 执行吗？</h4><p>答：不能，虽然你可以调用 System.gc() 或者 Runtime.gc()，但是没有办法保证 GC 的执行。</p>
 <h4 id="5）怎么获取-Java-程序使用的内存？堆使用的百分比？"><a href="#5）怎么获取-Java-程序使用的内存？堆使用的百分比？" class="headerlink" title="5）怎么获取 Java 程序使用的内存？堆使用的百分比？"></a>5）怎么获取 Java 程序使用的内存？堆使用的百分比？</h4><p>答：可以通过 java.lang.Runtime 类中与内存相关方法来获取剩余的内存，总内存及最大堆内存。通过这些方法你也可以获取到堆使用的百分比及堆内存的剩余空间。Runtime.freeMemory() 方法返回剩余空间的字节数，Runtime.totalMemory() 方法总内存的字节数，Runtime.maxMemory() 返回最大内存的字节数。</p>
 <h4 id="6）Java-中堆和栈有什么区别？"><a href="#6）Java-中堆和栈有什么区别？" class="headerlink" title="6）Java 中堆和栈有什么区别？"></a>6）Java 中堆和栈有什么区别？</h4><p>答：JVM 中堆和栈属于不同的内存区域，使用目的也不同。栈常用于保存方法帧和局部变量，而对象总是在堆上分配。栈通常都比堆小，也不会在多个线程之间共享，而堆被整个 JVM 的所有线程共享。</p>
