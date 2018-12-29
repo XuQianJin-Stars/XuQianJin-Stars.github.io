@@ -125,6 +125,34 @@
   </entry>
   
   <entry>
+    <title>用中序和后序遍历序列构建二叉树</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/</id>
+    <published>2018-12-28T14:26:00.000Z</published>
+    <updated>2018-12-28T14:41:29.557Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;用中序和后序遍历序列构建二叉树&quot;&gt;&lt;a href=&quot;#用中序和后序遍历序列构建二叉树&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="二叉树" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>二叉树前序遍历</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu-qian-xu-bian-li/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu-qian-xu-bian-li/</id>
@@ -293,11 +321,11 @@
   </entry>
   
   <entry>
-    <title>合并二叉树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/he-bing-er-cha-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/he-bing-er-cha-shu/</id>
+    <title>判断二叉树是否平衡</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-ping-heng/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-ping-heng/</id>
     <published>2018-12-28T14:26:00.000Z</published>
-    <updated>2018-12-28T14:46:57.324Z</updated>
+    <updated>2018-12-28T14:35:35.038Z</updated>
     
     <summary type="html">
     
@@ -305,7 +333,7 @@
       
         
         
-          &lt;h2 id=&quot;合并二叉树&quot;&gt;&lt;a href=&quot;#合并二叉树&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;判断二叉树是否平衡&quot;&gt;&lt;a href=&quot;#判断二叉树是否平衡&quot; class=&quot;headerlink&quot;
         
       
     
@@ -349,11 +377,11 @@
   </entry>
   
   <entry>
-    <title>用中序和后序遍历序列构建二叉树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/</id>
+    <title>合并二叉树</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/he-bing-er-cha-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/he-bing-er-cha-shu/</id>
     <published>2018-12-28T14:26:00.000Z</published>
-    <updated>2018-12-28T14:41:29.557Z</updated>
+    <updated>2018-12-28T14:46:57.324Z</updated>
     
     <summary type="html">
     
@@ -361,35 +389,7 @@
       
         
         
-          &lt;h2 id=&quot;用中序和后序遍历序列构建二叉树&quot;&gt;&lt;a href=&quot;#用中序和后序遍历序列构建二叉树&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="二叉树" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>判断二叉树是否平衡</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-ping-heng/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/pan-duan-er-cha-shu-shi-fou-ping-heng/</id>
-    <published>2018-12-28T14:26:00.000Z</published>
-    <updated>2018-12-28T14:35:35.038Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;判断二叉树是否平衡&quot;&gt;&lt;a href=&quot;#判断二叉树是否平衡&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;合并二叉树&quot;&gt;&lt;a href=&quot;#合并二叉树&quot; class=&quot;headerlink&quot;
         
       
     
@@ -483,11 +483,11 @@
   </entry>
   
   <entry>
-    <title>单链表排序</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/</id>
+    <title>有序链表去重</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/you-xu-lian-biao-qu-chong/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/you-xu-lian-biao-qu-chong/</id>
     <published>2018-12-27T14:51:00.000Z</published>
-    <updated>2018-12-27T14:56:23.515Z</updated>
+    <updated>2018-12-27T14:52:01.019Z</updated>
     
     <summary type="html">
     
@@ -495,7 +495,7 @@
       
         
         
-          &lt;h2 id=&quot;单链表排序&quot;&gt;&lt;a href=&quot;#单链表排序&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;有序链表去重&quot;&gt;&lt;a href=&quot;#有序链表去重&quot; class=&quot;headerlink&quot;
         
       
     
@@ -511,11 +511,11 @@
   </entry>
   
   <entry>
-    <title>有序链表去重</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/you-xu-lian-biao-qu-chong/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/you-xu-lian-biao-qu-chong/</id>
+    <title>单链表排序</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/27/suan-fa/dan-lian-biao-pai-xu/</id>
     <published>2018-12-27T14:51:00.000Z</published>
-    <updated>2018-12-27T14:52:01.019Z</updated>
+    <updated>2018-12-27T14:56:23.515Z</updated>
     
     <summary type="html">
     
@@ -523,7 +523,7 @@
       
         
         
-          &lt;h2 id=&quot;有序链表去重&quot;&gt;&lt;a href=&quot;#有序链表去重&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;单链表排序&quot;&gt;&lt;a href=&quot;#单链表排序&quot; class=&quot;headerlink&quot;
         
       
     
