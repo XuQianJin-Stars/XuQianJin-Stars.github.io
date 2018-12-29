@@ -374,8 +374,55 @@
 <p>Java分为：<strong>StreamTableEnvironment</strong>(流)和<strong>BatchTableEnvironment</strong>(批)</p>
 <p>Scala分为：<strong>StreamTableEnvironment</strong>(流)和<strong>BatchTableEnvironment</strong>(批)</p>
 <p><strong>TableEnvironment</strong>的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
-<h1 id="二、TableEnvironment源码分析"><a href="#二、TableEnvironment源码分析" class="headerlink" title="二、TableEnvironment源码分析"></a>二、TableEnvironment源码分析</h1><h2 id="1）TableEnvironment抽象类"><a href="#1）TableEnvironment抽象类" class="headerlink" title="1）TableEnvironment抽象类"></a>1）TableEnvironment抽象类</h2><p>TableEnvironment基类在源码<strong>org.apache.flink.table.api</strong>包中，StreamTableEnvironment和BatchTableEnvironment这两个抽象类继承于基类TableEnvironment。接下来先介绍TableEnvironment基类。</p>
-<h3 id="1-TableEnvironment基类"><a href="#1-TableEnvironment基类" class="headerlink" title="1. TableEnvironment基类"></a>1. TableEnvironment基类</h3><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/**
+<h1 id="二、TableEnvironment的示例使用"><a href="#二、TableEnvironment的示例使用" class="headerlink" title="二、TableEnvironment的示例使用"></a>二、TableEnvironment的示例使用</h1><p>为了更好的直观的理解TableEnvironment,下面我给出了Java和Scala代码使用示例。</p>
+<h2 id="Java代码示例"><a href="#Java代码示例" class="headerlink" title="Java代码示例"></a>Java代码示例</h2><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 对于批处理程序来说使用 ExecutionEnvironment 来替换 StreamExecutionEnvironment</span>
+StreamExecutionEnvironment env <span class="token operator">=</span> StreamExecutionEnvironment<span class="token punctuation">.</span><span class="token function">getExecutionEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 创建一个TableEnvironment</span>
+<span class="token comment" spellcheck="true">// 对于批处理程序来说使用 BatchTableEnvironment 替换 StreamTableEnvironment</span>
+StreamTableEnvironment tableEnv <span class="token operator">=</span> TableEnvironment<span class="token punctuation">.</span><span class="token function">getTableEnvironment</span><span class="token punctuation">(</span>env<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 注册一个 Table</span>
+tableEnv<span class="token punctuation">.</span><span class="token function">registerTable</span><span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>            <span class="token comment" spellcheck="true">// 或者</span>
+tableEnv<span class="token punctuation">.</span><span class="token function">registerTableSource</span><span class="token punctuation">(</span><span class="token string">"table2"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// 或者</span>
+tableEnv<span class="token punctuation">.</span><span class="token function">registerExternalCatalog</span><span class="token punctuation">(</span><span class="token string">"extCat"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//注册外部的Catalog目录</span>
+
+<span class="token comment" spellcheck="true">// 从Table API的查询中创建一个Table</span>
+Table tapiResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span><span class="token function">scan</span><span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 从SQL查询中创建一个Table</span>
+Table sqlResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span><span class="token function">sqlQuery</span><span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 用来更新执行Insert语句</span>
+tableEnv<span class="token punctuation">.</span><span class="token function">sqlUpdate</span><span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 将Table API 种的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
+tapiResult<span class="token punctuation">.</span><span class="token function">insertInto</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="Scala代码示例"><a href="#Scala代码示例" class="headerlink" title="Scala代码示例"></a>Scala代码示例</h2><pre class=" language-scala"><code class="language-scala">    <span class="token comment" spellcheck="true">// 对于批处理程序来说使用 ExecutionEnvironment 来替换 StreamExecutionEnvironment</span>
+    <span class="token keyword">val</span> env <span class="token operator">=</span> StreamExecutionEnvironment<span class="token punctuation">.</span>getExecutionEnvironment
+
+    <span class="token comment" spellcheck="true">// 创建一个TableEnvironment</span>
+    <span class="token keyword">val</span> tableEnv <span class="token operator">=</span> TableEnvironment<span class="token punctuation">.</span>getTableEnvironment<span class="token punctuation">(</span>env<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true">// 注册一个 Table</span>
+    tableEnv<span class="token punctuation">.</span>registerTable<span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>           <span class="token comment" spellcheck="true">// 或者</span>
+    tableEnv<span class="token punctuation">.</span>registerTableSource<span class="token punctuation">(</span><span class="token string">"table2"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">// 或者</span>
+    tableEnv<span class="token punctuation">.</span>registerExternalCatalog<span class="token punctuation">(</span><span class="token string">"extCat"</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//注册外部的Catalog目录</span>
+
+    <span class="token comment" spellcheck="true">// 从Table API的查询中创建一个Table</span>
+    <span class="token keyword">val</span> tapiResult <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span>scan<span class="token punctuation">(</span><span class="token string">"table1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">// 从SQL查询中创建一个Table</span>
+    <span class="token keyword">val</span> sqlResult  <span class="token operator">=</span> tableEnv<span class="token punctuation">.</span>sqlQuery<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ..."</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">// 用来更新执行Insert语句</span>
+    tableEnv<span class="token punctuation">.</span>sqlUpdate<span class="token punctuation">(</span><span class="token string">"SELECT ... FROM table2 ... "</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true">// 将Table API 种的结果 Table 发射到TableSink中 , SQL查询也是一样的</span>
+    tapiResult<span class="token punctuation">.</span>insertInto<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true">// 执行</span>
+    env<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h1 id="三、TableEnvironment的抽象与实现"><a href="#三、TableEnvironment的抽象与实现" class="headerlink" title="三、TableEnvironment的抽象与实现"></a>三、TableEnvironment的抽象与实现</h1><h2 id="1）TableEnvironment抽象类"><a href="#1）TableEnvironment抽象类" class="headerlink" title="1）TableEnvironment抽象类"></a>1）TableEnvironment抽象类</h2><p>TableEnvironment基类在源码<strong>org.apache.flink.table.api</strong>包中，StreamTableEnvironment和BatchTableEnvironment这两个抽象类继承于基类TableEnvironment。接下来先介绍TableEnvironment基类。</p>
+<h3 id="1-TableEnvironment基类做了什么"><a href="#1-TableEnvironment基类做了什么" class="headerlink" title="1. TableEnvironment基类做了什么"></a>1. TableEnvironment基类做了什么</h3><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/**
   * The abstract base class for batch and stream TableEnvironments.
   *
   * @param config The configuration of the TableEnvironment
@@ -387,10 +434,10 @@
   <span class="token keyword">private</span> <span class="token keyword">val</span> internalSchema<span class="token operator">:</span> CalciteSchema <span class="token operator">=</span> CalciteSchema<span class="token punctuation">.</span>createRootSchema<span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
   <span class="token keyword">private</span> <span class="token keyword">val</span> rootSchema<span class="token operator">:</span> SchemaPlus <span class="token operator">=</span> internalSchema<span class="token punctuation">.</span>plus<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-  <span class="token comment" spellcheck="true">// Table API/SQL function catalog</span>
+  <span class="token comment" spellcheck="true">// Table API/SQL 函数目录</span>
   <span class="token keyword">private</span><span class="token punctuation">[</span>flink<span class="token punctuation">]</span> <span class="token keyword">val</span> functionCatalog<span class="token operator">:</span> FunctionCatalog <span class="token operator">=</span> FunctionCatalog<span class="token punctuation">.</span>withBuiltIns
 
-  <span class="token comment" spellcheck="true">// the configuration to create a Calcite planner</span>
+  <span class="token comment" spellcheck="true">// 用于创建Calcite计划程序的配置</span>
   <span class="token keyword">private</span> <span class="token keyword">lazy</span> <span class="token keyword">val</span> frameworkConfig<span class="token operator">:</span> FrameworkConfig <span class="token operator">=</span> Frameworks
     <span class="token punctuation">.</span>newConfigBuilder
     <span class="token punctuation">.</span>defaultSchema<span class="token punctuation">(</span>rootSchema<span class="token punctuation">)</span>
@@ -416,11 +463,11 @@
 
   <span class="token comment" spellcheck="true">// registered external catalog names -> catalog</span>
   <span class="token keyword">private</span> <span class="token keyword">val</span> externalCatalogs <span class="token operator">=</span> <span class="token keyword">new</span> mutable<span class="token punctuation">.</span>HashMap<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">,</span> ExternalCatalog<span class="token punctuation">]</span>
-  省略后面代码
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span>
 
 </code></pre>
-<h3 id="2-StreamTableEnvironment抽象类"><a href="#2-StreamTableEnvironment抽象类" class="headerlink" title="2. StreamTableEnvironment抽象类"></a>2. StreamTableEnvironment抽象类</h3><h3 id="3-BatchTableEnvironment抽象类"><a href="#3-BatchTableEnvironment抽象类" class="headerlink" title="3. BatchTableEnvironment抽象类"></a>3. BatchTableEnvironment抽象类</h3><h2 id="2）TableEnvironment实体类"><a href="#2）TableEnvironment实体类" class="headerlink" title="2）TableEnvironment实体类"></a>2）TableEnvironment实体类</h2><h2 id="https-www-jianshu-com-p-6bc5b4e6f163"><a href="#https-www-jianshu-com-p-6bc5b4e6f163" class="headerlink" title="https://www.jianshu.com/p/6bc5b4e6f163"></a><a href="https://www.jianshu.com/p/6bc5b4e6f163" target="_blank" rel="noopener">https://www.jianshu.com/p/6bc5b4e6f163</a></h2><h1 id="三、正在讨论及改进"><a href="#三、正在讨论及改进" class="headerlink" title="三、正在讨论及改进"></a>三、正在讨论及改进</h1><p><a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#</a></p>
+<h3 id="2-StreamTableEnvironment抽象类"><a href="#2-StreamTableEnvironment抽象类" class="headerlink" title="2. StreamTableEnvironment抽象类"></a>2. StreamTableEnvironment抽象类</h3><h3 id="3-BatchTableEnvironment抽象类"><a href="#3-BatchTableEnvironment抽象类" class="headerlink" title="3. BatchTableEnvironment抽象类"></a>3. BatchTableEnvironment抽象类</h3><h2 id="2）TableEnvironment实体类"><a href="#2）TableEnvironment实体类" class="headerlink" title="2）TableEnvironment实体类"></a>2）TableEnvironment实体类</h2><h2 id="https-www-jianshu-com-p-6bc5b4e6f163"><a href="#https-www-jianshu-com-p-6bc5b4e6f163" class="headerlink" title="https://www.jianshu.com/p/6bc5b4e6f163"></a><a href="https://www.jianshu.com/p/6bc5b4e6f163" target="_blank" rel="noopener">https://www.jianshu.com/p/6bc5b4e6f163</a></h2><h1 id="四、正在讨论及改进"><a href="#四、正在讨论及改进" class="headerlink" title="四、正在讨论及改进"></a>四、正在讨论及改进</h1><p><a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#</a></p>
 
             </div>
             <hr>
