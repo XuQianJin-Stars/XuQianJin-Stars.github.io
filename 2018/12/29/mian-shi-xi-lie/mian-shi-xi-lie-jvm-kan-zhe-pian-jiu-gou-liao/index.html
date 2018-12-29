@@ -6,8 +6,8 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="面试系列-Jvm看这篇就够了, 大数据 实时计算 机器学习">
-    <meta name="description" content="面试系列-Jvm看这篇就够了一：JVM基础知识1）Java 是如何实现跨平台的？注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM
-答：我们">
+    <meta name="description" content="面试系列-Jvm看这篇就够了一.  JVM基础知识1）Java 是如何实现跨平台的？注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM
+答：">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -356,7 +356,7 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="面试系列-Jvm看这篇就够了"><a href="#面试系列-Jvm看这篇就够了" class="headerlink" title="面试系列-Jvm看这篇就够了"></a>面试系列-Jvm看这篇就够了</h2><h3 id="一：JVM基础知识"><a href="#一：JVM基础知识" class="headerlink" title="一：JVM基础知识"></a><strong>一：JVM基础知识</strong></h3><h4 id="1）Java-是如何实现跨平台的？"><a href="#1）Java-是如何实现跨平台的？" class="headerlink" title="1）Java 是如何实现跨平台的？"></a>1）Java 是如何实现跨平台的？</h4><p><strong>注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM</strong></p>
+                <h2 id="面试系列-Jvm看这篇就够了"><a href="#面试系列-Jvm看这篇就够了" class="headerlink" title="面试系列-Jvm看这篇就够了"></a>面试系列-Jvm看这篇就够了</h2><h3 id="一-JVM基础知识"><a href="#一-JVM基础知识" class="headerlink" title="一.  JVM基础知识"></a><strong>一.  JVM基础知识</strong></h3><h4 id="1）Java-是如何实现跨平台的？"><a href="#1）Java-是如何实现跨平台的？" class="headerlink" title="1）Java 是如何实现跨平台的？"></a>1）Java 是如何实现跨平台的？</h4><p><strong>注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM</strong></p>
 <p>答：我们编写的 Java 源码，编译后会生成一种 .class 文件，称为字节码文件。Java 虚拟机（JVM）就是负责将字节码文件翻译成特定平台下的机器码然后运行，也就是说，只要在不同平台上安装对应的 JVM，就可以运行字节码文件，运行我们编写的 Java 程序。</p>
 <p>而这个过程，我们编写的 Java 程序没有做任何改变，仅仅是通过 JVM 这一 “中间层” ，就能在不同平台上运行，真正实现了 “一次编译，到处运行” 的目的。</p>
 <p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/1.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/1.png" alt="img"></a></p>
@@ -476,7 +476,7 @@
 <p><strong>面试官：为什么这样设计呢？</strong></p>
 <p>解析：这是对于使用这种模型来组织累加器的好处</p>
 <p>答：主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
-<h3 id="二：JVM内存管理"><a href="#二：JVM内存管理" class="headerlink" title="二：JVM内存管理"></a><strong>二：JVM内存管理</strong></h3><h4 id="1）JVM-内存划分："><a href="#1）JVM-内存划分：" class="headerlink" title="1）JVM 内存划分："></a>1）JVM 内存划分：</h4><p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/5.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/5.png" alt="img"></a></p>
+<h3 id="二-JVM内存管理"><a href="#二-JVM内存管理" class="headerlink" title="二.  JVM内存管理"></a><strong>二.  JVM内存管理</strong></h3><h4 id="1）JVM-内存划分："><a href="#1）JVM-内存划分：" class="headerlink" title="1）JVM 内存划分："></a>1）JVM 内存划分：</h4><p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/5.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/5.png" alt="img"></a></p>
 <p>答：</p>
 <ol>
 <li><p>方法区（线程共享）：各个线程共享的一个区域，用于存储虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。虽然 Java 虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却又一个别名叫做 Non-Heap（非堆），目的应该是与 Java 堆区分开来。</p>
@@ -596,7 +596,7 @@
 </ul>
 <p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/12.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/12.png" alt="img"></a></p>
 <p><strong>比较：使用直接指针就是速度快，使用句柄reference指向稳定的句柄，对象被移动改变的也只是句柄中实例数据的指针，而reference本身并不需要修改。</strong></p>
-<h3 id="三：相关面试题整理"><a href="#三：相关面试题整理" class="headerlink" title="三：相关面试题整理"></a><strong>三：相关面试题整理</strong></h3><h4 id="1）64-位-JVM-中，int-的长度是多数？"><a href="#1）64-位-JVM-中，int-的长度是多数？" class="headerlink" title="1）64 位 JVM 中，int 的长度是多数？"></a>1）64 位 JVM 中，int 的长度是多数？</h4><p>答：Java 中，int 类型变量的长度是一个固定值，与平台无关，都是 32 位或者 4 个字节。意思就是说，在 32 位 和 64 位 的Java 虚拟机中，int 类型的长度是相同的。</p>
+<h3 id="三-相关面试题整理"><a href="#三-相关面试题整理" class="headerlink" title="三.  相关面试题整理"></a><strong>三.  相关面试题整理</strong></h3><h4 id="1）64-位-JVM-中，int-的长度是多数？"><a href="#1）64-位-JVM-中，int-的长度是多数？" class="headerlink" title="1）64 位 JVM 中，int 的长度是多数？"></a>1）64 位 JVM 中，int 的长度是多数？</h4><p>答：Java 中，int 类型变量的长度是一个固定值，与平台无关，都是 32 位或者 4 个字节。意思就是说，在 32 位 和 64 位 的Java 虚拟机中，int 类型的长度是相同的。</p>
 <h4 id="2）怎样通过-Java-程序来判断-JVM-是-32-位-还是-64-位？"><a href="#2）怎样通过-Java-程序来判断-JVM-是-32-位-还是-64-位？" class="headerlink" title="2）怎样通过 Java 程序来判断 JVM 是 32 位 还是 64 位？"></a>2）怎样通过 Java 程序来判断 JVM 是 32 位 还是 64 位？</h4><p>答：Sun有一个Java System属性来确定JVM的位数：32或64：</p>
 <pre class=" language-java"><code class="language-java">sun<span class="token punctuation">.</span>arch<span class="token punctuation">.</span>data<span class="token punctuation">.</span>model<span class="token operator">=</span><span class="token number">32</span> <span class="token comment" spellcheck="true">// 32 bit JVMsun.arch.data.model=64 // 64 bit JVM</span>
 </code></pre>
@@ -782,8 +782,8 @@
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">面试系列-Jvm看这篇就够了一：JVM基础知识1）Java 是如何实现跨平台的？注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM
-答：我们</div>
+                    <div class="summary">面试系列-Jvm看这篇就够了一.  JVM基础知识1）Java 是如何实现跨平台的？注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM
+答：</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-29
