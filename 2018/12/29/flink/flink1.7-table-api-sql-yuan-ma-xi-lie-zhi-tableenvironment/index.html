@@ -6,7 +6,10 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment, 大数据 实时计算 机器学习">
-    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责: 　　1、在内部目录中注册一个Table 　　2、">
+    <meta name="description" content="Flink1.7 Table API&amp;amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责:
+
+在内部目录中注册一个Table
+注册一个外部目">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -345,7 +348,7 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-27
+                    <i class="fa fa-clock-o fa-fw"></i>2018-12-29
                 </span>
 				
 				<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
@@ -355,36 +358,24 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>TableEnvironment是Table API和SQL集成的核心概念，它主要负责:<br> 　　1、在内部目录中注册一个Table<br> 　　2、注册一个外部目录<br> 　　3、执行SQL查询<br> 　　4、注册一个用户自定义函数(标量、表及聚合)<br> 　　5、将DataStream或者DataSet转换成Table<br> 　　6、持有ExecutionEnvironment或者StreamExecutionEnvironment的引用<br> 一个Table总是会绑定到一个指定的TableEnvironment中，相同的查询不同的TableEnvironment是无法通过join、union合并在一起。</p>
-<p>TableEnvironment可以通过调用带有参数StreamExecutionEnvironment或者ExecutionEnvironment和一个可选参数TableConfig的静态方法<strong><code>TableEnvironment.getTableEnvironment()</code></strong>来创建。TableConf可以用来配置TableEnvironment或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
-<p>目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种:</p>
-<table>
-<thead>
-<tr>
-<th>TableEnvironment</th>
-<th>流</th>
-<th>批处理</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Java</td>
-<td>StreamTableEnvironment</td>
-<td>BatchTableEnvironment</td>
-</tr>
-<tr>
-<td>Scala</td>
-<td>StreamTableEnvironment</td>
-<td>TableEnvironment</td>
-</tr>
-<tr>
-<td></td>
-<td>BatchTableEnvironment</td>
-</tr>
-</tbody>
-</table>
-<p>TableEnvironment的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
-<h1 id="二、TableEnvironment源码分析"><a href="#二、TableEnvironment源码分析" class="headerlink" title="二、TableEnvironment源码分析"></a>二、TableEnvironment源码分析</h1><h2 id="https-www-jianshu-com-p-6bc5b4e6f163"><a href="#https-www-jianshu-com-p-6bc5b4e6f163" class="headerlink" title="https://www.jianshu.com/p/6bc5b4e6f163"></a><a href="https://www.jianshu.com/p/6bc5b4e6f163" target="_blank" rel="noopener">https://www.jianshu.com/p/6bc5b4e6f163</a></h2><h1 id="三、正在讨论及改进"><a href="#三、正在讨论及改进" class="headerlink" title="三、正在讨论及改进"></a>三、正在讨论及改进</h1><p><a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#</a></p>
+                <h2 id="Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment"><a href="#Flink1-7-Table-API-amp-SQL源码系列之TableEnvironment" class="headerlink" title="Flink1.7 Table API&amp;SQL源码系列之TableEnvironment"></a>Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</h2><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>TableEnvironment是Table API和SQL集成的核心概念，它主要负责:</p>
+<ol>
+<li>在内部目录中注册一个Table</li>
+<li>注册一个外部目录</li>
+<li>执行SQL查询</li>
+<li>注册一个用户自定义函数(标量、表及聚合)</li>
+<li>将DataStream或者DataSet转换成Table</li>
+<li><p>持有ExecutionEnvironment或者StreamExecutionEnvironment的引用</p>
+<p>一个Table总是会绑定到一个指定的<code>TableEnvironment</code>中，相同的查询不同的<code>TableEnvironment</code>是无法通过join、union合并在一起。</p>
+</li>
+</ol>
+<p>TableEnvironment可以通过调用带有参数<code>StreamExecutionEnvironment</code>或者<code>ExecutionEnvironment</code>和一个可选参数TableConfig的静态方法<strong><code>TableEnvironment.getTableEnvironment()</code></strong>来创建。<code>TableConf</code>可以用来配置<code>TableEnvironment</code>或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
+<p>目前Flink1.7版本TableEnvironment从Java和Scala编程语言，流和批计算模型来来分为以下4种实体类:</p>
+<p>Java分为：<code>StreamTableEnvironment</code>(流)和<code>BatchTableEnvironment</code>(批)</p>
+<p>Scala分为：<code>StreamTableEnvironment</code>(流)和<code>BatchTableEnvironment</code>(批)</p>
+<p><strong>TableEnvironment</strong>的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
+<h1 id="二、TableEnvironment源码分析"><a href="#二、TableEnvironment源码分析" class="headerlink" title="二、TableEnvironment源码分析"></a>二、TableEnvironment源码分析</h1><h2 id="1）TableEnvironment抽象类"><a href="#1）TableEnvironment抽象类" class="headerlink" title="1）TableEnvironment抽象类"></a>1）TableEnvironment抽象类</h2><p>TableEnvironment基类在源码<code>org.apache.flink.table.api</code>包中，StreamTableEnvironment和BatchTableEnvironment这两个抽象类继承于基类TableEnvironment。接下来先介绍TableEnvironment基类。</p>
+<h3 id="1-TableEnvironment基类"><a href="#1-TableEnvironment基类" class="headerlink" title="1. TableEnvironment基类"></a>1. TableEnvironment基类</h3><h3 id="2-StreamTableEnvironment抽象类"><a href="#2-StreamTableEnvironment抽象类" class="headerlink" title="2. StreamTableEnvironment抽象类"></a>2. StreamTableEnvironment抽象类</h3><h3 id="3-BatchTableEnvironment抽象类"><a href="#3-BatchTableEnvironment抽象类" class="headerlink" title="3. BatchTableEnvironment抽象类"></a>3. BatchTableEnvironment抽象类</h3><h2 id="2）TableEnvironment实体类"><a href="#2）TableEnvironment实体类" class="headerlink" title="2）TableEnvironment实体类"></a>2）TableEnvironment实体类</h2><h2 id="https-www-jianshu-com-p-6bc5b4e6f163"><a href="#https-www-jianshu-com-p-6bc5b4e6f163" class="headerlink" title="https://www.jianshu.com/p/6bc5b4e6f163"></a><a href="https://www.jianshu.com/p/6bc5b4e6f163" target="_blank" rel="noopener">https://www.jianshu.com/p/6bc5b4e6f163</a></h2><h1 id="三、正在讨论及改进"><a href="#三、正在讨论及改进" class="headerlink" title="三、正在讨论及改进"></a>三、正在讨论及改进</h1><p><a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit#</a></p>
 
             </div>
             <hr>
@@ -523,7 +514,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/27/flink/flink1.7-table-api-sql-yuan-ma-xi-lie-zhi-tableenvironment/" class="b-link-green">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</a>
+                    <a href="/2018/12/29/flink/flink1.7-table-api-sql-yuan-ma-xi-lie-zhi-tableenvironment/" class="b-link-green">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment</a>
                 </p>
             </div>
         </div>
@@ -545,49 +536,44 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
-                <a href="/2018/12/27/suan-fa/he-bing-k-ge-you-xu-lian-biao/">
+                <a href="/2018/12/29/flink/flink1.7-table-api-sql-yuan-ma-xi-lie-zhi-tableenvironment/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="合并K个有序链表">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Flink1.7 Table API&SQL源码系列之TableEnvironment">
                         
-                        <span class="card-title">合并K个有序链表</span>
+                        <span class="card-title">Flink1.7 Table API&SQL源码系列之TableEnvironment</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">合并K个有序链表问题
-这个题目说的是，给你 K 个递增排序的单链表，你要把它们合成一个链表，并且保持递增排序。合成链表的节点直接使用 K 个链表中的节点即可，无需创建新节点。
-比如说，给你以下 3 个有序链表：
+                    <div class="summary">Flink1.7 Table API&amp;SQL源码系列之TableEnvironment一、介绍TableEnvironment是Table API和SQL集成的核心概念，它主要负责:
 
-1 -> 2 -> 4
-1</div>
+在内部目录中注册一个Table
+注册一个外部目</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/flink/" class="post-category" target="_blank">
+                                    flink
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
+                    <a href="/tags/Flink-Table-SQL/" target="_blank">
+                        <span class="chip bg-color">Flink-Table-SQL</span>
                     </a>
                     
                 </div>
@@ -599,33 +585,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/27/suan-fa/dan-lian-biao-shan-chu-shu-zi/">
+                <a href="/2018/12/29/mian-shi-xi-lie/mian-shi-xi-lie-jvm-kan-zhe-pian-jiu-gou-liao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="单链表删除数字">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="面试系列-Jvm看这篇就够了">
                         
-                        <span class="card-title">单链表删除数字</span>
+                        <span class="card-title">面试系列-Jvm看这篇就够了</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">单链表删除数字问题
-这个题目说的是，给你一个单链表和一个数字，你要删除节点上数字等于给定数字的那些节点，然后返回删除节点后的单链表。
-比如说，给你的单链表是：
-
-1 -> 2 -> 4 -> 1 -> 8 -> 1
-
-要删除的数字是 1。那</div>
+                    <div class="summary">面试系列-Jvm看这篇就够了一.  JVM基础知识1）Java 是如何实现跨平台的？注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM
+答：</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-27
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/面试系列/" class="post-category" target="_blank">
+                                    面试系列
                                 </a>
                             
                             
@@ -635,12 +616,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
                     </a>
                     
                 </div>
