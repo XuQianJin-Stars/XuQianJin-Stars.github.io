@@ -608,6 +608,32 @@
 <h4 id="5）怎么获取-Java-程序使用的内存？堆使用的百分比？"><a href="#5）怎么获取-Java-程序使用的内存？堆使用的百分比？" class="headerlink" title="5）怎么获取 Java 程序使用的内存？堆使用的百分比？"></a>5）怎么获取 Java 程序使用的内存？堆使用的百分比？</h4><p>答：可以通过 java.lang.Runtime 类中与内存相关方法来获取剩余的内存，总内存及最大堆内存。通过这些方法你也可以获取到堆使用的百分比及堆内存的剩余空间。Runtime.freeMemory() 方法返回剩余空间的字节数，Runtime.totalMemory() 方法总内存的字节数，Runtime.maxMemory() 返回最大内存的字节数。</p>
 <h4 id="6）Java-中堆和栈有什么区别？"><a href="#6）Java-中堆和栈有什么区别？" class="headerlink" title="6）Java 中堆和栈有什么区别？"></a>6）Java 中堆和栈有什么区别？</h4><p>答：JVM 中堆和栈属于不同的内存区域，使用目的也不同。栈常用于保存方法帧和局部变量，而对象总是在堆上分配。栈通常都比堆小，也不会在多个线程之间共享，而堆被整个 JVM 的所有线程共享。</p>
 <p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/interview/13.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/interview/13.png" alt="img"></a></p>
+<h4 id="7）CMS垃圾收集器执行过程？"><a href="#7）CMS垃圾收集器执行过程？" class="headerlink" title="7）CMS垃圾收集器执行过程？"></a>7）CMS垃圾收集器执行过程？</h4><p>答：</p>
+<ul>
+<li><p>初始标记(STW)</p>
+<p>该阶段进行可达性分析，标记GC ROOT能<strong>直接关联</strong>到的对象。</p>
+<p>注意是直接关联间接关联的对象在下一阶段标记。</p>
+</li>
+<li><p>并发标记</p>
+<p>该阶段进行GC ROOT TRACING，在第一个阶段被暂停的线程重新开始运行。<br>由前阶段标记过的对象出发，所有可到达的对象都在本阶段中标记。</p>
+</li>
+<li><p>并发预清理</p>
+<p>前面我们讲过，CMS是以获取最短停顿时间为目的的GC。</p>
+<p>重标记需要STW（Stop The World），因此重标记的工作尽可能多的在并发阶段完成来减少STW的时间。</p>
+<p>此阶段标记从<strong>新生代晋升的对象</strong>、<strong>新分配到老年代的对象</strong>以及在<strong>并发阶段被修改了的对象</strong>。</p>
+</li>
+<li><p>重标记(STW)</p>
+<p>暂停所有用户线程，重新扫描堆中的对象，进行可达性分析,标记活着的对象。</p>
+<p>有了前面的基础，这个阶段的工作量被大大减轻，停顿时间因此也会减少。</p>
+<p>注意这个阶段是多线程的。</p>
+</li>
+<li><p>并发清理</p>
+<p>用户线程被重新激活，同时清理那些无效的对象。</p>
+</li>
+<li><p>重置</p>
+<p>CMS清除内部状态，为下次回收做准备。 </p>
+</li>
+</ul>
 <p><strong>-END-</strong></p>
 <p>本文转载自:  <a href="https://mp.weixin.qq.com/s/SMXeSMllqmeV8qdreHn8Jw" target="_blank" rel="noopener">面试系列-Jvm看这篇就够了</a></p>
 
