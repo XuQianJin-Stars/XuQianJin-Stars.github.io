@@ -420,11 +420,12 @@ env<span class="token punctuation">.</span>execute<span class="token punctuation
 <li>执行SQL查询或执行Insert语句更新</li>
 <li>注册一个用户自定义函数(标量、表及聚合)</li>
 <li>将DataStream或者DataSet转换成Table</li>
+<li>将Table转换为DataSetDataStream或者DataSet</li>
+<li>在已注册的表上指定SQL查询以获取Table</li>
 <li><p>持有<strong>ExecutionEnvironment</strong>或者<strong>StreamExecutionEnvironment</strong>的引用</p>
-<p>一个Table总是会绑定到一个指定的<strong>TableEnvironment</strong>中，相同的查询不同的<strong>TableEnvironment</strong>是无法通过join、union合并在一起。</p>
+<p><strong>注意</strong>：一个Table总是会绑定到一个指定的<strong>TableEnvironment</strong>中，相同的查询不同的<strong>TableEnvironment</strong>目前是无法通过join、union合并在一起。</p>
 </li>
 </ol>
-<p>TableEnvironment可以通过调用带有参数<strong>StreamExecutionEnvironment</strong>或者<strong>ExecutionEnvironment</strong>和一个可选参数TableConfig的静态方法<strong>TableEnvironment.getTableEnvironment()</strong>来创建。<strong>TableConf</strong>可以用来配置<strong>TableEnvironment</strong>或者自定义查询优化器和翻译过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
 <p>目前Flink1.7版本<strong>TableEnvironment</strong>从Java和Scala编程语言，流和批计算模型来来分为以下3个抽象类和4个实体类:</p>
 <table>
 <thead>
@@ -436,21 +437,21 @@ env<span class="token punctuation">.</span>execute<span class="token punctuation
 <tbody>
 <tr>
 <td>抽象类</td>
-<td>TableEnvironment(基类)，StreamTableEnvironment和BatchTableEnvironment</td>
+<td>TableEnvironment(基类),StreamTableEnvironment,BatchTableEnvironment</td>
 </tr>
 <tr>
 <td>Java</td>
-<td>StreamTableEnvironment和BatchTableEnvironment</td>
+<td>StreamTableEnvironment,BatchTableEnvironment（实体类）</td>
 </tr>
 <tr>
 <td>Scala</td>
-<td>StreamTableEnvironment和BatchTableEnvironment</td>
+<td>StreamTableEnvironment,BatchTableEnvironment（实体类）</td>
 </tr>
 </tbody>
 </table>
 <p><strong>TableEnvironment</strong>的继承关系如下图所示：<br><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/filnk/TableEnvironment.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/filnk/TableEnvironment.png" alt="img"></a></p>
 <h1 id="三、TableEnvironment的抽象与实现"><a href="#三、TableEnvironment的抽象与实现" class="headerlink" title="三、TableEnvironment的抽象与实现"></a>三、TableEnvironment的抽象与实现</h1><h2 id="1）TableEnvironment抽象类"><a href="#1）TableEnvironment抽象类" class="headerlink" title="1）TableEnvironment抽象类"></a>1）TableEnvironment抽象类</h2><p>TableEnvironment基类在源码<strong>org.apache.flink.table.api</strong>包中，StreamTableEnvironment和BatchTableEnvironment这两个抽象类继承于基类TableEnvironment。接下来先介绍TableEnvironment基类。</p>
-<h3 id="1-TableEnvironment基类做了什么"><a href="#1-TableEnvironment基类做了什么" class="headerlink" title="1. TableEnvironment基类做了什么"></a>1. TableEnvironment基类做了什么</h3><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/**
+<h3 id="1-TableEnvironment抽象基类"><a href="#1-TableEnvironment抽象基类" class="headerlink" title="1. TableEnvironment抽象基类"></a>1. TableEnvironment抽象基类</h3><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/**
   * The abstract base class for batch and stream TableEnvironments.
   *
   * @param config The configuration of the TableEnvironment
@@ -474,27 +475,28 @@ env<span class="token punctuation">.</span>execute<span class="token punctuation
     <span class="token punctuation">.</span>typeSystem<span class="token punctuation">(</span><span class="token keyword">new</span> FlinkTypeSystem<span class="token punctuation">)</span>
     <span class="token punctuation">.</span>operatorTable<span class="token punctuation">(</span>getSqlOperatorTable<span class="token punctuation">)</span>
     <span class="token punctuation">.</span>sqlToRelConverterConfig<span class="token punctuation">(</span>getSqlToRelConverterConfig<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// set the executor to evaluate constant expressions</span>
+    <span class="token comment" spellcheck="true">//设定executor用来执行常量表达式</span>
     <span class="token punctuation">.</span>executor<span class="token punctuation">(</span><span class="token keyword">new</span> ExpressionReducer<span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span>build
 
-  <span class="token comment" spellcheck="true">// the builder for Calcite RelNodes, Calcite's representation of a relational expression tree.</span>
+  <span class="token comment" spellcheck="true">// 构建Calcite的RelNodes(相关结点),可以用来获取和表示Calcite的一个关系表达式树.</span>
   <span class="token keyword">protected</span> <span class="token keyword">lazy</span> <span class="token keyword">val</span> relBuilder<span class="token operator">:</span> FlinkRelBuilder <span class="token operator">=</span> FlinkRelBuilder<span class="token punctuation">.</span>create<span class="token punctuation">(</span>frameworkConfig<span class="token punctuation">)</span>
 
-  <span class="token comment" spellcheck="true">// the planner instance used to optimize queries of this TableEnvironment</span>
+  <span class="token comment" spellcheck="true">// 用于优化此TableEnvironment查询的planner实例</span>
   <span class="token keyword">private</span> <span class="token keyword">lazy</span> <span class="token keyword">val</span> planner<span class="token operator">:</span> RelOptPlanner <span class="token operator">=</span> relBuilder<span class="token punctuation">.</span>getPlanner
 
   <span class="token keyword">private</span> <span class="token keyword">lazy</span> <span class="token keyword">val</span> typeFactory<span class="token operator">:</span> FlinkTypeFactory <span class="token operator">=</span> relBuilder<span class="token punctuation">.</span>getTypeFactory
 
-  <span class="token comment" spellcheck="true">// a counter for unique attribute names</span>
+  <span class="token comment" spellcheck="true">// 一个属性名称唯一的计数器</span>
   <span class="token keyword">private</span><span class="token punctuation">[</span>flink<span class="token punctuation">]</span> <span class="token keyword">val</span> attrNameCntr<span class="token operator">:</span> AtomicInteger <span class="token operator">=</span> <span class="token keyword">new</span> AtomicInteger<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
 
-  <span class="token comment" spellcheck="true">// registered external catalog names -> catalog</span>
+  <span class="token comment" spellcheck="true">// 注册外部catalog名到catalog中</span>
   <span class="token keyword">private</span> <span class="token keyword">val</span> externalCatalogs <span class="token operator">=</span> <span class="token keyword">new</span> mutable<span class="token punctuation">.</span>HashMap<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">,</span> ExternalCatalog<span class="token punctuation">]</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span>
 
 </code></pre>
+<p>从之前示例和上面源码中可以知道，TableEnvironment通过调用带有参数<strong>StreamExecutionEnvironment</strong>或者<strong>ExecutionEnvironment</strong>和一个可选参数TableConfig的静态方法<strong>TableEnvironment.getTableEnvironment()</strong>来创建。<strong>TableConfig</strong>可以用来配置<strong>TableEnvironment</strong>或者自定义查询优化器和转换过程(参考<a href="https://link.jianshu.com?t=https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html#query-optimization" target="_blank" rel="noopener">查询优化器</a>)。</p>
 <h3 id="2-StreamTableEnvironment抽象类"><a href="#2-StreamTableEnvironment抽象类" class="headerlink" title="2. StreamTableEnvironment抽象类"></a>2. StreamTableEnvironment抽象类</h3><h3 id="3-BatchTableEnvironment抽象类"><a href="#3-BatchTableEnvironment抽象类" class="headerlink" title="3. BatchTableEnvironment抽象类"></a>3. BatchTableEnvironment抽象类</h3><h2 id="2）TableEnvironment实体类"><a href="#2）TableEnvironment实体类" class="headerlink" title="2）TableEnvironment实体类"></a>2）TableEnvironment实体类</h2><h1 id="四、正在讨论及改进"><a href="#四、正在讨论及改进" class="headerlink" title="四、正在讨论及改进"></a>四、正在讨论及改进</h1><p><a href="https://www.jianshu.com/p/6bc5b4e6f163" target="_blank" rel="noopener">参考1</a>  <a href="https://docs.google.com/document/d/1t-AUGuaChADddyJi6e0WLsTDEnf9ZkupvvBiQ4yTTEI/edit" target="_blank" rel="noopener">讨论及改进</a></p>
 
             </div>
