@@ -551,28 +551,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/fan-zhuan-zi-fu-chuan/">
+                <a href="/2018/12/09/suan-fa/hui-wen-fen-ge/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="反转字符串">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回文分割">
                         
-                        <span class="card-title">反转字符串</span>
+                        <span class="card-title">回文分割</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">反转字符串问题
-这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。
-比如说给你的字符串是：
+                    <div class="summary">回文分割问题
+这个题目说的是，给你一个字符串，你要把它分割成子串，并且每个子串都是回文串。你要返回所有可能的子串集合。
+比如说，给你的字符串是：
 
-abcde
+aad
 
-你要返回左右反转后的字符串：
-
-edcba
-
-代码
-public class AlgoCasts {</div>
+它有两种可能的分割方法。一种是分割成 aa 和 d。aa 是回文串，d 作为单个字</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -605,25 +600,19 @@ public class AlgoCasts {</div>
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/fan-zhuan-dan-ci/">
+                <a href="/2018/12/09/suan-fa/hua-dong-chuang-kou-zhong-de-zui-da-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="反转单词">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="滑动窗口中的最大值">
                         
-                        <span class="card-title">反转单词</span>
+                        <span class="card-title">滑动窗口中的最大值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">反转单词问题
-这个题目说的是，给你一个字符串，你要写一个函数反转这个字符串中的单词，然后返回处理后的字符串。注意，单词之间只用一个空格隔开。
-比如说给你的字符串是：
-
-"I am busy."
-
-反转这个字符串中的 3 个单词，得到：
-
-"</div>
+                    <div class="summary">滑动窗口中的最大值问题
+这个题目说的是，给你一个整数数组和整数 k，k 表示滑动窗口的大小，滑动窗口从左向右滑过数组，每移动一个位置，你要计算出当前滑动窗口内 k 个数字的最大值。最后返回这个最大值数组。
+比如说，给你的数组是 0, 4, </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -655,6 +644,45 @@ public class AlgoCasts {</div>
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

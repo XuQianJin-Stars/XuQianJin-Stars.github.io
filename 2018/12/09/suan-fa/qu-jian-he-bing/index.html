@@ -624,19 +624,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/pa-lou-ti-de-zui-xiao-dai-jie/">
+                <a href="/2018/12/09/suan-fa/xun-zhao-tian-ji-xian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="爬楼梯的最小代价">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="寻找天际线">
                         
-                        <span class="card-title">爬楼梯的最小代价</span>
+                        <span class="card-title">寻找天际线</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">爬楼梯的最小代价问题
-这个题目说的是，给你一个整数数组，数组中的整数表示爬对应阶楼梯的代价。你可以从第 0 阶或第 1 阶楼梯开始爬，每次可以向上爬 1 阶或 2 阶。那么请问，爬完这个楼梯的最小代价是多少？
-比如说，给你的代价数组 c 是</div>
+                    <div class="summary">寻找天际线问题
+这个题目说的是，给你一组矩形表示的楼房，它们的底边在同一水平线上，并且楼房之间可以相邻，也可以重叠。你要找到这组楼房的轮廓线或者叫天际线，并返回这个轮廓线的关键点。
+代码
+public class AlgoCasts {
+
+</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -668,6 +671,45 @@
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

@@ -567,22 +567,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/xun-zhao-tian-ji-xian/">
+                <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-chuan-de-chang-du/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="寻找天际线">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="最长回文串的长度">
                         
-                        <span class="card-title">寻找天际线</span>
+                        <span class="card-title">最长回文串的长度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">寻找天际线问题
-这个题目说的是，给你一组矩形表示的楼房，它们的底边在同一水平线上，并且楼房之间可以相邻，也可以重叠。你要找到这组楼房的轮廓线或者叫天际线，并返回这个轮廓线的关键点。
-代码
-public class AlgoCasts {
+                    <div class="summary">最长回文串的长度问题
+这个题目说的是，给你一个包含大小写英文字母的字符串，你要用这些字母构建一个最长的回文字符串，并返回它的长度。
+比如说，给你的字符串 s 是：
 
-</div>
+aaabccdd
+
+你能用它构建的回文串的最大长度是 7，因此你要返回的就</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -615,18 +616,23 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shi-xian-lru-huan-cun/">
+                <a href="/2018/12/09/suan-fa/lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="实现 LRU 缓存">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="路径和是否等于给定值">
                         
-                        <span class="card-title">实现 LRU 缓存</span>
+                        <span class="card-title">路径和是否等于给定值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">实现 LRU 缓存问题
-这个题目说的是，你要实现一个 LRU 缓存，提供 get 和 put 两个操作，并且要求两个操作的时间复杂度都是 O(1)。另外为了简单起见，在这个题目中，key 和 value 都是整数值，并且 value 只为正</div>
+                    <div class="summary">路径和是否等于给定值问题
+这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
+比如说，给你的二叉树是：
+
+    1
+  /   \
+ 2     </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -658,6 +664,45 @@ public class AlgoCasts {
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

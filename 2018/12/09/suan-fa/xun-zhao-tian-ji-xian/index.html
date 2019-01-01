@@ -602,21 +602,26 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/yong-you-xu-shu-zu-gou-jian-er-cha-sou-suo-shu/">
+                <a href="/2018/12/09/suan-fa/qu-jian-he-bing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="用有序数组构建二叉搜索树">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="区间合并">
                         
-                        <span class="card-title">用有序数组构建二叉搜索树</span>
+                        <span class="card-title">区间合并</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">用有序数组构建二叉搜索树问题
-这个题目说的是，给你一个递增排序的数组，你要用它构建一棵平衡的二叉搜索树。所谓平衡，是指对于这棵二叉搜索树上的每一个节点，它左右子树的高度差不能大于 1。
-比如说，给你的递增数组是：
+                    <div class="summary">区间合并问题
+这个题目说的是，给你一个区间集合，你要把有重叠的区间合并起来。
+比如说，给你的区间集合是：
 
-1, 2, 4, 8, </div>
+[1, 8]
+[2, 4]
+[9, 10]
+[10, 16]
+
+这 4 个区间里，[1, 8] 区间包含了 [2, 4] 区间，于是</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -640,10 +645,6 @@ public class AlgoCasts {
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
-                    <a href="/tags/二叉树/" target="_blank">
-                        <span class="chip bg-color">二叉树</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -653,21 +654,23 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/you-xu-lian-biao-shan-chu-chong-fu-jie-dian/">
+                <a href="/2018/12/09/suan-fa/shi-xian-ping-fang-gen-han-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="有序链表删除重复节点">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="实现平方根函数">
                         
-                        <span class="card-title">有序链表删除重复节点</span>
+                        <span class="card-title">实现平方根函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">有序链表删除重复节点问题
-这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把它们全删掉，留下只出现一次的节点，最后返回处理后的单链表。
-比如说，给你的有序单链表是：
+                    <div class="summary">实现平方根函数问题
+这个题目说的是，你要实现一个函数，来计算非负整数 n 的平方根，平方根只需返回整数部分即可。
+比如，使用你实现的函数来计算 9 的平方根是 3：
 
-1 -> 1 -> 2 -> 4</div>
+f(9) = 3
+
+由于 8 的平方根是 2 点几，使用你实现的函数只需</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -691,10 +694,6 @@ public class AlgoCasts {
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -703,6 +702,45 @@ public class AlgoCasts {
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

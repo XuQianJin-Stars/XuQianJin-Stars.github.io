@@ -588,23 +588,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/hui-wen-fen-ge/">
+                <a href="/2018/12/09/suan-fa/han-ming-ju-chi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回文分割">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="汉明距离">
                         
-                        <span class="card-title">回文分割</span>
+                        <span class="card-title">汉明距离</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">回文分割问题
-这个题目说的是，给你一个字符串，你要把它分割成子串，并且每个子串都是回文串。你要返回所有可能的子串集合。
-比如说，给你的字符串是：
+                    <div class="summary">汉明距离问题
+这个题目说的是，给你两个整数，你要计算出它们的二进制表示中，相应的二进制位有多少个是不同的。这个不同的个数，也称为这两个整数的汉明距离。
+比如说，给你的两个整数是 3 和 8。它们的二进制表示分别是：
 
-aad
-
-它有两种可能的分割方法。一种是分割成 aa 和 d。aa 是回文串，d 作为单个字</div>
+3: 0011
+8: </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -637,23 +636,28 @@ aad
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/">
+                <a href="/2018/12/09/suan-fa/fan-zhuan-zi-fu-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="路径和是否等于给定值">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="反转字符串">
                         
-                        <span class="card-title">路径和是否等于给定值</span>
+                        <span class="card-title">反转字符串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">路径和是否等于给定值问题
-这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
-比如说，给你的二叉树是：
+                    <div class="summary">反转字符串问题
+这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。
+比如说给你的字符串是：
 
-    1
-  /   \
- 2     </div>
+abcde
+
+你要返回左右反转后的字符串：
+
+edcba
+
+代码
+public class AlgoCasts {</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -685,6 +689,45 @@ aad
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

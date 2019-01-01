@@ -587,28 +587,21 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/12/09/suan-fa/yong-you-xu-shu-zu-gou-jian-er-cha-sou-suo-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="最长回文子串">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="用有序数组构建二叉搜索树">
                         
-                        <span class="card-title">最长回文子串</span>
+                        <span class="card-title">用有序数组构建二叉搜索树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">最长回文子串问题
-这个题目说的是，给你一个字符串，你要在它所有的回文子串中，找到长度最长的子串，并返回它。
-比如说，给你的字符串是：
+                    <div class="summary">用有序数组构建二叉搜索树问题
+这个题目说的是，给你一个递增排序的数组，你要用它构建一棵平衡的二叉搜索树。所谓平衡，是指对于这棵二叉搜索树上的每一个节点，它左右子树的高度差不能大于 1。
+比如说，给你的递增数组是：
 
-abcbab
-
-你要返回的最长回文子串是：
-
-abcba
-
-代码
-public class AlgoCa</div>
+1, 2, 4, 8, </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -632,6 +625,10 @@ public class AlgoCa</div>
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
+                    <a href="/tags/二叉树/" target="_blank">
+                        <span class="chip bg-color">二叉树</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -641,18 +638,23 @@ public class AlgoCa</div>
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shu-ju-liu-zhong-di-k-da-de-yuan-su/">
+                <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-chuan-de-chang-du/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="数据流中第 K 大的元素">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="最长回文串的长度">
                         
-                        <span class="card-title">数据流中第 K 大的元素</span>
+                        <span class="card-title">最长回文串的长度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数据流中第 K 大的元素问题
-这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，整数数组作为初始数据流。第二个是 add 函数，接收一个整数表</div>
+                    <div class="summary">最长回文串的长度问题
+这个题目说的是，给你一个包含大小写英文字母的字符串，你要用这些字母构建一个最长的回文字符串，并返回它的长度。
+比如说，给你的字符串 s 是：
+
+aaabccdd
+
+你能用它构建的回文串的最大长度是 7，因此你要返回的就</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -684,6 +686,45 @@ public class AlgoCa</div>
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

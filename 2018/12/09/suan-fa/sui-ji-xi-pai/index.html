@@ -548,18 +548,18 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shu-ju-liu-zhong-di-k-da-de-yuan-su/">
+                <a href="/2018/12/09/suan-fa/shi-xian-lru-huan-cun/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="数据流中第 K 大的元素">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="实现 LRU 缓存">
                         
-                        <span class="card-title">数据流中第 K 大的元素</span>
+                        <span class="card-title">实现 LRU 缓存</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数据流中第 K 大的元素问题
-这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，整数数组作为初始数据流。第二个是 add 函数，接收一个整数表</div>
+                    <div class="summary">实现 LRU 缓存问题
+这个题目说的是，你要实现一个 LRU 缓存，提供 get 和 put 两个操作，并且要求两个操作的时间复杂度都是 O(1)。另外为了简单起见，在这个题目中，key 和 value 都是整数值，并且 value 只为正</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -592,23 +592,21 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shu-zu-zhong-di-k-da-de-yuan-su/">
+                <a href="/2018/12/09/suan-fa/you-xu-shu-zu-zhong-de-dan-shen-shu-zi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数组中第 K 大的元素">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="有序数组中的单身数字">
                         
-                        <span class="card-title">数组中第 K 大的元素</span>
+                        <span class="card-title">有序数组中的单身数字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数组中第 K 大的元素问题
-这个题目说的是，给你一个整数数组和一个整数 K，你要找到数组中第 K 大的元素。
-比如说，给你的整数数组是：
+                    <div class="summary">有序数组中的单身数字问题
+这个题目说的是，给你一个排好序的整数数组，里面的数字都出现两次，只有一个数字出现了一次，我们管它叫单身数字，你要写代码找到这个单身数字。
+比如说给你的有序数组是：
 
-4, 2, 8, 1, 8
-
-整数 K 是 2。这个数组中第 2 大的元素是 8，因此你要返回 8。</div>
+1, 1, 2, 2, 4, 4, 6, 8, </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -640,6 +638,45 @@ public class AlgoCasts {
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">

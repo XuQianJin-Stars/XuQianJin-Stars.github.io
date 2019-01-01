@@ -565,19 +565,19 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/26/suan-fa/lian-biao-de-xiang-jiao-jie-dian/">
+                <a href="/2018/12/26/suan-fa/qiu-liang-ge-dan-lian-biao-zhi-he/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="链表的相交节点">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="求两个单链表之和">
                         
-                        <span class="card-title">链表的相交节点</span>
+                        <span class="card-title">求两个单链表之和</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">链表的相交节点问题
-这个题目说的是，给你两个单链表，你要找到它们相交的第一个节点。如果两个链表没有相交，则返回空指针。假设链表无环，并且你不能改变它的原始结构。另外要求算法是线性时间复杂度，空间复杂度要求是 O(1)。
-比如说，两条链表分别</div>
+                    <div class="summary">求两个单链表之和问题
+这个题目说的是，给你两个非空的单链表，它们代表两个非负整数，并且逆序表示。你要将这两个数求和，并将结果以链表形式返回。你不需要考虑前导 0 这种情况，也就说 3 不会表示成 003 这样子。
+比如说给你的两个链接表是：</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-26
@@ -660,6 +660,45 @@ public class AlgoCasts {
     </div>
 </article>
 </div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
