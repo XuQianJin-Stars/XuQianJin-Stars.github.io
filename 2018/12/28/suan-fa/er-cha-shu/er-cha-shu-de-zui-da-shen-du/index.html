@@ -54,7 +54,9 @@
                         <span class="logo-span">ForwardXu</span>
                     </a>
                 </div>
-                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
 <ul class="right">
     
     <li class="hide-on-med-and-down">
@@ -132,6 +134,8 @@
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -348,7 +352,8 @@
             
             <div class="post-info">
                 
-                <span class="post-cate" style="margin-right: 0px">
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
                     <a href="/categories/algorithm/" class="post-category" target="_blank">
@@ -363,10 +368,10 @@
                 </span>
 				
 				
-					<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
 				
-                </span>
-            </div>
+            </span></div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -586,23 +591,23 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/28/suan-fa/er-cha-shu/er-cha-shu-de-ceng-xu-bian-li/">
+                <a href="/2018/12/28/suan-fa/er-cha-shu/jian-yan-er-cha-sou-suo-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="二叉树的层序遍历">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="检验二叉搜索树">
                         
-                        <span class="card-title">二叉树的层序遍历</span>
+                        <span class="card-title">检验二叉搜索树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉树的层序遍历问题
-这个题目说的是，给你一棵二叉树，要求你从根节点到叶子节点一层一层地对其进行访问，对于每一层的节点，则是从左向右进行访问。将访问的结果以二维数组返回。
-比如说，给你的二叉树是：
+                    <div class="summary">检验二叉搜索树问题
+这个题目说的是，给你一棵二叉树，你要判断它是不是一棵二叉搜索树。
+二叉搜索树的定义是：
 
-     1
-   /   \
-  2 </div>
+  1. 左子树所有节点上的值都小于根节点上的值
+  2. 右子树所有节点上的值都大于根节点上的值
+  3. 左右子树同时也为二叉</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -639,19 +644,17 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/28/suan-fa/er-cha-shu/er-cha-shu-de-ni-ceng-xu-bian-li/">
+                <a href="/2018/12/28/chang-yong-gong-ju/java-ji-chong-chang-yong-json-ku-xing-neng-bi-jiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="二叉树的逆层序遍历">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java几种常用JSON库性能比较">
                         
-                        <span class="card-title">二叉树的逆层序遍历</span>
+                        <span class="card-title">Java几种常用JSON库性能比较</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">二叉树的逆层序遍历问题
-这个题目说的是，给你一棵二叉树，要求你从叶子节点到根节点一层一层地对其进行访问，对于每一层的节点，则是从左向右进行访问。将访问的结果以二维数组返回。
-这道题目和二叉树层序遍历的唯一区别是，它是从下向上一层一层去访问的</div>
+                    <div class="summary">Java几种常用JSON库性能比较上一篇介绍了Java性能测试框架JMH的使用方法，本篇通过JMH来测试一下Java中几种常见的JSON解析库的性能。 每次都在网上看到别人说什么某某库性能是如何如何的好，碾压其他的库。但是百闻不如一见，只有</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -660,8 +663,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/常用工具/" class="post-category" target="_blank">
+                                    常用工具
                                 </a>
                             
                             
@@ -671,12 +674,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/二叉树/" target="_blank">
-                        <span class="chip bg-color">二叉树</span>
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
                     </a>
                     
                 </div>
@@ -778,19 +777,25 @@
 </main>
 
 
-
-	<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
-
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
 			
-				<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
 			
         </div>
-        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
 </a>
 <a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
@@ -838,10 +843,8 @@
 <script src="/libs/aos/aos.js"></script>
 <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
 <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-
-<script src="/libs/others/clicklove.js"></script>
-
 <script src="/js/matery.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
@@ -854,6 +857,13 @@
     gtag('js', new Date());
     gtag('config', 'UA-131393275-1');
 </script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>

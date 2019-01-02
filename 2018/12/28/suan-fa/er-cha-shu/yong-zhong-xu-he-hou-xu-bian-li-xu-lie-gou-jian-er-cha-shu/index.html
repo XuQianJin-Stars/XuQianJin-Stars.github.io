@@ -48,7 +48,9 @@
                         <span class="logo-span">ForwardXu</span>
                     </a>
                 </div>
-                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
 <ul class="right">
     
     <li class="hide-on-med-and-down">
@@ -126,6 +128,8 @@
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -342,7 +346,8 @@
             
             <div class="post-info">
                 
-                <span class="post-cate" style="margin-right: 0px">
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
                     <a href="/categories/algorithm/" class="post-category" target="_blank">
@@ -357,10 +362,10 @@
                 </span>
 				
 				
-					<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
 				
-                </span>
-            </div>
+            </span></div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -578,31 +583,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/28/suan-fa/er-cha-shu/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/">
+                <a href="/2018/12/29/mian-shi-xi-lie/mian-shi-xi-lie-jvm-kan-zhe-pian-jiu-gou-liao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="用中序和后序遍历序列构建二叉树">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="面试系列-Jvm看这篇就够了">
                         
-                        <span class="card-title">用中序和后序遍历序列构建二叉树</span>
+                        <span class="card-title">面试系列-Jvm看这篇就够了</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">用中序和后序遍历序列构建二叉树问题
-这个题目说的是，给你一棵二叉树的中序和后序遍历序列，你要根据这两个序列构建这棵二叉树。假设这棵二叉树节点上没有重复的数字。
-比如说，给你的中序遍历序列和后序遍历序列分别是：
-
-中序遍历序列：2, 1, 8</div>
+                    <div class="summary">面试系列-Jvm看这篇就够了一.  JVM基础知识1）Java 是如何实现跨平台的？注意：跨平台的是 Java 程序，而不是 JVM。JVM 是用 C/C++ 开发的，是编译后的机器码，不能跨平台，不同平台下需要安装不同版本的 JVM
+答：</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-29
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/面试系列/" class="post-category" target="_blank">
+                                    面试系列
                                 </a>
                             
                             
@@ -612,12 +614,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/二叉树/" target="_blank">
-                        <span class="chip bg-color">二叉树</span>
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
                     </a>
                     
                 </div>
@@ -629,24 +627,19 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/28/suan-fa/er-cha-shu/pan-duan-er-cha-shu-shi-fou-ping-heng/">
+                <a href="/2018/12/28/suan-fa/er-cha-shu/he-bing-er-cha-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="判断二叉树是否平衡">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="合并二叉树">
                         
-                        <span class="card-title">判断二叉树是否平衡</span>
+                        <span class="card-title">合并二叉树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">判断二叉树是否平衡问题
-这个题目说的是，给你一棵二叉树，你要判断它是否平衡。这里平衡指的是，对于树上任意一个节点，它的两棵子树的高度差不能大于 1。
-比如说，给你的二叉树是：
-
-     1
-   /   \
-  2     4
-     </div>
+                    <div class="summary">合并二叉树问题
+这个题目说的是，给你两棵二叉树，你要把它们合并起来形成一棵新的二叉树。合并规则是对应节点上的数字相加得到新节点的数字，如果有一个节点为空，则直接使用非空节点的数字，如果两个节点都为空，则合并后也为空。
+比如说，给你的两棵二叉</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -773,19 +766,25 @@
 </main>
 
 
-
-	<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
-
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
 			
-				<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
 			
         </div>
-        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
 </a>
 <a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
@@ -833,10 +832,8 @@
 <script src="/libs/aos/aos.js"></script>
 <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
 <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-
-<script src="/libs/others/clicklove.js"></script>
-
 <script src="/js/matery.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
@@ -849,6 +846,13 @@
     gtag('js', new Date());
     gtag('config', 'UA-131393275-1');
 </script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>

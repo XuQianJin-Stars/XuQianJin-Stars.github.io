@@ -48,7 +48,9 @@
                         <span class="logo-span">ForwardXu</span>
                     </a>
                 </div>
-                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
 <ul class="right">
     
     <li class="hide-on-med-and-down">
@@ -126,6 +128,8 @@
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -342,7 +346,8 @@
             
             <div class="post-info">
                 
-                <span class="post-cate" style="margin-right: 0px">
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
                     <a href="/categories/algorithm/" class="post-category" target="_blank">
@@ -357,10 +362,10 @@
                 </span>
 				
 				
-					<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
 				
-                </span>
-            </div>
+            </span></div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -619,26 +624,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/qu-jian-he-bing/">
+                <a href="/2018/12/09/suan-fa/fan-zhuan-zi-fu-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="区间合并">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="反转字符串">
                         
-                        <span class="card-title">区间合并</span>
+                        <span class="card-title">反转字符串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">区间合并问题
-这个题目说的是，给你一个区间集合，你要把有重叠的区间合并起来。
-比如说，给你的区间集合是：
+                    <div class="summary">反转字符串问题
+这个题目说的是，给你一个字符串，你要写一个函数左右反转它。然后返回反转后的字符串。
+比如说给你的字符串是：
 
-[1, 8]
-[2, 4]
-[9, 10]
-[10, 16]
+abcde
 
-这 4 个区间里，[1, 8] 区间包含了 [2, 4] 区间，于是</div>
+你要返回左右反转后的字符串：
+
+edcba
+
+代码
+public class AlgoCasts {</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -671,23 +678,25 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/">
+                <a href="/2018/12/09/suan-fa/fan-zhuan-dan-ci/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="路径和是否等于给定值">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="反转单词">
                         
-                        <span class="card-title">路径和是否等于给定值</span>
+                        <span class="card-title">反转单词</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">路径和是否等于给定值问题
-这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
-比如说，给你的二叉树是：
+                    <div class="summary">反转单词问题
+这个题目说的是，给你一个字符串，你要写一个函数反转这个字符串中的单词，然后返回处理后的字符串。注意，单词之间只用一个空格隔开。
+比如说给你的字符串是：
 
-    1
-  /   \
- 2     </div>
+"I am busy."
+
+反转这个字符串中的 3 个单词，得到：
+
+"</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -810,19 +819,25 @@
 </main>
 
 
-
-	<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
-
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
 			
-				<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
 			
         </div>
-        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
 </a>
 <a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
@@ -870,10 +885,8 @@
 <script src="/libs/aos/aos.js"></script>
 <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
 <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-
-<script src="/libs/others/clicklove.js"></script>
-
 <script src="/js/matery.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
@@ -886,6 +899,13 @@
     gtag('js', new Date());
     gtag('config', 'UA-131393275-1');
 </script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>

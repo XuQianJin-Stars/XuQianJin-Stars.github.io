@@ -54,7 +54,9 @@
                         <span class="logo-span">ForwardXu</span>
                     </a>
                 </div>
-                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
 <ul class="right">
     
     <li class="hide-on-med-and-down">
@@ -132,6 +134,8 @@
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -348,7 +352,8 @@
             
             <div class="post-info">
                 
-                <span class="post-cate" style="margin-right: 0px">
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
                     <a href="/categories/algorithm/" class="post-category" target="_blank">
@@ -363,10 +368,10 @@
                 </span>
 				
 				
-					<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
 				
-                </span>
-            </div>
+            </span></div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -600,23 +605,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/tiao-shu-zu/">
+                <a href="/2018/12/16/suan-fa/shu-zu-de-quan-pai-lie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="跳数组">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="数组的全排列">
                         
-                        <span class="card-title">跳数组</span>
+                        <span class="card-title">数组的全排列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">跳数组问题
-这个题目说的是，给你一个非负整数数组，数组中的每个数字表示那个位置上可以向后跳的最大步数。一开始你站在下标为 0 的位置，你要判断是否可以跳到数组最后的位置。
-比如说，给你的数组 a 是：
+                    <div class="summary">数组的全排列问题
+这个题目说的是，给你一个整数数组，并且数组中没有重复元素，你要返回这个数组所有可能的排列。
+比如说给你的数组是：
 
-2, 4, 0, 1, 2
+0, 1, 2
 
-一开始</div>
+你要返回的所有排列是：
+
+0, 1, 2
+0, 2, 1
+1, 0, 2
+1, 2, 0</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16
@@ -649,31 +659,32 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/16/suan-fa/shu-zu-de-quan-pai-lie/">
+                <a href="/2018/12/12/suan-fa/er-cha-shu/er-cha-shu-zhong-xu-bian-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="数组的全排列">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="二叉树中序遍历">
                         
-                        <span class="card-title">数组的全排列</span>
+                        <span class="card-title">二叉树中序遍历</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数组的全排列问题
-这个题目说的是，给你一个整数数组，并且数组中没有重复元素，你要返回这个数组所有可能的排列。
-比如说给你的数组是：
+                    <div class="summary">二叉树中序遍历问题
+这个题目说的是，给你一个二叉树，你要返回一个数组，表示二叉树中序遍历的结果。
+比如说，给你的二叉树是：
 
-0, 1, 2
+     1
+   /   \
+  2     3
+   \
+    4
+   /
+  5
 
-你要返回的所有排列是：
-
-0, 1, 2
-0, 2, 1
-1, 0, 2
-1, 2, 0</div>
+你要返回的中序遍历结</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-16
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-12
                             </span>
                         <span class="publish-author">
                             
@@ -692,6 +703,10 @@
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/二叉树/" target="_blank">
+                        <span class="chip bg-color">二叉树</span>
                     </a>
                     
                 </div>
@@ -793,19 +808,25 @@
 </main>
 
 
-
-	<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
-
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
 			
-				<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
 			
         </div>
-        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
 </a>
 <a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
@@ -853,10 +874,8 @@
 <script src="/libs/aos/aos.js"></script>
 <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
 <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-
-<script src="/libs/others/clicklove.js"></script>
-
 <script src="/js/matery.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
@@ -869,6 +888,13 @@
     gtag('js', new Date());
     gtag('config', 'UA-131393275-1');
 </script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>

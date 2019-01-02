@@ -49,7 +49,9 @@ public class AlgoCasts {
                         <span class="logo-span">ForwardXu</span>
                     </a>
                 </div>
-                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
 <ul class="right">
     
     <li class="hide-on-med-and-down">
@@ -127,6 +129,8 @@ public class AlgoCasts {
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -339,7 +343,8 @@ public class AlgoCasts {
             
             <div class="post-info">
                 
-                <span class="post-cate" style="margin-right: 0px">
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
                     <a href="/categories/algorithm/" class="post-category" target="_blank">
@@ -354,10 +359,10 @@ public class AlgoCasts {
                 </span>
 				
 				
-					<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
 				
-                </span>
-            </div>
+            </span></div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -548,24 +553,29 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/12/suan-fa/lian-biao/he-bing-liang-ge-you-xu-lian-biao/">
+                <a href="/2018/12/09/suan-fa/qu-jian-he-bing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="合并两个有序链表">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="区间合并">
                         
-                        <span class="card-title">合并两个有序链表</span>
+                        <span class="card-title">区间合并</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">合并两个有序链表问题
-这个题目说的是，给你两个递增排序的链表，你要把它们合成一个链表，并且保持递增排序。另外要求，新链表上的节点使用的就是旧的两个链表上的节点，不能创建新节点。
-比如说，给你的两个链表 L1 和 L2，分别是：
+                    <div class="summary">区间合并问题
+这个题目说的是，给你一个区间集合，你要把有重叠的区间合并起来。
+比如说，给你的区间集合是：
 
-L1: 1</div>
+[1, 8]
+[2, 4]
+[9, 10]
+[10, 16]
+
+这 4 个区间里，[1, 8] 区间包含了 [2, 4] 区间，于是</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-12
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
                         </span>
                         <span class="publish-author">
                             
@@ -586,10 +596,6 @@ L1: 1</div>
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -599,22 +605,23 @@ L1: 1</div>
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/lian-biao/dan-lian-biao-zhong-yuan-huan-de-kai-shi-jie-dian/">
+                <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-chuan-de-chang-du/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="单链表中圆环的开始节点">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="最长回文串的长度">
                         
-                        <span class="card-title">单链表中圆环的开始节点</span>
+                        <span class="card-title">最长回文串的长度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">单链表中圆环的开始节点问题
-这个题目说的是，给你一个单链表，你要返回这个链表中，圆环的开始节点。如果单链表无环，就返回空指针。
-比如说，给你的单链表是：
+                    <div class="summary">最长回文串的长度问题
+这个题目说的是，给你一个包含大小写英文字母的字符串，你要用这些字母构建一个最长的回文字符串，并返回它的长度。
+比如说，给你的字符串 s 是：
 
-1 -> 2 -> 4 -> 8 -> 2
-// 最后的 2 和前面的 2 是同一个</div>
+aaabccdd
+
+你能用它构建的回文串的最大长度是 7，因此你要返回的就</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -636,10 +643,6 @@ L1: 1</div>
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
-                    </a>
-                    
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>
@@ -741,19 +744,25 @@ L1: 1</div>
 </main>
 
 
-
-	<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
-
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
 			
-				<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
 			
         </div>
-        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
 </a>
 <a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
@@ -801,10 +810,8 @@ L1: 1</div>
 <script src="/libs/aos/aos.js"></script>
 <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
 <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-
-<script src="/libs/others/clicklove.js"></script>
-
 <script src="/js/matery.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
@@ -817,6 +824,13 @@ L1: 1</div>
     gtag('js', new Date());
     gtag('config', 'UA-131393275-1');
 </script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>

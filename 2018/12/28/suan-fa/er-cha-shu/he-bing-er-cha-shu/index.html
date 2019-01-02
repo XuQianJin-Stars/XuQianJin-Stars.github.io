@@ -46,7 +46,9 @@
                         <span class="logo-span">ForwardXu</span>
                     </a>
                 </div>
-                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
 <ul class="right">
     
     <li class="hide-on-med-and-down">
@@ -124,6 +126,8 @@
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -340,7 +344,8 @@
             
             <div class="post-info">
                 
-                <span class="post-cate" style="margin-right: 0px">
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
                     <a href="/categories/algorithm/" class="post-category" target="_blank">
@@ -355,10 +360,10 @@
                 </span>
 				
 				
-					<span id="busuanzi_container_page_pv">阅读&nbsp<span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
 				
-                </span>
-            </div>
+            </span></div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -577,24 +582,21 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/28/suan-fa/er-cha-shu/pan-duan-er-cha-shu-shi-fou-ping-heng/">
+                <a href="/2018/12/28/suan-fa/er-cha-shu/yong-zhong-xu-he-hou-xu-bian-li-xu-lie-gou-jian-er-cha-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="判断二叉树是否平衡">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="用前序和中序遍历序列构建二叉树">
                         
-                        <span class="card-title">判断二叉树是否平衡</span>
+                        <span class="card-title">用前序和中序遍历序列构建二叉树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">判断二叉树是否平衡问题
-这个题目说的是，给你一棵二叉树，你要判断它是否平衡。这里平衡指的是，对于树上任意一个节点，它的两棵子树的高度差不能大于 1。
-比如说，给你的二叉树是：
+                    <div class="summary">用前序和中序遍历序列构建二叉树问题
+这个题目说的是，给你一棵二叉树的前序和中序遍历序列，你要根据这两个序列构建这棵二叉树。假设这棵二叉树节点上没有重复的数字。
+比如说，给你的前序遍历序列和中序遍历序列分别是：
 
-     1
-   /   \
-  2     4
-     </div>
+前序遍历序列：1, 2, 4</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -631,17 +633,22 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/28/chang-yong-gong-ju/java-ji-chong-chang-yong-json-ku-xing-neng-bi-jiao/">
+                <a href="/2018/12/28/suan-fa/er-cha-shu/er-cha-sou-suo-shu-zhong-cha-zhao-shu-zi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java几种常用JSON库性能比较">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="二叉搜索树中查找数字">
                         
-                        <span class="card-title">Java几种常用JSON库性能比较</span>
+                        <span class="card-title">二叉搜索树中查找数字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Java几种常用JSON库性能比较上一篇介绍了Java性能测试框架JMH的使用方法，本篇通过JMH来测试一下Java中几种常见的JSON解析库的性能。 每次都在网上看到别人说什么某某库性能是如何如何的好，碾压其他的库。但是百闻不如一见，只有</div>
+                    <div class="summary">二叉搜索树中查找数字问题
+这个题目说的是，给你一棵二叉搜索树和一个数字，你要在二叉搜索树上找到这个数字，并返回它所在的节点。如果找不到这个数字，就返回空指针。
+二叉搜索树的定义是：
+
+  1. 左子树所有节点上的值都小于根节点上的值
+  2</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -650,8 +657,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/常用工具/" class="post-category" target="_blank">
-                                    常用工具
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
                                 </a>
                             
                             
@@ -661,8 +668,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/开发工具/" target="_blank">
-                        <span class="chip bg-color">开发工具</span>
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/二叉树/" target="_blank">
+                        <span class="chip bg-color">二叉树</span>
                     </a>
                     
                 </div>
@@ -764,19 +775,25 @@
 </main>
 
 
-
-	<script async src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
-
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="" onclick="return false;" target="_blank">ForwardXu</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
 			
-				<span id="busuanzi_container_site_uv"> 本站访客数<a id="busuanzi_value_site_uv"></a>人次</span>
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
 			
         </div>
-        <div class="col s12 m4 l4 social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
 </a>
 <a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
@@ -824,10 +841,8 @@
 <script src="/libs/aos/aos.js"></script>
 <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
 <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-
-<script src="/libs/others/clicklove.js"></script>
-
 <script src="/js/matery.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
@@ -840,6 +855,13 @@
     gtag('js', new Date());
     gtag('config', 'UA-131393275-1');
 </script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>
