@@ -5,10 +5,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="爬楼梯的最小代价, 大数据 实时计算 机器学习">
-    <meta name="description" content="爬楼梯的最小代价问题
-这个题目说的是，给你一个整数数组，数组中的整数表示爬对应阶楼梯的代价。你可以从第 0 阶或第 1 阶楼梯开始爬，每次可以向上爬 1 阶或 2 阶。那么请问，爬完这个楼梯的最小代价是多少？
-比如说，给你的代价数组 c 是">
+    <meta name="keywords" content="二叉树的Morris神级遍历算法, 大数据 实时计算 机器学习">
+    <meta name="description" content="二叉树的Morris神级遍历算法对二叉树节点的遍历一般来说有中序，后序，和前序三种遍历方法，如果二叉树的高用h来表示，那三种遍历方法所需要的空间复杂度为O(h). 例如对于中序遍历来说，如果我们使用递归来实现的话，代码如下：
+void in">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>爬楼梯的最小代价 | ForwardXu</title>
+    <title>二叉树的Morris神级遍历算法 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -215,13 +214,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        爬楼梯的最小代价
+                        二叉树的Morris神级遍历算法
                     </div>
                 </div>
             </div>
@@ -336,6 +335,10 @@
                     <span class="chip bg-color">algorithm</span>
                 </a>
                 
+                <a href="/tags/二叉树/" target="_blank">
+                    <span class="chip bg-color">二叉树</span>
+                </a>
+                
             </div>
             
             <div class="post-info">
@@ -352,7 +355,7 @@
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-04
                 </span>
 				
 				
@@ -364,46 +367,97 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="爬楼梯的最小代价"><a href="#爬楼梯的最小代价" class="headerlink" title="爬楼梯的最小代价"></a>爬楼梯的最小代价</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一个整数数组，数组中的整数表示爬对应阶楼梯的代价。<strong>你可以从第 0 阶或第 1 阶楼梯开始爬</strong>，每次可以向上爬 1 阶或 2 阶。那么请问，爬完这个楼梯的最小代价是多少？</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的代价数组 c 是：
-
-1, 2, 4, 2
-
-爬完这个楼梯的最小代价为 4，也就是从第 1 阶（对应的代价为 2）开始，然后爬两阶就爬完了，代价是 2 + 2 = 4。
-</code></pre>
-<p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
-  <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minCostClimbingStairs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cost<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>cost <span class="token operator">==</span> null <span class="token operator">||</span> cost<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>cost<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> cost<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> n <span class="token operator">=</span> cost<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> d <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    d<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> cost<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> d<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> cost<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
-      d<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>d<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> d<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> cost<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>d<span class="token punctuation">[</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> d<span class="token punctuation">[</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(1)</span>
-  <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minCostClimbingStairsO1</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cost<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>cost <span class="token operator">==</span> null <span class="token operator">||</span> cost<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>cost<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> cost<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> first <span class="token operator">=</span> cost<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> second <span class="token operator">=</span> cost<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> cost<span class="token punctuation">.</span>length<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">int</span> cur <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>first<span class="token punctuation">,</span> second<span class="token punctuation">)</span> <span class="token operator">+</span> cost<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      first <span class="token operator">=</span> second<span class="token punctuation">;</span>
-      second <span class="token operator">=</span> cur<span class="token punctuation">;</span>
+                <h2 id="二叉树的Morris神级遍历算法"><a href="#二叉树的Morris神级遍历算法" class="headerlink" title="二叉树的Morris神级遍历算法"></a>二叉树的Morris神级遍历算法</h2><p>对二叉树节点的遍历一般来说有中序，后序，和前序三种遍历方法，如果二叉树的高用h来表示，那三种遍历方法所需要的空间复杂度为O(h). 例如对于中序遍历来说，如果我们使用递归来实现的话，代码如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">inorderTraval</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>first<span class="token punctuation">,</span> second<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+
+    <span class="token function">inorderTraval</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>value <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">inorderTraval</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>上面的实现中，有函数的递归调用，递归的深度等于二叉树的高度，也就是说递归导致的调用堆栈的高度等于二叉树的高度，这样的话，程序虽然没有显示的通过new 来分配内存，但实际上消耗的内存大小也是 O(h). 如果二叉树的高度很大，例如搜索引擎把几十亿张网页按照权重来组成二叉树的话，那么二叉树的高度也要几十万作用，因此按照传统的中序遍历，需要消耗大量的内存。</p>
+<p>本节要讲的Morris遍历法，能以O(1)的空间复杂度实现二叉树的中序遍历。例如给定下面二叉树：</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/1.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/1.png" alt="img"></a></p>
+<p>这里写图片描述</p>
+<p>采用中序遍历的话，二叉树节点的访问情况如下：</p>
+<p>1，2，3，4，5，6，7，8，9，10</p>
+<p>给定某个节点，在中序遍历中，直接排在它前面的节点，我们称之为该节点的前序节点，例如节点5的前序节点就是4，同理，节点10的前序节点就是9.</p>
+<p>在二叉树中如何查找一个节点的前序节点呢？如果该节点有左孩子，那么从左孩子开始，沿着右孩子指针一直想有走到底，得到的节点就是它的前序节点，例如节点6的左孩子是4，沿着节点4的右指针走到底，那就是节点5，节点9的左孩子是7，沿着它的右指针走到底对应的节点就是8.</p>
+<p>如果左孩子的右节点指针是空，那么左孩子就是当前节点的前序节点。</p>
+<p>如果当前节点没有左孩子，并且它是其父节点的右孩子，那么它的前序节点就是它的父节点，例如8的前序节点是7，10的前序节点是9.</p>
+<p>如果当前节点没有左孩子，并且它是父节点的左孩子，那么它没有前序节点，并且它自己就是首节点，例如节点1.</p>
+<p>值得注意的是，前序节点的右指针一定是空的。</p>
+<p>Morris遍历算法的步骤如下：</p>
+<p>1， 根据当前节点，找到其前序节点，如果前序节点的右孩子是空，那么把前序节点的右孩子指向当前节点，然后进入当前节点的左孩子。</p>
+<p>2， 如果当前节点的左孩子为空，打印当前节点，然后进入右孩子。</p>
+<p>3，如果当前节点的前序节点其右孩子指向了它本身，那么把前序节点的右孩子设置为空，打印当前节点，然后进入右孩子。</p>
+<p>我们以上面的例子走一遍。首先访问的是根节点6，得到它的前序节点是5，此时节点5的右孩子是空，所以把节点5的右指针指向节点6：</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/2.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/2.png" alt="img"></a></p>
+<p>这里写图片描述</p>
+<p>进入左孩子，也就到了节点4，此时节点3的前序节点3，右孩子指针是空，于是节点3的右孩子指针指向节点4，然后进入左孩子，也就是节点2</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/3.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/3.png" alt="img"></a></p>
+<p>这里写图片描述</p>
+<p>此时节点2的左孩子1没有右孩子，因此1就是2的前序节点，并且节点1的右孩子指针为空，于是把1的右孩子指针指向节点2，然后从节点2进入节点1：</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/4.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/4.png" alt="img"></a></p>
+<p>这里写图片描述</p>
+<p>此时节点1没有左孩子，因此打印它自己的值，然后进入右孩子，于是回到节点2.根据算法步骤，节点2再次找到它的前序节点1，发现前序节点1的右指针已经指向它自己了，所以打印它自己的值，同时把前序节点的右孩子指针设置为空，同时进入右孩子，也就是节点3.于是图形变为：</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/5.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/5.png" alt="img"></a></p>
+<p>这里写图片描述</p>
+<p>此时节点3没有左孩子，因此打印它自己的值，然后进入它的右孩子，也就是节点4. 到了节点4后，根据算法步骤，节点4先获得它的前序节点，也就是节点3，发现节点3的右孩子节点已经指向自己了，所以打印它自己的值，也就是4，然后把前序节点的右指针设置为空，于是图形变成：</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/6.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/6.png" alt="img"></a></p>
+<p>这里写图片描述</p>
+<p>接着从节点4进入右孩子，也就是节点5，此时节点5没有左孩子，所以直接打印它本身的值，然后进入右孩子，也就是节点6，根据算法步骤，节点6获得它的前序节点5，发现前序节点的右指针已经指向了自己，于是就打印自己的值，把前序节点的右指针设置为空，然后进入右孩子。</p>
+<p>接下来的流程跟上面一样，就不再重复了。我们看看具体的实现代码：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MorrisTraval</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> TreeNode root <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token function">MorrisTraval</span><span class="token punctuation">(</span>TreeNode r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>root <span class="token operator">=</span> r<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">travel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        TreeNode n <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>root<span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>left <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>vaule <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                n <span class="token operator">=</span> n<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                TreeNode pre <span class="token operator">=</span> <span class="token function">getPredecessor</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>pre<span class="token punctuation">.</span>right <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    pre<span class="token punctuation">.</span>right <span class="token operator">=</span> n<span class="token punctuation">;</span>
+                    n <span class="token operator">=</span> n<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pre<span class="token punctuation">.</span>right <span class="token operator">==</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    pre<span class="token punctuation">.</span>right <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>vaule <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    n <span class="token operator">=</span> n<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> TreeNode <span class="token function">getPredecessor</span><span class="token punctuation">(</span>TreeNode n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        TreeNode pre <span class="token operator">=</span> n<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>pre<span class="token punctuation">.</span>right <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> pre<span class="token punctuation">.</span>right <span class="token operator">!=</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> pre<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
 </code></pre>
+<p>getPredecessor 作用是获得给定节点的前序节点，travel  接口做的就是前面描述的算法步骤，在while循环中，进入一个节点时，先判断节点是否有左孩子，没有的话就把节点值打印出来，有的话，先获得前序节点，然后判断前序节点的右孩子指针是否指向自己，是的话把自己的值打印出来，进入右孩子，前序孩子的右孩子指针是空的话，就把右孩子指针指向自己，然后进入左孩子。</p>
+<p>Morris遍历，由于要把前缀节点的右指针指向自己，所以暂时会改变二叉树的结构，但在从前缀节点返回到自身时，算法会把前缀节点的右指针重新设置为空，所以二叉树在结构改变后，又会更改回来。</p>
+<p>在遍历过程中，每个节点最多会被访问两次，一次是从父节点到当前节点，第二次是从前缀节点的右孩子指针返回当前节点，所以Morris遍历算法的复杂度是O(n)。在遍历过程中，没有申请新内存，因此算法的空间复杂度是O(1).</p>
+<p>转载链接：<a href="https://www.jianshu.com/p/484f587c967c" target="_blank" rel="noopener">原文</a></p>
 
             </div>
             <hr>
@@ -542,7 +596,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/pa-lou-ti-de-zui-xiao-dai-jie/" class="b-link-green">爬楼梯的最小代价</a>
+                    <a href="/2019/01/04/suan-fa/er-cha-shu/er-cha-shu-de-morris-shen-ji-bian-li-suan-fa/" class="b-link-green">二叉树的Morris神级遍历算法</a>
                 </p>
             </div>
         </div>
@@ -566,32 +620,29 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/sui-ji-xi-pai/">
+                <a href="/2019/01/04/mian-shi-xi-lie/ji-dao-da-shu-ju-mian-shi-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="随机洗牌">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="几道大数据面试题">
                         
-                        <span class="card-title">随机洗牌</span>
+                        <span class="card-title">几道大数据面试题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">随机洗牌问题
-这个题目说的是，给你一个整数数组表示一副牌，你要写一个随机洗牌函数来返回这个数组的一个排列。并且要保证每次返回的排列都是等概率的。假设已经给你一个完美的随机数生成器。
-代码
-public class AlgoCasts {
-
-</div>
+                    <div class="summary">几道大数据面试题基本概念首先处理大数据的面试题，有些基本概念要清楚：
+（1）1Gb = 109bytes（1Gb = 10亿字节）：1Gb = 1024Mb，1Mb = 1024Kb，1Kb = 1024bytes；
+（2）基本流程是，分解</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-04
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/面试系列/" class="post-category" target="_blank">
+                                    面试系列
                                 </a>
                             
                             
@@ -601,8 +652,8 @@ public class AlgoCasts {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/大数据/" target="_blank">
+                        <span class="chip bg-color">大数据</span>
                     </a>
                     
                 </div>
@@ -614,24 +665,23 @@ public class AlgoCasts {
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/lian-biao/you-xu-lian-biao-shan-chu-chong-fu-jie-dian/">
+                <a href="/2019/01/01/suan-fa/pai-xu/shi-da-jing-dian-pai-xu-suan-fa-dong-hua-yu-jie-xi-pei-dai-ma-wan-quan-ban/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="有序链表删除重复节点">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="十大经典排序算法动画与解析（配代码完全版）">
                         
-                        <span class="card-title">有序链表删除重复节点</span>
+                        <span class="card-title">十大经典排序算法动画与解析（配代码完全版）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">有序链表删除重复节点问题
-这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把它们全删掉，留下只出现一次的节点，最后返回处理后的单链表。
-比如说，给你的有序单链表是：
-
-1 -> 1 -> 2 -> 4</div>
+                    <div class="summary">十大经典排序算法动画与解析（配代码完全版）排序算法是《数据结构与算法》中最基本的算法之一。
+排序算法可以分为内部排序和外部排序。
+内部排序是数据记录在内存中进行排序。
+而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-01
                             </span>
                         <span class="publish-author">
                             
@@ -652,8 +702,8 @@ public class AlgoCasts {
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
+                    <a href="/tags/排序/" target="_blank">
+                        <span class="chip bg-color">排序</span>
                     </a>
                     
                 </div>
