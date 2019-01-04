@@ -502,7 +502,55 @@ void in">
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><p>后续遍历逻辑就复杂很多，我贴下代码有兴趣的可以推导看看。</p>
-<pre class=" language-java"><code class="language-java">
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Morris</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">morrisPos</span><span class="token punctuation">(</span>Node head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        Node curr1 <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        Node curr2 <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>curr1 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curr2 <span class="token operator">=</span> curr1<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>curr2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span>curr2<span class="token punctuation">.</span>right <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> curr2<span class="token punctuation">.</span>right <span class="token operator">=</span><span class="token operator">!=</span>curr1<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    curr2 <span class="token operator">=</span> curr2<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>curr2<span class="token punctuation">.</span>right <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    curr2<span class="token punctuation">.</span>right <span class="token operator">=</span> curr1<span class="token punctuation">;</span>
+                    curr1 <span class="token operator">=</span> curr1<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    curr2<span class="token punctuation">.</span>right <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                    <span class="token function">printEdge</span><span class="token punctuation">(</span>curr1<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">printEdge</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printEdge</span><span class="token punctuation">(</span>Node head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Node tail <span class="token operator">=</span> <span class="token function">reverseEdge</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Node cur <span class="token operator">=</span> tail<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>cur<span class="token punctuation">.</span>value <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">reverseEdge</span><span class="token punctuation">(</span>tail<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Node <span class="token function">reverseEdge</span><span class="token punctuation">(</span>Node from<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Node pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        Node next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>from <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            next <span class="token operator">=</span> from<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            from<span class="token punctuation">.</span>right <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+            pre <span class="token operator">=</span> from<span class="token punctuation">;</span>
+            from <span class="token operator">=</span> next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> pre<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>转载链接：<a href="https://www.jianshu.com/p/484f587c967c" target="_blank" rel="noopener">原文</a></p>
 
