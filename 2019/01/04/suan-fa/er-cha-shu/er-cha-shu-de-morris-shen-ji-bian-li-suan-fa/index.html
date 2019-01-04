@@ -410,8 +410,8 @@ void in">
 <p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/morris算法/6.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/morris算法/6.png" alt="img"></a></p>
 <p>这里写图片描述</p>
 <p>接着从节点4进入右孩子，也就是节点5，此时节点5没有左孩子，所以直接打印它本身的值，然后进入右孩子，也就是节点6，根据算法步骤，节点6获得它的前序节点5，发现前序节点的右指针已经指向了自己，于是就打印自己的值，把前序节点的右指针设置为空，然后进入右孩子。</p>
-<p>接下来的流程跟上面一样，就不再重复了。我们看看具体的实现代码：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MorrisTraval</span> <span class="token punctuation">{</span>
+<p>接下来的流程跟上面一样，就不再重复了。</p>
+<h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MorrisTraval</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> TreeNode root <span class="token operator">=</span> null<span class="token punctuation">;</span>
     <span class="token keyword">public</span> <span class="token function">MorrisTraval</span><span class="token punctuation">(</span>TreeNode r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>root <span class="token operator">=</span> r<span class="token punctuation">;</span>
@@ -457,6 +457,53 @@ void in">
 <p>getPredecessor 作用是获得给定节点的前序节点，travel  接口做的就是前面描述的算法步骤，在while循环中，进入一个节点时，先判断节点是否有左孩子，没有的话就把节点值打印出来，有的话，先获得前序节点，然后判断前序节点的右孩子指针是否指向自己，是的话把自己的值打印出来，进入右孩子，前序孩子的右孩子指针是空的话，就把右孩子指针指向自己，然后进入左孩子。</p>
 <p>Morris遍历，由于要把前缀节点的右指针指向自己，所以暂时会改变二叉树的结构，但在从前缀节点返回到自身时，算法会把前缀节点的右指针重新设置为空，所以二叉树在结构改变后，又会更改回来。</p>
 <p>在遍历过程中，每个节点最多会被访问两次，一次是从父节点到当前节点，第二次是从前缀节点的右孩子指针返回当前节点，所以Morris遍历算法的复杂度是O(n)。在遍历过程中，没有申请新内存，因此算法的空间复杂度是O(1).</p>
+<h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><p>前序遍历与中序遍历代码基本一致，只是在打印的地方不一样。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MorrisTraval</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> TreeNode root <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token function">MorrisTraval</span><span class="token punctuation">(</span>TreeNode r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>root <span class="token operator">=</span> r<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">travel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        TreeNode n <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>root<span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>left <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>vaule <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                n <span class="token operator">=</span> n<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                TreeNode pre <span class="token operator">=</span> <span class="token function">getPredecessor</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>pre<span class="token punctuation">.</span>right <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    pre<span class="token punctuation">.</span>right <span class="token operator">=</span> n<span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>vaule <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    n <span class="token operator">=</span> n<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pre<span class="token punctuation">.</span>right <span class="token operator">==</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    pre<span class="token punctuation">.</span>right <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                    n <span class="token operator">=</span> n<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> TreeNode <span class="token function">getPredecessor</span><span class="token punctuation">(</span>TreeNode n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        TreeNode pre <span class="token operator">=</span> n<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>pre<span class="token punctuation">.</span>right <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> pre<span class="token punctuation">.</span>right <span class="token operator">!=</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> pre<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><p>后续遍历逻辑就复杂很多，我贴下代码有兴趣的可以推导看看。</p>
+<pre class=" language-java"><code class="language-java">
+</code></pre>
 <p>转载链接：<a href="https://www.jianshu.com/p/484f587c967c" target="_blank" rel="noopener">原文</a></p>
 
             </div>
