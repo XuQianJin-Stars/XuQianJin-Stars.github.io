@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-05T10:19:18.750Z</updated>
+  <updated>2019-01-05T13:13:51.430Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>并查集</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/bing-cha-ji/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/bing-cha-ji/</id>
+    <published>2019-01-05T13:13:00.000Z</published>
+    <updated>2019-01-05T13:13:51.430Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;并查集&quot;&gt;&lt;a href=&quot;#并查集&quot; class=&quot;headerlink&quot; title=&quot;并查集&quot;&gt;&lt;/a&gt;并查集&lt;/h1&gt;&lt;p&gt;用于解决动态连通性问题，能动态连接两个点，并且判断两个点是否连通。&lt;/p&gt;
+&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>数组中唯一一个不重复的元素</title>
@@ -45,11 +72,11 @@
   </entry>
   
   <entry>
-    <title>数组中不重复的两个元素</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/shu-zu-zhong-bu-chong-fu-de-liang-ge-yuan-su/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/shu-zu-zhong-bu-chong-fu-de-liang-ge-yuan-su/</id>
+    <title>位运算-基本原理</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/wei-yun-suan-ji-ben-yuan-li/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/wei-yun-suan-ji-ben-yuan-li/</id>
     <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T10:29:15.369Z</updated>
+    <updated>2019-01-05T10:40:47.359Z</updated>
     
     <summary type="html">
     
@@ -57,7 +84,7 @@
       
         
         
-          &lt;h2 id=&quot;数组中不重复的两个元素&quot;&gt;&lt;a href=&quot;#数组中不重复的两个元素&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;位运算-基本原理&quot;&gt;&lt;a href=&quot;#位运算-基本原理&quot; class=&quot;headerlink&quot; title=&quot;位运算-基本原理&quot;&gt;&lt;/a&gt;位运算-基本原理&lt;/h2&gt;&lt;h3 id=&quot;1-基本原理&quot;&gt;&lt;a href=&quot;#1-基本原理&quot;
         
       
     
@@ -73,11 +100,11 @@
   </entry>
   
   <entry>
-    <title>位运算-基本原理</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/wei-yun-suan-ji-ben-yuan-li/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/wei-yun-suan-ji-ben-yuan-li/</id>
+    <title>求一个数的补码</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/qiu-yi-ge-shu-de-bu-ma/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/qiu-yi-ge-shu-de-bu-ma/</id>
     <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T10:40:47.359Z</updated>
+    <updated>2019-01-05T11:27:29.541Z</updated>
     
     <summary type="html">
     
@@ -85,7 +112,7 @@
       
         
         
-          &lt;h2 id=&quot;位运算-基本原理&quot;&gt;&lt;a href=&quot;#位运算-基本原理&quot; class=&quot;headerlink&quot; title=&quot;位运算-基本原理&quot;&gt;&lt;/a&gt;位运算-基本原理&lt;/h2&gt;&lt;h3 id=&quot;1-基本原理&quot;&gt;&lt;a href=&quot;#1-基本原理&quot;
+          &lt;h2 id=&quot;求一个数的补码&quot;&gt;&lt;a href=&quot;#求一个数的补码&quot; class=&quot;headerlink&quot;
         
       
     
@@ -157,11 +184,11 @@
   </entry>
   
   <entry>
-    <title>求一个数的补码</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/qiu-yi-ge-shu-de-bu-ma/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/qiu-yi-ge-shu-de-bu-ma/</id>
+    <title>不用额外变量交换两个整数</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/bu-yong-e-wai-bian-liang-jiao-huan-liang-ge-zheng-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/bu-yong-e-wai-bian-liang-jiao-huan-liang-ge-zheng-shu/</id>
     <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T11:27:29.541Z</updated>
+    <updated>2019-01-05T10:59:50.711Z</updated>
     
     <summary type="html">
     
@@ -169,7 +196,7 @@
       
         
         
-          &lt;h2 id=&quot;求一个数的补码&quot;&gt;&lt;a href=&quot;#求一个数的补码&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;不用额外变量交换两个整数&quot;&gt;&lt;a href=&quot;#不用额外变量交换两个整数&quot; class=&quot;headerlink&quot;
         
       
     
@@ -185,11 +212,11 @@
   </entry>
   
   <entry>
-    <title>不用额外变量交换两个整数</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/bu-yong-e-wai-bian-liang-jiao-huan-liang-ge-zheng-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/bu-yong-e-wai-bian-liang-jiao-huan-liang-ge-zheng-shu/</id>
+    <title>数组中不重复的两个元素</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/shu-zu-zhong-bu-chong-fu-de-liang-ge-yuan-su/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/shu-zu-zhong-bu-chong-fu-de-liang-ge-yuan-su/</id>
     <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T10:59:50.711Z</updated>
+    <updated>2019-01-05T10:29:15.369Z</updated>
     
     <summary type="html">
     
@@ -197,7 +224,7 @@
       
         
         
-          &lt;h2 id=&quot;不用额外变量交换两个整数&quot;&gt;&lt;a href=&quot;#不用额外变量交换两个整数&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;数组中不重复的两个元素&quot;&gt;&lt;a href=&quot;#数组中不重复的两个元素&quot; class=&quot;headerlink&quot;
         
       
     
@@ -487,6 +514,34 @@
   </entry>
   
   <entry>
+    <title>二叉树的逆层序遍历</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/er-cha-shu-de-ni-ceng-xu-bian-li/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/er-cha-shu-de-ni-ceng-xu-bian-li/</id>
+    <published>2018-12-28T14:26:00.000Z</published>
+    <updated>2018-12-28T14:33:28.876Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;二叉树的逆层序遍历&quot;&gt;&lt;a href=&quot;#二叉树的逆层序遍历&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="二叉树" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>用中序和后序遍历序列构建二叉树</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/yong-qian-xu-he-zhong-xu-bian-li-xu-lie-gou-jian-er-cha-shu/</id>
@@ -500,62 +555,6 @@
         
         
           &lt;h2 id=&quot;用中序和后序遍历序列构建二叉树&quot;&gt;&lt;a href=&quot;#用中序和后序遍历序列构建二叉树&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="二叉树" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用前序和中序遍历序列构建二叉树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/yong-zhong-xu-he-hou-xu-bian-li-xu-lie-gou-jian-er-cha-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/yong-zhong-xu-he-hou-xu-bian-li-xu-lie-gou-jian-er-cha-shu/</id>
-    <published>2018-12-28T14:26:00.000Z</published>
-    <updated>2018-12-28T14:39:33.924Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;用前序和中序遍历序列构建二叉树&quot;&gt;&lt;a href=&quot;#用前序和中序遍历序列构建二叉树&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="二叉树" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>检验二叉搜索树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/jian-yan-er-cha-sou-suo-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2018/12/28/suan-fa/er-cha-shu/jian-yan-er-cha-sou-suo-shu/</id>
-    <published>2018-12-28T14:26:00.000Z</published>
-    <updated>2018-12-28T14:37:31.048Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;检验二叉搜索树&quot;&gt;&lt;a href=&quot;#检验二叉搜索树&quot; class=&quot;headerlink&quot;
         
       
     
