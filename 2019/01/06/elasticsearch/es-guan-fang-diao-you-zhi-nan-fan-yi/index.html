@@ -1,0 +1,908 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="ES官方调优指南翻译, 大数据 实时计算 机器学习">
+    <meta name="description" content="ES官方调优指南翻译ES发布时带有的默认值，可为es的开箱即用带来很好的体验。全文搜索、高亮、聚合、索引文档 等功能无需用户修改即可使用,当你更清楚的知道你想如何使用es后，你可以作很多的优化以提高你的用例的性能,下面的内容告诉你 你应该/">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ES官方调优指南翻译 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        ES官方调优指南翻译
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/ElasticSearch/" target="_blank">
+                    <span class="chip bg-color">ElasticSearch</span>
+                </a>
+                
+                <a href="/tags/搜索引擎/" target="_blank">
+                    <span class="chip bg-color">搜索引擎</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/ElasticSearch/" class="post-category" target="_blank">
+                        ElasticSearch
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-06
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="ES官方调优指南翻译"><a href="#ES官方调优指南翻译" class="headerlink" title="ES官方调优指南翻译"></a>ES官方调优指南翻译</h1><p>ES发布时带有的默认值，可为es的开箱即用带来很好的体验。全文搜索、高亮、聚合、索引文档 等功能无需用户修改即可使用,当你更清楚的知道你想如何使用es后，你可以作很多的优化以提高你的用例的性能,下面的内容告诉你 你应该/不应该 修改哪些配置</p>
+<h2 id="第一部分：调优索引速度"><a href="#第一部分：调优索引速度" class="headerlink" title="第一部分：调优索引速度"></a>第一部分：调优索引速度</h2><p>（<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html%EF%BC%89" target="_blank" rel="noopener">调优索引速度</a>)</p>
+<ol>
+<li>使用批量请求批量请求将产生比单文档索引请求好得多的性能。</li>
+</ol>
+<p>为了知道批量请求的最佳大小，您应该在具有单个分片的单个节点上运行基准测试。 首先尝试索引100个文件，然后是200，然后是400，等等。 当索引速度开始稳定时，您知道您达到了数据批量请求的最佳大小。 在配合的情况下，最好在太少而不是太多文件的方向上犯错。 请注意，如果群集请求太大，可能会使群集受到内存压力，因此建议避免超出每个请求几十兆字节，即使较大的请求看起来效果更好。</p>
+<ol>
+<li>发送端使用多worker/多线程向es发送数据<br>发送批量请求的单个线程不太可能将Elasticsearch群集的索引容量最大化。 为了使用集群的所有资源，您应该从多个线程或进程发送数据。 除了更好地利用集群的资源，这应该有助于降低每个fsync的成本。</li>
+</ol>
+<p>请确保注意TOO_MANY_REQUESTS（429）响应代码（Java客户端的EsRejectedExecutionException），这是Elasticsearch告诉您无法跟上当前索引速率的方式。 发生这种情况时，应该再次尝试暂停索引，理想情况下使用随机指数回退。</p>
+<p>与批量调整大小请求类似，只有测试才能确定最佳的worker数量。 这可以通过逐渐增加工作者数量来测试，直到集群上的I / O或CPU饱和。</p>
+<ol>
+<li>调大 refresh interval<br>默认的index.refresh_interval是1s，这迫使Elasticsearch每秒创建一个新的分段。 增加这个价值（比如说30s）将允许更大的部分flush并减少未来的合并压力。</li>
+<li>加载大量数据时禁用refresh和replicas<br>如果您需要一次加载大量数据，则应该将index.refresh_interval设置为-1并将index.number_of_replicas设置为0来禁用刷新。这会暂时使您的索引处于危险之中，因为任何分片的丢失都将导致数据 丢失，但是同时索引将会更快，因为文档只被索引一次。 初始加载完成后，您可以将index.refresh_interval和index.number_of_replicas设置回其原始值。</li>
+<li>设置参数，禁止OS将es进程swap出去<br>您应该确保操作系统不会swapping out the java进程，通过禁止swap<br>（<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html%EF%BC%89" target="_blank" rel="noopener">内存配置</a>)</li>
+<li>为filesystem cache分配一半的物理内存<br>文件系统缓存将用于缓冲I / O操作。 您应该确保将运行Elasticsearch的计算机的内存至少减少到文件系统缓存的一半。</li>
+<li>使用自动生成的id（auto-generated ids）<br>索引具有显式id的文档时，Elasticsearch需要检查具有相同id的文档是否已经存在于相同的分片中，这是昂贵的操作，并且随着索引增长而变得更加昂贵。 通过使用自动生成的ID，Elasticsearch可以跳过这个检查，这使索引更快。</li>
+<li>买更好的硬件<br>搜索一般是I/O 密集的，此时，你需要<br>a.为filesystem cache分配更多的内存<br>b.使用SSD硬盘<br>c.使用local storage（不要使用NFS、SMB 等remote filesystem）<br>d.亚马逊的 弹性块存储（Elastic Block Storage）也是极好的，当然，和local storage比起来，它还是要慢点<br>如果你的搜索是 CPU-密集的，买好的CPU吧</li>
+<li>加大 indexing buffer size<br>如果你的节点只做大量的索引，确保index.memory.index_buffer_size足够大，每个分区最多可以提供512 MB的索引缓冲区，而且索引的性能通常不会提高。 Elasticsearch采用该设置（java堆的一个百分比或绝对字节大小），并将其用作所有活动分片的共享缓冲区。 非常活跃的碎片自然会使用这个缓冲区，而不是执行轻量级索引的碎片。</li>
+</ol>
+<p>默认值是10％，通常很多：例如，如果你给JVM 10GB的内存，它会给索引缓冲区1GB，这足以承载两个索引很重的分片。</p>
+<ol>
+<li>禁用_field_names字段<br>_field_names字段引入了一些索引时间开销，所以如果您不需要运行存在查询，您可能需要禁用它。<br>_field_names：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-field-names-field.html%EF%BC%89" target="_blank" rel="noopener">field_names</a></li>
+<li>剩下的，再去看看 “调优磁盘使用”吧<br> 磁盘使用：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-disk-usage.html%EF%BC%89%E4%B8%AD%E6%9C%89%E8%AE%B8%E5%A4%9A%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E7%AD%96%E7%95%A5%E4%B9%9F%E6%8F%90%E9%AB%98%E4%BA%86%E7%B4%A2%E5%BC%95%E9%80%9F%E5%BA%A6%E3%80%82" target="_blank" rel="noopener">磁盘使用</a></li>
+</ol>
+<h2 id="第二部分：调优搜索速度"><a href="#第二部分：调优搜索速度" class="headerlink" title="第二部分：调优搜索速度"></a>第二部分：调优搜索速度</h2><h3 id="1-filesystem-cache越大越好"><a href="#1-filesystem-cache越大越好" class="headerlink" title="1. filesystem cache越大越好"></a>1. filesystem cache越大越好</h3><p>   为了使得搜索速度更快， es严重依赖filesystem cache<br>   一般来说，需要至少一半的 可用内存 作为filesystem cache，这样es可以在物理内存中 保有 索引的热点区域（hot regions of the index）</p>
+<h3 id="2-用更好的硬件"><a href="#2-用更好的硬件" class="headerlink" title="2. 用更好的硬件"></a>2. 用更好的硬件</h3><p>   搜索一般是I/O bound的，此时，你需要<br>   a.为filesystem cache分配更多的内存<br>   b.使用SSD硬盘<br>   c.使用local storage（不要使用NFS、SMB 等remote filesystem）<br>   d.亚马逊的 弹性块存储（Elastic Block Storage）也是极好的，当然，和local storage比起来，它还是要慢点<br>   如果你的搜索是 CPU-bound，买好的CPU吧</p>
+<h3 id="3-文档模型（document-modeling）"><a href="#3-文档模型（document-modeling）" class="headerlink" title="3. 文档模型（document modeling）"></a>3. 文档模型（document modeling）</h3><p>   文档需要使用合适的类型，从而使得 search-time operations 消耗更少的资源。咋作呢？<br>   答：避免 join操作。具体是指<br>   a.nested 会使得查询慢 好几倍<br>   b.parent-child关系 更是使得查询慢几百倍<br>   如果 无需join 能解决问题，则查询速度会快很多</p>
+<h3 id="4-预索引-数据"><a href="#4-预索引-数据" class="headerlink" title="4. 预索引 数据"></a>4. 预索引 数据</h3><p>   根据“搜索数据最常用的方式”来最优化索引数据的方式<br>   举个例子：<br>   所有文档都有price字段，大部分query 在 fixed ranges 上运行 range aggregation。你可以把给定范围的数据 预先索引下。然后，使用 terms aggregation</p>
+<h3 id="5-Mappings（能用-keyword-最好了）"><a href="#5-Mappings（能用-keyword-最好了）" class="headerlink" title="5. Mappings（能用 keyword 最好了）"></a>5. Mappings（能用 keyword 最好了）</h3><p>   数字类型的数据，并不意味着一定非得使用numeric类型的字段。<br>   一般来说，存储标识符的 字段（书号ISBN、或来自数据库的 标识一条记录的 数字），使用keyword更好（integer，long 不好哦，亲）<br>   6.避免运行脚本<br>   一般来说，脚本应该避免。 如果他们是绝对需要的，你应该使用painless和expressions引擎。</p>
+<h3 id="6-搜索rounded-日期"><a href="#6-搜索rounded-日期" class="headerlink" title="6. 搜索rounded 日期"></a>6. 搜索rounded 日期</h3><p>   日期字段上使用now，一般来说不会被缓存。但，rounded date则可以利用上query cache<br>   rounded到分钟等</p>
+<h3 id="7-强制merge只读的index"><a href="#7-强制merge只读的index" class="headerlink" title="7. 强制merge只读的index"></a>7. 强制merge只读的index</h3><p>   只读的index可以从“merge成 一个单独的 大segment”中收益</p>
+<h3 id="8-预热-全局序数（global-ordinals）"><a href="#8-预热-全局序数（global-ordinals）" class="headerlink" title="8. 预热 全局序数（global ordinals）"></a>8. 预热 全局序数（global ordinals）</h3><p>   全局序数 用于 在 keyword字段上 运行 terms aggregations<br>   es不知道 哪些fields 将 用于/不用于 term aggregation，因此 全局序数 在需要时才加载进内存<br>   但，可以在mapping type上，定义 eager_global_ordinals==true，这样，refresh时就会加载 全局序数</p>
+<h3 id="9-预热-filesystem-cache"><a href="#9-预热-filesystem-cache" class="headerlink" title="9. 预热 filesystem cache"></a>9. 预热 filesystem cache</h3><p>   机器重启时，filesystem cache就被清空。OS将index的热点区域（hot regions of the index）加载进filesystem cache是需要花费一段时间的。<br>   设置 index.store.preload 可以告知OS 这些文件需要提早加载进入内存</p>
+<h3 id="10-使用索引排序来加速连接"><a href="#10-使用索引排序来加速连接" class="headerlink" title="10. 使用索引排序来加速连接"></a>10. 使用索引排序来加速连接</h3><p>索引排序对于以较慢的索引为代价来加快连接速度非常有用。在索引分类文档中阅读更多关于它的信息。</p>
+<h3 id="11-使用preference来优化高速缓存利用率"><a href="#11-使用preference来优化高速缓存利用率" class="headerlink" title="11. 使用preference来优化高速缓存利用率"></a>11. 使用preference来优化高速缓存利用率</h3><p>有多个缓存可以帮助提高搜索性能，例如文件系统缓存，请求缓存或查询缓存。然而，所有这些缓存都维护在节点级别，这意味着如果连续运行两次相同的请求，则有一个或多个副本，并使用循环（默认路由算法），那么这两个请求将转到不同的分片副本，阻止节点级别的缓存帮助。</p>
+<p>由于搜索应用程序的用户一个接一个地运行类似的请求是常见的，例如为了分析索引的较窄的子集，使用标识当前用户或会话的优选值可以帮助优化高速缓存的使用。</p>
+<h3 id="12-副本可能有助于吞吐量，但不会一直存在"><a href="#12-副本可能有助于吞吐量，但不会一直存在" class="headerlink" title="12. 副本可能有助于吞吐量，但不会一直存在"></a>12. 副本可能有助于吞吐量，但不会一直存在</h3><p>除了提高弹性外，副本可以帮助提高吞吐量。例如，如果您有单个分片索引和三个节点，则需要将副本数设置为2，以便共有3个分片副本，以便使用所有节点。</p>
+<p>现在假设你有一个2-shards索引和两个节点。在一种情况下，副本的数量是0，这意味着每个节点拥有一个分片。在第二种情况下，副本的数量是1，这意味着每个节点都有两个碎片。哪个设置在搜索性能方面表现最好？通常情况下，每个节点的碎片数少的设置将会更好。原因在于它将可用文件系统缓存的份额提高到了每个碎片，而文件系统缓存可能是Elasticsearch的1号性能因子。同时，要注意，没有副本的设置在发生单个节点故障的情况下会出现故障，因此在吞吐量和可用性之间进行权衡。</p>
+<p>那么复制品的数量是多少？如果您有一个具有num_nodes节点的群集，那么num_primaries总共是主分片，如果您希望能够一次处理max_failures节点故障，那么正确的副本数是max（max_failures，ceil（num_nodes / num_primaries） - 1）。</p>
+<h3 id="13-打开自适应副本选择"><a href="#13-打开自适应副本选择" class="headerlink" title="13. 打开自适应副本选择"></a>13. 打开自适应副本选择</h3><p>当存在多个数据副本时，elasticsearch可以使用一组称为自适应副本选择的标准，根据包含分片的每个副本的节点的响应时间，服务时间和队列大小来选择数据的最佳副本。这可以提高查询吞吐量并减少搜索量大的应用程序的延迟。</p>
+<h2 id="第三部分：通用的一些建议"><a href="#第三部分：通用的一些建议" class="headerlink" title="第三部分：通用的一些建议"></a>第三部分：通用的一些建议</h2><h3 id="1、不要返回大的结果集"><a href="#1、不要返回大的结果集" class="headerlink" title="1、不要返回大的结果集"></a>1、不要返回大的结果集</h3><p>es设计来作为搜索引擎，它非常擅长返回匹配query的top n文档。但，如“返回满足某个query的 所有文档”等数据库领域的工作，并不是es最擅长的领域。如果你确实需要返回所有文档，你可以使用Scroll API</p>
+<h3 id="2、避免大的doc。即单个doc小了会更好"><a href="#2、避免大的doc。即单个doc小了会更好" class="headerlink" title="2、避免大的doc。即单个doc小了会更好"></a>2、避免大的doc。即单个doc小了会更好</h3><p>given that(考虑到) http.max_context_length默认==100MB，es拒绝索引操作100MB的文档。当然你可以提高这个限制，但，Lucene本身也有限制的，其为2GB<br>即使不考虑上面的限制，大的doc 会给 network/memory/disk带来更大的压力；<br>a.任何搜索请求，都需要获取 _id 字段，由于filesystem cache工作方式。即使它不请求 _source字段，获取大doc _id 字段消耗更大<br>b.索引大doc时消耗内存会是 doc本身大小 的好几倍<br>c.大doc的 proximity search, highlighting 也更加昂贵。它们的消耗直接取决于doc本身的大小</p>
+<h3 id="3、避免稀疏"><a href="#3、避免稀疏" class="headerlink" title="3、避免稀疏"></a>3、避免稀疏</h3><p>a.不相关数据 不要 放入同一个索引<br>b.一般化文档结构（Normalize document structures）<br>c.避免类型<br>d.在 稀疏 字段上，禁用 norms &amp; doc_values 属性</p>
+<h4 id="稀疏为什么不好？"><a href="#稀疏为什么不好？" class="headerlink" title="稀疏为什么不好？"></a>稀疏为什么不好？</h4><p>Lucene背后的数据结构 更擅长处理 紧凑的数据<br>text类型的字段，norms默认开启；numerics, date, ip, keyword，doc_values默认开启<br>Lucene内部使用 integer的doc_id来标识文档 和 内部API交互。<br>举个例子：<br>使用match查询时生成doc_id的迭代器，这些doc_id被用于获取它们的norm，以便计算score。当前的实现是每个doc中保留一个byte用于存储norm值。获取norm值其实就是读取doc_id位置处的一个字节<br>这非常高效，Lucene通过此值可以快速访问任何一个doc的norm值；但，给定一个doc，即使某个field没有值，仍需要为此doc的此field保留一个字节<br>doc_values也有同样的问题。2.0之前的fielddata被现在的doc_values所替代了。<br>稀疏性 最明显的影响是 对存储的需求（任何doc的每个field，都需要一个byte）；但是呢，稀疏性 对 索引速度和查询速度 也是有影响的，因为：即使doc并没有某些字段值，但，索引时，依然需要写这些字段，查询时，需要skip这些字段的值<br>某个索引中拥有少量稀疏字段，这完全没有问题。但，这不应该成为常态<br>稀疏性影响最大的是 norms&amp;doc_values ，但，倒排索引（用于索引 text以及keyword字段），二维点（用于索引geo_point字段）也会受到较小的影响</p>
+<h4 id="如何避免稀疏呢？"><a href="#如何避免稀疏呢？" class="headerlink" title="如何避免稀疏呢？"></a>如何避免稀疏呢？</h4><p>1、不相关数据 不要 放入同一个索引<br>给个tip：索引小（即：doc的个数较少），则，primary shard也要少<br>2、一般化文档结构（Normalize document structures）<br>3、避免类型（Avoid mapping type）<br>同一个index，最好就一个mapping type<br>在同一个index下面，使用不同的mapping type来存储数据，听起来不错，但，其实不好。given that(考虑到)每一个mapping type会把数据存入 同一个index，因此，多个不同mapping type，各个的field又互不相同，这同样带来了稀疏性 问题<br>4、在 稀疏 字段上，禁用 norms &amp; doc_values 属性<br>a.norms用于计算score，无需score，则可以禁用它（所有filtering字段，都可以禁用norms）<br>b.doc_vlaues用于sort&amp;aggregations，无需这两个，则可以禁用它<br>但是，不要轻率的做出决定，因为 norms&amp;doc_values无法修改。只能reindex</p>
+<p>秘诀1：混合 精确查询和提取词干（mixing exact search with stemming）<br>对于搜索应用，提取词干（stemming）都是必须的。例如：查询 skiing时，ski和skis都是期望的结果<br>但，如果用户就是要查询skiing呢？<br>解决方法是：使用multi-field。同一份内容，以两种不同的方式来索引存储<br>query.simple_query_string.quote_field_suffix，竟然是 查询完全匹配的</p>
+<p>秘诀2：获取一致性的打分<br>score不能重现<br>同一个请求，连续运行2次，但，两次返回的文档顺序不一致。这是相当坏的用户体验</p>
+<p>如果存在 replica，则就可能发生这种事，这是因为：<br>search时，replication group中的shard是按round-robin方式来选择的，因此两次运行同样的请求，请求如果打到 replication group中的不同shard，则两次得分就可能不一致</p>
+<p>那问题来了，“你不是整天说 primary和replica是in-sync的，是完全一致的”嘛，为啥打到“in-sync的，完全一致的shard”却算出不同的得分？</p>
+<p>原因就是标注为“已删除”的文档。如你所知，doc更新或删除时，旧doc并不删除，而是标注为“已删除”，只有等到 旧doc所在的segment被merge时，“已删除”的doc才会从磁盘删除掉</p>
+<p>索引统计（index statistic）是打分时非常重要的一部分，但，由于 deleted doc 的存在，在同一个shard的不同copy（即：各个replica）上 计算出的 索引统计 并不一致</p>
+<p>个人理解：<br>a. 所谓 索引统计 应该就是df，即 doc_freq<br>b. 索引统计 是基于shard来计算的</p>
+<ol>
+<li>搜索时，“已删除”的doc 当然是 永远不会 出现在 结果集中的</li>
+<li>索引统计时，for practical reasons，“已删除”doc 依然是统计在内的</li>
+</ol>
+<p>假设，shard A0 刚刚完成了一次较大的segment merge，然后移除了很多“已删除”doc，shard A1 尚未执行 segment merge，因此 A1 依然存在那些“已删除”doc</p>
+<p>于是：两次请求打到 A0 和 A1 时，两者的 索引统计 是显著不同的</p>
+<p>如何规避 score不能重现 的问题？使用 preference 查询参数<br>发出搜索请求时候，用 标识字符串 来标识用户，将 标识字符串 作为查询请求的preference参数。这确保多次执行同一个请求时候，给定用户的请求总是达到同一个shard，因此得分会更为一致（当然，即使同一个shard，两次请求 跨了 segment merge，则依然会得分不一致）<br>这个方式还有另外一个优点，当两个doc得分一致时，则默认按着doc的 内部Lucene doc id 来排序（注意：这并不是es中的 _id 或 _uid）。但是呢，shard的不同copy间，同一个doc的 内部Lucene doc id 可能并不相同。因此，如果总是达到同一个shard，则，具有相同得分的两个doc，其顺序是一致的</p>
+<p>score错了<br>score错了（Relevancy looks wrong）<br>如果你发现</p>
+<ol>
+<li>具有相同内容的文档，其得分不同</li>
+<li>完全匹配 的查询 并没有排在第一位<br>这可能都是由 sharding 引起的</li>
+<li>默认情况下，搜索文档时，每个shard自己计算出自己的得分。</li>
+<li>索引统计 又是打分时一个非常重要的因素。</li>
+</ol>
+<p>如果每个shard的 索引统计相似，则 搜索工作的很好<br>文档是平分到每个primary shard的，因此 索引统计 会非常相似，打分也会按着预期工作。但，万事都有个但是：</p>
+<ol>
+<li>索引时使用了 routing（文档不能平分到每个primary shard 啦）</li>
+<li>查询多个索引</li>
+<li>索引中文档的个数 非常少<br>这会导致：参与查询的各个shard，各自的 索引统计 并不相似（而，索引统计对 最终的得分 又影响巨大），于是 打分出错了（relevancy looks wrong）</li>
+</ol>
+<p>那，如何绕过 score错了（Relevancy looks wrong）？</p>
+<p>如果数据集较小，则，只使用一个primary shard（es默认是5个），这样两次查询 索引统计 不会变化，因而得分也就一致啦<br>另一种方式是，将search_type设置为：dfs_query_then_fetech（默认是query_then_fetch）<br>dfs_query_then_fetch的作用是</p>
+<ol>
+<li>向 所有相关shard 发出请求，要求 所有相关shard 返回针对当前查询的 索引统计</li>
+<li>然后，coordinating node 将 merge这些 索引统计，从而得到 merged statistics</li>
+<li>coordinating node 要求 所有相关shard 执行 query phase，于是 发出请求，这时，也带上 merged statistics。这样，执行query的shard 将使用 全局的索引统计大部分情况下，要求 所有相关shard 返回针对当前查询的 索引统计，这是非常cheap的。但，如果查询中 包含 非常大量的 字段/term查询，或者有 fuzzy查询，此时，获取 索引统计 可能并不cheap，因为 为了得到 索引统计 可能 term dictionary 中 所有的term都需要被查询一遍</li>
+</ol>
+<p>转载自：<a href="http://wangnan.tech/post/elasticsearch-how-to/" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/06/elasticsearch/es-guan-fang-diao-you-zhi-nan-fan-yi/" class="b-link-green">ES官方调优指南翻译</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="旋转二维数组">
+                        
+                        <span class="card-title">旋转二维数组</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">求和为给定值的组合问题
+这个题目说的是，给你一个 n x n 的二维数组，你要沿顺时针方向将它旋转 90 度。要求你不能使用额外的存储空间，就地在原数组操作。
+比如说，给你的二维数组是：
+
+1, 2, 3
+4, 5, 6
+7, 8, 9
+
+</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/数组/" target="_blank">
+                        <span class="chip bg-color">数组</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/05/suan-fa/bing-cha-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="并查集">
+                        
+                        <span class="card-title">并查集</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">并查集用于解决动态连通性问题，能动态连接两个点，并且判断两个点是否连通。
+
+
+
+
+方法
+描述
+
+
+
+
+UF(int N)
+构造一个大小为 N 的并查集
+
+
+void union(int p, int q)
+连接 p 和 q 节点
+
+
+int</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
