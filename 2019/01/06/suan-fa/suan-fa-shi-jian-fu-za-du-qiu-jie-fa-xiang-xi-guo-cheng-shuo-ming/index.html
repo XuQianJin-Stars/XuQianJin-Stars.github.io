@@ -1,0 +1,987 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="算法时间复杂度求解法【详细过程说明】, 大数据 实时计算 机器学习">
+    <meta name="description" content="算法时间复杂度求解法
+在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，进而分析T(n)随n的变化情况并确定T(n)的数量级。算法的时间复杂度，也就是算法的时间量度，基座T（n）=O(f(n))。它表示随问题规模n的增大，算">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>算法时间复杂度求解法【详细过程说明】 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        算法时间复杂度求解法【详细过程说明】
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/algorithm/" target="_blank">
+                    <span class="chip bg-color">algorithm</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                        algorithm
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-06
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="算法时间复杂度求解法"><a href="#算法时间复杂度求解法" class="headerlink" title="算法时间复杂度求解法"></a>算法时间复杂度求解法</h1><blockquote>
+<p>在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，进而分析T(n)随n的变化情况并确定T(n)的数量级。算法的时间复杂度，也就是算法的时间量度，基座T（n）=O(f(n))。它表示随问题规模n的增大，算法执行时间的增长率和f(n)的增长率相同，称作算法的渐进算法时间复杂度，简称为时间复杂度。其中f(n)是问题规模n的某个函数。</p>
+</blockquote>
+<p>一般用大写O()来表示算法的时间复杂度写法，通常叫做大O记法。</p>
+<p>一般情况下，随着n的增大，T(n)增长最慢的算法为最优算法。</p>
+<p>O(1)：常数阶</p>
+<p>O(n)：线性阶</p>
+<p>O(n^2)：平方阶</p>
+<h2 id="大O推导法"><a href="#大O推导法" class="headerlink" title="大O推导法"></a><strong>大O推导法</strong></h2><ol>
+<li>用常数1取代运行时间中的所有加法常数</li>
+<li>在修改后的运行函数中，只保留最高阶项</li>
+<li>如果最高阶项存在且不是1，则去除与这个项相乘的常数</li>
+</ol>
+<h2 id="常数阶"><a href="#常数阶" class="headerlink" title="常数阶"></a><strong>常数阶</strong></h2><pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> n <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/*执行一次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行一次*/</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>sum<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">/*执行一次*/</span>
+</code></pre>
+<p>这个算法的运行次数f(n) = 3,根据推导大O阶的方法，第一步是将3改为1，在保留最高阶项是，它没有最高阶项，因此这个算法的时间复杂度为O(1);</p>
+<p>另外，</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> n <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/*执行一次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第1次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第2次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第3次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第4次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第5次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第6次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第7次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第8次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第9次*/</span>
+sum <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>n<span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">/*执行第10次*/</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>sum<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">/*执行一次*/</span>
+</code></pre>
+<p>上面的两段代码中，其实无论n有多少个，本质是是3次和12次的执行差异。这种与问题的大小无关，执行时间恒定的算法，成为具有O(1)的时间复杂度，又叫做常数阶。</p>
+<p>注意：不管这个常数是多少，3或12，都不能写成O(3)、O(12)，而都要写成O(1)</p>
+<p>此外，对于分支结构而言，无论真假执行的次数都是恒定不变的，不会随着n的变大而发生变化，所以单纯的分支结构（不在循环结构中），其时间复杂度也是O(1)。</p>
+<h2 id="线性阶"><a href="#线性阶" class="headerlink" title="线性阶"></a><strong>线性阶</strong></h2><p>线性阶的循环结构会复杂一些，要确定某个算法的阶次，需要确定特定语句或某个语句集运行的次数。因此要分析算法的复杂度，关键是要分析循环结构的运行情况。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>      
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="对数阶"><a href="#对数阶" class="headerlink" title="对数阶"></a><strong>对数阶</strong></h2><pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>count <span class="token operator">&lt;</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  count <span class="token operator">=</span> count <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>    
+<span class="token punctuation">}</span> 
+</code></pre>
+<p>因为每次count*2后，距离结束循环更近了。也就是说有多少个2 相乘后大于n，退出循环。</p>
+<p>数学公式：2x = n    –&gt;     x = log2n</p>
+<p>因此这个循环的时间复杂度为O(logn)</p>
+<h2 id="平方阶"><a href="#平方阶" class="headerlink" title="平方阶"></a><strong>平方阶</strong></h2><pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>  
+    <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
+</code></pre>
+<p>上面的程序中，对于对于内层循环，它的时间复杂度为O(n)，但是它是包含在外层循环中，再循环n次，因此这段代码的时间复杂度为O(n^2)。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> j <span class="token operator">&lt;</span> m <span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>  
+    <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
+</code></pre>
+<p>但是，如果内层循环改成了m次，时间复杂度就为O(n*m)</p>
+<p>再来看一段程序：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> i <span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>  
+    <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
+</code></pre>
+<p>注意：上面的内层循环j = i ;而不是0</p>
+<p>因为i = 0时，内层循环执行了n次，当i=1时，执行了n-1次……当i=n-1时，执行了1次，所以总的执行次数为：</p>
+<p>n+(n-1)+(n-1)+…+1 = n(n+1)/2  =  n2/2 + n/2</p>
+<p>根据大O推导方法，保留最高阶项，n2/2 ，然后去掉这个项相乘的常数，1/2</p>
+<p>因此，这段代码的时间复杂度为O(n^2)</p>
+<p>下面，分析调用函数时的时间复杂度计算方法：</p>
+<p>首先，看一段代码：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">int</span> i<span class="token punctuation">,</span>j<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> count<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token function">print</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token function">function</span> <span class="token punctuation">(</span>i<span class="token punctuation">)</span>  
+<span class="token punctuation">}</span>
+</code></pre>
+<p>函数的时间复杂度是O(1)，因此整体的时间复杂度为O(n)。</p>
+<p>假如function是这样的：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> count<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">int</span> j<span class="token punctuation">;</span>
+  <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> count <span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n <span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>和第一个的不同之处在于把嵌套内循环放到了函数中，因此最终的时间复杂度为O(n^2)</p>
+<p>再来看一个比价复杂的语句:</p>
+<pre class=" language-java"><code class="language-java">n<span class="token operator">++</span><span class="token punctuation">;</span>                                      <span class="token comment" spellcheck="true">/*执行次数为1*/</span>
+<span class="token function">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>                              <span class="token comment" spellcheck="true">/*执行次数为n*/</span>
+<span class="token keyword">int</span> i<span class="token punctuation">,</span>j<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>                 <span class="token comment" spellcheck="true">/*执行次数为nXn*/</span>
+  <span class="token function">function</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>                <span class="token comment" spellcheck="true">/*执行次数为n(n+1)/2*/</span>
+  <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> i <span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n <span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">/*时间复杂度为O(1)的程序*/</span>  
+  <span class="token punctuation">}</span>  
+<span class="token punctuation">}</span>    
+</code></pre>
+<p>它的执行次数f(n) = 1 + n + n2 + n(n+1)/2 + 3/2n2+3/2 n+1,</p>
+<p>根据推导大O阶的方法，最终它的时间复杂度为：O(n^2)</p>
+<h2 id="nlog2n阶"><a href="#nlog2n阶" class="headerlink" title="nlog2n阶"></a><strong>nlog2n阶</strong></h2><pre class=" language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span>let size <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> size <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> size <span class="token operator">+=</span> size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span>let i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> size<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">orderMerge</span><span class="token punctuation">(</span><span class="token function">arr</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    function <span class="token function">orderMerge</span><span class="token punctuation">(</span>arr1<span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>它的执行次数f(n) = n * log2n，因此整体的时间复杂度为O(nlog2n)。</p>
+<p><strong>常见的时间复杂度：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>执行次数函数</strong></th>
+<th><strong>阶</strong></th>
+<th><strong>术语描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>O(1)</td>
+<td>常数阶</td>
+</tr>
+<tr>
+<td>2n+3</td>
+<td>O(n)</td>
+<td>线性阶</td>
+</tr>
+<tr>
+<td>3n2+2n+1</td>
+<td>O(n2)</td>
+<td>平方阶</td>
+</tr>
+<tr>
+<td>5log2n+20</td>
+<td>O(log2n)</td>
+<td>对数阶</td>
+</tr>
+<tr>
+<td>2n+3nlog2n+19</td>
+<td>O(nlogn)</td>
+<td>nlog2n阶</td>
+</tr>
+<tr>
+<td>6n3+2n2+3n+4</td>
+<td>O(n3)</td>
+<td>立方阶</td>
+</tr>
+<tr>
+<td>2^n</td>
+<td>O(2^n)</td>
+<td>指数阶</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://images2015.cnblogs.com/blog/867077/201604/867077-20160425141431502-2111846381.png" target="_blank" rel="noopener"><img src="https://images2015.cnblogs.com/blog/867077/201604/867077-20160425141431502-2111846381.png" alt="img"></a></p>
+<p>时间复杂度所耗费的时间是：</p>
+<p>O(1) &lt; O(logn) &lt; O(n) &lt; O(nlogn) &lt; O(n2) &lt; O(n3) &lt;O(2n) &lt; O(n!) &lt;O(n^n)</p>
+<p>参考自：<a href="https://www.cnblogs.com/fanchangfa/p/3868696.html" target="_blank" rel="noopener">三月——Frank</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/06/suan-fa/suan-fa-shi-jian-fu-za-du-qiu-jie-fa-xiang-xi-guo-cheng-shuo-ming/" class="b-link-green">算法时间复杂度求解法【详细过程说明】</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/06/suan-fa/suan-fa-shi-jian-fu-za-du-qiu-jie-fa-xiang-xi-guo-cheng-shuo-ming/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="算法时间复杂度求解法【详细过程说明】">
+                        
+                        <span class="card-title">算法时间复杂度求解法【详细过程说明】</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">算法时间复杂度求解法
+在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，进而分析T(n)随n的变化情况并确定T(n)的数量级。算法的时间复杂度，也就是算法的时间量度，基座T（n）=O(f(n))。它表示随问题规模n的增大，算</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/06/suan-fa/lian-biao/xuan-zhuan-dan-lian-biao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="旋转单链表">
+                        
+                        <span class="card-title">旋转单链表</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">旋转单链表问题
+这个题目说的是，给你一个单链表和一个数字 k，你要把链表右边的节点旋转到链表左边，共旋转 k 次。
+比如说，给你的单链表是：
+
+0 -&gt; 1 -&gt; 2 -&gt; 4 -&gt; 8
+
+给你的数字 k 是 3：
+</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
