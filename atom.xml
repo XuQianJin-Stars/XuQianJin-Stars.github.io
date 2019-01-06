@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-06T07:36:28.739Z</updated>
+  <updated>2019-01-06T08:13:29.342Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>旋转单链表</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/lian-biao/xuan-zhuan-dan-lian-biao/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/lian-biao/xuan-zhuan-dan-lian-biao/</id>
+    <published>2019-01-06T08:12:00.000Z</published>
+    <updated>2019-01-06T08:13:29.342Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;旋转单链表&quot;&gt;&lt;a href=&quot;#旋转单链表&quot; class=&quot;headerlink&quot; title=&quot;旋转单链表&quot;&gt;&lt;/a&gt;旋转单链表&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你一个单链表和一个数字
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="链表" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>ES官方调优指南翻译</title>
@@ -45,11 +74,11 @@
   </entry>
   
   <entry>
-    <title>数组的下一个排列</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/</id>
+    <title>需要排序的最短子数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:53:16.123Z</updated>
+    <updated>2019-01-06T05:04:36.473Z</updated>
     
     <summary type="html">
     
@@ -57,35 +86,7 @@
       
         
         
-          &lt;h2 id=&quot;数组的下一个排列&quot;&gt;&lt;a href=&quot;#数组的下一个排列&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>有序数组中求和为给定值的两个数</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:44:02.682Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;有序数组中求和为给定值的两个数&quot;&gt;&lt;a href=&quot;#有序数组中求和为给定值的两个数&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;需要排序的最短子数组&quot;&gt;&lt;a href=&quot;#需要排序的最短子数组&quot; class=&quot;headerlink&quot;
         
       
     
@@ -114,34 +115,6 @@
         
         
           &lt;h2 id=&quot;行列递增的二维数组搜索&quot;&gt;&lt;a href=&quot;#行列递增的二维数组搜索&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>求和为给定值的组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:57:40.632Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot;
         
       
     
@@ -213,11 +186,11 @@
   </entry>
   
   <entry>
-    <title>需要排序的最短子数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/</id>
+    <title>求和为给定值的组合</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:04:36.473Z</updated>
+    <updated>2019-01-06T04:57:40.632Z</updated>
     
     <summary type="html">
     
@@ -225,7 +198,63 @@
       
         
         
-          &lt;h2 id=&quot;需要排序的最短子数组&quot;&gt;&lt;a href=&quot;#需要排序的最短子数组&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数组的下一个排列</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:53:16.123Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;数组的下一个排列&quot;&gt;&lt;a href=&quot;#数组的下一个排列&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最长连续整数序列的长度</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:51:35.704Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
         
       
     
@@ -297,35 +326,6 @@
   </entry>
   
   <entry>
-    <title>旋转数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:56:09.872Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个数组和一个数字
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
     <title>旋转二维数组</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/</id>
@@ -355,11 +355,11 @@
   </entry>
   
   <entry>
-    <title>最长连续整数序列的长度</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
+    <title>旋转数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:51:35.704Z</updated>
+    <updated>2019-01-06T04:56:09.872Z</updated>
     
     <summary type="html">
     
@@ -367,7 +367,36 @@
       
         
         
-          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你一个数组和一个数字
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>有序数组中求和为给定值的两个数</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:44:02.682Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;有序数组中求和为给定值的两个数&quot;&gt;&lt;a href=&quot;#有序数组中求和为给定值的两个数&quot; class=&quot;headerlink&quot;
         
       
     
@@ -438,11 +467,11 @@
   </entry>
   
   <entry>
-    <title>位运算-基本原理</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/wei-yun-suan-ji-ben-yuan-li/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/wei-yun-suan-ji-ben-yuan-li/</id>
+    <title>判断一个数的位级表示是否不会出现连续的0和1</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/pan-duan-yi-ge-shu-de-wei-ji-biao-shi-shi-fou-bu-hui-chu-xian-lian-xu-de-0-he-1/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/pan-duan-yi-ge-shu-de-wei-ji-biao-shi-shi-fou-bu-hui-chu-xian-lian-xu-de-0-he-1/</id>
     <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T10:40:47.359Z</updated>
+    <updated>2019-01-05T11:15:56.676Z</updated>
     
     <summary type="html">
     
@@ -450,7 +479,7 @@
       
         
         
-          &lt;h2 id=&quot;位运算-基本原理&quot;&gt;&lt;a href=&quot;#位运算-基本原理&quot; class=&quot;headerlink&quot; title=&quot;位运算-基本原理&quot;&gt;&lt;/a&gt;位运算-基本原理&lt;/h2&gt;&lt;h3 id=&quot;1-基本原理&quot;&gt;&lt;a href=&quot;#1-基本原理&quot;
+          &lt;h2 id=&quot;判断一个数的位级表示是否不会出现连续的0和1&quot;&gt;&lt;a href=&quot;#判断一个数的位级表示是否不会出现连续的0和1&quot; class=&quot;headerlink&quot;
         
       
     
@@ -494,34 +523,6 @@
   </entry>
   
   <entry>
-    <title>统计从 0 ~ n 每个数的二进制表示中1的个数</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/tong-ji-cong-0-n-mei-ge-shu-de-er-jin-zhi-biao-shi-zhong-1-de-ge-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/tong-ji-cong-0-n-mei-ge-shu-de-er-jin-zhi-biao-shi-zhong-1-de-ge-shu/</id>
-    <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T11:39:46.360Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;统计从-0-n-每个数的二进制表示中1的个数&quot;&gt;&lt;a href=&quot;#统计从-0-n-每个数的二进制表示中1的个数&quot; class=&quot;headerlink&quot; title=&quot;统计从 0 ~ n 每个数的二进制表示中1的个数&quot;&gt;&lt;/a&gt;统计从 0 ~ n
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="位运算" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
-  </entry>
-  
-  <entry>
     <title>判断一个数是不是4的n次方</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/pan-duan-yi-ge-shu-shi-bu-shi-4-de-n-ci-fang/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/pan-duan-yi-ge-shu-shi-bu-shi-4-de-n-ci-fang/</id>
@@ -550,11 +551,11 @@
   </entry>
   
   <entry>
-    <title>求一个数的补码</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/qiu-yi-ge-shu-de-bu-ma/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/qiu-yi-ge-shu-de-bu-ma/</id>
+    <title>统计从 0 ~ n 每个数的二进制表示中1的个数</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/tong-ji-cong-0-n-mei-ge-shu-de-er-jin-zhi-biao-shi-zhong-1-de-ge-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/tong-ji-cong-0-n-mei-ge-shu-de-er-jin-zhi-biao-shi-zhong-1-de-ge-shu/</id>
     <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T11:27:29.541Z</updated>
+    <updated>2019-01-05T11:39:46.360Z</updated>
     
     <summary type="html">
     
@@ -562,7 +563,7 @@
       
         
         
-          &lt;h2 id=&quot;求一个数的补码&quot;&gt;&lt;a href=&quot;#求一个数的补码&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;统计从-0-n-每个数的二进制表示中1的个数&quot;&gt;&lt;a href=&quot;#统计从-0-n-每个数的二进制表示中1的个数&quot; class=&quot;headerlink&quot; title=&quot;统计从 0 ~ n 每个数的二进制表示中1的个数&quot;&gt;&lt;/a&gt;统计从 0 ~ n
         
       
     
