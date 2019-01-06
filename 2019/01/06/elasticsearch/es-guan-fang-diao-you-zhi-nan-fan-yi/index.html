@@ -396,7 +396,7 @@
 <h3 id="3-文档模型（document-modeling）"><a href="#3-文档模型（document-modeling）" class="headerlink" title="3. 文档模型（document modeling）"></a>3. 文档模型（document modeling）</h3><p>   文档需要使用合适的类型，从而使得 search-time operations 消耗更少的资源。咋作呢？<br>   答：避免 join操作。具体是指<br>   a.nested 会使得查询慢 好几倍<br>   b.parent-child关系 更是使得查询慢几百倍<br>   如果 无需join 能解决问题，则查询速度会快很多</p>
 <h3 id="4-预索引-数据"><a href="#4-预索引-数据" class="headerlink" title="4. 预索引 数据"></a>4. 预索引 数据</h3><p>   根据“搜索数据最常用的方式”来最优化索引数据的方式<br>   举个例子：<br>   所有文档都有price字段，大部分query 在 fixed ranges 上运行 range aggregation。你可以把给定范围的数据 预先索引下。然后，使用 terms aggregation</p>
 <h3 id="5-Mappings（能用-keyword-最好了）"><a href="#5-Mappings（能用-keyword-最好了）" class="headerlink" title="5. Mappings（能用 keyword 最好了）"></a>5. Mappings（能用 keyword 最好了）</h3><p>   数字类型的数据，并不意味着一定非得使用numeric类型的字段。<br>   一般来说，存储标识符的 字段（书号ISBN、或来自数据库的 标识一条记录的 数字），使用keyword更好（integer，long 不好哦，亲）<br>   6.避免运行脚本<br>   一般来说，脚本应该避免。 如果他们是绝对需要的，你应该使用painless和expressions引擎。</p>
-<h3 id="6-搜索rounded-日期"><a href="#6-搜索rounded-日期" class="headerlink" title="6. 搜索rounded 日期"></a>6. 搜索rounded 日期</h3><p>   日期字段上使用now，一般来说不会被缓存。但，rounded date则可以利用上query cache<br>   rounded到分钟等</p>
+<h3 id="6-搜索rounded日期"><a href="#6-搜索rounded日期" class="headerlink" title="6. 搜索rounded日期"></a>6. 搜索rounded日期</h3><p>   日期字段上使用now，一般来说不会被缓存。但，rounded date则可以利用上query cache<br>   rounded到分钟等</p>
 <h3 id="7-强制merge只读的index"><a href="#7-强制merge只读的index" class="headerlink" title="7. 强制merge只读的index"></a>7. 强制merge只读的index</h3><p>   只读的index可以从“merge成 一个单独的 大segment”中收益</p>
 <h3 id="8-预热-全局序数（global-ordinals）"><a href="#8-预热-全局序数（global-ordinals）" class="headerlink" title="8. 预热 全局序数（global ordinals）"></a>8. 预热 全局序数（global ordinals）</h3><p>   全局序数 用于 在 keyword字段上 运行 terms aggregations<br>   es不知道 哪些fields 将 用于/不用于 term aggregation，因此 全局序数 在需要时才加载进内存<br>   但，可以在mapping type上，定义 eager_global_ordinals==true，这样，refresh时就会加载 全局序数</p>
 <h3 id="9-预热-filesystem-cache"><a href="#9-预热-filesystem-cache" class="headerlink" title="9. 预热 filesystem cache"></a>9. 预热 filesystem cache</h3><p>   机器重启时，filesystem cache就被清空。OS将index的热点区域（hot regions of the index）加载进filesystem cache是需要花费一段时间的。<br>   设置 index.store.preload 可以告知OS 这些文件需要提早加载进入内存</p>
@@ -425,8 +425,7 @@
 </ol>
 <p>假设，shard A0 刚刚完成了一次较大的segment merge，然后移除了很多“已删除”doc，shard A1 尚未执行 segment merge，因此 A1 依然存在那些“已删除”doc</p>
 <p>于是：两次请求打到 A0 和 A1 时，两者的 索引统计 是显著不同的</p>
-<p>如何规避 score不能重现 的问题？使用 preference 查询参数<br>发出搜索请求时候，用 标识字符串 来标识用户，将 标识字符串 作为查询请求的preference参数。这确保多次执行同一个请求时候，给定用户的请求总是达到同一个shard，因此得分会更为一致（当然，即使同一个shard，两次请求 跨了 segment merge，则依然会得分不一致）<br>这个方式还有另外一个优点，当两个doc得分一致时，则默认按着doc的 内部Lucene doc id 来排序（注意：这并不是es中的 _id 或 _uid）。但是呢，shard的不同copy间，同一个doc的 内部Lucene doc id 可能并不相同。因此，如果总是达到同一个shard，则，具有相同得分的两个doc，其顺序是一致的</p>
-<p>score错了<br>score错了（Relevancy looks wrong）<br>如果你发现</p>
+<p>如何规避 score不能重现 的问题？使用 preference 查询参数<br>发出搜索请求时候，用 标识字符串 来标识用户，将 标识字符串 作为查询请求的preference参数。这确保多次执行同一个请求时候，给定用户的请求总是达到同一个shard，因此得分会更为一致（当然，即使同一个shard，两次请求 跨了 segment merge，则依然会得分不一致）<br>这个方式还有另外一个优点，当两个doc得分一致时，则默认按着doc的 内部Lucene doc id 来排序（注意：这并不是es中的 _id 或 _uid）。但是呢，shard的不同copy间，同一个doc的 内部Lucene doc id 可能并不相同。因此，如果总是达到同一个shard，则，具有相同得分的两个doc，其顺序是一致的<br>score错了（Relevancy looks wrong）<br>如果你发现</p>
 <ol>
 <li>具有相同内容的文档，其得分不同</li>
 <li>完全匹配 的查询 并没有排在第一位<br>这可能都是由 sharding 引起的</li>
