@@ -1,0 +1,912 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="性能诊断利器JProfiler快速入门和最佳实践, 大数据 实时计算 机器学习">
+    <meta name="description" content="性能诊断利器JProfiler快速入门和最佳实践摘要： 性能诊断是软件工程师在日常工作中需要经常面对和解决的问题，在用户体验至上的今天，解决好应用的性能问题能带来非常大的收益。Java 作为最流行的编程语言之一，其应用性能诊断一直受到业界广">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>性能诊断利器JProfiler快速入门和最佳实践 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        性能诊断利器JProfiler快速入门和最佳实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/java/" target="_blank">
+                    <span class="chip bg-color">java</span>
+                </a>
+                
+                <a href="/tags/开发工具/" target="_blank">
+                    <span class="chip bg-color">开发工具</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/java/" class="post-category" target="_blank">
+                        java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-08
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="性能诊断利器JProfiler快速入门和最佳实践"><a href="#性能诊断利器JProfiler快速入门和最佳实践" class="headerlink" title="性能诊断利器JProfiler快速入门和最佳实践"></a>性能诊断利器JProfiler快速入门和最佳实践</h1><p><em>摘要：</em> 性能诊断是软件工程师在日常工作中需要经常面对和解决的问题，在用户体验至上的今天，解决好应用的性能问题能带来非常大的收益。Java 作为最流行的编程语言之一，其应用性能诊断一直受到业界广泛关注。可能造成 Java 应用出现性能问题的因素非常多，例如线程控制、磁盘读写、数据库访问、网络I/O、垃圾收集等。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>性能诊断是软件工程师在日常工作中需要经常面对和解决的问题，在用户体验至上的今天，解决好应用的性能问题能带来非常大的收益。Java 作为最流行的编程语言之一，其应用性能诊断一直受到业界广泛关注。可能造成 Java 应用出现性能问题的因素非常多，例如线程控制、磁盘读写、数据库访问、网络I/O、垃圾收集等。想要了定位这些问题，一款优秀的性能诊断工具必不可少。本文将介绍 Java 性能诊断过程中的常用工具，并重点介绍其中的优秀代表 <a href="https://www.ej-technologies.com/products/jprofiler/overview.html" target="_blank" rel="noopener">JProfiler</a> 的基本原理和最佳实践（本文所做的调研基于<code>jprofiler10.1.4</code>）。</p>
+<h1 id="Java-性能诊断工具简介"><a href="#Java-性能诊断工具简介" class="headerlink" title="Java 性能诊断工具简介"></a>Java 性能诊断工具简介</h1><p>在 Java 的世界里，有许多诊断工具可供选择，既包括像 jmap、jstat 这样的简单命令行工具，又包括 JVisualvm、JProfiler 等图形化综合诊断工具，同时还有 SkyWalking、ARMS 这样的针对分布式应用的性能监控系统。下面分别对其进行介绍。</p>
+<h2 id="简单命令行工具"><a href="#简单命令行工具" class="headerlink" title="简单命令行工具"></a>简单命令行工具</h2><p>JDK 内置了许多命令行工具，它们可用来获取目标 JVM 不同方面、不同层次的信息。</p>
+<ul>
+<li>jinfo - 用于实时查看和调整目标 JVM 的各项参数。</li>
+<li>jstack - 用于获取目标 Java 进程内的线程堆栈信息，可用来检测死锁、定位死循环等。</li>
+<li>jmap - 用于获取目标 Java 进程的内存相关信息，包括 Java 堆各区域的使用情况、堆中对象的统计信息、类加载信息等。</li>
+<li>jstat - 一款轻量级多功能监控工具，可用于获取目标 Java 进程的类加载、JIT 编译、垃圾收集、内存使用等信息。</li>
+<li>jcmd - 相比 jstat 功能更为全面的工具，可用于获取目标 Java 进程的性能统计、JFR、内存使用、垃圾收集、线程堆栈、JVM 运行时间等信息。</li>
+</ul>
+<h2 id="图形化综合诊断工具"><a href="#图形化综合诊断工具" class="headerlink" title="图形化综合诊断工具"></a>图形化综合诊断工具</h2><p>使用上述命令行工具或组合能帮您获取目标 Java 应用性能相关的基础信息，但它们存在下列局限：</p>
+<ol>
+<li>无法获取方法级别的分析数据，如方法间的调用关系、各方法的调用次数和调用时间等（这对定位应用性能瓶颈至关重要）。</li>
+<li>要求用户登录到目标 Java 应用所在的宿主机上，使用起来不是很方便。</li>
+<li>分析数据通过终端输出，结果展示不够直观。</li>
+</ol>
+<p>下面介绍几款图形化的综合性能诊断工具。</p>
+<h3 id="JVisualvm"><a href="#JVisualvm" class="headerlink" title="JVisualvm"></a>JVisualvm</h3><p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jvisualvm.html" target="_blank" rel="noopener">JVisualvm</a> 是 JDK 内置的可视化性能诊断工具，它通过 JMX、jstatd、Attach API 等方式获取目标 JVM 的分析数据，包括 CPU 使用率、内存使用量、线程堆栈信息等。此外，它还能直观地展示 Java 堆中各对象的数量和大小、各 Java 方法的调用次数和执行时间等。</p>
+<h3 id="JProfiler"><a href="#JProfiler" class="headerlink" title="JProfiler"></a>JProfiler</h3><p><a href="https://www.ej-technologies.com/products/jprofiler/overview.html" target="_blank" rel="noopener">JProfiler</a> 是由 ej-technologies 公司开发的一款 Java 应用性能诊断工具。它聚焦于四个重要主题上。</p>
+<ol>
+<li>方法调用 - 对方法调用的分析可以帮助您了解应用程序正在做什么，并找到提高其性能的方法。</li>
+<li>内存分配 - 通过分析堆上对象、引用链和垃圾收集能帮您修复内存泄漏问题，优化内存使用。</li>
+<li>线程和锁 - JProfiler 提供多种针对线程和锁的分析视图助您发现多线程问题。</li>
+<li>高级子系统 - 许多性能问题都发生在更高的语义级别上。例如，对于JDBC调用，您可能希望找出执行最慢的 SQL 语句。JProfiler 支持对这些子系统进行集成分析。</li>
+</ol>
+<h2 id="分布式应用性能诊断"><a href="#分布式应用性能诊断" class="headerlink" title="分布式应用性能诊断"></a>分布式应用性能诊断</h2><p>如果只需要诊断单机 Java 应用的性能瓶颈，上面介绍的诊断工具就已经够用了。但随着现代系统架构逐渐从单体转变为分布式、微服务，单纯使用上述工具往往无法满足需求，这时就需要借助 <a href="https://github.com/jaegertracing/jaeger">Jaeger</a>、<a href="https://cn.aliyun.com/product/arms" target="_blank" rel="noopener">ARMS</a>、<a href="https://github.com/apache/incubator-skywalking">SkyWalking</a> 这些分布式追踪系统提供的全链路追踪功能。分布式追踪系统种类繁多，但实现原理都大同小异，它们通过代码埋点的方式记录 tracing 信息，通过 SDK 或 agent 将记录的数据传输至中央处理系统，最后提供 query 接口对结果进行展示和分析，想了解更多分布式追踪系统的原理可参考文章<a href="https://yq.aliyun.com/articles/514488" target="_blank" rel="noopener">开放分布式追踪（OpenTracing）入门与 Jaeger 实现</a>。</p>
+<h1 id="JProfiler-简介"><a href="#JProfiler-简介" class="headerlink" title="JProfiler 简介"></a>JProfiler 简介</h1><h2 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h2><p>JProfiler 包含用于采集目标 JVM 分析数据的 JProfiler agent、用于可视化分析数据的 JProfiler UI、提供各种功能的命令行工具，它们之间的关系如下图所示。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/6bc2c975d54e012fb9660ea568501766.png" alt="jprofiler"></p>
+<h3 id="JProfiler-agent"><a href="#JProfiler-agent" class="headerlink" title="JProfiler agent"></a>JProfiler agent</h3><p>JProfiler agent 是一个本地库，它可以在 JVM 启动时通过参数<code>-agentpath:&lt;path to native library&gt;</code>进行加载或者在程序运行时通过 <a href="http://lovestblog.cn/blog/2014/06/18/jvm-attach/" target="_blank" rel="noopener">JVM Attach 机制</a>进行加载。Agent 被成功加载后，会设置 JVMTI 环境，监听虚拟机产生的事件，如类加载、线程创建等。例如，当它监听到类加载事件后，会给这些类注入用于执行度量操作的字节码。</p>
+<h3 id="JProfiler-UI"><a href="#JProfiler-UI" class="headerlink" title="JProfiler UI"></a>JProfiler UI</h3><p>JProfiler UI 是一个可独立部署的组件，它通过 socket 和 agent 建立连接。这意味着不论目标 JVM 运行在本地还是远端，JProfiler UI 和 agent 间的通信机制都是一样的。</p>
+<p>JProfiler UI 的主要功能是展示通过 agent 采集上来的分析数据，此外还可以通过它控制 agent 的采集行为，将快照保存至磁盘，展示保存的快照。</p>
+<h3 id="命令行工具"><a href="#命令行工具" class="headerlink" title="命令行工具"></a>命令行工具</h3><p>JProfiler 提供了一系列命令行工具以实现不同的功能。</p>
+<ul>
+<li>jpcontroller - 用于控制 agent 的采集行为。它通过 agent 注册的 JProfiler MBean 向 agent 传递命令。</li>
+<li>jpenable - 用于将 agent 加载到一个正在运行的 JVM 上。</li>
+<li>jpdump - 用于获取正在运行的 JVM 的堆快照。</li>
+<li>jpexport &amp; jpcompare - 用于从保存的快照中提取数据并创建 HTML 报告。</li>
+</ul>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p>JProfiler 同时支持诊断本地和远程 Java 应用的性能。如果您需要实时采集并展示远程 JVM 的分析数据，需要完成以步骤：</p>
+<ol>
+<li>在本地安装 JProfiler UI。</li>
+<li>在远程宿主机上安装 JProfiler agent 并让其被目标 JVM 加载。</li>
+<li>配置 UI 到 agent 的连接。</li>
+</ol>
+<p>具体步骤可参考文档 <a href="https://www.ej-technologies.com/resources/jprofiler/help/doc/#jprofiler.installing" target="_blank" rel="noopener">Installing JProfiler</a> 和 <a href="https://www.ej-technologies.com/resources/jprofiler/help/doc/#jprofiler.profiling" target="_blank" rel="noopener">Profiling A JVM</a>。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>本章将以高性能写 LogHub 类库 <a href="https://github.com/aliyun/aliyun-log-producer">Aliyun LOG Java Producer</a> 为原型，带您了解如何使用 JProfiler 剖析它的性能。如果您的应用或者您在使用 producer 的过程中遇到了性能问题，也可以用类似的方式定位问题根因。如果您还不了解 producer 的功能，建议先阅读文章<a href="https://yq.aliyun.com/articles/682762" target="_blank" rel="noopener">日志上云利器 - Aliyun LOG Java Producer</a>。本章使用的样例代码参见 <a href="https://github.com/aliyun/aliyun-log-producer-sample/blob/master/src/main/java/com/aliyun/openservices/aliyun/log/producer/sample/SamplePerformance.java">SamplePerformance.java</a>。</p>
+<h2 id="JProfiler-设置"><a href="#JProfiler-设置" class="headerlink" title="JProfiler 设置"></a>JProfiler 设置</h2><h3 id="数据采集模式"><a href="#数据采集模式" class="headerlink" title="数据采集模式"></a>数据采集模式</h3><p>JProfier 提供两种数据采集模式 Sampling 和 Instrumentation。</p>
+<ul>
+<li>Sampling - 适合于不要求数据完全精确的场景。优点是对系统性能的影响较小，缺点是某些特性不支持（如方法级别的统计信息）。</li>
+<li>Instrumentation - 完整功能模式，统计信息也是精确的。缺点是如果需要分析的类比较多，对应用性能影响较大。为了降低影响，往往需要和 Filter 一起使用。</li>
+</ul>
+<p>由于我们需要获取方法级别的统计信息，这里选择了 Instrumentation 模式。同时配置了 Filter，让 agent 只记录位于 Java 包<code>com.aliyun.openservices.aliyun.log.producer</code>下的类和类<code>com.aliyun.openservices.log.Client</code>的 CPU 分析数据。</p>
+<h3 id="应用启动模式"><a href="#应用启动模式" class="headerlink" title="应用启动模式"></a>应用启动模式</h3><p>通过为 JProfiler agent 指定不同的参数可以控制应用的启动模式。</p>
+<ul>
+<li>等待模式 - 只有在 Jprofiler GUI 和 agent 建立连接并完成分析配置设置后，应用才会真正启动。在这种模式下，您能够获取应用启动时期的分析数据。对应的命令为<code>-agentpath:&lt;path to native library&gt;=port=8849</code>。</li>
+<li>立即启动模式 - 应用会立即启动，Jprofiler GUI 会在需要时和 agent 建立连接并设置分析配置。这种模式相对灵活，但会丢失应用启动初期的分析数据。对应的命令为<code>-agentpath:&lt;path to native library&gt;=port=8849,nowait</code>。</li>
+<li>离线模式 - 通过触发器记录数据、保存快照供事后分析。对应的命令为<code>-agentpath:&lt;path to native library&gt;=offline,id=xxx,config=/config.xml</code>。</li>
+</ul>
+<p>因为是在测试环境，同时对应用启动初期的性能也比较关注，这里选择了默认的等待模式。</p>
+<h2 id="使用-JProfiler-诊断性能"><a href="#使用-JProfiler-诊断性能" class="headerlink" title="使用 JProfiler 诊断性能"></a>使用 JProfiler 诊断性能</h2><p>在完成 JProfiler 的设置后，便可以对 Producer 的性能进行诊断。</p>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>在概览页我们可以清晰的看到内存使用量、垃圾收集活动、类加载数量、线程个数和状态、CPU 使用率等指标随时间变化的趋势。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/c53e7d213800d52649adb0428614d5fa.png" alt="overview"></p>
+<p>通过此图，我们可以作出如下基本判断：</p>
+<ol>
+<li>程序在运行过程中会产生大量对象，但这些对象生命周期极短，大部分都能被垃圾收集器及时回收，不会造成内存无限增长。</li>
+<li>加载类的数量在程序初始时增长较快，随后保持平稳，符合预期。</li>
+<li>在程序运行过程中，有大量线程处于阻塞状态，需要重点关注。</li>
+<li>在程序刚启动时，CPU 使用率较高，需要进一步探究其原因。</li>
+</ol>
+<h3 id="CPU-views"><a href="#CPU-views" class="headerlink" title="CPU views"></a>CPU views</h3><p>CPU views 下的各个子视图展示了应用中各方法的执行次数、执行时间、调用关系等信息，能帮我们定位对应用性能影响最大的方法。</p>
+<h4 id="Call-Tree"><a href="#Call-Tree" class="headerlink" title="Call Tree"></a>Call Tree</h4><p>Call tree 通过树形图清晰地展现了方法间的层次调用关系。同时，JProfiler 将子方法按照它们的执行总时间由大到小排序，这能让您快速定位关键方法。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/ab2a3583f98a67dc6920dff4481ebfea.png" alt="call_tree"></p>
+<p>对于 Producer 而言，方法<code>SendProducerBatchTask.run()</code>耗时最多，继续向下查看会发现该方法的主要时间消耗在了执行方法<code>Client.PutLogs()</code>上。</p>
+<h4 id="Hot-Spots"><a href="#Hot-Spots" class="headerlink" title="Hot Spots"></a>Hot Spots</h4><p>如果您的应用方法很多，且很多子方法的执行时间比较接近，使用 hot spots 视图往往能助您更快地定位问题。该视图能根据方法的单独执行时间、总执行时间、平均执行时间、调用次数等属性对它们排序。其中，单独执行时间等于该方法的总执行时间减去所有子方法的总执行时间。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/9e7f559b6ef3ddcc9bd6545a84be8180.png" alt="hot_spots"></p>
+<p>在该视图下，可以看到<code>Client.PutLogs()</code>，<code>LogGroup.toByteArray()</code>，<code>SamplePerformance$1.run()</code>是单独执行时间耗时最多的三个方法。</p>
+<h4 id="Call-Graph"><a href="#Call-Graph" class="headerlink" title="Call Graph"></a>Call Graph</h4><p>找到了关键方法后，call graph 视图能为您呈现与该方法直接关联的所有方法。这有助于我们对症下药，制定合适的性能优化策略。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/987805f20b4e07aa84fbc08e3b678826.png" alt="call_graph"></p>
+<p>这里，我们观察到方法<code>Client.PutLogs()</code>执行的主要时间花费在了对象序列化上，因此性能优化的关键是提供执行效率更高的序列化方法。</p>
+<h3 id="Live-memory"><a href="#Live-memory" class="headerlink" title="Live memory"></a>Live memory</h3><p>Live memory 下的各个子视图能让您掌握内存的具体分配和使用情况，助您判断是否存在内存泄漏问题。</p>
+<h4 id="All-Objects"><a href="#All-Objects" class="headerlink" title="All Objects"></a>All Objects</h4><p>All Objects 视图展示了当前堆中各种对象的数量和总大小。由图可知，程序在运行过程中构造出了大量 LogContent 对象。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/ed722825e4dec3c7860187e25d11731d.png" alt="all_Objects"></p>
+<h4 id="Allocation-Call-Tree"><a href="#Allocation-Call-Tree" class="headerlink" title="Allocation Call Tree"></a>Allocation Call Tree</h4><p>Allocation Call Tree 以树形图的形式展示了各方法分配的内存大小。可以看到，<code>SamplePerformance$1.run()</code>和<code>SendProducerBatchTask.run()</code>是内存分配大户。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/63a95f80732b8e78054988f5e550b7ec.png" alt="allocation_call_tree"></p>
+<h4 id="Allocation-Hot-Spots"><a href="#Allocation-Hot-Spots" class="headerlink" title="Allocation Hot Spots"></a>Allocation Hot Spots</h4><p>如果方法比较多，您还可以通过 Allocation Hot Spots 视图快速找出分配对象最多的方法。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/7eb93e05da1be9d628df2716606a91dc.png" alt="allocation_hot_spots"></p>
+<h3 id="Thread-History"><a href="#Thread-History" class="headerlink" title="Thread History"></a>Thread History</h3><p>线程历史记录视图直观地展示了各线程在不同时间点的状态。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/fc1440cdf7ef330717bfc57d879333bd.png" alt="thread_history"></p>
+<p>不同线程执行的任务不同，所展现的状态特征也不同。</p>
+<ul>
+<li>线程<code>pool-1-thread-&lt;M&gt;</code>会循环调用<code>producer.send()</code>方法异步发送数据，它们在程序刚启动时一直处于运行状态，但随后在大部分时间里处于阻塞状态。这是因为 producer 发送数据的速率低于数据的产生速率，且单个 producer 实例能缓存的数据大小有限。在程序运行初始，producer 有足够空间缓存待发送数据，所以<code>pool-1-thread-&lt;M&gt;</code>一直处于运行状态，这也就解释了为何程序在刚启动时 CPU 使用率较高。随着时间的推移，producer 的缓存被逐渐耗尽，<code>pool-1-thread-&lt;M&gt;</code>必须等到 producer “释放”出足够的空间才有机会继续运行，这也是为什么我们会观察到大量线程处于阻塞状态。</li>
+<li><code>aliyun-log-producer-0-mover</code>负责将超时 batch 投递到发送线程池中。由于发送速率较快，batch 会因缓存的数据达到了上限被<code>pool-1-thread-&lt;M&gt;</code>直接投递到发送线程池中，因此 mover 线程在大部分时间里都处于等待状态。</li>
+<li><code>aliyun-log-producer-0-io-thread-&lt;N&gt;</code>作为真正执行数据发送任务的线程有一部分时间花在了网络 I/O 状态。</li>
+<li><code>aliyun-log-producer-0-success-batch-handler</code>用于处理发送成功的 batch。由于回调函数比较简单，执行时间短，它在大部分时间里都处于等待状态。</li>
+<li><code>aliyun-log-producer-0-failure-batch-handler</code>用于处理发送失败的 batch。由于没有数据发送失败，它一直处于等待状态。</li>
+</ul>
+<p>通过上述分析可知，这些线程的状态特征都是符合预期的。</p>
+<h3 id="Overhead-Hot-Spots-Detected"><a href="#Overhead-Hot-Spots-Detected" class="headerlink" title="Overhead Hot Spots Detected"></a>Overhead Hot Spots Detected</h3><p>当程序运行结束后，JProfiler 会弹出一个对话框展示那些频繁被调用，但执行时间又很短的方法。在下次诊断时，您可以让 JProfiler agent 在分析过程中忽略掉这些方法以减轻对应用性能的影响。</p>
+<p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/0a297d77ecaf377b9aa57f020ed0594f.png" alt="overhead_hot_spots_detected"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过 JProfiler 的诊断可知应用不存在大的性能问题，也不存在内存泄漏。下一步的优化方向是提升对象的序列化效率。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://yq.aliyun.com/articles/276" target="_blank" rel="noopener">深入浅出JProfiler</a></li>
+<li><a href="https://www.ej-technologies.com/resources/jprofiler/help/doc/#jprofiler.introduction" target="_blank" rel="noopener">Jprofiler Introduction</a></li>
+</ul>
+<p>本文转载自:  <a href="https://yq.aliyun.com/articles/684776?utm_content=g_1000035705" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/08/chang-yong-gong-ju/xing-neng-zhen-duan-li-qi-jprofiler-kuai-su-ru-men-he-zui-jia-shi-jian/" class="b-link-green">性能诊断利器JProfiler快速入门和最佳实践</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/08/chang-yong-gong-ju/xing-neng-zhen-duan-li-qi-jprofiler-kuai-su-ru-men-he-zui-jia-shi-jian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="性能诊断利器JProfiler快速入门和最佳实践">
+                        
+                        <span class="card-title">性能诊断利器JProfiler快速入门和最佳实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">性能诊断利器JProfiler快速入门和最佳实践摘要： 性能诊断是软件工程师在日常工作中需要经常面对和解决的问题，在用户体验至上的今天，解决好应用的性能问题能带来非常大的收益。Java 作为最流行的编程语言之一，其应用性能诊断一直受到业界广</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/" target="_blank">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/07/chang-yong-gong-ju/wo-de-java-wen-ti-pai-cha-gong-ju-dan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="我的java问题排查工具单">
+                        
+                        <span class="card-title">我的java问题排查工具单</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">我的java问题排查工具单前言
+平时的工作中经常碰到很多疑难问题的处理，在解决问题的同时，有一些工具起到了相当大的作用，在此书写下来，一是作为笔记，可以让自己后续忘记了可快速翻阅，二是分享，希望看到此文的同学们可以拿出自己日常觉得帮助很大的</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/" target="_blank">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

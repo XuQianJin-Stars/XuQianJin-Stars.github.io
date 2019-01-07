@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-07T06:19:24.160Z</updated>
+  <updated>2019-01-07T16:35:09.199Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>性能诊断利器JProfiler快速入门和最佳实践</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/08/chang-yong-gong-ju/xing-neng-zhen-duan-li-qi-jprofiler-kuai-su-ru-men-he-zui-jia-shi-jian/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/08/chang-yong-gong-ju/xing-neng-zhen-duan-li-qi-jprofiler-kuai-su-ru-men-he-zui-jia-shi-jian/</id>
+    <published>2019-01-07T16:35:00.000Z</published>
+    <updated>2019-01-07T16:35:09.199Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;性能诊断利器JProfiler快速入门和最佳实践&quot;&gt;&lt;a href=&quot;#性能诊断利器JProfiler快速入门和最佳实践&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java/"/>
+    
+      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>我的java问题排查工具单</title>
@@ -184,6 +212,62 @@
   </entry>
   
   <entry>
+    <title>最长连续整数序列的长度</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:51:35.704Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二维数组的二分搜索</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:48:20.586Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;二维数组的二分搜索&quot;&gt;&lt;a href=&quot;#二维数组的二分搜索&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>有序数组中求和为给定值的两个数</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/</id>
@@ -240,11 +324,11 @@
   </entry>
   
   <entry>
-    <title>最长连续整数序列的长度</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
+    <title>旋转二维数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:51:35.704Z</updated>
+    <updated>2019-01-06T04:59:03.158Z</updated>
     
     <summary type="html">
     
@@ -252,7 +336,8 @@
       
         
         
-          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot; title=&quot;求和为给定值的组合&quot;&gt;&lt;/a&gt;求和为给定值的组合&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你一个 n
         
       
     
@@ -268,11 +353,11 @@
   </entry>
   
   <entry>
-    <title>需要排序的最短子数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/</id>
+    <title>最小硬币组合</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:04:36.473Z</updated>
+    <updated>2019-01-06T05:02:26.187Z</updated>
     
     <summary type="html">
     
@@ -280,7 +365,7 @@
       
         
         
-          &lt;h2 id=&quot;需要排序的最短子数组&quot;&gt;&lt;a href=&quot;#需要排序的最短子数组&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
         
       
     
@@ -353,11 +438,11 @@
   </entry>
   
   <entry>
-    <title>旋转二维数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/</id>
+    <title>需要排序的最短子数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:59:03.158Z</updated>
+    <updated>2019-01-06T05:04:36.473Z</updated>
     
     <summary type="html">
     
@@ -365,64 +450,7 @@
       
         
         
-          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot; title=&quot;求和为给定值的组合&quot;&gt;&lt;/a&gt;求和为给定值的组合&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个 n
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>行列递增的二维数组搜索</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:46:08.260Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;行列递增的二维数组搜索&quot;&gt;&lt;a href=&quot;#行列递增的二维数组搜索&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>二维数组的二分搜索</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:48:20.586Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;二维数组的二分搜索&quot;&gt;&lt;a href=&quot;#二维数组的二分搜索&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;需要排序的最短子数组&quot;&gt;&lt;a href=&quot;#需要排序的最短子数组&quot; class=&quot;headerlink&quot;
         
       
     
@@ -466,11 +494,11 @@
   </entry>
   
   <entry>
-    <title>最小硬币组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
+    <title>行列递增的二维数组搜索</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:02:26.187Z</updated>
+    <updated>2019-01-06T04:46:08.260Z</updated>
     
     <summary type="html">
     
@@ -478,7 +506,7 @@
       
         
         
-          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;行列递增的二维数组搜索&quot;&gt;&lt;a href=&quot;#行列递增的二维数组搜索&quot; class=&quot;headerlink&quot;
         
       
     
@@ -534,34 +562,6 @@
         
         
           &lt;h2 id=&quot;翻转一个数的比特位&quot;&gt;&lt;a href=&quot;#翻转一个数的比特位&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="位运算" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数组中不重复的两个元素</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/shu-zu-zhong-bu-chong-fu-de-liang-ge-yuan-su/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/05/suan-fa/wei-yun-suan/shu-zu-zhong-bu-chong-fu-de-liang-ge-yuan-su/</id>
-    <published>2019-01-05T10:13:00.000Z</published>
-    <updated>2019-01-05T10:29:15.369Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;数组中不重复的两个元素&quot;&gt;&lt;a href=&quot;#数组中不重复的两个元素&quot; class=&quot;headerlink&quot;
         
       
     
