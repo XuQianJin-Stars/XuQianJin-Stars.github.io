@@ -554,11 +554,10 @@ top -H -p pid
 <h3 id="verbose"><a href="#verbose" class="headerlink" title="-verbose"></a>-verbose</h3><p>vm启动脚本加入。在tomcat启动脚本中可见加载类的详细信息</p>
 <h3 id="greys-sc"><a href="#greys-sc" class="headerlink" title="greys:sc"></a>greys:sc</h3><p>greys的sc命令也能清晰的看到当前类是从哪里加载过来的</p>
 <h3 id="tomcat-classloader-locate"><a href="#tomcat-classloader-locate" class="headerlink" title="tomcat-classloader-locate"></a>tomcat-classloader-locate</h3><p>通过以下url可以获知当前类是从哪里加载的</p>
-<pre class=" language-shell"><code class="language-shell">curl <http: localhost:8006="" classloader="" locate?class="org.apache.xerces.xs.XSObject" <="" code=""></http:></code></pre>
+<p>curl &lt;<a href="http://localhost:8006/classloader/locate?class=org.apache.xerces.xs.XSObject" target="_blank" rel="noopener">http://localhost:8006/classloader/locate?class=org.apache.xerces.xs.XSObject</a></p>
 <h2 id="ALI-TOMCAT带给我们的惊喜-感谢-务观"><a href="#ALI-TOMCAT带给我们的惊喜-感谢-务观" class="headerlink" title="ALI-TOMCAT带给我们的惊喜(感谢@务观)"></a>ALI-TOMCAT带给我们的惊喜(感谢@务观)</h2><ol>
 <li><p>列出容器加载的jar列表</p>
-<pre class=" language-shell"><code class="language-shell">curl <http: localhost:8006="" classloader="" jars="">
-</http:></code></pre>
+<p>curl <a href="http://localhost:8006/classloader/jars" target="_blank" rel="noopener">http://localhost:8006/classloader/jars</a></p>
 </li>
 <li><p>列出当前当当前类加载的实际jar包位置，解决类冲突时有用</p>
 <p>curl <a href="http://localhost:8006/classloader/locate?class=org.apache.xerces.xs.XSObject" target="_blank" rel="noopener">http://localhost:8006/classloader/locate?class=org.apache.xerces.xs.XSObject</a><br><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/4568b16d3db0daf98e852412b830f1a8.png" alt="screenshot.png"></p>
@@ -742,56 +741,7 @@ top -H -p pid
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">本篇</div>
-            <div class="card">
-                <a href="/2019/01/07/chang-yong-gong-ju/wo-de-java-wen-ti-pai-cha-gong-ju-dan/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="我的java问题排查工具单">
-                        
-                        <span class="card-title">我的java问题排查工具单</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">我的java问题排查工具单前言
-平时的工作中经常碰到很多疑难问题的处理，在解决问题的同时，有一些工具起到了相当大的作用，在此书写下来，一是作为笔记，可以让自己后续忘记了可快速翻阅，二是分享，希望看到此文的同学们可以拿出自己日常觉得帮助很大的</div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                    java
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/java/" target="_blank">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/开发工具/" target="_blank">
-                        <span class="chip bg-color">开发工具</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
                 <a href="/2019/01/07/java/shi-yong-guava-de-ratelimiter-zuo-xian-liu/">
                     <div class="card-image">
@@ -806,9 +756,9 @@ top -H -p pid
                     <div class="summary">使用Guava的RateLimiter做限流一、常见的限流算法目前常用的限流算法有两个：漏桶算法和令牌桶算法。
 1.漏桶算法漏桶算法的原理比较简单，请求进入到漏桶中，漏桶以一定的速率漏水。当请求过多时，水直接溢出。可以看出，漏桶算法可以强制</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -830,6 +780,50 @@ top -H -p pid
                     
                     <a href="/tags/java/" target="_blank">
                         <span class="chip bg-color">java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/06/suan-fa/suan-fa-shi-jian-fu-za-du-qiu-jie-fa-xiang-xi-guo-cheng-shuo-ming/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="算法时间复杂度求解法【详细过程说明】">
+                        
+                        <span class="card-title">算法时间复杂度求解法【详细过程说明】</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">算法时间复杂度求解法
+在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，进而分析T(n)随n的变化情况并确定T(n)的数量级。算法的时间复杂度，也就是算法的时间量度，基座T（n）=O(f(n))。它表示随问题规模n的增大，算</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
                     </a>
                     
                 </div>
