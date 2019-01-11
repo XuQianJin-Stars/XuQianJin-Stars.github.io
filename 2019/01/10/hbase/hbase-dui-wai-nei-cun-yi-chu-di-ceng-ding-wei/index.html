@@ -1,0 +1,915 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="hbase堆外内存溢出底层定位, 大数据 实时计算 机器学习">
+    <meta name="description" content="hbase堆外内存溢出底层定位
+下文所说的 hbase client 版本，如无特指，则皆为 1.2.3。
+
+之前项目中出现堆外内存溢出（排查过程），虽然已经解决了问题，但当时没有深究底层的原理，最近抽空从底层入手，深入研究了 hbase ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>hbase堆外内存溢出底层定位 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        hbase堆外内存溢出底层定位
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/Hbase/" target="_blank">
+                    <span class="chip bg-color">Hbase</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/Hbase/" class="post-category" target="_blank">
+                        Hbase
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-10
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="hbase堆外内存溢出底层定位"><a href="#hbase堆外内存溢出底层定位" class="headerlink" title="hbase堆外内存溢出底层定位"></a>hbase堆外内存溢出底层定位</h1><blockquote>
+<p>下文所说的 hbase client 版本，如无特指，则皆为 1.2.3。</p>
+</blockquote>
+<p>之前项目中出现堆外内存溢出（<a href="https://blog.csdn.net/u012099869/article/details/82757999" target="_blank" rel="noopener">排查过程</a>），虽然已经解决了问题，但当时没有深究底层的原理，最近抽空从底层入手，深入研究了 hbase client 读写源码，配合 jmeter 压测特定接口，并使用 mat 等工具分析，最终定位到了 hbase 堆外内存溢出的根本原因，本次就梳理下完整的过程，以及涉及的一些原理，防止以后踩坑。</p>
+<h1 id="一-溢出现象"><a href="#一-溢出现象" class="headerlink" title="一.溢出现象"></a>一.溢出现象</h1><p>单台服务器刚发布时 java 进程占用3g，以一天5%左右的速度增长，一定时间过后进程占用接近90%，触发服务器报警，而此时 old 区占用在 50%，未触发 CMS GC，而导致堆外内存溢出。</p>
+<p>异常堆栈：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109093506363.png" alt="img"></p>
+<p>top 命令查看进程占用：</p>
+<p><img src="https://img-blog.csdn.net/20180918144334159" alt="img"></p>
+<p>机器为 8核16G，JVM配置如下:</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">-</span>Xms8g <span class="token operator">-</span>Xmx8g <span class="token operator">-</span>Xmn3g <span class="token operator">-</span>Xss512k 
+<span class="token operator">-</span>XX<span class="token operator">:</span>MetaspaceSize<span class="token operator">=</span>256m 
+<span class="token operator">-</span>XX<span class="token operator">:</span>MaxMetaspaceSize<span class="token operator">=</span>512m 
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>UseConcMarkSweepGC 
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>DisableExplicitGC 
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">-</span>UseGCOverheadLimit
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>UseCMSInitiatingOccupancyOnly 
+<span class="token operator">-</span>XX<span class="token operator">:</span>CMSInitiatingOccupancyFraction<span class="token operator">=</span><span class="token number">70</span>
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>CMSParallelRemarkEnabled 
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>UseFastAccessorMethods 
+<span class="token number">12345678910</span>
+</code></pre>
+<h1 id="二-排查过程-amp-原理分析"><a href="#二-排查过程-amp-原理分析" class="headerlink" title="二.排查过程&amp;原理分析"></a>二.排查过程&amp;原理分析</h1><h2 id="1-初步分析"><a href="#1-初步分析" class="headerlink" title="1.初步分析"></a>1.初步分析</h2><p>根据异常堆栈，可以看出是 hbase.write() 分配直接内存导致的堆外内存溢出。而直接内存分配空间不足时，会调用 System.gc()，由于 JVM 参数配置了 -XX:+DisableExplicitGC 禁用了 System.gc()，且 old 区占用才50%，未达到 CMS GC 阈值，因此抛出堆外内存溢出。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109094033857.png" alt="img"></p>
+<p>粗略的堆外内存计算方式：JVM 未设置直接内存大小参数 -XX:MaxDirectMemorySize, 则 CMS GC堆外内存为：old 区 - 1个survivor 区， 即 8G - 314M = 7.8G。</p>
+<h2 id="2-压测主要接口"><a href="#2-压测主要接口" class="headerlink" title="2.压测主要接口"></a>2.压测主要接口</h2><p>因为不能用线上机器做实验，且不能确定是否有其他因素导致溢出。于是在性能环境使用 jmeter 压测应用主要接口，并观察堆外内存占用。</p>
+<p>压测后发现堆外内存占用平稳，未出现溢出现象。</p>
+<h2 id="3-释放-hbase-client-资源"><a href="#3-释放-hbase-client-资源" class="headerlink" title="3.释放 hbase client 资源"></a>3.释放 hbase client 资源</h2><p>此时将目光放到异常堆栈上，并查看系统封装的 hbase client ，发现使用完 HTable 后未调用 close() 释放资源，于是加上 close() 代码，并上线观察。但仍然出现溢出现象。</p>
+<p><img src="https://img-blog.csdn.net/20180928192051831" alt="img"></p>
+<h2 id="4-压测特定功能"><a href="#4-压测特定功能" class="headerlink" title="4.压测特定功能"></a>4.压测特定功能</h2><p>虽然不是hbase client使用的问题，但还是有相同的堆栈，说明 hbase 肯定有问题。</p>
+<p>查找资料，发现 hbase 官方的 issue 列表里有一个堆外内存溢出的 case (<a href="https://issues.apache.org/jira/browse/HBASE-19320" target="_blank" rel="noopener">hbase direct memory leak issue</a>)。发现如果使用 jdk 的 HeapByteBuffer，在网络IO时，由于用户空间不能直接访问内核空间，因此会复制一个临时的 DirectByteBuffer 对象进行IO，且用 ThreadLocal 缓存该对象。如果使用多线程进行大数据量的网络IO，则可能导致内存溢出。</p>
+<p><img src="https://img-blog.csdnimg.cn/2019010909513671.png" alt="img"></p>
+<p>于是查看 hbase 源码，发现确实使用的是 HeapByteBuffer，使用 jVisualVM 查看 dump 文件中 java.nio.DirectByteBuffer 类的 GC Roots，发现是 HConnection 线程对象，而该对象在项目初始化时创建，并一直存活：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109095441852.png" alt="img"></p>
+<p>于是单独压测这两个接口，一次性读写10M左右的数据，并使用 gperftools 观察堆外内存占用。运行半小时出现溢出现象，观察 gperftools 文件，使用 malloc 分配堆外内存达到了 7900M:</p>
+<p><img src="https://img-blog.csdnimg.cn/2019010909564313.png" alt="img"></p>
+<p>至此复现了堆外内存溢出的现象，确实是 hbase 读写导致的。</p>
+<h2 id="5-升级-hbase-client-至-2-1-0"><a href="#5-升级-hbase-client-至-2-1-0" class="headerlink" title="5.升级 hbase client 至 2.1.0"></a>5.升级 hbase client 至 2.1.0</h2><p>找到了泄露的点，那么解决方案就出来了：<br>不使用 HeapByteBuffer 或复用 DirectByteBuffer : 升级 base client 至 2.x，默认使用 netty<br>限制 jdk 缓存的堆外内存大小：jdk 升级至 jdk 9</p>
+<p>考虑改动成本，将 hbase client 版本升级至 2.1.0，线上运行一段时间，系统稳定，无溢出现象。</p>
+<h2 id="6-主要是哪里申请的堆外内存呢？"><a href="#6-主要是哪里申请的堆外内存呢？" class="headerlink" title="6.主要是哪里申请的堆外内存呢？"></a>6.主要是哪里申请的堆外内存呢？</h2><p>虽然已经解决了这个问题，但还有几个疑问：<br>压测脚本是使用 hbase 同时读写，那么到底是读，还是写造成的泄露？还是两者都有泄露？<br>hbase 读、写的溢出对应的是源码底层的哪一段，或是哪几段逻辑呢？<br>带着这些疑问，查看了一下 hbase client 读写的源码。</p>
+<h3 id="1-hbase-写的源码"><a href="#1-hbase-写的源码" class="headerlink" title="1) hbase 写的源码"></a>1) hbase 写的源码</h3><p>主要分为获取 HTable、mutate、flushCommits 三个部分:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109110555288.png" alt="img"></p>
+<p>获取 HTable 会创建一个默认线程数256的线程池，并且创建一个新的 HTable 对象：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109110642705.png" alt="img"></p>
+<p>mutate 操作会将待写入的数据放到一个本地的 writeAsyncBuffer 缓存起来：</p>
+<p><img src="https://img-blog.csdnimg.cn/2019010911080937.png" alt="img"></p>
+<p>flushCommits 操作将 writeAsyncBuffer 中的数据写入到 hbase。这个过程中，hbase 把写入任务 SingleServerRequestRunnable 线程提交给线程池完成，调用方 wait 结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/2019010911085629.png" alt="img"></p>
+<p>在 SingleServerRequestRunnable 线程中，调用 MultiServerCallable#call 方法，默认的 rpc 实现类为 RpcClientImpl( tracedWriteRequest 中会调用 setupIOstreams 方法建立连接)，数据通过 HeapByteBuffer，经由 nio 的 SocketChannelImpl 写入，并循环调用 IOUtil.write() 方法，分配临时的堆外内存，造成泄露，整体流程为：</p>
+<p>由于传入的 totalSize 为写入数据的大小(10M)，因此 IOUtil.write() 申请的 DirectByteBuffer 大小为传入的大小（此处 HeapByteBuffer 的 limit 为 10338890，10M左右）:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109111552960.png" alt="IOUtil.write()"></p>
+<p>这里的线程池为前面获取 HTable 创建的，核心线程数默认256，那么最大占用堆外内存=256*10=2560M，未达到溢出的量。是不是还有其他地方在分配堆外内存呢？</p>
+<h3 id="2-hbase-读的源码"><a href="#2-hbase-读的源码" class="headerlink" title="2) hbase 读的源码"></a>2) hbase 读的源码</h3><p>HTable.get() 通过匿名内部类的方式实现了 RetryingCallable<br>#call() 接口，在 RpcClientImpl#call 方法内被调用，向 hbase 发送读请求之前初始化 socket 连接，并启动 RpcClientImpl.Connection 线程，接收数据。其中发起请求流程和 hbase 写的流程一样:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109111648780.png" alt="hbase.get()"></p>
+<p>断点查看 IOUtil.read() 一次读取的字节数为 8192:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109111740699.png" alt="IOUtil.read()"></p>
+<p>查看 BufferedInputStream 类默认一次读取的字节数为 8192：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109111840841.png" alt="BufferedInputStream"></p>
+<p>因此虽然调用了 IOUtil.read() 也不会占用太大的堆外内存，而且由于 RpcClientImpl.Connection 线程接收完数据就消亡了，持有的堆外内存也会被 gc 回收。因此 hbase 读不会造成堆外内存泄露。</p>
+<h2 id="7-分析性能环境-dump-文件"><a href="#7-分析性能环境-dump-文件" class="headerlink" title="7.分析性能环境 dump 文件"></a>7.分析性能环境 dump 文件</h2><p>到这里，可以确定 hbase 写会造成泄露，但目前造成泄露的内存量远大于前面分析的值。查看性能环境的 dump 文件，使用 OQL 语句查看 java.nio.DirectByteBuffer 的数量和大小，发现占据 10M 空间的对象数量有 788个，总内存大约为=10338894*788=7800M：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109111927180.png" alt="OQL"></p>
+<p>查看 java.nio.DirectByteBuffer 对象的 GC Roots，发现大量对象只有 cleaner 引用:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109112036591.png" alt="Cleaner"></p>
+<p>Cleaner 为 PhantomReference 的子类，在创建 DirectByteBuffer 对象时被创建。虚引用的作用在于跟踪垃圾回收过程，如果 GC 时发现一个对象的 GC Roots 只有虚引用，那么会将这个虚引用加入引用队列(ReferenceQueue)，系统有个后台线程 Reference.ReferenceHandler 会从这个队列获取 Cleaner 对象，调用它的 clean 方法，释放资源：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109112116732.png" alt="clean()"></p>
+<p>现在有大量的不可达对象，说明持有堆外内存的线程对象消亡了，但资源未被回收。jstat 查看 GC 情况，发现未进行 FGC，说明这些对象都进入了 old 区，而导致大量的堆外内存不能被释放，造成溢出。</p>
+<p>而根据前面的分析，会持有堆外内存对象引用的只有 hconnection 线程池中的线程。于是仔细的再梳理一遍 hbase 写的链路，发现处理网络 IO 任务的线程池，创建的时候设置了allowCoreThreadTimeOut 为 true，允许核心线程消亡，keepAliveTime 为60s:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109112155195.png" alt="img"></p>
+<p>继续用 jmeter 压测 hbase 写接口，并使用 jstack 观察 hconnection 线程的情况，发现以1s一个线程的速度进行写入时，hconnection 线程数保持在60左右，只有一个线程是活跃的，其他线程都是等待状态(waiting)，且线程 count 数一直累加，说明进程一直在创建新线程并且一直有线程在消亡：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109112253131.png" alt="threads&#39; state"></p>
+<p>再查看线程池 ThreadPoolExecutor 源码，当线程池内活跃线程数少于核心线程数时，有新请求进来，会直接创建一个新的线程处理：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109112342953.png" alt="core thread"></p>
+<p>到这里基本定位到了泄露的原因了。</p>
+<h2 id="8-总结"><a href="#8-总结" class="headerlink" title="8.总结"></a>8.总结</h2><p>导致 hbase 堆外内存溢出的主要是下面几个条件<strong>共同作用</strong>的结果：</p>
+<ol>
+<li><strong>默认的 RpcClientImpl</strong> 中使用了 <strong>HeapByteBuffer</strong>: 网络IO时数据会复制到堆外内存</li>
+<li><strong>sun.nio.ch.Util</strong> 类会缓存堆外内存大小，且使用 <strong>ThreadLocal</strong> 方式: 引用由线程持有</li>
+<li>异步写的线程池设置 <strong>allowCoreThreadTimeOut</strong> 为 true: 导致线程频繁消亡</li>
+<li>写入的频率</li>
+<li>JVM 未进行 FGC: 已进入 old 区的不可达的线程对象，持有的堆外内存资源无法被回收</li>
+</ol>
+<p>关于第四点，单独压测写入接口时，未限制频率，导致堆外内存到 3.5g 左右时，系统就直接进行 FGC 了，由于回收了堆外内存资源，因此未出现堆外内存溢出现象。</p>
+<p><strong>完整导致流程描述</strong>：hbase 创建的线程池内的线程使用 HeapByteBuffer 存储数据，网络IO前会将数据复制到堆外内存对象 DirectByteBuffer 中；而 jdk 会以 ThreadLocal 的方式缓存该 DirectByteBuffer 对象申请的堆外内存，如果线程不消亡则不释放该内存；同时该线程池允许核心线程消亡，当业务方以一定的频率调用 hbase 写接口时，导致有些线程对象消亡并进入 Old 区；由于未进行 FGC，这些线程对象无法被回收，占用的堆外内存资源也无法被 GC 回收。一段时间后，造成堆外内存溢出。</p>
+<p>对象进入 Old 区有很多可能，比如：</p>
+<ul>
+<li>Eden 区空间不足</li>
+<li>长期存活对象进入 Old 区(线上查看存活年龄配置: jinfo -flag MaxTenuringThreshold = 6)</li>
+</ul>
+<p>梳理到这里，那么<strong>解决方案</strong>就多了几种，比如：</p>
+<ol>
+<li>配置 RpcClient 实现为 AsyncRpcClient (使用 netty 方式，性能环境已验证)</li>
+<li>使用 Connection#getTable(tableName, pool) 传入自定义的线程池，设置allowCoreThreadTimeOut 为false，并限制每次写入的大小 (已验证)</li>
+<li>提高核心线程消亡时间</li>
+<li>控制 hbase 写入的频率</li>
+<li>调低FGC 的阈值</li>
+<li>调大JVM年龄计数器</li>
+</ol>
+<p>以上就是完整的流程了，如有疑问可与我交流。</p>
+<h1 id="三-工具简介"><a href="#三-工具简介" class="headerlink" title="三.工具简介"></a>三.工具简介</h1><p>前面排查堆外内存溢出的过程中，使用了很多工具，主要有：</p>
+<ul>
+<li>jdk 命令行工具: jps, jstat, jmap</li>
+<li>jdk 提供的内存监控工具: jConsole, jVisualVM</li>
+<li>eclipse 提供的内存分析工具: mat</li>
+<li>google 的监控堆外内存工具: gperftools</li>
+<li>性能压测工具: jmeter</li>
+<li>查看进程内存: smaps, pmap, gdb</li>
+<li>sun 推出的针对 java 的动态追踪工具: btrace</li>
+</ul>
+<p>具体的工具用法就不介绍了，可自行搜索资料。</p>
+<h1 id="四-后记"><a href="#四-后记" class="headerlink" title="四.后记"></a>四.后记</h1><p>已反馈至 <a href="https://issues.apache.org/jira/browse/HBASE-19320" target="_blank" rel="noopener">hbase issue</a>:</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109141528892.png" alt="hbase issue"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/23259731.html#ddclick_search_searchinput" target="_blank" rel="noopener">《深入理解Java虚拟机》</a><br><a href="http://lovestblog.cn/blog/2015/05/12/direct-buffer/" target="_blank" rel="noopener">堆外内存完全解读</a><br><a href="https://issues.apache.org/jira/browse/HBASE-19320" target="_blank" rel="noopener">hbase direct memory leak issue</a><br><a href="http://www.evanjones.ca/java-bytebuffer-leak.html" target="_blank" rel="noopener">java byte buffer leak</a><br><a href="https://www.oracle.com/technetwork/java/javase/8u102-relnotes-3021767.html?printOnly=1" target="_blank" rel="noopener">jdk 8u102 update release notes: add MaxCachedBufferSize</a><br><a href="https://blog.csdn.net/u012099869/article/details/82757999#t13" target="_blank" rel="noopener">记一次堆外内存排查过程</a><br><a href="https://blog.csdn.net/u012099869/article/details/82870082#t15" target="_blank" rel="noopener">内存溢出分析之垃圾回收知识</a><br><a href="https://blog.csdn.net/u012099869/article/details/82870050#t1" target="_blank" rel="noopener">内存溢出分析之工具篇</a><br><a href="https://www.infoq.cn/article/get-to-know-rpc" target="_blank" rel="noopener">体系化认识RPC</a><br><a href="https://www.52im.net/thread-1935-1-1.html" target="_blank" rel="noopener">IO模型</a><br>[线程模型]([OOM] hbase堆外内存溢出底层定位</p>
+<p>转载自：<a href="https://blog.csdn.net/u012099869/article/details/86133144" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/10/hbase/hbase-dui-wai-nei-cun-yi-chu-di-ceng-ding-wei/" class="b-link-green">hbase堆外内存溢出底层定位</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/10/hbase/hbase-dui-wai-nei-cun-yi-chu-di-ceng-ding-wei/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="hbase堆外内存溢出底层定位">
+                        
+                        <span class="card-title">hbase堆外内存溢出底层定位</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">hbase堆外内存溢出底层定位
+下文所说的 hbase client 版本，如无特指，则皆为 1.2.3。
+
+之前项目中出现堆外内存溢出（排查过程），虽然已经解决了问题，但当时没有深究底层的原理，最近抽空从底层入手，深入研究了 hbase </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                    Hbase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hbase/" target="_blank">
+                        <span class="chip bg-color">Hbase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/09/java/java-zhong-15-chong-suo-de-jie-shao-gong-ping-suo-ke-chong-ru-suo-du-xiang-suo-hu-chi-suo-le-guan-suo-fen-duan-suo-zi-xuan-suo-deng-deng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Java 中15种锁的介绍：公平锁，可重入锁，独享锁，互斥锁，乐观锁，分段锁，自旋锁等等">
+                        
+                        <span class="card-title">Java 中15种锁的介绍：公平锁，可重入锁，独享锁，互斥锁，乐观锁，分段锁，自旋锁等等</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Java 中15种锁的介绍：公平锁，可重入锁，独享锁，互斥锁，乐观锁，分段锁，自旋锁等等Java 中15种锁的介绍在读很多并发文章中，会提及各种各样锁如公平锁，乐观锁等等，这篇文章介绍各种锁的分类。介绍的内容如下：
+
+公平锁 / 非公平锁
+</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/" target="_blank">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
