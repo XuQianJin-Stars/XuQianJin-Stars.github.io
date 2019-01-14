@@ -5,10 +5,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="二叉搜索树中删除节点, 大数据 实时计算 机器学习">
-    <meta name="description" content="二叉搜索树中删除节点问题
-这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。
-比如说，给你的二">
+    <meta name="keywords" content="Java命令--jhat命令使用, 大数据 实时计算 机器学习">
+    <meta name="description" content="Java命令–jhat命令使用jhat也是jdk内置的工具之一。主要是用来分析java堆的命令，可以将堆中的对象以html的形式显示出来，包括对象的数量，大小等等，并支持对象查询语言。
+使用jmap等方法生成java的堆文件后，使用其进行分">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>二叉搜索树中删除节点 | ForwardXu</title>
+    <title>Java命令--jhat命令使用 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -215,13 +214,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        二叉搜索树中删除节点
+                        Java命令--jhat命令使用
                     </div>
                 </div>
             </div>
@@ -332,12 +331,12 @@
             
             <div class="article-tag">
                 
-                <a href="/tags/algorithm/" target="_blank">
-                    <span class="chip bg-color">algorithm</span>
+                <a href="/tags/java虚拟机/" target="_blank">
+                    <span class="chip bg-color">java虚拟机</span>
                 </a>
                 
-                <a href="/tags/二叉树/" target="_blank">
-                    <span class="chip bg-color">二叉树</span>
+                <a href="/tags/开发工具/" target="_blank">
+                    <span class="chip bg-color">开发工具</span>
                 </a>
                 
             </div>
@@ -348,15 +347,15 @@
                 <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
-                    <a href="/categories/algorithm/" class="post-category" target="_blank">
-                        algorithm
+                    <a href="/categories/java/" class="post-category" target="_blank">
+                        java
                     </a>
                     
                 </span>
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-14
                 </span>
 				
 				
@@ -368,68 +367,137 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="二叉搜索树中删除节点"><a href="#二叉搜索树中删除节点" class="headerlink" title="二叉搜索树中删除节点"></a>二叉搜索树中删除节点</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一棵二叉搜索树和一个数值，你要删除二叉搜索树上等于这个数值的节点，然后返回处理后的二叉搜索树。 注意，二叉搜索树的节点上没有重复数值，并且要求删除节点后返回的仍然是二叉搜索树。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的二叉搜索树是：
+                <h1 id="Java命令–jhat命令使用"><a href="#Java命令–jhat命令使用" class="headerlink" title="Java命令–jhat命令使用"></a>Java命令–jhat命令使用</h1><p>jhat也是jdk内置的工具之一。主要是用来分析java堆的命令，可以将堆中的对象以html的形式显示出来，包括对象的数量，大小等等，并支持<strong>对象查询语言</strong>。</p>
+<p>使用jmap等方法生成java的堆文件后，使用其进行分析。</p>
+<h2 id="第一步：导出堆"><a href="#第一步：导出堆" class="headerlink" title="第一步：导出堆"></a><strong>第一步：导出堆</strong></h2><p>#jmap -dump:live,file=a.log pid</p>
+<p>除了使用jmap命令，还可以通过以下方式：</p>
+<blockquote>
+<p>1、使用 jconsole 选项通过 HotSpotDiagnosticMXBean 从运行时获得堆转储（生成dump文件）、</p>
+<p>2、虚拟机启动时如果指定了 -XX:+HeapDumpOnOutOfMemoryError 选项, 则在抛出 OutOfMemoryError 时, 会自动执行堆转储。</p>
+<p>3、使用 hprof 命令</p>
+</blockquote>
+<h2 id="第二步：分析堆文件"><a href="#第二步：分析堆文件" class="headerlink" title="第二步：分析堆文件"></a><strong>第二步：分析堆文件</strong></h2><p>#jhat -J-Xmx512M a1.log</p>
+<p>说明：有时dump出来的堆很大，在启动时会报堆空间不足的错误，可加参数：jhat -J-Xmx512m <heap dump="" file="">。这个内存大小可根据自己电脑进行设置。</heap></p>
+<p> <strong>解析Java堆转储文件,并启动一个 web server</strong></p>
+<p><img src="https://images0.cnblogs.com/i/430613/201403/241640214676935.png" alt="img"></p>
+<h2 id="第三步：查看html"><a href="#第三步：查看html" class="headerlink" title="第三步：查看html"></a><strong>第三步：查看html</strong></h2><p><a href="http://ip:7000/" target="_blank" rel="noopener">http://ip:7000/</a></p>
+<p><img src="https://images0.cnblogs.com/i/430613/201403/241641575764906.gif" alt="img"></p>
+<p>对于jhat启动后显示的html页面中功能：<br>（1）显示出堆中所包含的所有的类</p>
+<p><img src="https://images0.cnblogs.com/i/430613/201403/241645053895823.gif" alt="img"></p>
+<p>（2）从根集能引用到的对象</p>
+<p><img src="https://images0.cnblogs.com/i/430613/201403/241645162324215.gif" alt="img"></p>
+<p>（3）显示平台包括的所有类的实例数量</p>
+<p><img src="https://images0.cnblogs.com/i/430613/201403/241646335456629.gif" alt="img"></p>
+<p>（4）堆实例的分布表</p>
+<p><img src="https://images0.cnblogs.com/i/430613/201403/241646499515817.gif" alt="img"></p>
+<p>（5）执行对象查询语句</p>
+<p><strong><img src="https://images0.cnblogs.com/i/430613/201403/241647402792408.gif" alt="img"></strong></p>
+<p>输入内容如：</p>
+<p>#查询长度大于100的字符串<br>select s from java.lang.String s where s.count &gt; 100</p>
+<p>详细的OQL可点击上图的“OQL help”</p>
+<pre><code>jhat中的OQL（对象查询语言） 
+如果需要根据某些条件来过滤或查询堆的对象，这是可能的，可以在jhat的html页面中执行OQL，来查询符合条件的对象
 
-<span class="token code keyword">    1</span>
-   / \
-  0   4
-<span class="token code keyword">     / \</span>
-<span class="token code keyword">    2   8</span>
+基本语法： 
+select &lt;javascript expression to select&gt;
+[from [instanceof] &lt;class name&gt; &lt;identifier&gt;]
+[where &lt;javascript boolean expression to filter&gt;]
 
-给你的数值为 4。删掉 4 这个节点后，可以返回：
+解释： 
+(1)class name是java类的完全限定名，如：java.lang.String, java.util.ArrayList, [C是char数组, [Ljava.io.File是java.io.File[]
+(2)类的完全限定名不足以唯一的辨识一个类，因为不同的ClassLoader载入的相同的类，它们在jvm中是不同类型的
+(3)instanceof表示也查询某一个类的子类，如果不明确instanceof，则只精确查询class name指定的类
+(4)from和where子句都是可选的
+(5)java域表示：obj.field_name；java数组表示：array[index]
 
-<span class="token code keyword">    1</span>
-   / \
-  0   2
-<span class="token code keyword">       \</span>
-<span class="token code keyword">        8</span>
+举例： 
+（1）查询长度大于100的字符串
+select s from java.lang.String s where s.count &gt; 100
 
-也可以返回：
+（2）查询长度大于256的数组
+select a from [I a where a.length &gt; 256
+（3）显示匹配某一正则表达式的字符串
+select a.value.toString() from java.lang.String s where /java/(s.value.toString())
+（4）显示所有文件对象的文件路径
+select file.path.value.toString() from java.io.File file
+（5）显示所有ClassLoader的类名
+select classof(cl).name from instanceof java.lang.ClassLoader cl
+（6）通过引用查询对象
+select o from instanceof 0xd404d404 o
 
-<span class="token code keyword">    1</span>
-   / \
-  0   8
-<span class="token code keyword">     /</span>
-<span class="token code keyword">    2</span>
+built-in对象 -- heap 
+(1)heap.findClass(class name) -- 找到类
+select heap.findClass(&quot;java.lang.String&quot;).superclass
+(2)heap.findObject(object id) -- 找到对象
+select heap.findObject(&quot;0xd404d404&quot;)
+(3)heap.classes -- 所有类的枚举
+select heap.classes
+(4)heap.objects -- 所有对象的枚举
+select heap.objects(&quot;java.lang.String&quot;)
+(5)heap.finalizables -- 等待垃圾收集的java对象的枚举
+(6)heap.livepaths -- 某一对象存活路径
+select heaplivepaths(s) from java.lang.String s
+(7)heap.roots -- 堆根集的枚举
 
-这两个都是有效的二叉搜索树，返回其中一个即可。
-</code></pre>
-<p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
+辨识对象的函数 
+(1)classof(class name) -- 返回java对象的类对象
+select classof(cl).name from instanceof java.lang.ClassLoader cl
+(2)identical(object1,object2) -- 返回是否两个对象是同一个实例
+select identical(heap.findClass(&quot;java.lang.String&quot;).name, heap.findClass(&quot;java.lang.String&quot;).name)
+(3)objectid(object) -- 返回对象的id
+select objectid(s) from java.lang.String s
+(4)reachables -- 返回可从对象可到达的对象
+select reachables(p) from java.util.Properties p -- 查询从Properties对象可到达的对象
+select reachables(u, &quot;java.net.URL.handler&quot;) from java.net.URL u -- 查询从URL对象可到达的对象，但不包括从URL.handler可到达的对象
+(5)referrers(object) -- 返回引用某一对象的对象
+select referrers(s) from java.lang.String s where s.count &gt; 100
+(6)referees(object) -- 返回某一对象引用的对象
+select referees(s) from java.lang.String s where s.count &gt; 100
+(7)refers(object1,object2) -- 返回是否第一个对象引用第二个对象
+select refers(heap.findObject(&quot;0xd4d4d4d4&quot;),heap.findObject(&quot;0xe4e4e4e4&quot;))
+(8)root(object) -- 返回是否对象是根集的成员
+select root(heap.findObject(&quot;0xd4d4d4d4&quot;)) 
+(9)sizeof(object) -- 返回对象的大小
+select sizeof(o) from [I o
+(10)toHtml(object) -- 返回对象的html格式
+select &quot;&lt;b&gt;&quot; + toHtml(o) + &quot;&lt;/b&gt;&quot; from java.lang.Object o
+(11)选择多值
+select {name:t.name?t.name.toString():&quot;null&quot;,thread:t} from instanceof java.lang.Thread t
 
-  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TreeNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    TreeNode left<span class="token punctuation">;</span>
-    TreeNode right<span class="token punctuation">;</span>
+数组、迭代器等函数 
+(1)concat(enumeration1,enumeration2) -- 将数组或枚举进行连接
+select concat(referrers(p),referrers(p)) from java.util.Properties p
+(2)contains(array, expression) -- 数组中元素是否满足某表达式
+select p from java.util.Properties where contains(referres(p), &quot;classof(it).name == &#39;java.lang.Class&#39;&quot;)
+返回由java.lang.Class引用的java.util.Properties对象
+built-in变量
+it -- 当前的迭代元素
+index -- 当前迭代元素的索引
+array -- 被迭代的数组
+(3)count(array, expression) -- 满足某一条件的元素的数量
+select count(heap.classes(), &quot;/java.io./(it.name)&quot;)
+(4)filter(array, expression) -- 过滤出满足某一条件的元素
+select filter(heap.classes(), &quot;/java.io./(it.name)&quot;)
+(5)length(array) -- 返回数组长度
+select length(heap.classes())
+(6)map(array,expression) -- 根据表达式对数组中的元素进行转换映射
+select map(heap.classes(),&quot;index + &#39;--&gt;&#39; + toHtml(it)&quot;)
+(7)max(array,expression) -- 最大值, min(array,expression)
+select max(heap.objects(&quot;java.lang.String&quot;),&quot;lhs.count&gt;rhs.count&quot;)
+built-in变量
+lhs -- 左边元素
+rhs -- 右边元素
+(8)sort(array,expression) -- 排序
+select sort(heap.objects(&#39;[C&#39;),&#39;sizeof(lhs)-sizeof(rhs)&#39;)
+(9)sum(array,expression) -- 求和
+select sum(heap.objects(&#39;[C&#39;),&#39;sizeof(it)&#39;)
+(10)toArray(array) -- 返回数组
+(11)unique(array) -- 唯一化数组
 
-    <span class="token function">TreeNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(h), Space: O(h)</span>
-  <span class="token keyword">public</span> TreeNode <span class="token function">deleteNodeInBST</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>val <span class="token operator">&lt;</span> root<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      root<span class="token punctuation">.</span>left <span class="token operator">=</span> <span class="token function">deleteNodeInBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>val <span class="token operator">></span> root<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      root<span class="token punctuation">.</span>right <span class="token operator">=</span> <span class="token function">deleteNodeInBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span>left <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> root<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
-      <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span>right <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> root<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
-
-      TreeNode leftMax <span class="token operator">=</span> root<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
-      <span class="token keyword">while</span> <span class="token punctuation">(</span>leftMax<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span> leftMax <span class="token operator">=</span> leftMax<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
-      leftMax<span class="token punctuation">.</span>right <span class="token operator">=</span> root<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
-      root <span class="token operator">=</span> root<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> root<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
+</code></pre><p><strong>参考资料：</strong></p>
+<p><a href="http://blog.csdn.net/gtuu0123/article/details/6039474" target="_blank" rel="noopener">http://blog.csdn.net/gtuu0123/article/details/6039474</a></p>
+<p><a href="http://www.cnblogs.com/o-andy-o/archive/2013/06/11/3132316.html" target="_blank" rel="noopener">http://www.cnblogs.com/o-andy-o/archive/2013/06/11/3132316.html</a></p>
+<p>本文转自：<a href="https://www.cnblogs.com/baihuitestsoftware/articles/6406271.html" target="_blank" rel="noopener">原文</a></p>
 
             </div>
             <hr>
@@ -568,7 +636,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/er-cha-shu/er-cha-sou-suo-shu-zhong-shan-chu-jie-dian/" class="b-link-green">二叉搜索树中删除节点</a>
+                    <a href="/2019/01/14/chang-yong-gong-ju/java-ming-ling-jhat-ming-ling-shi-yong/" class="b-link-green">Java命令--jhat命令使用</a>
                 </p>
             </div>
         </div>
@@ -590,48 +658,46 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/er-cha-shu/yong-you-xu-shu-zu-gou-jian-er-cha-sou-suo-shu/">
+                <a href="/2019/01/14/chang-yong-gong-ju/java-ming-ling-jhat-ming-ling-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="用有序数组构建二叉搜索树">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java命令--jhat命令使用">
                         
-                        <span class="card-title">用有序数组构建二叉搜索树</span>
+                        <span class="card-title">Java命令--jhat命令使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">用有序数组构建二叉搜索树问题
-这个题目说的是，给你一个递增排序的数组，你要用它构建一棵平衡的二叉搜索树。所谓平衡，是指对于这棵二叉搜索树上的每一个节点，它左右子树的高度差不能大于 1。
-比如说，给你的递增数组是：
-
-1, 2, 4, 8, </div>
+                    <div class="summary">Java命令–jhat命令使用jhat也是jdk内置的工具之一。主要是用来分析java堆的命令，可以将堆中的对象以html的形式显示出来，包括对象的数量，大小等等，并支持对象查询语言。
+使用jmap等方法生成java的堆文件后，使用其进行分</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
                     </a>
                     
-                    <a href="/tags/二叉树/" target="_blank">
-                        <span class="chip bg-color">二叉树</span>
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
                     </a>
                     
                 </div>
@@ -643,35 +709,29 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/fan-zhuan-dan-ci/">
+                <a href="/2019/01/14/chang-yong-gong-ju/jvm-dui-xiang-cha-xun-yu-yan-oql/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="反转单词">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="JVM 对象查询语言(OQL)">
                         
-                        <span class="card-title">反转单词</span>
+                        <span class="card-title">JVM 对象查询语言(OQL)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">反转单词问题
-这个题目说的是，给你一个字符串，你要写一个函数反转这个字符串中的单词，然后返回处理后的字符串。注意，单词之间只用一个空格隔开。
-比如说给你的字符串是：
-
-"I am busy."
-
-反转这个字符串中的 3 个单词，得到：
-
-"</div>
+                    <div class="summary">JVM 对象查询语言(OQL)本文主要翻译自JDK 1.8的JVM监控工具jhat中关于OQL的英文帮助说明。
+可以在jhat 和 jvisualvm 中进行实践。
+OQL（对象查询语言）OQL是用于查询Java堆的类SQL查询语言。OQL</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
                                 </a>
                             
                             
@@ -681,8 +741,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
                     </a>
                     
                 </div>
