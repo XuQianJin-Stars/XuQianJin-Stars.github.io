@@ -6,8 +6,8 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="GC ROOTS的真实含义, 大数据 实时计算 机器学习">
-    <meta name="description" content="GC ROOTS的真实含义之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习
-所谓“GC Roots”，或者说tracin">
+    <meta name="description" content="GC ROOTS的真实含义之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习。
+含义说明所谓“GC Roots”，或者说t">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -363,13 +363,15 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="GC-ROOTS的真实含义"><a href="#GC-ROOTS的真实含义" class="headerlink" title="GC ROOTS的真实含义"></a>GC ROOTS的真实含义</h2><p>之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习</p>
-<p>所谓“GC Roots”，或者说tracing GC的“根集合”，就是一组<strong>必须活跃的引用</strong>。</p>
+                <h1 id="GC-ROOTS的真实含义"><a href="#GC-ROOTS的真实含义" class="headerlink" title="GC ROOTS的真实含义"></a>GC ROOTS的真实含义</h1><p>之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习。</p>
+<h2 id="含义说明"><a href="#含义说明" class="headerlink" title="含义说明"></a>含义说明</h2><p>所谓“GC Roots”，或者说tracing GC的“根集合”，就是一组<strong>必须活跃的引用</strong>。</p>
 <p>例如说，这些引用可能包括：</p>
-<ul>
+<ol>
 <li>所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。</li>
 <li>VM的一些静态数据结构里指向GC堆里的对象的引用，例如说HotSpot VM里的Universe里有很多这样的引用。</li>
 <li>JNI handles，包括global handles和local handles</li>
+</ol>
+<ul>
 <li>（看情况）所有当前被加载的Java类</li>
 <li>（看情况）Java类的引用类型静态变量</li>
 <li>（看情况）Java类的运行时常量池里的引用类型常量（String或Class类型）</li>
@@ -380,7 +382,7 @@
 <p>GC roots这组引用是tracing GC的起点。要实现语义正确的tracing GC，就必须要能完整枚举出所有的GC roots</p>
 <p>，否则就可能会漏扫描应该存活的对象，导致GC错误回收了这些被漏扫的活对象。</p>
 <p>这就像任何递归定义的关系一样，如果只定义了递推项而不定义初始项的话，关系就无法成立——无从开始；而如果初始项定义漏了内容的话，递推出去也会漏内容。</p>
-<p>那么分代式GC对GC roots的定义有什么影响呢？</p>
+<h2 id="发散问题"><a href="#发散问题" class="headerlink" title="发散问题"></a>发散问题</h2><p>那么分代式GC对GC roots的定义有什么影响呢？</p>
 <p>答案是：分代式GC是一种部分收集（partial collection）的做法。在执行部分收集时，从GC堆的非收集部分指向收集部分的引用，也必须作为GC roots的一部分。</p>
 <p>具体到分两代的分代式GC来说，如果第0代叫做young gen，第1代叫做old gen，那么如果有minor GC / young GC只收集young gen里的垃圾，则young gen属于“收集部分”，而old gen属于“非收集部分”，那么从old gen指向young gen的引用就必须作为minor GC / young GC的GC roots的一部分。</p>
 <p>继续具体到HotSpot VM里的分两代式GC来说，除了old gen到young gen的引用之外，有些带有弱引用语义的结构，例如说记录所有当前被加载的类的SystemDictionary、记录字符串常量引用的StringTable等，在young GC时必须要作为strong GC roots，而在收集整堆的full GC时则不会被看作strong GC roots。</p>
@@ -557,8 +559,8 @@
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">GC ROOTS的真实含义之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习
-所谓“GC Roots”，或者说tracin</div>
+                    <div class="summary">GC ROOTS的真实含义之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习。
+含义说明所谓“GC Roots”，或者说t</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
