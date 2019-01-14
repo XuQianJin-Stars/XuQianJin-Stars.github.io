@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-14T01:59:55.699Z</updated>
+  <updated>2019-01-14T03:44:31.599Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JVM 对象查询语言(OQL)</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/14/java/jvm-dui-xiang-cha-xun-yu-yan-oql/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/14/java/jvm-dui-xiang-cha-xun-yu-yan-oql/</id>
+    <published>2019-01-14T03:15:00.000Z</published>
+    <updated>2019-01-14T03:44:31.599Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;JVM-对象查询语言-OQL&quot;&gt;&lt;a href=&quot;#JVM-对象查询语言-OQL&quot; class=&quot;headerlink&quot; title=&quot;JVM 对象查询语言(OQL)&quot;&gt;&lt;/a&gt;JVM 对象查询语言(OQL)&lt;/h1&gt;&lt;p&gt;本文主要翻译自JDK
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java虚拟机" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>GC ROOTS的真实含义</title>
@@ -262,11 +288,11 @@
   </entry>
   
   <entry>
-    <title>最长连续整数序列的长度</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
+    <title>数组的下一个排列</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:51:35.704Z</updated>
+    <updated>2019-01-06T04:53:16.123Z</updated>
     
     <summary type="html">
     
@@ -274,7 +300,7 @@
       
         
         
-          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;数组的下一个排列&quot;&gt;&lt;a href=&quot;#数组的下一个排列&quot; class=&quot;headerlink&quot;
         
       
     
@@ -290,11 +316,11 @@
   </entry>
   
   <entry>
-    <title>最小硬币组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
+    <title>旋转有序数组的搜索</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-you-xu-shu-zu-de-sou-suo/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-you-xu-shu-zu-de-sou-suo/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:02:26.187Z</updated>
+    <updated>2019-01-06T05:06:05.268Z</updated>
     
     <summary type="html">
     
@@ -302,64 +328,7 @@
       
         
         
-          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>需要排序的最短子数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:04:36.473Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;需要排序的最短子数组&quot;&gt;&lt;a href=&quot;#需要排序的最短子数组&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>旋转数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:56:09.872Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个数组和一个数字
+          &lt;h2 id=&quot;旋转有序数组的搜索&quot;&gt;&lt;a href=&quot;#旋转有序数组的搜索&quot; class=&quot;headerlink&quot;
         
       
     
@@ -404,11 +373,11 @@
   </entry>
   
   <entry>
-    <title>行列递增的二维数组搜索</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/</id>
+    <title>需要排序的最短子数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:46:08.260Z</updated>
+    <updated>2019-01-06T05:04:36.473Z</updated>
     
     <summary type="html">
     
@@ -416,63 +385,7 @@
       
         
         
-          &lt;h2 id=&quot;行列递增的二维数组搜索&quot;&gt;&lt;a href=&quot;#行列递增的二维数组搜索&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数组的下一个排列</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:53:16.123Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;数组的下一个排列&quot;&gt;&lt;a href=&quot;#数组的下一个排列&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>硬币面值组合问题</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:00:59.822Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;硬币面值组合问题&quot;&gt;&lt;a href=&quot;#硬币面值组合问题&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;需要排序的最短子数组&quot;&gt;&lt;a href=&quot;#需要排序的最短子数组&quot; class=&quot;headerlink&quot;
         
       
     
@@ -516,6 +429,34 @@
   </entry>
   
   <entry>
+    <title>二维数组的二分搜索</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:48:20.586Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;二维数组的二分搜索&quot;&gt;&lt;a href=&quot;#二维数组的二分搜索&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>有序数组中求和为给定值的两个数</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/</id>
@@ -544,11 +485,11 @@
   </entry>
   
   <entry>
-    <title>二维数组的二分搜索</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/</id>
+    <title>最长连续整数序列的长度</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:48:20.586Z</updated>
+    <updated>2019-01-06T04:51:35.704Z</updated>
     
     <summary type="html">
     
@@ -556,7 +497,63 @@
       
         
         
-          &lt;h2 id=&quot;二维数组的二分搜索&quot;&gt;&lt;a href=&quot;#二维数组的二分搜索&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>硬币面值组合问题</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T05:00:59.822Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;硬币面值组合问题&quot;&gt;&lt;a href=&quot;#硬币面值组合问题&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最小硬币组合</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T05:02:26.187Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
         
       
     

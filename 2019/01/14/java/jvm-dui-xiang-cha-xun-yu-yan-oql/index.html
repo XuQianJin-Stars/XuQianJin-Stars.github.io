@@ -1,0 +1,1233 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="JVM 对象查询语言(OQL), 大数据 实时计算 机器学习">
+    <meta name="description" content="JVM 对象查询语言(OQL)本文主要翻译自JDK 1.8的JVM监控工具jhat中关于OQL的英文帮助说明。
+可以在jhat 和 jvisualvm 中进行实践。
+OQL（对象查询语言）OQL是用于查询Java堆的类SQL查询语言。OQL">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JVM 对象查询语言(OQL) | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        JVM 对象查询语言(OQL)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/java虚拟机/" target="_blank">
+                    <span class="chip bg-color">java虚拟机</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/java/" class="post-category" target="_blank">
+                        java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-14
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="JVM-对象查询语言-OQL"><a href="#JVM-对象查询语言-OQL" class="headerlink" title="JVM 对象查询语言(OQL)"></a>JVM 对象查询语言(OQL)</h1><p>本文主要翻译自JDK 1.8的JVM监控工具jhat中关于OQL的英文帮助说明。</p>
+<p>可以在jhat 和 jvisualvm 中进行实践。</p>
+<h2 id="OQL（对象查询语言）"><a href="#OQL（对象查询语言）" class="headerlink" title="OQL（对象查询语言）"></a><strong>OQL（对象查询语言）</strong></h2><p>OQL是用于查询Java堆的类SQL查询语言。OQL允许过滤/选择从Java堆中获取的信息。虽然HAT已经支持预定义的查询，例如“显示类X的所有实例”，但OQL增加了更多的灵活性。OQL基于JavaScript表达式语言。</p>
+<p>OQL查询的形式<code></code></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">&lt;</span>JavaScript expression <span class="token keyword">to</span> <span class="token keyword">select</span><span class="token operator">></span>
+
+<span class="token punctuation">[</span> <span class="token keyword">from</span> <span class="token punctuation">[</span>instanceof<span class="token punctuation">]</span> <span class="token operator">&lt;</span>class name<span class="token operator">></span> <span class="token operator">&lt;</span>identifier<span class="token operator">></span>
+
+<span class="token punctuation">[</span> <span class="token keyword">where</span> <span class="token operator">&lt;</span>JavaScript <span class="token keyword">boolean</span> expression <span class="token keyword">to</span> filter<span class="token operator">></span> <span class="token punctuation">]</span> <span class="token punctuation">]</span>
+</code></pre>
+<p><strong>解释：</strong><br>(1)class name是java类的完全限定名，如：java.lang.String, java.util.ArrayList, [C是char数组, [Ljava.io.File是java.io.File[]，依此类退<br>(2)类的完全限定名不足以唯一的辨识一个类，因为不同的ClassLoader载入的相同的类，它们在JVM中是不同类型的<br>(3)instanceof表示也查询某一个类的子类，如果不明确instanceof，则只精确查询class name指定的类<br>(4)from和where子句都是可选的<br>(5)可以使用obj.field_name语法访问Java字段，并且可以使用array [index]语法访问数组元素</p>
+<p>OQL示例</p>
+<ul>
+<li><p>查询长度大于等于100的字符串</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> s <span class="token keyword">from</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>String s <span class="token keyword">where</span> s<span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span>length <span class="token operator">>=</span> <span class="token number">100</span>
+</code></pre>
+</li>
+<li><p>查询长度大于等于256的int数组</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">a</span> <span class="token keyword">from</span> <span class="token punctuation">[</span>I <span class="token number">a</span> <span class="token keyword">where</span> <span class="token number">a</span><span class="token punctuation">.</span>length <span class="token operator">>=</span> <span class="token number">256</span>
+</code></pre>
+</li>
+</ul>
+<p>​        另一种方式：select a from int[] a where a.length &gt;= 256</p>
+<ul>
+<li><p>显示与正则表达式匹配的字符串的内容</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> s<span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span>toString<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>String s 
+<span class="token keyword">where</span> <span class="token operator">/</span>java<span class="token operator">/</span><span class="token punctuation">.</span>test<span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span>toString<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<p>​        /java/ 修改成你的正则表达式，如/^MyClass$/ 就会匹配MyClass这个字符串</p>
+<ul>
+<li><p>显示所有File对象的文件路径</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token keyword">file</span><span class="token punctuation">.</span>path<span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span>toString<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span><span class="token keyword">File</span> <span class="token keyword">file</span>
+</code></pre>
+</li>
+<li><p>显示所有ClassLoader类的名称</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> classof<span class="token punctuation">(</span>cl<span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token keyword">from</span> instanceof java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ClassLoader cl
+</code></pre>
+</li>
+<li><p>显示由给定id字符串标识的Class的实例</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> o <span class="token keyword">from</span> instanceof <span class="token number">0x741012748</span> o
+</code></pre>
+<p>请注意，0x741012748是类的ID（在会话中）。通过查看该类页面中显示的id可以找到它。</p>
+</li>
+</ul>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/java/20180824190629307.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/java/20180824190629307.png" alt="img"></a></p>
+<h2 id="OQL内置对象，函数"><a href="#OQL内置对象，函数" class="headerlink" title="OQL内置对象，函数"></a>OQL内置对象，函数</h2><h3 id="堆对象"><a href="#堆对象" class="headerlink" title="堆对象"></a>堆对象</h3><p>该<strong>堆</strong>内置对象支持下列方法：</p>
+<ul>
+<li><p>heap.forEachClass</p>
+<p> - 为每个Java类调用一个回调函数</p>
+<pre class=" language-java"><code class="language-java">heap<span class="token punctuation">.</span><span class="token function">forEachClass</span><span class="token punctuation">(</span>callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+<li><p>heap.forEachObject</p>
+<p> - 为每个Java对象调用回调函数</p>
+<pre><code>heap.forEachObject(callback, clazz, includeSubtypes);
+</code></pre><pre><code>clazz
+</code></pre><p>是选择其实例的类。如果未指定，则默认为java.lang.Object。</p>
+<pre><code>includeSubtypes
+</code></pre><p>是一个布尔标志，指定是否包含子类型实例。该标志的默认值为true。</p>
+</li>
+<li><p>heap.findClass</p>
+<p> - 查找给定名称的Java类</p>
+<pre><code>heap.findClass(className);
+</code></pre><p>where </p>
+<pre><code>className
+</code></pre><p>是要查找的类的名称。生成的Class对象具有以下属性：</p>
+<ul>
+<li>name - 类的名称。</li>
+<li>superclass - 超类的类对象（如果是java.lang.Object，则为null）。</li>
+<li>statics - 类的静态字段的名称，值对。</li>
+<li>fields - 字段对象的数组。field对象具有名称，签名属性。</li>
+<li>loader - 加载此类的ClassLoader对象。</li>
+<li>signers - 签署此类的签名者。</li>
+<li>protectionDomain - 此类所属的保护域。</li>
+</ul>
+<p>类对象具有以下方法：</p>
+<ul>
+<li>isSubclassOf - 测试给定的类是否是此类的直接或间接子类。</li>
+<li>isSuperclassOf - 测试给定的Class是否是此类的直接或间接超类。</li>
+<li>subclasses - 返回直接和间接子类的数组。</li>
+<li>superclasses - 返回直接和间接超类的数组。</li>
+</ul>
+</li>
+<li><p>heap.findObject</p>
+<p> - 从给定的对象id中查找对象</p>
+<pre><code>heap.findObject(stringIdOfObject);
+</code></pre></li>
+<li><p><strong>heap.classes</strong> - 返回所有Java类的枚举</p>
+</li>
+<li><p>heap.objects</p>
+<p> - 返回Java对象的枚举</p>
+<pre><code>heap.objects(clazz, [includeSubtypes], [filter])
+</code></pre><pre><code>clazz
+</code></pre><p>是选择其实例的类。如果未指定，则默认为java.lang.Object。</p>
+<pre><code>includeSubtypes
+</code></pre><p>是一个布尔标志，指定是否包含子类型实例。该标志的默认值为true。此方法接受可选的过滤器表达式以过滤对象的结果集。</p>
+</li>
+<li><p><strong>heap.finalizables</strong> - 返回待完成的Java对象的枚举。</p>
+</li>
+<li><p>heap.livepaths</p>
+<p> - 返回给定对象存活的路径数组。此方法接受可选的第二个参数，它是一个布尔标志。此标志指示是否包含弱引用的路径。默认情况下，不包括具有弱引用的路径。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> heap<span class="token punctuation">.</span>livepaths<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>String s
+</code></pre>
+<p>该数组本身的每个元素都是另一个数组。后一个数组包含一个位于路径“引用链”中的对象。</p>
+</li>
+<li><p>heap.roots</p>
+<p> - 返回堆的根的枚举。 </p>
+<p>每个Root对象都具有以下属性：</p>
+<ul>
+<li>id - 此根引用的对象的字符串id</li>
+<li>type - 描述类型的Root（JNI Global，JNI Local，Java Static等）</li>
+<li>description - Root的字符串描述</li>
+<li>referrer - 负责此根或null的Thread Object或Class对象</li>
+</ul>
+</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><p>访问类java.lang.System的静态字段’props’</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"java.lang.System"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>statics<span class="token punctuation">.</span>props
+</code></pre>
+</li>
+<li><p>获取java.lang.String类的字段数</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"java.lang.String"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">fields</span><span class="token punctuation">.</span>length
+</code></pre>
+</li>
+<li><p>找到其对象id被赋予的对象</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> heap<span class="token punctuation">.</span>findObject<span class="token punctuation">(</span><span class="token string">"0xf3800b58"</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>选择所有匹配java.net.*的类</p>
+<pre class=" language-sql"><code class="language-sql"> <span class="token keyword">select</span> filter<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>classes<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"/java.net./.test(it.name)"</span><span class="token punctuation">)</span> 
+</code></pre>
+</li>
+</ul>
+<h3 id="单个对象上的函数"><a href="#单个对象上的函数" class="headerlink" title="单个对象上的函数"></a>单个对象上的函数</h3><ul>
+<li>allocTrace(jobject)</li>
+<li>classof(jobject)</li>
+<li>forEachReferrer(callback, jobject)</li>
+<li>identical(o1, o2)</li>
+<li>objectid(jobject)</li>
+<li>reachables(jobject, excludedFields)</li>
+<li>referrers(jobject)</li>
+<li>referees(jobject)</li>
+<li>refers(jobject)</li>
+<li>root(jobject)</li>
+<li>sizeof(jobject)</li>
+<li>toHtml(obj)</li>
+</ul>
+<h4 id="allocTrace函数"><a href="#allocTrace函数" class="headerlink" title="allocTrace函数"></a><strong>allocTrace函数</strong></h4><p>这将返回给定Java对象的分配站点跟踪（如果可用）。allocTrace返回对象的数组。每个对象具有以下属性：</p>
+<ul>
+<li>className - 其方法在框架中运行的Java类的名称。</li>
+<li>methodName - 运行的Java方法的名称。</li>
+<li>methodSignature - 框架中运行的Java方法的签名。</li>
+<li>sourceFileName - 框架中运行的Java类的源文件的名称。</li>
+<li>lineNumber - 方法中的源行号。</li>
+</ul>
+<h4 id="classof函数"><a href="#classof函数" class="headerlink" title="classof函数"></a><strong>classof函数</strong></h4><p>返回给定Java对象的Class对象。结果对象支持以下属性：</p>
+<ul>
+<li>name - 类的名称。</li>
+<li>superclass - 超类的类对象（如果是java.lang.Object，则为null）。</li>
+<li>静态 - 类的静态字段的名称，值对。</li>
+<li>fields - 字段对象的数组。字段对象具有名称，签名属性。</li>
+<li>loader - 加载此类的ClassLoader对象。</li>
+<li>签名者 - 签署此类的签名者。</li>
+<li>protectionDomain - 此类所属的保护域。</li>
+</ul>
+<p>类对象具有以下方法：</p>
+<ul>
+<li>isSubclassOf - 测试给定的类是否是此类的直接或间接子类。</li>
+<li>isSuperclassOf - 测试给定的Class是否是此类的直接或间接超类。</li>
+<li>subclasses - 返回直接和间接子类的数组。</li>
+<li>superclasses - 返回直接和间接超类的数组。</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><p>显示每个Reference类型对象的类名</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> classof<span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token keyword">from</span> instanceof java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ref<span class="token punctuation">.</span>Reference o
+</code></pre>
+</li>
+<li><p>显示java.io.InputStream的所有子类</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"java.io.InputStream"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>subclasses<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>显示java.io.BufferedInputStream的所有超类</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"java.io.BufferedInputStream"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>superclasses<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<h4 id="forEachReferrer函数"><a href="#forEachReferrer函数" class="headerlink" title="forEachReferrer函数"></a><strong>forEachReferrer函数</strong></h4><p>为给定Java对象的每个引用者调用一个回调函数。</p>
+<h4 id="identical函数"><a href="#identical函数" class="headerlink" title="identical函数"></a><strong>identical函数</strong></h4><p>返回两个给定的Java对象是否相同。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> identical<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>statics<span class="token punctuation">.</span>bar<span class="token punctuation">,</span> heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"AnotherClass"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>statics<span class="token punctuation">.</span>bar<span class="token punctuation">)</span>
+</code></pre>
+<h4 id="objectid函数"><a href="#objectid函数" class="headerlink" title="objectid函数"></a><strong>objectid函数</strong></h4><p>返回给定Java对象的String id。此id可以传递给 heap.findObject，也可以用于比较对象以进行标识。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> objectid<span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Object o
+
+</code></pre>
+<h4 id="reachables函数"><a href="#reachables函数" class="headerlink" title="reachables函数"></a><strong>reachables函数</strong></h4><p>返回从给定Java对象传递引用的Java对象数组。（可选）接受第二个参数，该参数是逗号分隔的字段名称，以从可达性计算中排除。字段以class_name.field_name模式编写。</p>
+<p>例子：</p>
+<ul>
+<li><p>从每个Properties实例打印所有可到达的对象。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> reachables<span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Properties p
+</code></pre>
+</li>
+<li><p>打印每个java.net.URL中的所有可访问内容，但省略可通过指定字段访问的对象。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> reachables<span class="token punctuation">(</span>u<span class="token punctuation">,</span> <span class="token string">'java.net.URL.handler'</span><span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URL u
+</code></pre>
+</li>
+</ul>
+<h4 id="referrers函数"><a href="#referrers函数" class="headerlink" title="referrers函数"></a><strong>referrers函数</strong></h4><p>返回引用了给定Java对象的所有对象</p>
+<p>例子：</p>
+<ul>
+<li><p>查询每个java.lang.Object实例被引用的次数</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span>referrers<span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Object o
+</code></pre>
+</li>
+<li><p>查询那些对象引用了java.io.File实例对象</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> referrers<span class="token punctuation">(</span><span class="token number">f</span><span class="token punctuation">)</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span><span class="token keyword">File</span> <span class="token number">f</span>
+</code></pre>
+</li>
+<li><p>查询被引用次数超过2的URL对象</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> u <span class="token keyword">from</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URL u <span class="token keyword">where</span> <span class="token function">count</span><span class="token punctuation">(</span>referrers<span class="token punctuation">(</span>u<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">2</span>
+</code></pre>
+</li>
+</ul>
+<h4 id="referees函数"><a href="#referees函数" class="headerlink" title="referees函数"></a><strong>referees函数</strong></h4><p>返回给定Java对象直接引用的Java对象数组。</p>
+<p>示例：打印java.io.File类的所有静态引用字段<code></code></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> referees<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"java.io.File"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="refers函数"><a href="#refers函数" class="headerlink" title="refers函数"></a><strong>refers函数</strong></h4><p>返回第一个Java对象是否引用第二个Java对象。</p>
+<h4 id="root函数"><a href="#root函数" class="headerlink" title="root函数"></a><strong>root函数</strong></h4><p>如果给定对象是根对象集的成员，则此函数返回描述其原因的描述性根对象。如果给定的对象不是root，则此函数返回null。</p>
+<p><strong>sizeof函数</strong></p>
+<p>以字节为单位返回给定Java对象的大小示例：</p>
+<pre class=" language-sql"><code class="language-sql"> <span class="token keyword">select</span> sizeof<span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token keyword">from</span> <span class="token punctuation">[</span>I o
+</code></pre>
+<h4 id="toHtml函数"><a href="#toHtml函数" class="headerlink" title="toHtml函数"></a>toHtml函数</h4><p>返回给定Java对象的HTML字符串。请注意，对于select表达式选择的对象，会自动调用此方法。但是，打印更复杂的输出可能很有用。示例：以粗体字体重量打印超链接<code></code></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token string">"&lt;b>"</span> <span class="token operator">+</span> toHtml<span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&lt;/b>"</span> <span class="token keyword">from</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Object o
+</code></pre>
+<h3 id="选择多个值"><a href="#选择多个值" class="headerlink" title="选择多个值"></a>选择多个值</h3><p>可以使用JavaScript对象文字或数组选择多个值。</p>
+<p>示例：显示每个线程对象的名称和线程<code></code></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> { name: t<span class="token punctuation">.</span>name? t<span class="token punctuation">.</span>name<span class="token punctuation">.</span>toString<span class="token punctuation">(</span><span class="token punctuation">)</span> : <span class="token string">"null"</span><span class="token punctuation">,</span> thread: t } 
+<span class="token keyword">from</span> instanceof java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Thread t
+</code></pre>
+<h3 id="数组-迭代器-枚举操作函数"><a href="#数组-迭代器-枚举操作函数" class="headerlink" title="数组/迭代器/枚举操作函数"></a>数组/迭代器/枚举操作函数</h3><p>这些函数接受数组/迭代器/枚举和表达式字符串[或回调函数]作为输入。这些函数迭代数组/迭代器/枚举，并在每个元素上应用表达式（或函数）。请注意，JavaScript对象是关联数组。因此，这些函数也可以与任意JavaScript对象一起使用。</p>
+<h4 id="concat函数"><a href="#concat函数" class="headerlink" title="concat函数"></a><strong>concat函数</strong></h4><p>连接两个数组或枚举（即返回复合枚举）。</p>
+<h4 id="contains函数"><a href="#contains函数" class="headerlink" title="contains函数"></a><strong>contains函数</strong></h4><p>返回给定的数组/枚举是否包含代码中指定的给定布尔表达式的元素。评估的代码可以引用以下内置变量。</p>
+<ul>
+<li>it - &gt;目前访问过的元素</li>
+<li>index - &gt;当前元素的索引</li>
+<li>array - &gt;正在迭代的数组/枚举</li>
+</ul>
+<p>示例：选择某些静态字段引用某些类的所有Properties对象。<code></code></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> p <span class="token keyword">from</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Properties p
+<span class="token keyword">where</span> <span class="token keyword">contains</span><span class="token punctuation">(</span>referrers<span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"classof(it).name == 'java.lang.Class'"</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>concat(array1/enumeration1, array2/enumeration2)</li>
+<li>contains(array/enumeration, expression)</li>
+<li>count(array/enumeration, expression)</li>
+<li>filter(array/enumeration, expression)</li>
+<li>length(array/enumeration)</li>
+<li>map(array/enumeration, expression)</li>
+<li>max(array/enumeration, [expression])</li>
+<li>min(array/enumeration, [expression])</li>
+<li>sort(array/enumeration, [expression])</li>
+<li>sum(array/enumeration, [expression])</li>
+<li>toArray(array/enumeration)</li>
+<li>unique(array/enumeration, [expression])</li>
+</ul>
+<h4 id="count函数"><a href="#count函数" class="headerlink" title="count函数"></a><strong>count函数</strong></h4><p>count函数返回满足给定布尔表达式的输入数组/枚举的元素数。布尔表达式代码可以引用以下内置变量。</p>
+<ul>
+<li>it - &gt;目前访问过的元素</li>
+<li>index - &gt;当前元素的索引</li>
+<li>array - &gt;正在迭代的数组/枚举</li>
+</ul>
+<p>示例：查询匹配特定名称模式的类的数量<code></code></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span>heap<span class="token punctuation">.</span>classes<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"/java.io./.test(it.name)"</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="filter函数"><a href="#filter函数" class="headerlink" title="filter函数"></a><strong>filter函数</strong></h4><p>filter函数返回一个数组/枚举，其中包含满足给定布尔表达式的输入数组/枚举的元素。布尔表达式代码可以引用以下内置变量。</p>
+<ul>
+<li>it - &gt;目前访问过的元素</li>
+<li>index - &gt;当前元素的索引</li>
+<li>array - &gt;正在迭代的数组/枚举</li>
+<li>result - &gt; result array / enumeration</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><p>显示所有具有匹配java.io. * 的类</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> filter<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>classes<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"/java.io./.test(it.name)"</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>显示引用者不是来自java.net包的URL对象的所有引用</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> filter<span class="token punctuation">(</span>referrers<span class="token punctuation">(</span>u<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"! /java.net./.test(classof(it).name)"</span><span class="token punctuation">)</span>
+<span class="token keyword">from</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URL u
+</code></pre>
+</li>
+</ul>
+<h4 id="length函数"><a href="#length函数" class="headerlink" title="length函数"></a><strong>length函数</strong></h4><p>length函数返回数组/枚举的元素数。</p>
+<h4 id="map函数"><a href="#map函数" class="headerlink" title="map函数"></a><strong>map函数</strong></h4><p>通过评估每个元素上的给定代码来转换给定的数组/枚举。评估的代码可以引用以下内置变量。</p>
+<ul>
+<li>it - &gt;目前访问过的元素</li>
+<li>index - &gt;当前元素的索引</li>
+<li>array - &gt;正在迭代的数组/枚举</li>
+<li>result - &gt; result array / enumeration</li>
+</ul>
+<p>map函数返回通过在输入数组/枚举的每个元素上重复调用代码而创建的值的数组/枚举。</p>
+<p>示例：显示具有名称和值的java.io.File的所有静态字段</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> map<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">"java.io.File"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>statics<span class="token punctuation">,</span> <span class="token string">"index + '=' + toHtml(it)"</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="max函数"><a href="#max函数" class="headerlink" title="max函数"></a><strong>max函数</strong></h4><p>返回给定数组/枚举的最大元素。（可选）接受代码表达式以比较数组的元素。默认情况下使用数字比较。比较表达式可以使用以下内置变量：</p>
+<ul>
+<li>lhs - &gt;左侧元素进行比较</li>
+<li>rhs - &gt;右侧元素进行比较</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><p>找到任何String实例的最大长度</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">max</span><span class="token punctuation">(</span>map<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.lang.String'</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'it.value.length'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>查找具有最大长度的字符串实例</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">max</span><span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.lang.String'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'lhs.value.length > rhs.value.length'</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<h4 id="min函数"><a href="#min函数" class="headerlink" title="min函数"></a><strong>min函数</strong></h4><p>返回给定数组/枚举的最小元素。（可选）接受代码表达式以比较数组的元素。默认情况下使用数字比较。比较表达式可以使用以下内置变量：</p>
+<ul>
+<li>lhs - &gt;左侧元素进行比较</li>
+<li>rhs - &gt;右侧元素进行比较</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><p>找到任何Vector实例的最小大小</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">min</span><span class="token punctuation">(</span>map<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.util.Vector'</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'it.elementData.length'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>找到具有最大长度的Vector实例</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">min</span><span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.util.Vector'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'lhs.elementData.length &lt; rhs.elementData.length'</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<h4 id="sort函数"><a href="#sort函数" class="headerlink" title="sort函数"></a><strong>sort函数</strong></h4><p>给出数组/枚举的排序。（可选）接受代码表达式以比较数组的元素。默认情况下使用数字比较。比较表达式可以使用以下内置变量：</p>
+<ul>
+<li>lhs - &gt;左侧元素进行比较</li>
+<li>rhs - &gt;右侧元素进行比较</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><p>按大小顺序打印所有char []对象。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> sort<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'[C'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'sizeof(lhs) - sizeof(rhs)'</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>按大小顺序打印所有char []对象，同时也打印大小。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> map<span class="token punctuation">(</span>sort<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'[C'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'sizeof(lhs) - sizeof(rhs)'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'{ size: sizeof(it), obj: it }'</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<h4 id="sum函数"><a href="#sum函数" class="headerlink" title="sum函数"></a><strong>sum函数</strong></h4><p>此函数返回给定输入数组或枚举的所有元素的总和。（可选）接受表达式作为第二个参数。这用于在对输入元素求和之前映射输入元素。</p>
+<p>示例：返回每个Properties对象中可到达对象的大小总和<code></code></p>
+<pre class=" language-sql"><code class="language-sql">    <span class="token keyword">select</span> <span class="token function">sum</span><span class="token punctuation">(</span>map<span class="token punctuation">(</span>reachables<span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'sizeof(it)'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+    <span class="token keyword">from</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Properties p
+    <span class="token comment" spellcheck="true">// or omit the map as in ...</span>
+    <span class="token keyword">select</span> <span class="token function">sum</span><span class="token punctuation">(</span>reachables<span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'sizeof(it)'</span><span class="token punctuation">)</span> 
+    <span class="token keyword">from</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Properties p
+</code></pre>
+<h4 id="toArray函数"><a href="#toArray函数" class="headerlink" title="toArray函数"></a><strong>toArray函数</strong></h4><p>此函数返回一个包含输入数组/枚举元素的数组。</p>
+<h4 id="unique函数"><a href="#unique函数" class="headerlink" title="unique函数"></a><strong>unique函数</strong></h4><p>此函数返回包含给定输入数组/枚举的唯一元素的数组/枚举</p>
+<p>示例：选择从字符串引用的唯一char []实例。请注意，多个String实例可以共享内容的相同char []。<code></code></p>
+<pre class=" language-sql"><code class="language-sql">   <span class="token comment" spellcheck="true">// number of unique char[] instances referenced from any String</span>
+   <span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token keyword">unique</span><span class="token punctuation">(</span>map<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.lang.String'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'it.value'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">// total number of Strings</span>
+   <span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.lang.String'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="更复杂的例子"><a href="#更复杂的例子" class="headerlink" title="更复杂的例子"></a>更复杂的例子</h3><p>打印每个类加载器的直方图和由它加载的类的数量</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> map<span class="token punctuation">(</span>sort<span class="token punctuation">(</span>map<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.lang.ClassLoader'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+<span class="token string">'{ loader: it, count: it.classes.elementCount }'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'lhs.count &lt; rhs.count'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token string">'toHtml(it) + "&lt;br>"'</span><span class="token punctuation">)</span>
+</code></pre>
+<p>上面的查询解释：<strong>java.lang.ClassLoader</strong>有一个名为<strong>java.util.Vector</strong>类型的<strong>类</strong>的私有字段，Vector有一个名为<strong>elementCount</strong>的私有字段，它是Vector中元素的数量。我们使用JavaScript对象文字和地图功能选择多个值（加载器，计数）。我们使用带有比较表达式的sort函数对count（即加载的类数）进行排序。</p>
+<p>查询每个类加载器实例的父子链<code></code></p>
+<pre class=" language-sql"><code class="language-sql">   <span class="token keyword">select</span> map<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>objects<span class="token punctuation">(</span><span class="token string">'java.lang.ClassLoader'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+      <span class="token keyword">function</span> <span class="token punctuation">(</span>it<span class="token punctuation">)</span> {
+
+         var res <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+
+         <span class="token keyword">while</span> <span class="token punctuation">(</span>it <span class="token operator">!=</span> <span class="token boolean">null</span><span class="token punctuation">)</span> {
+
+            res <span class="token operator">+</span><span class="token operator">=</span> toHtml<span class="token punctuation">(</span>it<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">;</span>
+
+            it <span class="token operator">=</span> it<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+
+         }
+
+         res <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">"null"</span><span class="token punctuation">;</span>
+
+         <span class="token keyword">return</span> res <span class="token operator">+</span> <span class="token string">"&lt;br>"</span><span class="token punctuation">;</span>
+
+      }<span class="token punctuation">)</span>
+</code></pre>
+<p>请注意，我们使用<strong>java.lang.ClassLoader</strong>类的<strong>父</strong>字段并使用回调函数遍历parent为null以映射调用。</p>
+<p>查询所有系统属性的值</p>
+<pre class=" language-sql"><code class="language-sql">  <span class="token keyword">select</span> map<span class="token punctuation">(</span>filter<span class="token punctuation">(</span>heap<span class="token punctuation">.</span>findClass<span class="token punctuation">(</span><span class="token string">'java.lang.System'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>statics<span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token keyword">table</span><span class="token punctuation">,</span> <span class="token string">'it != null'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+
+            <span class="token keyword">function</span> <span class="token punctuation">(</span>it<span class="token punctuation">)</span> {
+
+                var res <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">while</span> <span class="token punctuation">(</span>it <span class="token operator">!=</span> <span class="token boolean">null</span><span class="token punctuation">)</span> {
+
+                    res <span class="token operator">+</span><span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token keyword">key</span><span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span>toString<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'='</span> <span class="token operator">+</span>
+
+                           it<span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span><span class="token keyword">value</span><span class="token punctuation">.</span>toString<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'&lt;br>'</span><span class="token punctuation">;</span>
+
+                    it <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token keyword">next</span><span class="token punctuation">;</span>
+
+                }
+
+                <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+
+            }<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>以上查询使用以下事实：</p>
+<ul>
+<li>java.lang.System具有类型为java.util.Properties的名称为’props’的静态字段。</li>
+<li>java.util.Properties的字段为’table’，类型为java.util.Hashtable $ Entry（此字段继承自java.util.Hashtable）。这是hashtable桶数组。</li>
+<li>java.util.Hashtable $ Entry包含’key’，’value’和’next’字段。每个条目指向同一哈希表桶中的下一个条目（或null）。</li>
+<li>java.lang.String类具有char []类型的’value’字段。</li>
+</ul>
+<p><strong>请注意，此查询（以及许多其他查询）可能不稳定 - 因为Java平台类的私有字段可能会被修改/删除而不会发出任何通知！（实施细节）</strong>。但是，在用户类上使用此类查询可能是安全的 - 假设用户可以控制类。</p>
+<p>本文转自：<a href="https://blog.csdn.net/pange1991/article/details/82023771" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/14/java/jvm-dui-xiang-cha-xun-yu-yan-oql/" class="b-link-green">JVM 对象查询语言(OQL)</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/14/java/jvm-dui-xiang-cha-xun-yu-yan-oql/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="JVM 对象查询语言(OQL)">
+                        
+                        <span class="card-title">JVM 对象查询语言(OQL)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">JVM 对象查询语言(OQL)本文主要翻译自JDK 1.8的JVM监控工具jhat中关于OQL的英文帮助说明。
+可以在jhat 和 jvisualvm 中进行实践。
+OQL（对象查询语言）OQL是用于查询Java堆的类SQL查询语言。OQL</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/14/java/gc-root-de-zhen-shi-han-yi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="GC ROOTS的真实含义">
+                        
+                        <span class="card-title">GC ROOTS的真实含义</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">GC ROOTS的真实含义之前看深入理解JVM这本书，对里面的GC ROOTS的真实含义不是太清楚，网上查了一大堆资料都没有说的很清楚，下面这是从知乎大神上看到的，这里面记录一下，和大家一起学习。
+含义说明所谓“GC Roots”，或者说t</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
