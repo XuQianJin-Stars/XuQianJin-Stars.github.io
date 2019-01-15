@@ -1,0 +1,945 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="希尔排序, 大数据 实时计算 机器学习">
+    <meta name="description" content="希尔排序希尔排序:
+　　直接插入排序在在本身数量比较少的时候情况下效率很高，如果待排数的数量很多，其效率不是很理想。
+　　回想一下直接插入排序过程，排序过程中，我们可以设置一条线，左边是排好序的，右边则是一个一个等待排序，
+如果最小的那个值">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>希尔排序 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        希尔排序
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/algorithm/" target="_blank">
+                    <span class="chip bg-color">algorithm</span>
+                </a>
+                
+                <a href="/tags/排序/" target="_blank">
+                    <span class="chip bg-color">排序</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/algorithm/" class="post-category" target="_blank">
+                        algorithm
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-15
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序:</p>
+<p>　　直接插入排序在在本身数量比较少的时候情况下效率很高，如果待排数的数量很多，其效率不是很理想。</p>
+<p>　　回想一下直接插入排序过程，排序过程中，我们可以设置一条线，左边是排好序的，右边则是一个一个等待排序，</p>
+<p>如果最小的那个值在最右边，那么排这个最小值的时候，需要将所有元素向右边移动一位。</p>
+<p>　　是否能够减少这样的移位呢？</p>
+<p>　　我们不希望它是一步一步的移动，而是大步大步的移动。希尔排序就被发明出来了，它也是当时打破效率</p>
+<p>O（n2）的算法之一。希尔排序算法通过设置一个间隔，对同样间隔的数的集合进行插入排序，此数集合中的元素</p>
+<p>移位的长度是以间隔的长度为准，这样就实现了大步位移。但是最后需要对元素集合进行一次直接插入排序，所以</p>
+<p>最后的间隔一定是1。</p>
+<p>下面举一个例子：</p>
+<p>第一趟希尔排序，间隔为4</p>
+<p><img src="https://images0.cnblogs.com/blog/578455/201312/05141501-d5ec97bcc98d449fb24d46e267f749a0.png" alt="img"></p>
+<p>第二趟排序：间隔是2</p>
+<p><img src="https://images0.cnblogs.com/blog/578455/201312/05141602-7ed5d8b09ce04f7b9723cc46e56f00f1.png" alt="img"></p>
+<p>第三趟 间隔为1，即 直接插入排序法：</p>
+<p>有人问，这个间隔怎么确定，这是个数学难题，至今没有解答。但是通过大量的实验，还是有个经验值。</p>
+<blockquote>
+<p>减小间隔</p>
+<p>​       上面已经演示了以4为初始间隔对包含10个数据项的数组进行排序的情况。对于更大的数组开始的间隔也应该更大。然后间隔不断减小，直到间隔变成1。</p>
+<p>​       举例来说，含有1000个数据项的数组可能先以364为增量，然后以121为增量，以40为增量，以13为增量，以4为增量，最后以 1为增量进行希尔排序。用来形成间隔的数列被称为间隔序列。这里所表示的间隔序列由Knuth提出，此序列是很常用的。数列以逆向形式从1开始，通过递归表达式</p>
+<p>​       h=3*b+1</p>
+<p>​       来产生，初始值为1。</p>
+<p>​     </p>
+<p>​       在排序算法中，首先在一个短小的循环中使用序列的生成公式来计算出最初的间隔。h值最初被赋为1，然后应用公式h=3*h+1生成序列1,4,13,40,121,364，等等。当间隔大于数组大小的时候，这个过程停止。对于一个含有1000个数据项的数组，序列的第七个数字，1093就太大了。因此，使用序列的第六个数字作为最大的数字来开始这个排序过程，作364-增量排序。然后，每完成一次排序全程的外部循环，用前面提供的此公式倒推式来减小间隔：</p>
+<p>​       h=(h-1)/3</p>
+<p>​       这个倒推的公式生成逆置的序列364,121,40,13,4,1。从364开始，以每一个数字作为增量进行排序。当数组用1-增量排序后，算法结束。</p>
+<p>​       希尔排序比插入排序快很多，它是基于什么原因呢？当h值大的时候，数据项每一趟排序需要移动元素的个数很少，但数据项移动的距离很长。这是非常有效率的。当h减小时，每一趟排序需要移动的元素的个数增多，但是此时数据项已经接近于它们排序后最终的位置，这对于插入排序可以更有效率。正是这两种情况的结合才使希尔排序效率那么高。</p>
+<p>​       注意后期的排序过程不撤销前期排序所做的工作。例如，已经完成了以40-增量的排序的数组，在经过以13-增量的排序后仍然保持了以40-增量的排序的结果。如果不是这样的话，希尔排序就无法实现排序的目的。</p>
+</blockquote>
+<blockquote>
+<p>其他间隔序列</p>
+<p>​       选择间隔序列可以称得上是一种魔法。至此只讨论了用公式h=h*3+1生成间隔序列，但是应用其他间隔序列也取得了不同程序的成功，只是一个绝对的条件，就是逐渐减小的间隔最后一定要等于1，因此最后一趟排序是一次普通的插入排序。</p>
+<p>​       在希尔的原稿中，他建议初始的间距为N/2，简单地把每一趟排序分成了两半。因此，对于N=100的数组逐渐减小的间隔序列为50,25,12,6,3,1。这个方法的好处是不需要在不开始排序前为找到初始的间隔而计算序列；而只需要用2整除N。但是，这被证明并不是最好的数列。尽管对于大多数的数据来说这个方法还是比插入排序效果好，但是这种方法有时会使运行时间降到O(N2)，这并不比插入排序的效率更高。</p>
+<p>​       这个方法的一个变形是用2.2而非2来整除每一个间隔。对于N=100的数组来说，会产生序列45,20,9,4,1。这比用2整除显著改善了效果，因为这样避免了某些导致时间复杂度为O(N2)的最坏情况的发生。不论N为何值，都需要一些额外的代码来保证序列的最后取值为1。这产生了和清单中所列的Knuth序列差不多的结果。</p>
+<p>​       递减数列的另一个可能是</p>
+<p>if(h&lt;5)</p>
+<p>​    h=1;</p>
+<p>else</p>
+<p>​    h=(5*h-1)/11;</p>
+<p>​       间隔序列中的数字互质通常被认为很重要：也就是说，除了1之外它们没有公约数。这个约束条件使每一趟排序更有可能保持前一趟排序已排好的效果。希尔最初以N/2为间隔的低效性就是归咎于它没有遵守这个准则。</p>
+<p>​       或许还可以设计出像如上讲述的间隔序列一样好的间隔序列。但是不管这个间隔序列是什么，都应该能够快速地计算，而不会降低算法的执行速度。</p>
+</blockquote>
+<p>这就是希尔算法的思想：</p>
+<p>先将整个待排记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，在对全体进行一次直接插入排序。</p>
+<p>代码：</p>
+<p>因为希尔排序就是有增量的直接插入排序，所以将原先直接插入代码修改一下，把步进长度改为增量即可。</p>
+<pre class=" language-c++"><code class="language-c++">void shellSort(myDataType *ary,int len)
+{
+    int i,j;
+    int increment = len;//增量
+    myDataType key;
+    while(increment > 1)//最后在增量为1并且是执行了情况下停止。
+    {
+        increment = increment/3 + 1;//根据公式
+        //printf("increment:%d\n",increment);
+        for (i=increment;i<len;i++) 从[0]开始，对相距增量步长的元素集合进行修改。="" {="" key="ary[i];" 以下和直接插入排序类似。="" j="i-increment;" while(j="">= 0)
+            {
+                if (key < ary[j] )
+                {
+                    myDataType temp = ary[j];
+                    ary[j] = key;
+                    ary[j+increment] = temp;
+                }
+                j=j-increment;
+            }
+        }
+    }
+}
+</len;i++)></code></pre>
+<p>完整代码:</p>
+<pre class=" language-c++"><code class="language-c++">#include "stdafx.h"
+
+
+typedef int myDataType;
+myDataType src_ary[10] = {9,1,5,8,3,7,6,0,2,4};
+
+void prt_ary(myDataType *ary,int len)
+{
+    int i=0;
+    while(i < len)
+    {
+        printf(" %d ",ary[i++]);
+    }
+    printf("\n");
+}
+void shellSort(myDataType *ary,int len)
+{
+    int i,j;
+    int increment = len;//增量
+    myDataType key;
+    while(increment > 1)//最后在增量为1并且是执行了情况下停止。
+    {
+        increment = increment/3 + 1;//根据公式
+        //printf("increment:%d\n",increment);
+        for (i=increment;i<len;i++) 从[0]开始，对相距增量步长的元素集合进行修改。="" {="" key="ary[i];" 以下和直接插入排序类似。="" j="i-increment;" while(j="">= 0)
+            {
+                if (key < ary[j] )
+                {
+                    myDataType temp = ary[j];
+                    ary[j] = key;
+                    ary[j+increment] = temp;
+                }
+                j=j-increment;
+            }
+        }
+    }
+}
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+    printf("before sort:\n");
+    prt_ary(src_ary,10);
+
+    //bubble_sort(src_ary,10);
+    //bubble_sort_modify1(src_ary,10);
+    //bubble_sort_opt(src_ary,10);
+    //selectionSort(src_ary,10);
+    //insertionSort(src_ary,10);
+    shellSort(src_ary,10);
+
+    printf("after sort:\n");
+    prt_ary(src_ary,10);
+
+
+
+    getchar();
+    return 0;
+}
+</len;i++)></code></pre>
+<p>结果：</p>
+<p><img src="https://images0.cnblogs.com/blog/578455/201312/05152443-3131570b7c5c4ca0b9d603465eeb3a57.png" alt="img"></p>
+<p>本文转载自：<a href="https://www.cnblogs.com/jsgnadsj/p/3458054.html" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/15/suan-fa/pai-xu/xi-er-pai-xu/" class="b-link-green">希尔排序</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/15/suan-fa/pai-xu/xi-er-pai-xu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="希尔排序">
+                        
+                        <span class="card-title">希尔排序</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">希尔排序希尔排序:
+　　直接插入排序在在本身数量比较少的时候情况下效率很高，如果待排数的数量很多，其效率不是很理想。
+　　回想一下直接插入排序过程，排序过程中，我们可以设置一条线，左边是排好序的，右边则是一个一个等待排序，
+如果最小的那个值</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/排序/" target="_blank">
+                        <span class="chip bg-color">排序</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/14/chang-yong-gong-ju/java-ming-ling-jhat-ming-ling-shi-yong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java命令--jhat命令使用">
+                        
+                        <span class="card-title">Java命令--jhat命令使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Java命令–jhat命令使用jhat也是jdk内置的工具之一。主要是用来分析java堆的命令，可以将堆中的对象以html的形式显示出来，包括对象的数量，大小等等，并支持对象查询语言。
+使用jmap等方法生成java的堆文件后，使用其进行分</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
