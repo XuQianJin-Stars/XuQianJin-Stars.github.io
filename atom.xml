@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-15T03:24:35.064Z</updated>
+  <updated>2019-01-15T03:30:04.142Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/15/suan-fa/pai-xu/xi-er-pai-xu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/15/suan-fa/pai-xu/xi-er-pai-xu/</id>
     <published>2019-01-15T03:06:00.000Z</published>
-    <updated>2019-01-15T03:24:35.064Z</updated>
+    <updated>2019-01-15T03:30:04.142Z</updated>
     
     <summary type="html">
     
@@ -458,11 +458,11 @@
   </entry>
   
   <entry>
-    <title>旋转二维数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/</id>
+    <title>旋转数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:59:03.158Z</updated>
+    <updated>2019-01-06T04:56:09.872Z</updated>
     
     <summary type="html">
     
@@ -470,8 +470,8 @@
       
         
         
-          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot; title=&quot;求和为给定值的组合&quot;&gt;&lt;/a&gt;求和为给定值的组合&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个 n
+          &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你一个数组和一个数字
         
       
     
@@ -515,11 +515,11 @@
   </entry>
   
   <entry>
-    <title>旋转数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
+    <title>旋转二维数组</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:56:09.872Z</updated>
+    <updated>2019-01-06T04:59:03.158Z</updated>
     
     <summary type="html">
     
@@ -527,8 +527,8 @@
       
         
         
-          &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个数组和一个数字
+          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot; title=&quot;求和为给定值的组合&quot;&gt;&lt;/a&gt;求和为给定值的组合&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你一个 n
         
       
     
