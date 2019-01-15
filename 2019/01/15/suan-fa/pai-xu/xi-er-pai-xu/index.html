@@ -380,9 +380,9 @@
 <p>最后的间隔一定是1。</p>
 <p>下面举一个例子：</p>
 <p>第一趟希尔排序，间隔为4</p>
-<p><img src="https://images0.cnblogs.com/blog/578455/201312/05141501-d5ec97bcc98d449fb24d46e267f749a0.png" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/排序算法/201312/05141501-d5ec97bcc98d449fb24d46e267f749a0.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/排序算法/201312/05141501-d5ec97bcc98d449fb24d46e267f749a0.png" alt="img"></a></p>
 <p>第二趟排序：间隔是2</p>
-<p><img src="https://images0.cnblogs.com/blog/578455/201312/05141602-7ed5d8b09ce04f7b9723cc46e56f00f1.png" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/排序算法/05141602-7ed5d8b09ce04f7b9723cc46e56f00f1.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/排序算法/05141602-7ed5d8b09ce04f7b9723cc46e56f00f1.png" alt="img"></a></p>
 <p>第三趟 间隔为1，即 直接插入排序法：</p>
 <p>有人问，这个间隔怎么确定，这是个数学难题，至今没有解答。但是通过大量的实验，还是有个经验值。</p>
 <blockquote>
@@ -415,92 +415,102 @@
 <p>先将整个待排记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，在对全体进行一次直接插入排序。</p>
 <p>代码：</p>
 <p>因为希尔排序就是有增量的直接插入排序，所以将原先直接插入代码修改一下，把步进长度改为增量即可。</p>
-<pre class=" language-c++"><code class="language-c++">void shellSort(myDataType *ary,int len)
-{
-    int i,j;
-    int increment = len;//增量
-    myDataType key;
-    while(increment > 1)//最后在增量为1并且是执行了情况下停止。
-    {
-        increment = increment/3 + 1;//根据公式
-        //printf("increment:%d\n",increment);
-        for (i=increment;i<len;i++) 从[0]开始，对相距增量步长的元素集合进行修改。="" {="" key="ary[i];" 以下和直接插入排序类似。="" j="i-increment;" while(j="">= 0)
-            {
-                if (key < ary[j] )
-                {
-                    myDataType temp = ary[j];
-                    ary[j] = key;
-                    ary[j+increment] = temp;
-                }
-                j=j-increment;
-            }
-        }
-    }
-}
-</len;i++)></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">shellSort</span><span class="token punctuation">(</span>myDataType <span class="token operator">*</span>ary<span class="token punctuation">,</span><span class="token keyword">int</span> len<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span>j<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> increment <span class="token operator">=</span> len<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//增量</span>
+    myDataType key<span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>increment <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//最后在增量为1并且是执行了情况下停止。</span>
+    <span class="token punctuation">{</span>
+        increment <span class="token operator">=</span> increment<span class="token operator">/</span><span class="token number">3</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//根据公式</span>
+        <span class="token comment" spellcheck="true">//printf("increment:%d\n",increment);</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span>increment<span class="token punctuation">;</span>i<span class="token operator">&lt;</span>len<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//从[0]开始，对相距增量步长的元素集合进行修改。</span>
+        <span class="token punctuation">{</span>
+            key <span class="token operator">=</span> ary<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//以下和直接插入排序类似。</span>
+            j<span class="token operator">=</span>i<span class="token operator">-</span>increment<span class="token punctuation">;</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span>j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">&lt;</span> ary<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    myDataType temp <span class="token operator">=</span> ary<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    ary<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> key<span class="token punctuation">;</span>
+                    ary<span class="token punctuation">[</span>j<span class="token operator">+</span>increment<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                j<span class="token operator">=</span>j<span class="token operator">-</span>increment<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>完整代码:</p>
-<pre class=" language-c++"><code class="language-c++">#include "stdafx.h"
+<pre class=" language-java"><code class="language-java">#include <span class="token string">"stdafx.h"</span>
 
 
-typedef int myDataType;
-myDataType src_ary[10] = {9,1,5,8,3,7,6,0,2,4};
+typedef <span class="token keyword">int</span> myDataType<span class="token punctuation">;</span>
+myDataType src_ary<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-void prt_ary(myDataType *ary,int len)
-{
-    int i=0;
-    while(i < len)
-    {
-        printf(" %d ",ary[i++]);
-    }
-    printf("\n");
-}
-void shellSort(myDataType *ary,int len)
-{
-    int i,j;
-    int increment = len;//增量
-    myDataType key;
-    while(increment > 1)//最后在增量为1并且是执行了情况下停止。
-    {
-        increment = increment/3 + 1;//根据公式
-        //printf("increment:%d\n",increment);
-        for (i=increment;i<len;i++) 从[0]开始，对相距增量步长的元素集合进行修改。="" {="" key="ary[i];" 以下和直接插入排序类似。="" j="i-increment;" while(j="">= 0)
-            {
-                if (key < ary[j] )
-                {
-                    myDataType temp = ary[j];
-                    ary[j] = key;
-                    ary[j+increment] = temp;
-                }
-                j=j-increment;
-            }
-        }
-    }
-}
-
-
-int _tmain(int argc, _TCHAR* argv[])
-{
-    printf("before sort:\n");
-    prt_ary(src_ary,10);
-
-    //bubble_sort(src_ary,10);
-    //bubble_sort_modify1(src_ary,10);
-    //bubble_sort_opt(src_ary,10);
-    //selectionSort(src_ary,10);
-    //insertionSort(src_ary,10);
-    shellSort(src_ary,10);
-
-    printf("after sort:\n");
-    prt_ary(src_ary,10);
+<span class="token keyword">void</span> <span class="token function">prt_ary</span><span class="token punctuation">(</span>myDataType <span class="token operator">*</span>ary<span class="token punctuation">,</span><span class="token keyword">int</span> len<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> len<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %d "</span><span class="token punctuation">,</span>ary<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">shellSort</span><span class="token punctuation">(</span>myDataType <span class="token operator">*</span>ary<span class="token punctuation">,</span><span class="token keyword">int</span> len<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span>j<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> increment <span class="token operator">=</span> len<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//增量</span>
+    myDataType key<span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>increment <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//最后在增量为1并且是执行了情况下停止。</span>
+    <span class="token punctuation">{</span>
+        increment <span class="token operator">=</span> increment<span class="token operator">/</span><span class="token number">3</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//根据公式</span>
+        <span class="token comment" spellcheck="true">//printf("increment:%d\n",increment);</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span>increment<span class="token punctuation">;</span>i<span class="token operator">&lt;</span>len<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//从[0]开始，对相距增量步长的元素集合进行修改。</span>
+        <span class="token punctuation">{</span>
+            key <span class="token operator">=</span> ary<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//以下和直接插入排序类似。</span>
+            j<span class="token operator">=</span>i<span class="token operator">-</span>increment<span class="token punctuation">;</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span>j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">&lt;</span> ary<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    myDataType temp <span class="token operator">=</span> ary<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    ary<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> key<span class="token punctuation">;</span>
+                    ary<span class="token punctuation">[</span>j<span class="token operator">+</span>increment<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                j<span class="token operator">=</span>j<span class="token operator">-</span>increment<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 
+<span class="token keyword">int</span> <span class="token function">_tmain</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> _TCHAR<span class="token operator">*</span> argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"before sort:\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">prt_ary</span><span class="token punctuation">(</span>src_ary<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    getchar();
-    return 0;
-}
-</len;i++)></code></pre>
+    <span class="token comment" spellcheck="true">//bubble_sort(src_ary,10);</span>
+    <span class="token comment" spellcheck="true">//bubble_sort_modify1(src_ary,10);</span>
+    <span class="token comment" spellcheck="true">//bubble_sort_opt(src_ary,10);</span>
+    <span class="token comment" spellcheck="true">//selectionSort(src_ary,10);</span>
+    <span class="token comment" spellcheck="true">//insertionSort(src_ary,10);</span>
+    <span class="token function">shellSort</span><span class="token punctuation">(</span>src_ary<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"after sort:\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">prt_ary</span><span class="token punctuation">(</span>src_ary<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+
+    <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>结果：</p>
-<p><img src="https://images0.cnblogs.com/blog/578455/201312/05152443-3131570b7c5c4ca0b9d603465eeb3a57.png" alt="img"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/排序算法/05152443-3131570b7c5c4ca0b9d603465eeb3a57.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/排序算法/05152443-3131570b7c5c4ca0b9d603465eeb3a57.png" alt="img"></a></p>
 <p>本文转载自：<a href="https://www.cnblogs.com/jsgnadsj/p/3458054.html" target="_blank" rel="noopener">原文</a></p>
 
             </div>
