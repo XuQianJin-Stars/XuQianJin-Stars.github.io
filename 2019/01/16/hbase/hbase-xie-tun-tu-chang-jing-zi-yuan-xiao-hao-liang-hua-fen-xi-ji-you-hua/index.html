@@ -1,0 +1,1023 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="HBase写吞吐场景资源消耗量化分析及优化, 大数据 实时计算 机器学习">
+    <meta name="description" content="HBase写吞吐场景资源消耗量化分析及优化一、概述HBase 是一个基于 Google BigTable 论文设计的高可靠性、高性能、可伸缩的分布式存储系统。 网上关于 HBase 的文章很多，官方文档介绍的也比较详细，本篇文章不介绍 HB">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HBase写吞吐场景资源消耗量化分析及优化 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        HBase写吞吐场景资源消耗量化分析及优化
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/Hbase/" target="_blank">
+                    <span class="chip bg-color">Hbase</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/Hbase/" class="post-category" target="_blank">
+                        Hbase
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-16
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="HBase写吞吐场景资源消耗量化分析及优化"><a href="#HBase写吞吐场景资源消耗量化分析及优化" class="headerlink" title="HBase写吞吐场景资源消耗量化分析及优化"></a>HBase写吞吐场景资源消耗量化分析及优化</h1><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>HBase 是一个基于 Google BigTable 论文设计的高可靠性、高性能、可伸缩的分布式存储系统。 网上关于 HBase 的文章很多，官方文档介绍的也比较详细，本篇文章不介绍 HBase 基本的细节。</p>
+<p>本文从 HBase 写链路开始分析，然后针对少量随机读和海量随机写入场景入手，全方面量化分析各种资源的开销, 从而做到以下两点：</p>
+<ol>
+<li>在给定业务量级的情况下，预先评估好集群的合理规模</li>
+<li>在 HBase 的众多参数中，选择合理的配置组合</li>
+</ol>
+<h1 id="二、HBase-写链路简要分析"><a href="#二、HBase-写链路简要分析" class="headerlink" title="二、HBase 写链路简要分析"></a>二、HBase 写链路简要分析</h1><p>HBase 的写入链路基于 LSM（Log-Structured Merge-Tree), 基本思想是把用户的随机写入转化为两部分写入：</p>
+<p>Memstore 内存中的 Map, 保存随机的随机写入，待 memstore 达到一定量的时候会异步执行 flush 操作，在 HDFS 中生成 HFile 中。 同时会按照写入顺序，把数据写入一份到 HDFS 的 WAL（Write Ahead Log）中，用来保证数据的可靠性，即在异常（宕机，进程异常退出）的场景下，能够恢复 Memstore 中还没来得及持久化成 HFile 的数据。</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/Hbase/201901161705.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/Hbase/201901161705.png" alt="img"></a></p>
+<h1 id="三、Flush-amp-Compaction"><a href="#三、Flush-amp-Compaction" class="headerlink" title="三、Flush &amp; Compaction"></a>三、Flush &amp; Compaction</h1><p>上一节中，介绍了 HBase 的写路径，其中 HFile 是 HBase 数据持久化的最终形态, 本节将介绍 HBase 如何生成 HFile 和管理 HFile。关于 HFile， 主要涉及到两个核心操作：</p>
+<ol>
+<li>Flushing</li>
+<li>Compaction</li>
+</ol>
+<p>上一节中提到，HBase 的写入最先会放入内存中，提供实时的查询，当 Memstore 中数据达到一定量的阈值（128MB），会通过 Flush 操作生成 HFile 持久化到 HDFS 中，随着用户的写入，生成的 HFile 数目会逐步增多，这会影响用户的读操作，同时也会系统占用（HDFS 层 block 的数目， regionserver 服务器的文件描述符占用）， region split 操作，region reopen 操作也会受到不同程度影响。 </p>
+<p>HBase 通过 Compaction 机制将多个 HFile 合并成一个 HFile 以控制每个 Region 内的 HFile 的数目在一定范围内， 当然 Compaction 还有其他的作用，比如数据本地化率，多版本数据的合并，数据删除标记的清理等等，本文不做展开。</p>
+<p>另外还有一点需要知道的是，HBase 中 Flush 操作和 Compaction 操作和读写链路是由独立线程完成的，互不干扰。</p>
+<h1 id="四、系统开销定量分析"><a href="#四、系统开销定量分析" class="headerlink" title="四、系统开销定量分析"></a>四、系统开销定量分析</h1><p>为了简化计算，本节针对事件类数据写吞吐型场景，对 HBase 系统中的开销做定量的分析，做以下假设：</p>
+<ol>
+<li>数据写入的 Rowkey 是打散的，不存在写热点</li>
+<li>数据写入量及总量是可评估的，会对数据做预先分区，定量分析基于 region 分布稳定的情况下</li>
+<li>假设随机读的数目很小，小到可以忽略 IO 开销，且对读 RT 不敏感</li>
+<li>数据没有多版本，没有删除操作，compaction 不会减少数据量</li>
+<li>HBase 写入链路中不存在随机磁盘，所以随机 IOPS 不会成为瓶颈</li>
+<li>一般大数据机型的多个 SATA 盘的顺序写吞吐大于万兆网卡</li>
+<li>忽略掉 RPC 带来的额外的带宽消耗</li>
+</ol>
+<h2 id="4-1-系统变量"><a href="#4-1-系统变量" class="headerlink" title="4.1 系统变量"></a>4.1 系统变量</h2><ol>
+<li>单条数据大小 -&gt; s （bytes）</li>
+<li>峰值写 TPS -&gt; T</li>
+<li>HFile 副本数→ R1 （一般为3）</li>
+<li>WAL 副本数 → R2 (一般为3)</li>
+<li>WAL 数据压缩比 → Cwal (一般是1)</li>
+<li>HFile 压缩比 → C (采用 DIFF + LZO， 日志场景压缩比一般为 0.2左右)</li>
+<li>FlushSize → F (这里跟 regionserver 的 memstore 内存容量，region 数目，写入是否平均和 flushsize 的配置有关，简化分析，认为内存是足够的 128MB)</li>
+<li>hbase.hstore.compaction.min → CT （默认是 3， 一般情况下，决定了归并系数，即每次 9. compaction 参与的文件数目，在不存在 compaction 积压的情况下， 实际运行时也是在 3 左右）</li>
+<li>数据生命周期 → TTL (决定数据量的大小，一般写吞吐场景，日志会有一定的保存周期, 单位天)</li>
+<li>单机数据量水位 → D ( 单位 T，这里指 HDFS 上存放 HFile 数据的数据量平均分担到每台机器上)</li>
+<li>MajorCompaction 周期 → M( hbase.hregion.majorcompaction 决定，默认 20 天)</li>
+</ol>
+<p>以上 11 个参数，是本次量化分析中需要使用到的变量，系统资源方面主要量化以下两个指标：</p>
+<ol>
+<li>磁盘开销</li>
+<li>网络开销</li>
+</ol>
+<h2 id="4-2-磁盘容量开销量化分析"><a href="#4-2-磁盘容量开销量化分析" class="headerlink" title="4.2 磁盘容量开销量化分析"></a>4.2 磁盘容量开销量化分析</h2><p>这里只考虑磁盘空间方面的占用，相关的变量有：</p>
+<ol>
+<li>单条数据大小 s</li>
+<li>峰值写入 TPS</li>
+<li>HFile 副本数 R1</li>
+<li>HFile 压缩比 c</li>
+<li>数据生命周期 TTL</li>
+</ol>
+<p>HFile 的磁盘容量量化公式</p>
+<blockquote>
+<p>V = TTL <em> 86400 </em> T <em> s </em> C * R1</p>
+</blockquote>
+<p>假设 s = 1000, TTL = 365， T = 200000, C = 0.2 , R1 = 3 的情况下，HFile 磁盘空间需求是：</p>
+<pre><code>  V = 30 * 86400 * 200000 * 1000 * 0.2 * 3      = 311040000000000.0 bytes    = 282T 
+</code></pre><p>在这里我们忽略了其他占用比较小的磁盘开销，比如：</p>
+<ol>
+<li>WAL 的磁盘开销，在没有 Replication，写入平均的情况下，WAL 的日志量约定于 (hbase.master.logcleaner.ttl /1000) <em> s </em> TPS + totalMemstoreSize</li>
+<li>Compaction 临时文件，Split 父 Region 文件等临时文件</li>
+<li>Snapshot 文件</li>
+<li>等等</li>
+</ol>
+<h2 id="4-3-网络开销量化分析"><a href="#4-3-网络开销量化分析" class="headerlink" title="4.3 网络开销量化分析"></a>4.3 网络开销量化分析</h2><p>HBase 中会造成巨大网络开销的主要由一下三部分组成，他们是相互独立，异步进行的，这里做个比方，HBase 这三个操作和人吃饭很像，这里做个类比</p>
+<table>
+<thead>
+<tr>
+<th>HBase</th>
+<th>人类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>写路径</td>
+<td>咀嚼</td>
+</tr>
+<tr>
+<td>Flush</td>
+<td>吞咽</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>消化</td>
+</tr>
+<tr>
+<td>Compaction积压</td>
+<td>销毁不良</td>
+</tr>
+</tbody>
+</table>
+<p>回归正题，下面按照发生顺序，从三个角度分别分析：</p>
+<ol>
+<li>写路径</li>
+<li>Flush</li>
+<li>Compaction</li>
+</ol>
+<h3 id="4-3-1-写路径"><a href="#4-3-1-写路径" class="headerlink" title="4.3.1 写路径"></a>4.3.1 写路径</h3><p>写路径的网络开销，主要是写 WAL 日志方面, 相关的变量有：</p>
+<ol>
+<li>单条数据大小 s</li>
+<li>峰值写入 TPS</li>
+<li>WAL 副本数 R2</li>
+<li>WAL 压缩比 Cwal</li>
+</ol>
+<p>写路径中，产生的网络流量分为两部分，一部分是写 WAL 产生的流量，一部分是外部用户 RPC 写入的流量， In 流量和 Out 流量计算公式为：</p>
+<blockquote>
+<p>NInWrite = T <em> s </em> Cwal <em> (R2 - 1) + （T </em> s )</p>
+<p>NOutWrite = T <em> s </em> Cwal * (R2 - 1)</p>
+</blockquote>
+<p>假设 T = 20W，s = 1000, Cwal = 1.0, R2 = 3</p>
+<pre><code>      NInwrite = 200000 * 1000  * 1 * (3-1) + 200000 * 1000
+               = 600000000 bytes/s
+               = 572MB/s
+     NOutwrite = 200000 * 1000* 1 * (3-1)
+               = 400000000 bytes/s
+               = 381MB/s
+</code></pre><h3 id="4-3-2-Flush"><a href="#4-3-2-Flush" class="headerlink" title="4.3.2 Flush"></a>4.3.2 Flush</h3><p>Flush 的网络开销，主要是生成 HFile 后，将 HFile 写入到 HDFS 的过程，相关的变量有：</p>
+<ol>
+<li>单条数据大小 s</li>
+<li>峰值写入 T</li>
+<li>HFIle 副本数 R1</li>
+<li>HFile 压缩比 C</li>
+</ol>
+<p>Flush 产生的 In 流量和 Out 流量计算公式为：</p>
+<blockquote>
+<p>NInWrite = s <em> T </em> (R1 - 1) * C</p>
+<p>NOutWrite = s <em> T </em> (R1 - 1) * C</p>
+</blockquote>
+<p>假设 T = 20W， S = 1000， R1 = 3， C = 0.2</p>
+<pre><code>  NInwrite  = 200000 * 1000 * (3 - 1) * 0.2 
+            = 80000000.0 bytes/s
+            =76.3MB/s
+ NOutwrite  = 200000 * 1000 * (3 - 1) * 0.2 
+            = 120000000.0 bytes/s
+            =76.3MB/s
+</code></pre><h3 id="4-3-3-Compaction"><a href="#4-3-3-Compaction" class="headerlink" title="4.3.3 Compaction"></a>4.3.3 Compaction</h3><p>Compaction 比较复杂，在有预分区不考虑 Split 的情况下分为两类：</p>
+<ol>
+<li>Major Compaction</li>
+<li>Minor Compaction</li>
+</ol>
+<p>两者是独立的，下面将分别针对两种 Compaction 做分析，最后取和。</p>
+<h4 id="4-3-3-1-Major-Compaction"><a href="#4-3-3-1-Major-Compaction" class="headerlink" title="4.3.3.1 Major Compaction"></a>4.3.3.1 Major Compaction</h4><p>Major Compaction 的定义是由全部 HFile 参与的 Compaction， 一般在发生在 Split 后发生，或者到达系统的 MajorCompaction 周期， 默认的 MajorCompaction 周期为 20 天，这里我们暂时忽略 Split 造成的 MajorCompaction 流量. 最终 Major Compaction 开销相关的变量是:</p>
+<ol>
+<li>单机数据量水位 D</li>
+<li>HFIle 副本数 R1</li>
+<li>MajorCompaction 周期 → M (默认 20 天)</li>
+</ol>
+<p>这里假设数据是有本地化的，所以 MajorCompaction 的读过程，走 ShortCircuit，不计算网络开销，并且写 HFile 的第一副本是本地流量，也不做流量计算，所以 MajorCompaction 的网络流量计算公式是：</p>
+<blockquote>
+<p>NInMajor = D * (R1 - 1) / M</p>
+<p>NOutMajor = D * (R1 - 1) / M</p>
+</blockquote>
+<p>假设 D = 10T, R1 = 3, M = 20</p>
+<pre><code>    NInMajor =  10 * 1024 * 1024 * 1024 * 1024 * (3 - 1) / (20 * 86400)
+             = 12725829bytes/s 
+             = 12MB/s
+   NOutMajor =  10 * 1024 * 1024 * 1024 * 1024 * (3 - 1) / (20 * 86400)
+             = 12725829bytes /s 
+             = 12MB/s
+</code></pre><h4 id="4-3-3-2-Minor-Compaction"><a href="#4-3-3-2-Minor-Compaction" class="headerlink" title="4.3.3.2 Minor Compaction"></a>4.3.3.2 Minor Compaction</h4><p>量化之前，先问一个问题，每条数据在第一次 flush 成为 HFile 之后，会经过多少次 Minor Compaction?</p>
+<p>要回答这个问题之前，要先了解现在 HBase 默认的 compaction 的文件选取策略，这里不展开，只做简单分析，MinorCompaction 选择的文件对象数目，一般处于 hbase.hstore.compaction.min（默认 3）和 hbase.hstore.compaction.max（默认 10）之间, 总文件大小小于 hbase.hstore.compaction.max.size（默认 Max）， 如果文件的 Size 小于 hbase.hstore.compaction.min.size（默认是 flushsize）， 则一定会被选中； 并且被选中的文件 size 的差距不会过大, 这个由参数 hbase.hstore.compaction.ratio 和 hbase.hstore.compaction.ratio.offpeak 控制，这里不做展开。</p>
+<p>所以，在 Compaction 没有积压的情况下，每次 compaction 选中的文件数目会等于 hbase.hstore.compaction.min 并且文件 size 应该相同量级， 对稳定的表，对每条数据来说，经过的 compaction 次数越多，其文件会越大. 其中每条数据参与 Minor Compaction 的最大次数可以用公式 math.log( 32000 / 25.6, 3) = 6 得到</p>
+<p>这里用到的两个变量是：</p>
+<ol>
+<li>FlushSize 默认是 128 MB</li>
+<li>HFile 压缩比例，假设是 0.2</li>
+</ol>
+<p>所以刚刚 Flush 生成的 HFile 的大小在 25.6MB 左右，当集齐三个 25.6MB 的 HFile 后，会触发第一次 Minor Compaction， 生成一个 76.8MB 左右的 HFile。</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/Hbase/201901161709.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/Hbase/201901161709.png" alt="img"></a></p>
+<p>对于一般情况，单个 Region 的文件 Size 我们会根据容量预分区好，并且控制单个 Region 的 HFile 的总大小 在 32G 以内，对于一个 Memstore 128MB, HFile 压缩比 0.2， 单个 Region 32G 的表，上表中各个 Size 的 HFile 数目不会超过 2 个(否则就满足了触发 Minor Compaction 的条件)。</p>
+<p>32G = 18.6G + 6.2G + 6.2G + 690MB + 230MB + 76.8MB + 76.8MB</p>
+<p>到这里，我们知道每条写入的数据，从写入到 TTL 过期，经过 Minor Compaction 的次数是可以计算出来的。所以只要计算出每次 Compaction 的网络开销，就可以计算出，HBase 通过次要压缩消化每条数据，所占用的总的开销是多少，这里用到的变量有：</p>
+<ol>
+<li>单条数据大小s</li>
+<li>峰值写入T.</li>
+<li>HFIle副本数R1</li>
+<li>HFile压缩比C</li>
+</ol>
+<p>计算公式如下：</p>
+<blockquote>
+<p>NInMinor = S <em> T </em>（R1-1）<em> C </em>总次数</p>
+<p>NOutMinor = S <em> T </em>（R1-1）<em> C </em>总次数</p>
+</blockquote>
+<p>假设S = 1000，T = 20W，R1 = 3，C = 0.2，总次数= 6</p>
+<pre><code>    NInminor = 1000 * 200000 * (3 - 1) * 0.2 * 6
+             = 480000000.0bytes/s
+             = 457.8MB/s 
+   NOutminor = 1000 * 200000 * (3 - 1) * 0.2 * 6
+             = 480000000.0bytes/s
+             = 457.8MB/s 
+</code></pre><h3 id="4-3-4-网络资源定量分析小结"><a href="#4-3-4-网络资源定量分析小结" class="headerlink" title="4.3.4 网络资源定量分析小结"></a>4.3.4 网络资源定量分析小结</h3><p>在用户写入 TPS 20W，单条数据大小 1000 bytes 的场景下，整体网络吞吐为：</p>
+<pre><code>NIntotal   = NInwrite + NInflush + NInmajor + NInminor
+           = 572MB/s + 76.3MB/s  + 12MB/s + 457.8MB/s
+           = 1118.1MB/s
+NOuttotal  = NOutwrite + NOutflush + NOutmajor + NOutminor
+           = 381MB/s + 76.3MB/s  + 12MB/s + 457.8MB/s
+           = 927.1MB
+</code></pre><p>当然这是理想情况下的最小开销，有很多种情况，可以导致实际网络开销超过这个理论值，以下情况都会导致实际流量的升高：</p>
+<ol>
+<li>预分区不足或者业务量增长，导致 Region 发生 Split，Split 会导致额外的 Compaction 操作</li>
+<li>分区写入不平均，导致少量 region 不是因为到达了 flushsize 而进行 flush，导致 flush 下来的文件 Size 偏小</li>
+<li>HFile 因为 balance 等原因导致本地化率低，也会导致 compaciton 产生更多的网卡开销</li>
+<li>预分区数目过多，导致全局 memstore 水位高，memstore 没办法到达 flushsize 进行 flush，从而全局都 flush 出比较小的文件</li>
+<li>等等</li>
+</ol>
+<p>有了这个量化分析后，这些不深入展开，简单说几点已经在有赞生产环境得到验证具有实效的优化点：</p>
+<ol>
+<li>业务接入初期，协助业务做 Rowkey 的设计，避免写入热点</li>
+<li>增加 hbase.hstore.compaction.min，增加每次 Compaction 参加的文件数，相当于减少了每条数据整个生命周期经历过的 Compaction 次数</li>
+<li>根据业务稳态的规模，做好预分区，尽量减少 Split 造成的额外开销</li>
+<li>对于读 RT 不敏感的业务，可以设置 hbase.hstore.compaction.max.size 为 4g，尽可能减少过大的文件做 Compaction，因为大文件做 compaction 的 ROI 实在太低</li>
+<li>对于没有多版本并且有 TTL 的数据，可以关闭系统的 MajorCompaction 周期，数据过期采用文件整体过期的方式，消除 MajorCompaction 的系统开销</li>
+<li>对于吞吐大的场景，用户在写入数据的时候就对数据做压缩，减小写路径造成的网络开销，毕竟 WAL 是不能压缩的（压缩功能形同虚设）</li>
+<li>调整 Memstore 的内存比例，保证单机上每个 region 尽可能的分配到 Flushsize 大小的内存，尽可能的 flush 大文件，从而减少后续 Compaction 开销</li>
+</ol>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>到这里，HBase 的写吞吐场景的资源定量分析和优化的介绍就算结束了，本文基于 HBase1.2.6 版本。对很多 HBase 的细节没有做展开说明，有些地方因为作者认知有限，难免纰漏，欢迎各位同行指出。</p>
+<p>最后打个小广告，有赞大数据团队基础设施团队，主要负责有赞的数据平台（DP），实时计算（Storm，Spark Streaming，Flink），离线计算（HDFS，YARN，HIVE，SPARK SQL），在线存储（HBase），实时 OLAP（Druid）等数个技术产品，欢迎感兴趣的小伙伴联系 <a href="mailto:hefei@youzan.com" target="_blank" rel="noopener">hefei@youzan.com</a>。</p>
+<p>参考文献</p>
+<ol>
+<li>Google BigTable（<a href="https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf）" target="_blank" rel="noopener">https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf）</a></li>
+<li>HBase官方网站（<a href="http://hbase.apache.org/）" target="_blank" rel="noopener">http://hbase.apache.org/）</a></li>
+</ol>
+<p>转载自：<a href="https://mp.weixin.qq.com/s/6N8drI4Z8ucOqJHVjcwtrQ?scene=25#wechat_redirect" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/16/hbase/hbase-xie-tun-tu-chang-jing-zi-yuan-xiao-hao-liang-hua-fen-xi-ji-you-hua/" class="b-link-green">HBase写吞吐场景资源消耗量化分析及优化</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/16/hbase/hbase-xie-tun-tu-chang-jing-zi-yuan-xiao-hao-liang-hua-fen-xi-ji-you-hua/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="HBase写吞吐场景资源消耗量化分析及优化">
+                        
+                        <span class="card-title">HBase写吞吐场景资源消耗量化分析及优化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">HBase写吞吐场景资源消耗量化分析及优化一、概述HBase 是一个基于 Google BigTable 论文设计的高可靠性、高性能、可伸缩的分布式存储系统。 网上关于 HBase 的文章很多，官方文档介绍的也比较详细，本篇文章不介绍 HB</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                    Hbase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hbase/" target="_blank">
+                        <span class="chip bg-color">Hbase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/15/suan-fa/pai-xu/xi-er-pai-xu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="希尔排序">
+                        
+                        <span class="card-title">希尔排序</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">希尔排序　　直接插入排序在在本身数量比较少的时候情况下效率很高，如果待排数的数量很多，其效率不是很理想。
+　　回想一下直接插入排序过程，排序过程中，我们可以设置一条线，左边是排好序的，右边则是一个一个等待排序，如果最小的那个值在最右边，那么</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/排序/" target="_blank">
+                        <span class="chip bg-color">排序</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
