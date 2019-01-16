@@ -1,0 +1,969 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="深入理解Java G1垃圾收集器, 大数据 实时计算 机器学习">
+    <meta name="description" content="深入理解Java G1垃圾收集器本文首先简单介绍了垃圾收集的常见方式，然后再分析了G1收集器的收集原理，相比其他垃圾收集器的优势，最后给出了一些调优实践。
+一 什么是垃圾回收首先，在了解G1之前，我们需要清楚的知道，垃圾回收是什么？简单的说">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>深入理解Java G1垃圾收集器 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        深入理解Java G1垃圾收集器
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/java虚拟机/" target="_blank">
+                    <span class="chip bg-color">java虚拟机</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/java/" class="post-category" target="_blank">
+                        java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-16
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="深入理解Java-G1垃圾收集器"><a href="#深入理解Java-G1垃圾收集器" class="headerlink" title="深入理解Java G1垃圾收集器"></a>深入理解Java G1垃圾收集器</h1><p>本文首先简单介绍了垃圾收集的常见方式，然后再分析了G1收集器的收集原理，相比其他垃圾收集器的优势，最后给出了一些调优实践。</p>
+<h2 id="一-什么是垃圾回收"><a href="#一-什么是垃圾回收" class="headerlink" title="一 什么是垃圾回收"></a>一 什么是垃圾回收</h2><p>首先，在了解G1之前，我们需要清楚的知道，垃圾回收是什么？简单的说垃圾回收就是回收内存中不再使用的对象。</p>
+<p>垃圾回收的基本步骤</p>
+<p>回收的步骤有2步：</p>
+<ol>
+<li>查找内存中不再使用的对象</li>
+<li>释放这些对象占用的内存</li>
+</ol>
+<h3 id="1-查找内存中不再使用的对象"><a href="#1-查找内存中不再使用的对象" class="headerlink" title="1,查找内存中不再使用的对象"></a><strong>1,查找内存中不再使用的对象</strong></h3><p>那么问题来了，如何判断哪些对象不再被使用呢？我们也有2个方法：</p>
+<h4 id="1-引用计数法"><a href="#1-引用计数法" class="headerlink" title="1. 引用计数法"></a>1. 引用计数法</h4><p>引用计数法就是如果一个对象没有被任何引用指向，则可视之为垃圾。这种方法的缺点就是不能检测到环的存在。</p>
+<h4 id="2-根搜索算法"><a href="#2-根搜索算法" class="headerlink" title="2.根搜索算法"></a>2.根搜索算法</h4><p>根搜索算法的基本思路就是通过一系列名为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链(Reference Chain)，当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。</p>
+<p>现在我们已经知道如何找出垃圾对象了，如何把这些对象清理掉呢？</p>
+<h3 id="2-释放这些对象占用的内存"><a href="#2-释放这些对象占用的内存" class="headerlink" title="2. 释放这些对象占用的内存"></a><strong>2. 释放这些对象占用的内存</strong></h3><p>常见的方式有复制或者直接清理，但是直接清理会存在内存碎片，于是就会产生了清理再压缩的方式。</p>
+<p>总得来说就产生了三种类型的回收算法。</p>
+<h4 id="1-标记-复制"><a href="#1-标记-复制" class="headerlink" title="1.标记-复制"></a>1.标记-复制</h4><p>它将可用内存容量划分为大小相等的两块，每次只使用其中的一块。当这一块用完之后，就将还存活的对象复制到另外一块上面，然后在把已使用过的内存空间一次理掉。它的优点是实现简单，效率高，不会存在内存碎片。缺点就是需要2倍的内存来管理。</p>
+<h4 id="2-标记-清理"><a href="#2-标记-清理" class="headerlink" title="2.标记-清理"></a>2.标记-清理</h4><p>标记清除算法分为“标记”和“清除”两个阶段：首先标记出需要回收的对象，标记完成之后统一清除对象。它的优点是效率高，缺点是容易产生内存碎片。</p>
+<h4 id="3-标记-整理"><a href="#3-标记-整理" class="headerlink" title="3.标记-整理"></a>3.标记-整理</h4><p>标记操作和“标记-清理”算法一致，后续操作不只是直接清理对象，而是在清理无用对象完成后让所有 存活的对象都向一端移动，并更新引用其对象的指针。因为要移动对象，所以它的效率要比“标记-清理”效率低，但是不会产生内存碎片。</p>
+<h3 id="基于分代的假设"><a href="#基于分代的假设" class="headerlink" title="基于分代的假设"></a><strong>基于分代的假设</strong></h3><p>由于对象的存活时间有长有短，所以对于存活时间长的对象，减少被gc的次数可以避免不必要的开销。这样我们就把内存分成新生代和老年代，新生代存放刚创建的和存活时间比较短的对象，老年代存放存活时间比较长的对象。这样每次仅仅清理年轻代，老年代仅在必要时时再做清理可以极大的提高GC效率，节省GC时间。</p>
+<h3 id="java垃圾收集器的历史"><a href="#java垃圾收集器的历史" class="headerlink" title="java垃圾收集器的历史"></a><strong>java垃圾收集器的历史</strong></h3><h4 id="第一阶段，Serial（串行）收集器"><a href="#第一阶段，Serial（串行）收集器" class="headerlink" title="第一阶段，Serial（串行）收集器"></a>第一阶段，Serial（串行）收集器</h4><p>在jdk1.3.1之前，java虚拟机仅仅能使用Serial收集器。 Serial收集器是一个单线程的收集器，但它的“单线程”的意义并不仅仅是说明它只会使用一个CPU或一条收集线程去完成垃圾收集工作，更重要的是在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。</p>
+<p>PS：开启Serial收集器的方式</p>
+<blockquote>
+<p>-XX:+UseSerialGC</p>
+</blockquote>
+<h4 id="第二阶段，Parallel（并行）收集器"><a href="#第二阶段，Parallel（并行）收集器" class="headerlink" title="第二阶段，Parallel（并行）收集器"></a>第二阶段，Parallel（并行）收集器</h4><p>Parallel收集器也称吞吐量收集器，相比Serial收集器，Parallel最主要的优势在于使用多线程去完成垃圾清理工作，这样可以充分利用多核的特性，大幅降低gc时间。</p>
+<p>PS:开启Parallel收集器的方式</p>
+<blockquote>
+<p>-XX:+UseParallelGC -XX:+UseParallelOldGC</p>
+</blockquote>
+<h4 id="第三阶段，CMS（并发）收集器"><a href="#第三阶段，CMS（并发）收集器" class="headerlink" title="第三阶段，CMS（并发）收集器"></a>第三阶段，CMS（并发）收集器</h4><p>CMS收集器在Minor GC时会暂停所有的应用线程，并以多线程的方式进行垃圾回收。在Full GC时不再暂停应用线程，而是使用若干个后台线程定期的对老年代空间进行扫描，及时回收其中不再使用的对象。</p>
+<p>PS:开启CMS收集器的方式</p>
+<blockquote>
+<p>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</p>
+</blockquote>
+<h4 id="第四阶段，G1（并发）收集器"><a href="#第四阶段，G1（并发）收集器" class="headerlink" title="第四阶段，G1（并发）收集器"></a>第四阶段，G1（并发）收集器</h4><p>G1收集器（或者垃圾优先收集器）的设计初衷是为了尽量缩短处理超大堆（大于4GB）时产生的停顿。相对于CMS的优势而言是内存碎片的产生率大大降低。</p>
+<p>PS:开启G1收集器的方式</p>
+<blockquote>
+<p>-XX:+UseG1GC</p>
+</blockquote>
+<h2 id="二-了解G1"><a href="#二-了解G1" class="headerlink" title="二 了解G1"></a><strong>二 了解G1</strong></h2><p>G1的第一篇paper（附录1）发表于2004年，在2012年才在jdk1.7u4中可用。oracle官方计划在jdk9中将G1变成默认的垃圾收集器，以替代CMS。为何oracle要极力推荐G1呢，G1有哪些优点？</p>
+<h3 id="首先，G1的设计原则就是简单可行的性能调优"><a href="#首先，G1的设计原则就是简单可行的性能调优" class="headerlink" title="首先，G1的设计原则就是简单可行的性能调优"></a><strong>首先，G1的设计原则就是简单可行的性能调优</strong></h3><p>开发人员仅仅需要声明以下参数即可：</p>
+<blockquote>
+<p>-XX:+UseG1GC -Xmx32g -XX:MaxGCPauseMillis=200</p>
+</blockquote>
+<p>其中-XX:+UseG1GC为开启G1垃圾收集器，-Xmx32g 设计堆内存的最大内存为32G，-XX:MaxGCPauseMillis=200设置GC的最大暂停时间为200ms。如果我们需要调优，在内存大小一定的情况下，我们只需要修改最大暂停时间即可。</p>
+<h3 id="其次，G1将新生代，老年代的物理空间划分取消了。"><a href="#其次，G1将新生代，老年代的物理空间划分取消了。" class="headerlink" title="其次，G1将新生代，老年代的物理空间划分取消了。"></a><strong>其次，G1将新生代，老年代的物理空间划分取消了。</strong></h3><p>这样我们再也不用单独的空间对每个代进行设置了，不用担心每个代内存是否足够。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/3d37bfb7e94c81bd23c7fda6b7d87d59.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/3d37bfb7e94c81bd23c7fda6b7d87d59.png" alt="1"></a></p>
+<p>取而代之的是，G1算法将堆划分为若干个区域（Region），它仍然属于分代收集器。不过，这些区域的一部分包含新生代，新生代的垃圾收集依然采用暂停所有应用线程的方式，将存活对象拷贝到老年代或者Survivor空间。老年代也分成很多区域，G1收集器通过将对象从一个区域复制到另外一个区域，完成了清理工作。这就意味着，在正常的处理过程中，G1完成了堆的压缩（至少是部分堆的压缩），这样也就不会有cms内存碎片问题的存在了。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/02d155395a44f40be1b7e9f634939cb0.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/02d155395a44f40be1b7e9f634939cb0.png" alt="2"></a></p>
+<p>在G1中，还有一种特殊的区域，叫Humongous区域。 如果一个对象占用的空间超过了分区容量50%以上，G1收集器就认为这是一个巨型对象。这些巨型对象，默认直接会被分配在年老代，但是如果它是一个短期存在的巨型对象，就会对垃圾收集器造成负面影响。为了解决这个问题，G1划分了一个Humongous区，它用来专门存放巨型对象。如果一个H区装不下一个巨型对象，那么G1会寻找连续的H分区来存储。为了能找到连续的H区，有时候不得不启动Full GC。</p>
+<p>PS：在java 8中，持久代也移动到了普通的堆内存空间中，改为元空间。</p>
+<h3 id="对象分配策略"><a href="#对象分配策略" class="headerlink" title="对象分配策略"></a><strong>对象分配策略</strong></h3><p>说起大对象的分配，我们不得不谈谈对象的分配策略。它分为3个阶段：</p>
+<ol>
+<li>TLAB(Thread Local Allocation Buffer)线程本地分配缓冲区</li>
+<li>Eden区中分配</li>
+<li>Humongous区分配</li>
+</ol>
+<p>TLAB为线程本地分配缓冲区，它的目的为了使对象尽可能快的分配出来。如果对象在一个共享的空间中分配，我们需要采用一些同步机制来管理这些空间内的空闲空间指针。在Eden空间中，每一个线程都有一个固定的分区用于分配对象，即一个TLAB。分配对象时，线程之间不再需要进行任何的同步。</p>
+<p>对TLAB空间中无法分配的对象，JVM会尝试在Eden空间中进行分配。如果Eden空间无法容纳该对象，就只能在老年代中进行分配空间。</p>
+<p>最后，G1提供了两种GC模式，Young GC和Mixed GC，两种都是Stop The World(STW)的。下面我们将分别介绍一下这2种模式。</p>
+<h2 id="三-G1-Young-GC"><a href="#三-G1-Young-GC" class="headerlink" title="三 G1 Young GC"></a><strong>三 G1 Young GC</strong></h2><p>Young GC主要是对Eden区进行GC，它在Eden空间耗尽时会被触发。在这种情况下，Eden空间的数据移动到Survivor空间中，如果Survivor空间不够，Eden空间的部分数据会直接晋升到年老代空间。Survivor区的数据移动到新的Survivor区中，也有部分数据晋升到老年代空间中。最终Eden空间的数据为空，GC停止工作，应用线程继续执行。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/50877d4b41c80010b1f131de5759b689.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/50877d4b41c80010b1f131de5759b689.png" alt="3"></a></p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/a245f9decda81cbf12f69412d38f3177.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/a245f9decda81cbf12f69412d38f3177.png" alt="4"></a></p>
+<p>这时，我们需要考虑一个问题，如果仅仅GC 新生代对象，我们如何找到所有的根对象呢？ 老年代的所有对象都是根么？那这样扫描下来会耗费大量的时间。于是，G1引进了RSet的概念。它的全称是Remembered Set，作用是跟踪指向某个heap区内的对象引用。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/bd7d9f4a8e43312cb189863a568c4630.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/bd7d9f4a8e43312cb189863a568c4630.png" alt="5"></a></p>
+<p>在CMS中，也有RSet的概念，在老年代中有一块区域用来记录指向新生代的引用。这是一种point-out，在进行Young GC时，扫描根时，仅仅需要扫描这一块区域，而不需要扫描整个老年代。</p>
+<p>但在G1中，并没有使用point-out，这是由于一个分区太小，分区数量太多，如果是用point-out的话，会造成大量的扫描浪费，有些根本不需要GC的分区引用也扫描了。于是G1中使用point-in来解决。point-in的意思是哪些分区引用了当前分区中的对象。这样，仅仅将这些对象当做根来扫描就避免了无效的扫描。由于新生代有多个，那么我们需要在新生代之间记录引用吗？这是不必要的，原因在于每次GC时，所有新生代都会被扫描，所以只需要记录老年代到新生代之间的引用即可。</p>
+<p>需要注意的是，如果引用的对象很多，赋值器需要对每个引用做处理，赋值器开销会很大，为了解决赋值器开销这个问题，在G1 中又引入了另外一个概念，卡表（Card Table）。一个Card Table将一个分区在逻辑上划分为固定大小的连续区域，每个区域称之为卡。卡通常较小，介于128到512字节之间。Card Table通常为字节数组，由Card的索引（即数组下标）来标识每个分区的空间地址。默认情况下，每个卡都未被引用。当一个地址空间被引用时，这个地址空间对应的数组索引的值被标记为”0″，即标记为脏被引用，此外RSet也将这个数组下标记录下来。一般情况下，这个RSet其实是一个Hash Table，Key是别的Region的起始地址，Value是一个集合，里面的元素是Card Table的Index。</p>
+<p>Young GC 阶段：</p>
+<ul>
+<li>阶段1：根扫描<br>静态和本地对象被扫描</li>
+<li>阶段2：更新RS<br>处理dirty card队列更新RS</li>
+<li>阶段3：处理RS<br>检测从年轻代指向年老代的对象</li>
+<li>阶段4：对象拷贝<br>拷贝存活的对象到survivor/old区域</li>
+<li>阶段5：处理引用队列<br>软引用，弱引用，虚引用处理</li>
+</ul>
+<h2 id="四-G1-Mix-GC"><a href="#四-G1-Mix-GC" class="headerlink" title="四 G1 Mix GC"></a><strong>四 G1 Mix GC</strong></h2><p>Mix GC不仅进行正常的新生代垃圾收集，同时也回收部分后台扫描线程标记的老年代分区。</p>
+<p>它的GC步骤分2步：</p>
+<ol>
+<li>全局并发标记（global concurrent marking）</li>
+<li>拷贝存活对象（evacuation）</li>
+</ol>
+<p>在进行Mix GC之前，会先进行global concurrent marking（全局并发标记）。 global concurrent marking的执行过程是怎样的呢？</p>
+<p>在G1 GC中，它主要是为Mixed GC提供标记服务的，并不是一次GC过程的一个必须环节。global concurrent marking的执行过程分为五个步骤：</p>
+<ul>
+<li>初始标记（initial mark，STW）<br>在此阶段，G1 GC 对根进行标记。该阶段与常规的 (STW) 年轻代垃圾回收密切相关。</li>
+<li>根区域扫描（root region scan）<br>G1 GC 在初始标记的存活区扫描对老年代的引用，并标记被引用的对象。该阶段与应用程序（非 STW）同时运行，并且只有完成该阶段后，才能开始下一次 STW 年轻代垃圾回收。</li>
+<li>并发标记（Concurrent Marking）<br>G1 GC 在整个堆中查找可访问的（存活的）对象。该阶段与应用程序同时运行，可以被 STW 年轻代垃圾回收中断</li>
+<li>最终标记（Remark，STW）<br>该阶段是 STW 回收，帮助完成标记周期。G1 GC 清空 SATB 缓冲区，跟踪未被访问的存活对象，并执行引用处理。</li>
+<li>清除垃圾（Cleanup，STW）<br>在这个最后阶段，G1 GC 执行统计和 RSet 净化的 STW 操作。在统计期间，G1 GC 会识别完全空闲的区域和可供进行混合垃圾回收的区域。清理阶段在将空白区域重置并返回到空闲列表时为部分并发。</li>
+</ul>
+<h3 id="三色标记算法"><a href="#三色标记算法" class="headerlink" title="三色标记算法"></a><strong>三色标记算法</strong></h3><p>提到并发标记，我们不得不了解并发标记的三色标记算法。它是描述追踪式回收器的一种有用的方法，利用它可以推演回收器的正确性。 首先，我们将对象分成三种类型的。</p>
+<ul>
+<li>黑色:根对象，或者该对象与它的子对象都被扫描</li>
+<li>灰色:对象本身被扫描,但还没扫描完该对象中的子对象</li>
+<li>白色:未被扫描对象，扫描完成所有对象之后，最终为白色的为不可达对象，即垃圾对象</li>
+</ul>
+<p>当GC开始扫描对象时，按照如下图步骤进行对象的扫描：</p>
+<p>根对象被置为黑色，子对象被置为灰色。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/8efbc44ba3b845e6086a83377e912bb9.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/8efbc44ba3b845e6086a83377e912bb9.png" alt="6"></a></p>
+<p>继续由灰色遍历,将已扫描了子对象的对象置为黑色。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/f56ab01de2138dc3b4a4bb3d50f54594.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/f56ab01de2138dc3b4a4bb3d50f54594.png" alt="7"></a></p>
+<p>遍历了所有可达的对象后，所有可达的对象都变成了黑色。不可达的对象即为白色，需要被清理。<br><a href="http://jbcdn2.b0.upaiyun.com/2016/12/c4f581fd4a8877375d54a55e4af27841.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/c4f581fd4a8877375d54a55e4af27841.png" alt="8"></a></p>
+<p>这看起来很美好，但是如果在标记过程中，应用程序也在运行，那么对象的指针就有可能改变。这样的话，我们就会遇到一个问题：对象丢失问题</p>
+<p>我们看下面一种情况，当垃圾收集器扫描到下面情况时：</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/5dd0686b02e1898ec1a987c2e1571548.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/5dd0686b02e1898ec1a987c2e1571548.png" alt="9"></a></p>
+<p>这时候应用程序执行了以下操作：</p>
+<blockquote>
+<p>A.c=C<br>B.c=null</p>
+</blockquote>
+<p>这样，对象的状态图变成如下情形：</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/78ad6fbc199fca514a5336b2167bd8f7.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/78ad6fbc199fca514a5336b2167bd8f7.png" alt="10"></a></p>
+<p>这时候垃圾收集器再标记扫描的时候就会下图成这样：</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/f4765bacd1941792df63c6296ad12e3a.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/f4765bacd1941792df63c6296ad12e3a.png" alt="11"></a></p>
+<p>很显然，此时C是白色，被认为是垃圾需要清理掉，显然这是不合理的。那么我们如何保证应用程序在运行的时候，GC标记的对象不丢失呢？有如下2中可行的方式：</p>
+<ol>
+<li>在插入的时候记录对象</li>
+<li>在删除的时候记录对象</li>
+</ol>
+<p>刚好这对应CMS和G1的2种不同实现方式：</p>
+<p>在CMS采用的是增量更新（Incremental update），只要在写屏障（write barrier）里发现要有一个白对象的引用被赋值到一个黑对象 的字段里，那就把这个白对象变成灰色的。即插入的时候记录下来。</p>
+<p>在G1中，使用的是STAB（snapshot-at-the-beginning）的方式，删除的时候记录所有的对象，它有3个步骤：</p>
+<p>1，在开始标记的时候生成一个快照图标记存活对象</p>
+<p>2，在并发标记的时候所有被改变的对象入队（在write barrier里把所有旧的引用所指向的对象都变成非白的）</p>
+<p>3，可能存在游离的垃圾，将在下次被收集</p>
+<p>这样，G1到现在可以知道哪些老的分区可回收垃圾最多。 当全局并发标记完成后，在某个时刻，就开始了Mix GC。这些垃圾回收被称作“混合式”是因为他们不仅仅进行正常的新生代垃圾收集，同时也回收部分后台扫描线程标记的分区。混合式垃圾收集如下图：</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/0860c63775ccbc265095b5a844f0d381.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/0860c63775ccbc265095b5a844f0d381.png" alt="12"></a></p>
+<p>混合式GC也是采用的复制的清理策略，当GC完成后，会重新释放空间。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/12/599b50c478126754a1cc614a85b149bd.png" target="_blank" rel="noopener"><img src="http://jbcdn2.b0.upaiyun.com/2016/12/599b50c478126754a1cc614a85b149bd.png" alt="13"></a></p>
+<p>至此，混合式GC告一段落了。下一小节我们讲进入调优实践。</p>
+<h2 id="五-调优实践"><a href="#五-调优实践" class="headerlink" title="五 调优实践"></a><strong>五 调优实践</strong></h2><p>MaxGCPauseMillis调优</p>
+<p>前面介绍过使用GC的最基本的参数：</p>
+<blockquote>
+<p>-XX:+UseG1GC -Xmx32g -XX:MaxGCPauseMillis=200</p>
+</blockquote>
+<p>前面2个参数都好理解，后面这个MaxGCPauseMillis参数该怎么配置呢？这个参数从字面的意思上看，就是允许的GC最大的暂停时间。G1尽量确保每次GC暂停的时间都在设置的MaxGCPauseMillis范围内。 那G1是如何做到最大暂停时间的呢？这涉及到另一个概念，CSet(collection set)。它的意思是在一次垃圾收集器中被收集的区域集合。</p>
+<ul>
+<li>Young GC：选定所有新生代里的region。通过控制新生代的region个数来控制young GC的开销。</li>
+<li>Mixed GC：选定所有新生代里的region，外加根据global concurrent marking统计得出收集收益高的若干老年代region。在用户指定的开销目标范围内尽可能选择收益高的老年代region。</li>
+</ul>
+<p>在理解了这些后，我们再设置最大暂停时间就好办了。 首先，我们能容忍的最大暂停时间是有一个限度的，我们需要在这个限度范围内设置。但是应该设置的值是多少呢？我们需要在吞吐量跟MaxGCPauseMillis之间做一个平衡。如果MaxGCPauseMillis设置的过小，那么GC就会频繁，吞吐量就会下降。如果MaxGCPauseMillis设置的过大，应用程序暂停时间就会变长。G1的默认暂停时间是200毫秒，我们可以从这里入手，调整合适的时间。</p>
+<h3 id="其他调优参数"><a href="#其他调优参数" class="headerlink" title="其他调优参数"></a><strong>其他调优参数</strong></h3><p>-XX:G1HeapRegionSize=n</p>
+<p>设置的 G1 区域的大小。值是 2 的幂，范围是 1 MB 到 32 MB 之间。目标是根据最小的 Java 堆大小划分出约 2048 个区域。</p>
+<p>-XX:ParallelGCThreads=n</p>
+<p>设置 STW 工作线程数的值。将 n 的值设置为逻辑处理器的数量。n 的值与逻辑处理器的数量相同，最多为 8。</p>
+<p>如果逻辑处理器不止八个，则将 n 的值设置为逻辑处理器数的 5/8 左右。这适用于大多数情况，除非是较大的 SPARC 系统，其中 n 的值可以是逻辑处理器数的 5/16 左右。</p>
+<p>-XX:ConcGCThreads=n</p>
+<p>设置并行标记的线程数。将 n 设置为并行垃圾回收线程数 (ParallelGCThreads) 的 1/4 左右。</p>
+<p>-XX:InitiatingHeapOccupancyPercent=45</p>
+<p>设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。</p>
+<p>避免使用以下参数：</p>
+<p>避免使用 -Xmn 选项或 -XX:NewRatio 等其他相关选项显式设置年轻代大小。固定年轻代的大小会覆盖暂停时间目标。</p>
+<h3 id="触发Full-GC"><a href="#触发Full-GC" class="headerlink" title="触发Full GC"></a><strong>触发Full GC</strong></h3><p>在某些情况下，G1触发了Full GC，这时G1会退化使用Serial收集器来完成垃圾的清理工作，它仅仅使用单线程来完成GC工作，GC暂停时间将达到秒级别的。整个应用处于假死状态，不能处理任何请求，我们的程序当然不希望看到这些。那么发生Full GC的情况有哪些呢？</p>
+<ul>
+<li>并发模式失败</li>
+</ul>
+<p>G1启动标记周期，但在Mix GC之前，老年代就被填满，这时候G1会放弃标记周期。这种情形下，需要增加堆大小，或者调整周期（例如增加线程数-XX:ConcGCThreads等）。</p>
+<ul>
+<li>晋升失败或者疏散失败</li>
+</ul>
+<p>G1在进行GC的时候没有足够的内存供存活对象或晋升对象使用，由此触发了Full GC。可以在日志中看到(to-space exhausted)或者（to-space overflow）。解决这种问题的方式是：</p>
+<p>a,增加 -XX:G1ReservePercent 选项的值（并相应增加总的堆大小），为“目标空间”增加预留内存量。</p>
+<p>b,通过减少 -XX:InitiatingHeapOccupancyPercent 提前启动标记周期。</p>
+<p>c,也可以通过增加 -XX:ConcGCThreads 选项的值来增加并行标记线程的数目。</p>
+<ul>
+<li>巨型对象分配失败</li>
+</ul>
+<p>当巨型对象找不到合适的空间进行分配时，就会启动Full GC，来释放空间。这种情况下，应该避免分配大量的巨型对象，增加内存或者增大-XX:G1HeapRegionSize，使巨型对象不再是巨型对象。</p>
+<p>由于篇幅有限，G1还有很多调优实践，在此就不一一列出了，大家在平常的实践中可以慢慢探索。最后，期待java 9能正式发布，默认使用G1为垃圾收集器的java性能会不会又提高呢？</p>
+<p>附录：</p>
+<p>（1）<a href="http://dl.acm.org/citation.cfm?id=1029879" target="_blank" rel="noopener">The original G1 paper: Detlefs, D., Flood, C., Heller, S., and Printezis, T. 2004. Garbage-first garbage collection. In Proceedings of the 4th international Symposium on Memory Management (Vancouver, BC, Canada, October 24 – 25, 2004)</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/16/java/shen-ru-li-jie-java-g1-la-ji-shou-ji-qi/" class="b-link-green">深入理解Java G1垃圾收集器</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/16/java/shen-ru-li-jie-java-g1-la-ji-shou-ji-qi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="深入理解Java G1垃圾收集器">
+                        
+                        <span class="card-title">深入理解Java G1垃圾收集器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">深入理解Java G1垃圾收集器本文首先简单介绍了垃圾收集的常见方式，然后再分析了G1收集器的收集原理，相比其他垃圾收集器的优势，最后给出了一些调优实践。
+一 什么是垃圾回收首先，在了解G1之前，我们需要清楚的知道，垃圾回收是什么？简单的说</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/16/suan-fa/pai-xu/gui-bing-pai-xu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="归并排序">
+                        
+                        <span class="card-title">归并排序</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">归并排序基本思想　　归并排序（MERGE-SORT）是利用归并的思想实现的排序方法，该算法采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解，而治(conquer)的阶段则将</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/排序/" target="_blank">
+                        <span class="chip bg-color">排序</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

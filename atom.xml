@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-16T09:25:28.219Z</updated>
+  <updated>2019-01-16T10:18:43.184Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入理解Java G1垃圾收集器</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/16/java/shen-ru-li-jie-java-g1-la-ji-shou-ji-qi/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/16/java/shen-ru-li-jie-java-g1-la-ji-shou-ji-qi/</id>
+    <published>2019-01-16T10:10:00.000Z</published>
+    <updated>2019-01-16T10:18:43.184Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;深入理解Java-G1垃圾收集器&quot;&gt;&lt;a href=&quot;#深入理解Java-G1垃圾收集器&quot; class=&quot;headerlink&quot; title=&quot;深入理解Java G1垃圾收集器&quot;&gt;&lt;/a&gt;深入理解Java
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java虚拟机" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>归并排序</title>
@@ -400,34 +426,6 @@
   </entry>
   
   <entry>
-    <title>旋转有序数组的搜索</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-you-xu-shu-zu-de-sou-suo/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-you-xu-shu-zu-de-sou-suo/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:06:05.268Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;旋转有序数组的搜索&quot;&gt;&lt;a href=&quot;#旋转有序数组的搜索&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
     <title>旋转数组</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
@@ -457,11 +455,11 @@
   </entry>
   
   <entry>
-    <title>行列递增的二维数组搜索</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/</id>
+    <title>求和为给定值的组合</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:46:08.260Z</updated>
+    <updated>2019-01-06T04:57:40.632Z</updated>
     
     <summary type="html">
     
@@ -469,7 +467,7 @@
       
         
         
-          &lt;h2 id=&quot;行列递增的二维数组搜索&quot;&gt;&lt;a href=&quot;#行列递增的二维数组搜索&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot;
         
       
     
@@ -485,11 +483,11 @@
   </entry>
   
   <entry>
-    <title>旋转二维数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/</id>
+    <title>硬币面值组合问题</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:59:03.158Z</updated>
+    <updated>2019-01-06T05:00:59.822Z</updated>
     
     <summary type="html">
     
@@ -497,8 +495,7 @@
       
         
         
-          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot; title=&quot;求和为给定值的组合&quot;&gt;&lt;/a&gt;求和为给定值的组合&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个 n
+          &lt;h2 id=&quot;硬币面值组合问题&quot;&gt;&lt;a href=&quot;#硬币面值组合问题&quot; class=&quot;headerlink&quot;
         
       
     
@@ -542,11 +539,11 @@
   </entry>
   
   <entry>
-    <title>最小硬币组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
+    <title>二维数组的二分搜索</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/er-wei-shu-zu-de-er-fen-sou-suo/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:02:26.187Z</updated>
+    <updated>2019-01-06T04:48:20.586Z</updated>
     
     <summary type="html">
     
@@ -554,7 +551,7 @@
       
         
         
-          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;二维数组的二分搜索&quot;&gt;&lt;a href=&quot;#二维数组的二分搜索&quot; class=&quot;headerlink&quot;
         
       
     
