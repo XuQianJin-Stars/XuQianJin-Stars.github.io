@@ -481,6 +481,62 @@
   </entry>
   
   <entry>
+    <title>有序数组中求和为给定值的两个数</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/you-xu-shu-zu-zhong-qiu-he-wei-gei-ding-zhi-de-liang-ge-shu/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T04:44:02.682Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;有序数组中求和为给定值的两个数&quot;&gt;&lt;a href=&quot;#有序数组中求和为给定值的两个数&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最小硬币组合</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
+    <published>2019-01-06T04:43:00.000Z</published>
+    <updated>2019-01-06T05:02:26.187Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>旋转数组</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
@@ -495,62 +551,6 @@
         
           &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;这个题目说的是，给你一个数组和一个数字
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数组的下一个排列</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/shu-zu-de-xia-yi-ge-pai-lie/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:53:16.123Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;数组的下一个排列&quot;&gt;&lt;a href=&quot;#数组的下一个排列&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>求和为给定值的组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/qiu-he-wei-gei-ding-zhi-de-zu-he/</id>
-    <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:57:40.632Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot;
         
       
     
