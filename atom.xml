@@ -363,9 +363,9 @@
       <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
     
     
-      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java/"/>
+    
+      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -391,9 +391,9 @@
       <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
     
     
-      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java/"/>
+    
+      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -509,11 +509,11 @@
   </entry>
   
   <entry>
-    <title>旋转数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/xuan-zhuan-shu-zu/</id>
+    <title>最长连续整数序列的长度</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-chang-lian-xu-zheng-shu-xu-lie-de-chang-du/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T04:56:09.872Z</updated>
+    <updated>2019-01-06T04:51:35.704Z</updated>
     
     <summary type="html">
     
@@ -521,8 +521,7 @@
       
         
         
-          &lt;h2 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;#旋转数组&quot; class=&quot;headerlink&quot; title=&quot;旋转数组&quot;&gt;&lt;/a&gt;旋转数组&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这个题目说的是，给你一个数组和一个数字
+          &lt;h2 id=&quot;最长连续整数序列的长度&quot;&gt;&lt;a href=&quot;#最长连续整数序列的长度&quot; class=&quot;headerlink&quot;
         
       
     
@@ -538,11 +537,11 @@
   </entry>
   
   <entry>
-    <title>最小硬币组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/</id>
+    <title>硬币面值组合问题</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/06/suan-fa/shu-zu/ying-bi-mian-zhi-zu-he-wen-ti/</id>
     <published>2019-01-06T04:43:00.000Z</published>
-    <updated>2019-01-06T05:02:26.187Z</updated>
+    <updated>2019-01-06T05:00:59.822Z</updated>
     
     <summary type="html">
     
@@ -550,7 +549,7 @@
       
         
         
-          &lt;h2 id=&quot;最小硬币组合&quot;&gt;&lt;a href=&quot;#最小硬币组合&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;硬币面值组合问题&quot;&gt;&lt;a href=&quot;#硬币面值组合问题&quot; class=&quot;headerlink&quot;
         
       
     
