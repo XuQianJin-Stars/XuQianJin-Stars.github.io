@@ -1,0 +1,870 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="HashSet and HashMap, 大数据 实时计算 机器学习">
+    <meta name="description" content="HashSet and HashMap总体介绍之所以把HashSet和HashMap放在一起讲解，是因为二者在Java里有着相同的实现，前者仅仅是对后者做了一层包装，也就是说HashSet里面有一个HashMap（适配器模式）*。因此本文将">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HashSet and HashMap | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        HashSet and HashMap
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/java容器/" target="_blank">
+                    <span class="chip bg-color">java容器</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/java/" class="post-category" target="_blank">
+                        java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-19
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="HashSet-and-HashMap"><a href="#HashSet-and-HashMap" class="headerlink" title="HashSet and HashMap"></a>HashSet and HashMap</h1><h1 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h1><p>之所以把<em>HashSet</em>和<em>HashMap</em>放在一起讲解，是因为二者在Java里有着相同的实现，前者仅仅是对后者做了一层包装，也就是说<em>HashSet里面有一个HashMap</em>（适配器模式）*<em>。因此本文将重点分析</em>HashMap*。</p>
+<p><em>HashMap</em>实现了<em>Map</em>接口，即允许放入<code>key</code>为<code>null</code>的元素，也允许插入<code>value</code>为<code>null</code>的元素；除该类未实现同步外，其余跟<code>Hashtable</code>大致相同；跟<em>TreeMap</em>不同，该容器不保证元素顺序，根据需要该容器可能会对元素重新哈希，元素的顺序也会被重新打散，因此不同时间迭代同一个<em>HashMap</em>的顺序可能会不同。 根据对冲突的处理方式不同，哈希表有两种实现方式，一种开放地址方式（Open addressing），另一种是冲突链表方式（Separate chaining with linked lists）。<strong>Java HashMap采用的是冲突链表方式</strong>。 <a href="https://github.com/CarpenterLee/JCFInternals/blob/master/PNGFigures/HashMap_base.png"><img src="https://github.com/CarpenterLee/JCFInternals/raw/master/PNGFigures/HashMap_base.png" alt="HashMap_base"></a></p>
+<p>从上图容易看出，如果选择合适的哈希函数，<code>put()</code>和<code>get()</code>方法可以在常数时间内完成。但在对<em>HashMap</em>进行迭代时，需要遍历整个table以及后面跟的冲突链表。因此对于迭代比较频繁的场景，不宜将<em>HashMap</em>的初始大小设的过大。</p>
+<p>有两个参数可以影响<em>HashMap</em>的性能：初始容量（inital capacity）和负载系数（load factor）。初始容量指定了初始<code>table</code>的大小，负载系数用来指定自动扩容的临界值。当<code>entry</code>的数量超过<code>capacity*load_factor</code>时，容器将自动扩容并重新哈希。对于插入元素较多的场景，将初始容量设大可以减少重新哈希的次数。</p>
+<p>将对象放入到<em>HashMap</em>或<em>HashSet</em>中时，有两个方法需要特别关心：<code>hashCode()</code>和<code>equals()</code>。<strong>hashCode()方法决定了对象会被放到哪个bucket里，当多个对象的哈希值冲突时，equals()方法决定了这些对象是否是“同一个对象”</strong>。所以，如果要将自定义的对象放入到<code>HashMap</code>或<code>HashSet</code>中，需要<em>@Override</em><code>hashCode()</code>和<code>equals()</code>方法。</p>
+<h1 id="方法剖析"><a href="#方法剖析" class="headerlink" title="方法剖析"></a>方法剖析</h1><h2 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h2><p><code>get(Object key)</code>方法根据指定的<code>key</code>值返回对应的<code>value</code>，该方法调用了<code>getEntry(Object key)</code>得到相应的<code>entry</code>，然后返回<code>entry.getValue()</code>。因此<code>getEntry()</code>是算法的核心。 算法思想是首先通过<code>hash()</code>函数得到对应<code>bucket</code>的下标，然后依次遍历冲突链表，通过<code>key.equals(k)</code>方法来判断是否是要找的那个<code>entry</code>。 <a href="https://github.com/CarpenterLee/JCFInternals/blob/master/PNGFigures/HashMap_getEntry.png"><img src="https://github.com/CarpenterLee/JCFInternals/raw/master/PNGFigures/HashMap_getEntry.png" alt="HashMap_getEntry"></a>上图中<code>hash(k)&amp;(table.length-1)</code>等价于<code>hash(k)%table.length</code>，原因是<em>HashMap</em>要求<code>table.length</code>必须是2的指数，因此<code>table.length-1</code>就是二进制低位全是1，跟<code>hash(k)</code>相与会将哈希值的高位全抹掉，剩下的就是余数了。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//getEntry()方法</span>
+<span class="token keyword">final</span> Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token function">getEntry</span><span class="token punctuation">(</span>Object key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">int</span> hash <span class="token operator">=</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token function">hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> e <span class="token operator">=</span> table<span class="token punctuation">[</span>hash<span class="token operator">&amp;</span><span class="token punctuation">(</span>table<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//得到冲突链表</span>
+         e <span class="token operator">!=</span> null<span class="token punctuation">;</span> e <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//依次遍历冲突链表中的每个entry</span>
+        Object k<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//依据equals()方法判断是否相等</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash <span class="token operator">==</span> hash <span class="token operator">&amp;&amp;</span>
+            <span class="token punctuation">(</span><span class="token punctuation">(</span>k <span class="token operator">=</span> e<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> key <span class="token operator">||</span> <span class="token punctuation">(</span>key <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> key<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> e<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="put"><a href="#put" class="headerlink" title="put()"></a>put()</h2><p><code>put(K key, V value)</code>方法是将指定的<code>key, value</code>对添加到<code>map</code>里。该方法首先会对<code>map</code>做一次查找，看是否包含该元组，如果已经包含则直接返回，查找过程类似于<code>getEntry()</code>方法；如果没有找到，则会通过<code>addEntry(int hash, K key, V value, int bucketIndex)</code>方法插入新的<code>entry</code>，插入方式为<strong>头插法</strong>。 <a href="https://github.com/CarpenterLee/JCFInternals/blob/master/PNGFigures/HashMap_addEntry.png"><img src="https://github.com/CarpenterLee/JCFInternals/raw/master/PNGFigures/HashMap_addEntry.png" alt="HashMap_addEntry"></a></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//addEntry()</span>
+<span class="token keyword">void</span> <span class="token function">addEntry</span><span class="token punctuation">(</span><span class="token keyword">int</span> hash<span class="token punctuation">,</span> K key<span class="token punctuation">,</span> V value<span class="token punctuation">,</span> <span class="token keyword">int</span> bucketIndex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>size <span class="token operator">>=</span> threshold<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>null <span class="token operator">!=</span> table<span class="token punctuation">[</span>bucketIndex<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">resize</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> table<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//自动扩容，并重新哈希</span>
+        hash <span class="token operator">=</span> <span class="token punctuation">(</span>null <span class="token operator">!=</span> key<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token function">hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        bucketIndex <span class="token operator">=</span> hash <span class="token operator">&amp;</span> <span class="token punctuation">(</span>table<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//hash%table.length</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//在冲突链表头部插入新的entry</span>
+    Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> e <span class="token operator">=</span> table<span class="token punctuation">[</span>bucketIndex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    table<span class="token punctuation">[</span>bucketIndex<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entry</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>hash<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    size<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="remove"><a href="#remove" class="headerlink" title="remove()"></a>remove()</h2><p><code>remove(Object key)</code>的作用是删除<code>key</code>值对应的<code>entry</code>，该方法的具体逻辑是在<code>removeEntryForKey(Object key)</code>里实现的。<code>removeEntryForKey()</code>方法会首先找到<code>key</code>值对应的<code>entry</code>，然后删除该<code>entry</code>（修改链表的相应引用）。查找过程跟<code>getEntry()</code>过程类似。 <a href="https://github.com/CarpenterLee/JCFInternals/blob/master/PNGFigures/HashMap_removeEntryForKey.png"><img src="https://github.com/CarpenterLee/JCFInternals/raw/master/PNGFigures/HashMap_removeEntryForKey.png" alt="HashMap_removeEntryForKey"></a></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//removeEntryForKey()</span>
+<span class="token keyword">final</span> Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token function">removeEntryForKey</span><span class="token punctuation">(</span>Object key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">int</span> hash <span class="token operator">=</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token function">hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">indexFor</span><span class="token punctuation">(</span>hash<span class="token punctuation">,</span> table<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//hash&amp;(table.length-1)</span>
+    Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> prev <span class="token operator">=</span> table<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//得到冲突链表</span>
+    Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> e <span class="token operator">=</span> prev<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>e <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//遍历冲突链表</span>
+        Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> next <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        Object k<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash <span class="token operator">==</span> hash <span class="token operator">&amp;&amp;</span>
+            <span class="token punctuation">(</span><span class="token punctuation">(</span>k <span class="token operator">=</span> e<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> key <span class="token operator">||</span> <span class="token punctuation">(</span>key <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> key<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//找到要删除的entry</span>
+            modCount<span class="token operator">++</span><span class="token punctuation">;</span> size<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>prev <span class="token operator">==</span> e<span class="token punctuation">)</span> table<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//删除的是冲突链表的第一个entry</span>
+            <span class="token keyword">else</span> prev<span class="token punctuation">.</span>next <span class="token operator">=</span> next<span class="token punctuation">;</span>
+            <span class="token keyword">return</span> e<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        prev <span class="token operator">=</span> e<span class="token punctuation">;</span> e <span class="token operator">=</span> next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> e<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h1><p>前面已经说过<em>HashSet</em>是对<em>HashMap</em>的简单包装，对<em>HashSet</em>的函数调用都会转换成合适的<em>HashMap</em>方法，因此<em>HashSet</em>的实现非常简单，只有不到300行代码。这里不再赘述。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//HashSet是对HashMap的简单包装</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span>E<span class="token operator">></span>
+<span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">private</span> <span class="token keyword">transient</span> HashMap<span class="token operator">&lt;</span>E<span class="token punctuation">,</span>Object<span class="token operator">></span> map<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//HashSet里面有一个HashMap</span>
+    <span class="token comment" spellcheck="true">// Dummy value to associate with an Object in the backing Map</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Object PRESENT <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token function">HashSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span>E e<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//简单的方法转换</span>
+        <span class="token keyword">return</span> map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> PRESENT<span class="token punctuation">)</span><span class="token operator">==</span>null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>本文转载自: <a href="https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/6-HashSet%20and%20HashMap.md#hashset-and-hashmap">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/19/java/java-rong-qi/hashset-and-hashmap/" class="b-link-green">HashSet and HashMap</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">本篇</div>
+            <div class="card">
+                <a href="/2019/01/19/java/java-rong-qi/hashset-and-hashmap/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="HashSet and HashMap">
+                        
+                        <span class="card-title">HashSet and HashMap</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">HashSet and HashMap总体介绍之所以把HashSet和HashMap放在一起讲解，是因为二者在Java里有着相同的实现，前者仅仅是对后者做了一层包装，也就是说HashSet里面有一个HashMap（适配器模式）*。因此本文将</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java容器/" target="_blank">
+                        <span class="chip bg-color">java容器</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="/2019/01/19/java/java-rong-qi/treeset-and-treemap/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="TreeSet and TreeMap">
+                        
+                        <span class="card-title">TreeSet and TreeMap</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">TreeSet and TreeMap总体介绍之所以把TreeSet和TreeMap放在一起讲解，是因为二者在Java里有着相同的实现，前者仅仅是对后者做了一层包装，也就是说TreeSet里面有一个TreeMap（适配器模式）*。因此本文将</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java容器/" target="_blank">
+                        <span class="chip bg-color">java容器</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">目录</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
