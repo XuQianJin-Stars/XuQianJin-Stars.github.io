@@ -5,14 +5,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="路径和是否等于给定值, 大数据 实时计算 机器学习">
-    <meta name="description" content="路径和是否等于给定值问题
-这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。
-比如说，给你的二叉树是：
-
-    1
-  /   \
- 2     ">
+    <meta name="keywords" content="常用日志框架(log4j，slf4j，logback)有啥区别, 大数据 实时计算 机器学习">
+    <meta name="description" content="常用日志框架(log4j，slf4j，logback)有啥区别1、概述相信目前大多数情况下，不管是开源框架或是平时我们工作编码中都离不开一种框架，它就是日志框架。因此本节就简单了解一下我们常用日志框架的区别。
+2、Commons Loggi">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>路径和是否等于给定值 | ForwardXu</title>
+    <title>常用日志框架(log4j，slf4j，logback)有啥区别 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -219,13 +214,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        路径和是否等于给定值
+                        常用日志框架(log4j，slf4j，logback)有啥区别
                     </div>
                 </div>
             </div>
@@ -336,8 +331,12 @@
             
             <div class="article-tag">
                 
-                <a href="/tags/algorithm/" target="_blank">
-                    <span class="chip bg-color">algorithm</span>
+                <a href="/tags/java虚拟机/" target="_blank">
+                    <span class="chip bg-color">java虚拟机</span>
+                </a>
+                
+                <a href="/tags/开发工具/" target="_blank">
+                    <span class="chip bg-color">开发工具</span>
                 </a>
                 
             </div>
@@ -348,15 +347,15 @@
                 <!--<span class="post-cate" style="margin-right: 0px">-->
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
-                    <a href="/categories/algorithm/" class="post-category" target="_blank">
-                        algorithm
+                    <a href="/categories/java/" class="post-category" target="_blank">
+                        java
                     </a>
                     
                 </span>
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-14
                 </span>
 				
 				
@@ -368,63 +367,33 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="路径和是否等于给定值"><a href="#路径和是否等于给定值" class="headerlink" title="路径和是否等于给定值"></a>路径和是否等于给定值</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，给你一棵二叉树和一个整数，你要判断这棵二叉树上是否存在一条从根到叶子节点的路径，这条路径上所有节点中的数字相加等于给你的整数。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的二叉树是：
-
-<span class="token code keyword">    1</span>
-  /   \
- 2     4
-<span class="token code keyword">      / \</span>
-<span class="token code keyword">     8  16</span>
-
-给你的整数是 13。在这棵二叉树中存在一条从根到叶子节点的路径 1->4->8，路径上的数字加起来等于 13，于是要返回 true。
-</code></pre>
-<p><strong>代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
-
-  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TreeNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    TreeNode left<span class="token punctuation">;</span>
-    TreeNode right<span class="token punctuation">;</span>
-
-    <span class="token function">TreeNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasPathSumRecursive</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">,</span> <span class="token keyword">int</span> sum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span>left <span class="token operator">==</span> null <span class="token operator">&amp;&amp;</span> root<span class="token punctuation">.</span>right <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> root<span class="token punctuation">.</span>val <span class="token operator">==</span> sum<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token function">hasPathSumRecursive</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> sum <span class="token operator">-</span> root<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token operator">||</span>
-      <span class="token function">hasPathSumRecursive</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> sum <span class="token operator">-</span> root<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasPathSumIterative</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">,</span> <span class="token keyword">int</span> sum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    Stack<span class="token operator">&lt;</span>TreeNode<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Stack<span class="token operator">&lt;</span>Integer<span class="token operator">></span> sumStack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    sumStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      TreeNode n <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">int</span> s <span class="token operator">=</span> sumStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>left <span class="token operator">==</span> null <span class="token operator">&amp;&amp;</span> n<span class="token punctuation">.</span>right <span class="token operator">==</span> null <span class="token operator">&amp;&amp;</span> n<span class="token punctuation">.</span>val <span class="token operator">==</span> s<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span> sumStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>s <span class="token operator">-</span> n<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span> sumStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>s <span class="token operator">-</span> n<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
+                <h1 id="常用日志框架-log4j，slf4j，logback-有啥区别"><a href="#常用日志框架-log4j，slf4j，logback-有啥区别" class="headerlink" title="常用日志框架(log4j，slf4j，logback)有啥区别"></a>常用日志框架(log4j，slf4j，logback)有啥区别</h1><h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>相信目前大多数情况下，不管是开源框架或是平时我们工作编码中都离不开一种框架，它就是日志框架。因此本节就简单了解一下我们常用日志框架的区别。</p>
+<h2 id="2、Commons-Logging"><a href="#2、Commons-Logging" class="headerlink" title="2、Commons Logging"></a>2、Commons Logging</h2><p>common-logging是apache提供的一个通用的日志接口，<br>在common-logging中，有一个Simple logger的简单实现，但是它功能很弱，所以使用common-logging，通常都是配合着log4j来使用；</p>
+<p>Commons Logging定义了一个自己的接口 org.apache.commons.logging.Log，以屏蔽不同日志框架的API差异，这里用到了Adapter Pattern（适配器模式）。</p>
+<h2 id="3、SLF4J"><a href="#3、SLF4J" class="headerlink" title="3、SLF4J"></a>3、SLF4J</h2><p>Simple Logging Facade for Java（SLF4J）用作各种日志框架（例如java.util.logging，logback，log4j）的简单外观或抽象，允许最终用户在部署时插入所需的日志框架。</p>
+<p>要切换日志框架，只需替换类路径上的slf4j绑定。 例如，要从java.util.logging切换到log4j，只需将slf4j-jdk14-1.8.0-beta2.jar替换为slf4j-log4j12-1.8.0-beta2.jar</p>
+<p>SLF4J不依赖于任何特殊的类装载机制。 实际上，每个SLF4J绑定在编译时都是硬连线的，以使用一个且只有一个特定的日志记录框架。 例如，slf4j-log4j12-1.8.0-beta2.jar绑定在编译时绑定以使用log4j。 在您的代码中，除了slf4j-api-1.8.0-beta2.jar之外，您只需将您选择的一个且只有一个绑定放到相应的类路径位置。 不要在类路径上放置多个绑定。</p>
+<p>以下是slf4j 绑定其它日志组件的图解说明。</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/20181216142102250.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/常用工具/20181216142102250.png" alt="img"></a></p>
+<p>因此，slf4j 就是众多日志接口的集合，他不负责具体的日志实现，只在编译时负责寻找合适的日志系统进行绑定。具体有哪些接口，全部都定义在slf4j-api中。查看slf4j-api源码就可以发现，里面除了public final class LoggerFactory类之外，都是接口定义。因此，slf4j-api本质就是一个接口定义。</p>
+<p>总之，Slf4j更好的兼容了各种具体日志实现的框架，如图：</p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/20181216143003494.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/常用工具/20181216143003494.png" alt="img"></a></p>
+<h2 id="4、Log4j"><a href="#4、Log4j" class="headerlink" title="4、Log4j"></a>4、Log4j</h2><p>Apache Log4j是一个非常古老的日志框架，并且是多年来最受欢迎的日志框架。 它引入了现代日志框架仍在使用的基本概念，如分层日志级别和记录器。</p>
+<p>2015年8月5日，该项目管理委员会宣布Log4j 1.x已达到使用寿命。 建议用户使用Log4j 1升级到Apache Log4j 2。</p>
+<h2 id="5、Log4j2"><a href="#5、Log4j2" class="headerlink" title="5、Log4j2"></a>5、Log4j2</h2><p>Apache Log4j 2是对Log4j的升级，它比其前身Log4j 1.x提供了重大改进，并提供了Logback中可用的许多改进，同时修复了Logback架构中的一些固有问题。</p>
+<p>与Logback一样，Log4j2提供对SLF4J的支持，自动重新加载日志配置，并支持高级过滤选项。 除了这些功能外，它还允许基于lambda表达式对日志语句进行延迟评估，为低延迟系统提供异步记录器，并提供无垃圾模式以避免由垃圾收集器操作引起的任何延迟。</p>
+<p>所有这些功能使Log4j2成为这三个日志框架中最先进和最快的。</p>
+<h2 id="6、Logback"><a href="#6、Logback" class="headerlink" title="6、Logback"></a>6、Logback</h2><p>logback是由log4j创始人设计的又一个开源日志组件，作为流行的log4j项目的后续版本，从而替代log4j。</p>
+<p>Logback的体系结构足够通用，以便在不同情况下应用。 目前，logback分为三个模块：logback-core，logback-classic和logback-access。</p>
+<p>logback-core：模块为其他两个模块的基础。</p>
+<p>logback-classic：模块可以被看做是log4j的改进版本。此外，logback-classic本身实现了SLF4J API，因此可以在logback和其他日志框架（如log4j或java.util.logging（JUL））之间来回切换。</p>
+<p>logback-access：模块与Servlet容器（如Tomcat和Jetty）集成，以提供HTTP访问日志功能。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我建议直接选择SLF4J而不是Log4j，commons logging，logback或java.util.logging</p>
+<p>1、在开源库或内部库中使用SLF4J，将使其独立于任何特定的日志记录实现，这意味着无需为多个库管理多个日志记录配置，您的客户端将会很需要这一点。</p>
+<p>2、SLF4J提供了基于占位符的日志记录，通过删除检查（isDebugEnabled（），isInfoEnabled（）等）来提高代码的可读性。</p>
+<p>3、另外，临时字符串数量越少意味着垃圾收集器的工作量就越少，这意味着应用程序的吞吐量和性能会更好。</p>
+<p>这些优势只是冰山一角，当您开始使用SL4J深入了解它时，您将看到更多的优点。 我强烈建议，Java中的任何新代码开发都应该使用SLF4J来记录日志。</p>
+<p>本文转自：<a href="https://blog.csdn.net/u010647035/article/details/85037206" target="_blank" rel="noopener">原文</a></p>
 
             </div>
             <hr>
@@ -563,7 +532,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/lu-jing-he-shi-fou-deng-yu-gei-ding-zhi/" class="b-link-green">路径和是否等于给定值</a>
+                    <a href="/2019/01/14/chang-yong-gong-ju/chang-yong-ri-zhi-kuang-jia-log4j-slf4j-logback-you-sha-qu-bie/" class="b-link-green">常用日志框架(log4j，slf4j，logback)有啥区别</a>
                 </p>
             </div>
         </div>
@@ -587,29 +556,28 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shu-zu/qiu-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/">
+                <a href="/2019/01/14/chang-yong-gong-ju/java-ming-ling-jhat-ming-ling-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="求两个有序数组的中位数">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java命令--jhat命令使用">
                         
-                        <span class="card-title">求两个有序数组的中位数</span>
+                        <span class="card-title">Java命令--jhat命令使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">求两个有序数组的中位数问题
-这个题目说的是，给你两个排好序的整数数组 nums1 和 nums2，假设数组是以递增排序的，数组的大小分别是 m 和 n。你要找到这两个数组的中位数。要求算法的时间复杂度是 O(log(m+n))。
-这里两个数</div>
+                    <div class="summary">Java命令–jhat命令使用jhat也是jdk内置的工具之一。主要是用来分析java堆的命令，可以将堆中的对象以html的形式显示出来，包括对象的数量，大小等等，并支持对象查询语言。
+使用jmap等方法生成java的堆文件后，使用其进行分</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
                                 </a>
                             
                             
@@ -619,12 +587,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
                     </a>
                     
-                    <a href="/tags/数组/" target="_blank">
-                        <span class="chip bg-color">数组</span>
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
                     </a>
                     
                 </div>
@@ -636,33 +604,29 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shi-xian-ping-fang-gen-han-shu/">
+                <a href="/2019/01/14/chang-yong-gong-ju/jvm-dui-xiang-cha-xun-yu-yan-oql/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="实现平方根函数">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="JVM 对象查询语言(OQL)">
                         
-                        <span class="card-title">实现平方根函数</span>
+                        <span class="card-title">JVM 对象查询语言(OQL)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">实现平方根函数问题
-这个题目说的是，你要实现一个函数，来计算非负整数 n 的平方根，平方根只需返回整数部分即可。
-比如，使用你实现的函数来计算 9 的平方根是 3：
-
-f(9) = 3
-
-由于 8 的平方根是 2 点几，使用你实现的函数只需</div>
+                    <div class="summary">JVM 对象查询语言(OQL)本文主要翻译自JDK 1.8的JVM监控工具jhat中关于OQL的英文帮助说明。
+可以在jhat 和 jvisualvm 中进行实践。
+OQL（对象查询语言）OQL是用于查询Java堆的类SQL查询语言。OQL</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
                                 </a>
                             
                             
@@ -672,8 +636,12 @@ f(9) = 3
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
                     </a>
                     
                 </div>
