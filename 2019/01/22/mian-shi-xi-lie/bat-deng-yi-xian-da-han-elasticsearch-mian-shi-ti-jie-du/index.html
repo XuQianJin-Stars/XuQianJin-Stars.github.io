@@ -401,7 +401,7 @@ git上发现了网友总结的Elasticsearch BAT大厂面试题。只有题目，
 <p>上面的提及一部分，面试者就基本对你之前的实践或者运维经验有所评估了。</p>
 <h3 id="2、elasticsearch的倒排索引是什么"><a href="#2、elasticsearch的倒排索引是什么" class="headerlink" title="2、elasticsearch的倒排索引是什么"></a>2、elasticsearch的倒排索引是什么</h3><p><code>面试官</code>：想了解你对基础概念的认知。<br><code>解答</code>：通俗解释一下就可以。</p>
 <p>传统的我们的检索是通过文章，逐个遍历找到对应关键词的位置。<br>而倒排索引，是通过分词策略，形成了词和文章的映射关系表，这种词典+映射表即为倒排索引。<br>有了倒排索引，就能实现<code>o（1）时间复杂度</code>的效率检索文章了，极大的提高了检索效率。</p>
-<p><img src="https://img-blog.csdnimg.cn/2019011923160111.png" alt="在这里插入图片描述"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/Elasticsearch/2019011923160111.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/Elasticsearch/2019011923160111.png" alt="img"></a></p>
 <p>学术的解答方式：</p>
 <blockquote>
 <p>倒排索引，相反于一篇文章包含了哪些词，它从词出发，记载了这个词在哪些文档中出现过，由两部分组成——词典和倒排表。</p>
@@ -433,7 +433,7 @@ git上发现了网友总结的Elasticsearch BAT大厂面试题。只有题目，
 3127.0.0.1 9300          39   1.9gb Hk9w Hk9wFwU
 </code></pre><h3 id="5、详细描述一下Elasticsearch索引文档的过程"><a href="#5、详细描述一下Elasticsearch索引文档的过程" class="headerlink" title="5、详细描述一下Elasticsearch索引文档的过程"></a>5、详细描述一下Elasticsearch索引文档的过程</h3><p><code>面试官</code>：想了解ES的底层原理，不再只关注业务层面了。<br><code>解答</code>：<br>这里的索引文档应该理解为文档写入ES，创建索引的过程。<br>文档写入包含：单文档写入和批量bulk写入，这里只解释一下：单文档写入流程。</p>
 <p>记住官方文档中的这个图。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mjl8GCpsL9aVRYk2h4L8O0LOpVIcOfUiaK59eL2dXDAibuCsdicwyfibFA9BxcdBXiabV42SXNcFOUAO50ONaZlmibjg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="在这里插入图片描述"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/Elasticsearch/20190119231620775.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/Elasticsearch/20190119231620775.png" alt="img"></a></p>
 <p>第一步：客户写集群某节点写入数据，发送请求。（如果没有指定路由/协调节点，请求的节点扮演<code>路由节点</code>的角色。）</p>
 <p>第二步：节点1接受到请求后，使用文档_id来确定文档属于分片0。请求会被转到另外的节点，假定节点3。因此分片0的主分片分配到节点3上。</p>
 <p>第三步：节点3在主分片上执行写操作，如果成功，则将请求并行转发到节点1和节点2的副本分片上，等待结果返回。所有的副本分片都报告成功，节点3将向协调节点（节点1）报告成功，节点1向请求客户端报告写入成功。</p>
@@ -455,7 +455,7 @@ git上发现了网友总结的Elasticsearch BAT大厂面试题。只有题目，
 <li>5）磁盘存储raid方式——存储有条件使用RAID10，增加单节点性能以及避免单节点存储故障。</li>
 </ul>
 <h3 id="8、lucence内部结构是什么？"><a href="#8、lucence内部结构是什么？" class="headerlink" title="8、lucence内部结构是什么？"></a>8、lucence内部结构是什么？</h3><p><code>面试官</code>：想了解你的知识面的广度和深度。<br><code>解答</code>：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mjl8GCpsL9aVRYk2h4L8O0LOpVIcOfUiarsc9Z0eJ2dZuwUH2ufPZqdicZzlMYO4s5xLRicxibBXocWYqFHDFdOicPg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="在这里插入图片描述"></p>
+<p><a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/Elasticsearch/20190119231637780.png"><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/raw/master/medias/Elasticsearch/20190119231637780.png" alt="img"></a></p>
 <p>Lucene是有索引和搜索的两个过程，包含索引创建，索引，搜索三个要点。可以基于这个脉络展开一些。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>看到题目后，感觉熟悉又陌生。真正要在面试的时候讲出来，需要<code>下一番功夫</code>深入理解。<br>为了<code>求证回答的相对准确性</code>，我翻看了源码、官方文档和部分有深度的博文。<br>Elasticsearch路还很长，别无他法，唯有死磕！</p>
 <p>参考：请阅读原文查看。</p>
@@ -672,17 +672,17 @@ git上发现了网友总结的Elasticsearch BAT大厂面试题。只有题目，
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2019/01/21/java/java-rong-qi/weakhashmap/">
+                <a href="/2019/01/21/java/java-rong-qi/linkedlist/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="WeakHashMap">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="LinkedList">
                         
-                        <span class="card-title">WeakHashMap</span>
+                        <span class="card-title">LinkedList</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">WeakHashMap总体介绍在Java集合框架系列文章的最后，笔者打算介绍一个特殊的成员：WeakHashMap，从名字可以看出它是某种 Map。它的特殊之处在于 WeakHashMap 里的entry可能会被GC自动删除，即使程序员没有</div>
+                    <div class="summary">LinkedList总体介绍LinkedList同时实现了List接口和Deque接口，也就是说它既可以看作一个顺序容器，又可以看作一个队列（Queue），同时又可以看作一个栈（Stack）。这样看来，LinkedList简直就是个全能冠军</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-21
