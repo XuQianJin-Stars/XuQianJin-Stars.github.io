@@ -105,7 +105,7 @@
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -327,37 +327,47 @@
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
-            
-            <div class="article-tag">
-                
-                <a href="/tags/java容器/" target="_blank">
-                    <span class="chip bg-color">java容器</span>
-                </a>
-                
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/java容器/" target="_blank">
+                                <span class="chip bg-color">java容器</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            
-            <div class="post-info">
-                
-                <span class="post-cate">
-                <!--<span class="post-cate" style="margin-right: 0px">-->
-                    <i class="fa fa-bookmark fa-fw icon-category"></i>
-                    
-                    <a href="/categories/java/" class="post-category" target="_blank">
-                        java
-                    </a>
-                    
-                </span>
-                
 
+            <div class="post-info">
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2019-01-21
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2019-01-21
                 </span>
+
+                
 				
 				
                     <span id="busuanzi_container_page_pv" class="post-read">
-                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
 				
-            </span></div>
+            </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -618,7 +628,9 @@
 
             <div class="reprint">
                 <p>
-                    <span class="reprint-tip">转载请注明: </span>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/" class="b-link-green">LinkedHashSet and LinkedHashMap</a>
@@ -643,7 +655,59 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/01/22/mian-shi-xi-lie/bat-deng-yi-xian-da-han-elasticsearch-mian-shi-ti-jie-du/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="BAT等一线大厂Elasticsearch面试题解读">
+                        
+                        <span class="card-title">BAT等一线大厂Elasticsearch面试题解读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">BAT等一线大厂Elasticsearch面试题解读题记
+git上发现了网友总结的Elasticsearch BAT大厂面试题。只有题目，部分有答案，但不全。 正好抽出一些时间一起梳理一下。
+既然是面试题，每个人都会有自己的结合业务场景的答</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/面试系列/" class="post-category" target="_blank">
+                                    面试系列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ElasticSearch/" target="_blank">
+                        <span class="chip bg-color">ElasticSearch</span>
+                    </a>
+                    
+                    <a href="/tags/搜索引擎/" target="_blank">
+                        <span class="chip bg-color">搜索引擎</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2019/01/21/java/java-rong-qi/weakhashmap/">
                     <div class="card-image">
@@ -657,51 +721,8 @@
                 <div class="card-content article-content">
                     <div class="summary">WeakHashMap总体介绍在Java集合框架系列文章的最后，笔者打算介绍一个特殊的成员：WeakHashMap，从名字可以看出它是某种 Map。它的特殊之处在于 WeakHashMap 里的entry可能会被GC自动删除，即使程序员没有</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-21
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                    java
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/java容器/" target="_blank">
-                        <span class="chip bg-color">java容器</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
-            <div class="card">
-                <a href="/2019/01/20/java/java-rong-qi/arraylist/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="ArrayList">
-                        
-                        <span class="card-title">ArrayList</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">ArrayList总体介绍ArrayList实现了List接口，是顺序容器，即元素存放的数据与放进去的顺序相同，允许放入null元素，底层通过数组实现。除该类未实现同步外，其余跟Vector大致相同。每个ArrayList都有一个容量（ca</div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-20
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-21
                             </span>
                         <span class="publish-author">
                             
@@ -772,10 +793,8 @@
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
-            <div class="toc-title">目录</div>
-            <div id="toc-content">
-
-            </div>
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
@@ -828,13 +847,17 @@
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -862,7 +885,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>

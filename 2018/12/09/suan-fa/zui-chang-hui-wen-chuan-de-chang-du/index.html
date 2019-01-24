@@ -111,7 +111,7 @@ aaabccdd
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -333,37 +333,47 @@ aaabccdd
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
-            
-            <div class="article-tag">
-                
-                <a href="/tags/algorithm/" target="_blank">
-                    <span class="chip bg-color">algorithm</span>
-                </a>
-                
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/algorithm/" target="_blank">
+                                <span class="chip bg-color">algorithm</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                algorithm
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            
-            <div class="post-info">
-                
-                <span class="post-cate">
-                <!--<span class="post-cate" style="margin-right: 0px">-->
-                    <i class="fa fa-bookmark fa-fw icon-category"></i>
-                    
-                    <a href="/categories/algorithm/" class="post-category" target="_blank">
-                        algorithm
-                    </a>
-                    
-                </span>
-                
 
+            <div class="post-info">
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-09
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2018-12-09
                 </span>
+
+                
 				
 				
                     <span id="busuanzi_container_page_pv" class="post-read">
-                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
 				
-            </span></div>
+            </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -531,7 +541,9 @@ aaabccdd
 
             <div class="reprint">
                 <p>
-                    <span class="reprint-tip">转载请注明: </span>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-chuan-de-chang-du/" class="b-link-green">最长回文串的长度</a>
@@ -556,30 +568,24 @@ aaabccdd
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/12/09/suan-fa/lian-biao/you-xu-lian-biao-shan-chu-chong-fu-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="最长回文子串">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="有序链表删除重复节点">
                         
-                        <span class="card-title">最长回文子串</span>
+                        <span class="card-title">有序链表删除重复节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">最长回文子串问题
-这个题目说的是，给你一个字符串，你要在它所有的回文子串中，找到长度最长的子串，并返回它。
-比如说，给你的字符串是：
+                    <div class="summary">有序链表删除重复节点问题
+这个题目说的是，给你一个单链表，这个单链表节点上的数字是有序的。对于出现多次的数字，你要把它们全删掉，留下只出现一次的节点，最后返回处理后的单链表。
+比如说，给你的有序单链表是：
 
-abcbab
-
-你要返回的最长回文子串是：
-
-abcba
-
-代码
-public class AlgoCa</div>
+1 -> 1 -> 2 -> 4</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -603,6 +609,10 @@ public class AlgoCa</div>
                         <span class="chip bg-color">algorithm</span>
                     </a>
                     
+                    <a href="/tags/链表/" target="_blank">
+                        <span class="chip bg-color">链表</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -610,20 +620,25 @@ public class AlgoCa</div>
         
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/shu-ju-liu-zhong-di-k-da-de-yuan-su/">
+                <a href="/2018/12/09/suan-fa/shu-zu/you-xu-shu-zu-zhong-de-dan-shen-shu-zi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="数据流中第 K 大的元素">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="有序数组中的单身数字">
                         
-                        <span class="card-title">数据流中第 K 大的元素</span>
+                        <span class="card-title">有序数组中的单身数字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">数据流中第 K 大的元素问题
-这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，整数数组作为初始数据流。第二个是 add 函数，接收一个整数表</div>
+                    <div class="summary">有序数组中的单身数字问题
+这个题目说的是，给你一个排好序的整数数组，里面的数字都出现两次，只有一个数字出现了一次，我们管它叫单身数字，你要写代码找到这个单身数字。
+比如说给你的有序数组是：
+
+1, 1, 2, 2, 4, 4, 6, 8, </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
@@ -645,6 +660,10 @@ public class AlgoCa</div>
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/数组/" target="_blank">
+                        <span class="chip bg-color">数组</span>
                     </a>
                     
                 </div>
@@ -697,10 +716,8 @@ public class AlgoCa</div>
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
-            <div class="toc-title">目录</div>
-            <div id="toc-content">
-
-            </div>
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
@@ -753,13 +770,17 @@ public class AlgoCa</div>
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -787,7 +808,7 @@ public class AlgoCa</div>
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>

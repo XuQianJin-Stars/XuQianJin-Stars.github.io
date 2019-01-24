@@ -112,7 +112,7 @@
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -334,37 +334,47 @@
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
-            
-            <div class="article-tag">
-                
-                <a href="/tags/设计模式/" target="_blank">
-                    <span class="chip bg-color">设计模式</span>
-                </a>
-                
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/设计模式/" target="_blank">
+                                <span class="chip bg-color">设计模式</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/面向对象/" class="post-category" target="_blank">
+                                面向对象
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            
-            <div class="post-info">
-                
-                <span class="post-cate">
-                <!--<span class="post-cate" style="margin-right: 0px">-->
-                    <i class="fa fa-bookmark fa-fw icon-category"></i>
-                    
-                    <a href="/categories/面向对象/" class="post-category" target="_blank">
-                        面向对象
-                    </a>
-                    
-                </span>
-                
 
+            <div class="post-info">
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-24
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2018-12-24
                 </span>
+
+                
 				
 				
                     <span id="busuanzi_container_page_pv" class="post-read">
-                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
 				
-            </span></div>
+            </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -2787,7 +2797,9 @@ ExtrinsicState<span class="token operator">:</span> y
 
             <div class="reprint">
                 <p>
-                    <span class="reprint-tip">转载请注明: </span>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/12/24/mian-xiang-dui-xiang/she-ji-mo-shi/" class="b-link-green">设计模式</a>
@@ -2812,24 +2824,33 @@ ExtrinsicState<span class="token operator">:</span> y
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/12/24/shu-ju-ku/leetcode-database-ti-jie/">
+                <a href="/2018/12/24/xi-tong-she-ji/ji-qun/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Leetcode-Database 题解">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="集群">
                         
-                        <span class="card-title">Leetcode-Database 题解</span>
+                        <span class="card-title">集群</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Leetcode-Database 题解
-595. Big Countries
-627. Swap Salary
-620. Not Boring Movies
-596. Classes More Than 5 Students
-182. D</div>
+                    <div class="summary">集群
+一、负载均衡
+负载均衡算法
+转发实现
+
+
+二、集群下的 Session 管理
+Sticky Session
+Session Replication
+Session Server
+
+
+
+一、负载均衡集群中的应用服务器（节点）通常被设计成</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
@@ -2838,8 +2859,8 @@ ExtrinsicState<span class="token operator">:</span> y
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据库/" class="post-category" target="_blank">
-                                    数据库
+                            <a href="/categories/系统设计/" class="post-category" target="_blank">
+                                    系统设计
                                 </a>
                             
                             
@@ -2849,8 +2870,8 @@ ExtrinsicState<span class="token operator">:</span> y
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Leetcode-Database-题解/" target="_blank">
-                        <span class="chip bg-color">Leetcode-Database 题解</span>
+                    <a href="/tags/集群/" target="_blank">
+                        <span class="chip bg-color">集群</span>
                     </a>
                     
                 </div>
@@ -2860,40 +2881,33 @@ ExtrinsicState<span class="token operator">:</span> y
         
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
-                <a href="/2018/12/24/shu-ju-ku/mysql/">
+                <a href="/2018/12/24/mian-xiang-dui-xiang/mian-xiang-dui-xiang-si-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="MySQL">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="面向对象思想">
                         
-                        <span class="card-title">MySQL</span>
+                        <span class="card-title">面向对象思想</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">MySQL
-一、索引
-B+ Tree 原理
-MySQL 索引
-索引优化
-索引的优点
-索引的使用条件
+                    <div class="summary">面向对象思想
+一、三大特性
+封装
+继承
+多态
 
 
-二、查询性能优化
-使用 Explain 进行分析
-优化数据访问
-重构查询方式
-
-
-三、存储引擎
-InnoDB
-MyISAM
-比较
-
-
-四</div>
+二、类图
+泛化关系 (Generalization)
+实现关系 (Realization)
+聚合关系 (Aggregation)
+组合关系 (Composition)
+关联关系 (Assoc</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
@@ -2902,8 +2916,8 @@ MyISAM
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据库/" class="post-category" target="_blank">
-                                    数据库
+                            <a href="/categories/面向对象/" class="post-category" target="_blank">
+                                    面向对象
                                 </a>
                             
                             
@@ -2913,8 +2927,8 @@ MyISAM
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/" target="_blank">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/面向对象思想/" target="_blank">
+                        <span class="chip bg-color">面向对象思想</span>
                     </a>
                     
                 </div>
@@ -2967,10 +2981,8 @@ MyISAM
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
-            <div class="toc-title">目录</div>
-            <div id="toc-content">
-
-            </div>
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
@@ -3023,13 +3035,17 @@ MyISAM
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -3057,7 +3073,7 @@ MyISAM
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>

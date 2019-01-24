@@ -122,7 +122,7 @@ Serializa">
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -344,37 +344,47 @@ Serializa">
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
-            
-            <div class="article-tag">
-                
-                <a href="/tags/java-IO/" target="_blank">
-                    <span class="chip bg-color">java IO</span>
-                </a>
-                
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/java-IO/" target="_blank">
+                                <span class="chip bg-color">java IO</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            
-            <div class="post-info">
-                
-                <span class="post-cate">
-                <!--<span class="post-cate" style="margin-right: 0px">-->
-                    <i class="fa fa-bookmark fa-fw icon-category"></i>
-                    
-                    <a href="/categories/java/" class="post-category" target="_blank">
-                        java
-                    </a>
-                    
-                </span>
-                
 
+            <div class="post-info">
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-24
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2018-12-24
                 </span>
+
+                
 				
 				
                     <span id="busuanzi_container_page_pv" class="post-read">
-                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
 				
-            </span></div>
+            </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -980,7 +990,9 @@ Iterator<span class="token operator">&lt;</span>SelectionKey<span class="token o
 
             <div class="reprint">
                 <p>
-                    <span class="reprint-tip">转载请注明: </span>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/12/24/java/java-io/" class="b-link-green">Java IO</a>
@@ -1005,30 +1017,35 @@ Iterator<span class="token operator">&lt;</span>SelectionKey<span class="token o
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/12/24/java/java-bing-fa/">
+                <a href="/2018/12/24/java/java-ji-chu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Java并发">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java基础">
                         
-                        <span class="card-title">Java并发</span>
+                        <span class="card-title">Java基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Java并发
-一、线程状态转换
-新建（New）
-可运行（Runnable）
-阻塞（Blocking）
-无限期等待（Waiting）
-限期等待（Timed Waiting）
-死亡（Terminated）
+                    <div class="summary">Java基础
+一、数据类型
+包装类型
+缓存池
 
 
-二、使用线程
-实现 Runnabl</div>
+二、String
+概览
+不可变的好处
+String, StringBuffer and StringBuilder
+String Pool
+new String(“abc”)
+
+
+三、运算
+</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
@@ -1048,8 +1065,8 @@ Iterator<span class="token operator">&lt;</span>SelectionKey<span class="token o
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java并发/" target="_blank">
-                        <span class="chip bg-color">java并发</span>
+                    <a href="/tags/java基础/" target="_blank">
+                        <span class="chip bg-color">java基础</span>
                     </a>
                     
                 </div>
@@ -1059,46 +1076,33 @@ Iterator<span class="token operator">&lt;</span>SelectionKey<span class="token o
         
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
-                <a href="/2018/12/24/java/java-rong-qi/java-rong-qi/">
+                <a href="/2018/12/23/suan-fa/shu-zu/tiao-wan-shu-zu-de-zui-shao-tiao-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Java容器">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="跳完数组的最少跳数">
                         
-                        <span class="card-title">Java容器</span>
+                        <span class="card-title">跳完数组的最少跳数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Java容器
-一、概览
-Collection
-Map
-
-
-二、容器中的设计模式
-迭代器模式
-适配器模式
-
-
-三、源码分析
-ArrayList
-Vector
-CopyOnWriteArrayList
-LinkedList
-HashMap
-Co</div>
+                    <div class="summary">跳完数组的最少跳数问题
+这个题目说的是，给你一个非负整数数组，数组中的每个数字表示那个位置上可以向后跳的最大步数。一开始你站在下标为 0 的位置，你要计算出最少需要跳几次才能到达数组最后位置。如果无法到达数组最后位置，则返回 -1。
+比如说</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                    java
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
                                 </a>
                             
                             
@@ -1108,8 +1112,12 @@ Co</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java容器/" target="_blank">
-                        <span class="chip bg-color">java容器</span>
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/数组/" target="_blank">
+                        <span class="chip bg-color">数组</span>
                     </a>
                     
                 </div>
@@ -1162,10 +1170,8 @@ Co</div>
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
-            <div class="toc-title">目录</div>
-            <div id="toc-content">
-
-            </div>
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
@@ -1218,13 +1224,17 @@ Co</div>
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -1252,7 +1262,7 @@ Co</div>
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>

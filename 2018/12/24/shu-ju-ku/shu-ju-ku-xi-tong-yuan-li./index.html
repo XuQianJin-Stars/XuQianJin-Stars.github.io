@@ -127,7 +127,7 @@ MySQL 隐式与显示锁定
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -349,37 +349,47 @@ MySQL 隐式与显示锁定
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
-            
-            <div class="article-tag">
-                
-                <a href="/tags/数据库系统原理/" target="_blank">
-                    <span class="chip bg-color">数据库系统原理</span>
-                </a>
-                
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/数据库系统原理/" target="_blank">
+                                <span class="chip bg-color">数据库系统原理</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/数据库/" class="post-category" target="_blank">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            
-            <div class="post-info">
-                
-                <span class="post-cate">
-                <!--<span class="post-cate" style="margin-right: 0px">-->
-                    <i class="fa fa-bookmark fa-fw icon-category"></i>
-                    
-                    <a href="/categories/数据库/" class="post-category" target="_blank">
-                        数据库
-                    </a>
-                    
-                </span>
-                
 
+            <div class="post-info">
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-12-24
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2018-12-24
                 </span>
+
+                
 				
 				
                     <span id="busuanzi_container_page_pv" class="post-read">
-                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
 				
-            </span></div>
+            </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -1252,7 +1262,9 @@ delete;
 
             <div class="reprint">
                 <p>
-                    <span class="reprint-tip">转载请注明: </span>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/12/24/shu-ju-ku/shu-ju-ku-xi-tong-yuan-li/" class="b-link-green">数据库系统原理</a>
@@ -1277,69 +1289,8 @@ delete;
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
-            <div class="card">
-                <a href="/2018/12/24/xi-tong-she-ji/xiao-xi-dui-lie/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="消息队列">
-                        
-                        <span class="card-title">消息队列</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">消息队列
-一、消息模型
-点对点
-发布/订阅
-
-
-二、使用场景
-异步处理
-流量削锋
-应用解耦
-
-
-三、可靠性
-发送端的可靠性
-接收端的可靠性
-
-
-参考资料
-
-一、消息模型点对点消息生产者向消息队列中发送了一个消息之后，只能被一个消费者消费一次</div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/系统设计/" class="post-category" target="_blank">
-                                    系统设计
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/消息队列/" target="_blank">
-                        <span class="chip bg-color">消息队列</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2018/12/24/shu-ju-ku/redis/">
                     <div class="card-image">
@@ -1378,9 +1329,9 @@ ZSET
 
 五、Redis 与 Memcache</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1398,6 +1349,70 @@ ZSET
                     
                     <a href="/tags/Redis/" target="_blank">
                         <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/12/24/xi-tong-she-ji/xiao-xi-dui-lie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="消息队列">
+                        
+                        <span class="card-title">消息队列</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">消息队列
+一、消息模型
+点对点
+发布/订阅
+
+
+二、使用场景
+异步处理
+流量削锋
+应用解耦
+
+
+三、可靠性
+发送端的可靠性
+接收端的可靠性
+
+
+参考资料
+
+一、消息模型点对点消息生产者向消息队列中发送了一个消息之后，只能被一个消费者消费一次</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/系统设计/" class="post-category" target="_blank">
+                                    系统设计
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/消息队列/" target="_blank">
+                        <span class="chip bg-color">消息队列</span>
                     </a>
                     
                 </div>
@@ -1450,10 +1465,8 @@ ZSET
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
-            <div class="toc-title">目录</div>
-            <div id="toc-content">
-
-            </div>
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
@@ -1506,13 +1519,17 @@ ZSET
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -1540,7 +1557,7 @@ ZSET
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>

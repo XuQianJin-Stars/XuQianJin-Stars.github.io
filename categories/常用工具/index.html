@@ -105,7 +105,7 @@
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -244,7 +244,9 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 <div id="category-cloud" class="container chip-container">
     <div class="card">
         <div class="card-content">
-            <div class="tag-title center-align">文章分类</div>
+            <div class="tag-title center-align">
+                <i class="fa fa-bookmark"></i>&nbsp;&nbsp;文章分类
+            </div>
             <div class="tag-chips">
                 
                 
@@ -351,7 +353,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                     </a>
                     <div class="card-content article-content">
-                        <div class="summary">Java几种常用JSON库性能比较上一篇介绍了Java性能测试框架JMH的使用方法，本篇通过JMH来测试一下Java中几种常见的JSON解析</div>
+                        <div class="summary">
+                            
+                                Java几种常用JSON库性能比较上一篇介绍了Java性能测试框架JMH的使用方法，本篇通过JMH来测试一下Java中几种常见的JSON解析
+                            
+                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -393,7 +399,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                     </a>
                     <div class="card-content article-content">
-                        <div class="summary">Java微基准测试框架JMHJMH，即Java Microbenchmark Harness，这是专门用于进行代码的微基准测试的一套工具AP</div>
+                        <div class="summary">
+                            
+                                Java微基准测试框架JMHJMH，即Java Microbenchmark Harness，这是专门用于进行代码的微基准测试的一套工具AP
+                            
+                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -435,7 +445,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                     </a>
                     <div class="card-content article-content">
-                        <div class="summary">用IDEA跟踪Java源码的技巧之前关于 IDEA 的文章，我已经写了三篇，没想到挺受大家喜欢的。读本文前，可以先读一下我之前写的这几篇文章</div>
+                        <div class="summary">
+                            
+                                用IDEA跟踪Java源码的技巧之前关于 IDEA 的文章，我已经写了三篇，没想到挺受大家喜欢的。读本文前，可以先读一下我之前写的这几篇文章
+                            
+                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-28
@@ -477,13 +491,17 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -511,7 +529,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>

@@ -113,7 +113,7 @@
     
     <li>
         <a id="toggleSearch" class="waves-effect waves-light">
-            <i id="searchIcon" class="mdi-action-search"></i>
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
         </a>
     </li>
 
@@ -335,41 +335,51 @@
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
-            
-            <div class="article-tag">
-                
-                <a href="/tags/algorithm/" target="_blank">
-                    <span class="chip bg-color">algorithm</span>
-                </a>
-                
-                <a href="/tags/数组/" target="_blank">
-                    <span class="chip bg-color">数组</span>
-                </a>
-                
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/algorithm/" target="_blank">
+                                <span class="chip bg-color">algorithm</span>
+                            </a>
+                        
+                            <a href="/tags/数组/" target="_blank">
+                                <span class="chip bg-color">数组</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                algorithm
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            
-            <div class="post-info">
-                
-                <span class="post-cate">
-                <!--<span class="post-cate" style="margin-right: 0px">-->
-                    <i class="fa fa-bookmark fa-fw icon-category"></i>
-                    
-                    <a href="/categories/algorithm/" class="post-category" target="_blank">
-                        algorithm
-                    </a>
-                    
-                </span>
-                
 
+            <div class="post-info">
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2019-01-06
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2019-01-06
                 </span>
+
+                
 				
 				
                     <span id="busuanzi_container_page_pv" class="post-read">
-                    <i class="fa fa-eye fa-fw"></i>阅读 <span id="busuanzi_value_page_pv"></span>
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
 				
-            </span></div>
+            </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
@@ -549,7 +559,9 @@
 
             <div class="reprint">
                 <p>
-                    <span class="reprint-tip">转载请注明: </span>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2019/01/06/suan-fa/shu-zu/xuan-zhuan-er-wei-shu-zu/" class="b-link-green">旋转二维数组</a>
@@ -574,21 +586,22 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/">
+                <a href="/2019/01/06/suan-fa/shu-zu/xu-yao-pai-xu-de-zui-duan-zi-shu-zu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="最小硬币组合">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="需要排序的最短子数组">
                         
-                        <span class="card-title">最小硬币组合</span>
+                        <span class="card-title">需要排序的最短子数组</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">最小硬币组合问题
-这个题目说的是，给你一些面值不同的硬币，每一种面值的硬币都有无限多个，现在你要用这些硬币组成一个给定的数值，那么请问，最少需要多少个硬币。另外，如果给你的面值无法组成给定数值，就返回 -1。
-比如说，给你的硬币有 1 分 </div>
+                    <div class="summary">需要排序的最短子数组问题
+这个题目说的是，给你一个整数数组，你要找到一个最短的子数组，只要把它按递增排序，那么整个数组就变成递增有序。最后返回这个最短子数组的长度。注意，子数组要求是连续的。
+比如说，给你的数组是 0, 2, 4, 1, 8</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-06
@@ -623,21 +636,23 @@
         
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
-                <a href="/2019/01/06/suan-fa/shu-zu/xing-lie-di-zeng-de-er-wei-shu-zu-sou-suo/">
+                <a href="/2019/01/06/suan-fa/shu-zu/zui-xiao-ying-bi-zu-he/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="行列递增的二维数组搜索">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="最小硬币组合">
                         
-                        <span class="card-title">行列递增的二维数组搜索</span>
+                        <span class="card-title">最小硬币组合</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">行列递增的二维数组搜索问题
-这个题目说的是，给你一个二维数组 matrix，和一个目标值 target。你要在数组里找到这个目标值，然后返回它的行/列下标。如果找不到，则返回 [-1,-1]。
-这个数组的每一行都是从左向右递增，每一列都是从</div>
+                    <div class="summary">最小硬币组合问题
+这个题目说的是，给你一些面值不同的硬币，每一种面值的硬币都有无限多个，现在你要用这些硬币组成一个给定的数值，那么请问，最少需要多少个硬币。另外，如果给你的面值无法组成给定数值，就返回 -1。
+比如说，给你的硬币有 1 分 </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-06
@@ -715,10 +730,8 @@
     </div>
     <div class="col l3 hide-on-med-and-down">
         <div class="toc-widget">
-            <div class="toc-title">目录</div>
-            <div id="toc-content">
-
-            </div>
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
@@ -771,13 +784,17 @@
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
 
             
+
+            
 			
                 <br>
                 <span id="busuanzi_container_site_pv">
-                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
                 </span>
 				<span id="busuanzi_container_site_uv">
-                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
                 </span>
 			
         </div>
@@ -805,7 +822,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title">搜索</span>
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
