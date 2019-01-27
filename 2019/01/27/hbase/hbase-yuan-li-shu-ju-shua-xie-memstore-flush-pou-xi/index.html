@@ -1,0 +1,1065 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="HBase原理-数据刷写MemStore Flush剖析, 大数据 实时计算 机器学习">
+    <meta name="description" content="HBase原理-数据刷写MemStore Flush剖析接触过 HBase 的同学应该对 HBase 写数据的过程比较熟悉(不熟悉也没关系)。HBase 写数据(比如 put、delete)的时候，都是写 WAL(假设 WAL 没有被关闭)">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HBase原理-数据刷写MemStore Flush剖析 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        HBase原理-数据刷写MemStore Flush剖析
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Hbase/" target="_blank">
+                                <span class="chip bg-color">Hbase</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                Hbase
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <span class="post-date">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2019-01-27
+                </span>
+
+                
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
+                        3.9k
+                    </span>
+                    
+
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-clock-o fa-fw"></i>readTimes:&nbsp;&nbsp;
+                        16 Minutes
+                    </span>
+                    
+                
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+				
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="HBase原理-数据刷写MemStore-Flush剖析"><a href="#HBase原理-数据刷写MemStore-Flush剖析" class="headerlink" title="HBase原理-数据刷写MemStore Flush剖析"></a>HBase原理-数据刷写MemStore Flush剖析</h1><p>接触过 HBase 的同学应该对 HBase 写数据的过程比较熟悉(不熟悉也没关系)。HBase 写数据(比如 put、delete)的时候，都是写 WAL(假设 WAL 没有被关闭)，然后将数据写到一个称为 MemStore 的内存结构里面的，如下图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/Yicunacl1x3sTbxNg7Vf946CGdTEEOFJ2tH5R6U4wVQRMvrhmhtgBJU9sWKSXx4MZr6icKdVEhUw4rspbIBXNYbg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>但是，MemStore 毕竟是内存里面的数据结构，写到这里面的数据最终还是需要持久化到磁盘的，生成 HFile。如下图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/Yicunacl1x3sTbxNg7Vf946CGdTEEOFJ29HwLIeGvvHE2ibjYF6gdFQ2LUw8XGImu3gAsQibcIuU8H9RAaHf7mI1Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>理解 MemStore 的刷写对优化 MemStore 有很重要的意义，大部分人遇到的性能问题都是写操作被阻塞(Block)无法写入HBase。本文基于 HBase 2.0.2，并对 MemStore 的 Flush 进行说明，包括哪几种条件触发 Memstore Flush 及目前常见的刷写策略(FlushPolicy)。</p>
+<h2 id="什么时候触发-MemStore-Flush"><a href="#什么时候触发-MemStore-Flush" class="headerlink" title="什么时候触发 MemStore Flush"></a><strong>什么时候触发 MemStore Flush</strong></h2><p>有很多情况会触发 MemStore 的 Flush 操作，所以我们最好需要了解每种情况在什么时候触发 Memstore Flush。总的来说，主要有以下几种情况会触发 Memstore Flush：</p>
+<ul>
+<li>Region 中所有 MemStore 占用的内存超过相关阈值</li>
+<li>整个 RegionServer 的 MemStore 占用内存总和大于相关阈值</li>
+<li>WAL数量大于相关阈值</li>
+<li>定期自动刷写</li>
+<li>数据更新超过一定阈值</li>
+<li>手动触发刷写</li>
+</ul>
+<p>下面对这几种刷写进行简要说明：</p>
+<ul>
+<li><h3 id="Region-中所有-MemStore-占用的内存超过相关阈值"><a href="#Region-中所有-MemStore-占用的内存超过相关阈值" class="headerlink" title="Region 中所有 MemStore 占用的内存超过相关阈值"></a><strong>Region 中所有 MemStore 占用的内存超过相关阈值</strong></h3></li>
+</ul>
+<p>当一个 Region 中所有 MemStore 占用的内存(包括 OnHeap + OffHeap)大小超过刷写阈值的时候会触发一次刷写，这个阈值由 hbase.hregion.memstore.flush.size 参数控制，默认为128MB。我们每次调用 put、delete 等操作都会检查的这个条件的。</p>
+<p>但是如果我们的数据增加得很快，达到 hbase.hregion.memstore.flush.size <em> hbase.hregion.memstore.block.multiplier 的大小，hbase.hregion.memstore.block.multiplier 默认值为4，也就是128</em>4=512MB的时候，那么除了触发 MemStore 刷写之外，HBase 还会在刷写的时候同时阻塞所有写入该 Store 的写请求！这时候如果你往对应的 Store 写数据，会出现 RegionTooBusyException 异常。</p>
+<ul>
+<li><h3 id="整个-RegionServer-的-MemStore-占用内存总和大于相关阈值"><a href="#整个-RegionServer-的-MemStore-占用内存总和大于相关阈值" class="headerlink" title="整个 RegionServer 的 MemStore 占用内存总和大于相关阈值"></a><strong>整个 RegionServer 的 MemStore 占用内存总和大于相关阈值</strong></h3></li>
+</ul>
+<p>HBase 为 RegionServer 的 MemStore 分配一定的写缓存，大小等于 hbase_heapsize(RegionServer 占用的堆内存大小)* hbase.regionserver.global.memstore.size。hbase.regionserver.global.memstore.size 的默认值是 0.4，也就是说写缓存大概占用 RegionServer 整个 JVM 内存使用量的 40%。</p>
+<p>如果整个 RegionServer 的 MemStore 占用内存总和大于 hbase.regionserver.global.memstore.size.lower.limit <em> hbase.regionserver.global.memstore.size </em> hbase_heapsize 的时候，将会触发 MemStore 的刷写。其中 hbase.regionserver.global.memstore.size.lower.limit 的默认值为 0.95。</p>
+<p>举个例子，如果我们 HBase 堆内存总共是 32G，按照默认的比例，那么触发 RegionServer 级别的 Flush 是 RS 中所有的 MemStore 占用内存为：32 <em> 0.4 </em> 0.95 = 12.16G。</p>
+<p>注意：0.99.0 之前 hbase.regionserver.global.memstore.size 是 hbase.regionserver.global.memstore.upperLimit 参数；hbase.regionserver.global.memstore.size.lower.limit 是 hbase.regionserver.global.memstore.lowerLimit，参见 HBASE-5349</p>
+<p>RegionServer 级别的 Flush 策略是每次找到 RS 中占用内存最大的 Region 对他进行刷写，这个操作是循环进行的，直到总体内存的占用低于全局 MemStore 刷写下<br>限(hbase.regionserver.global.memstore.size.lower.limit <em> hbase.regionserver.global.memstore.size </em> hbase_heapsize)才会停止。</p>
+<p>需要注意的是，如果达到了 RegionServer 级别的 Flush，那么当前 RegionServer 的所有写操作将会被阻塞，而且这个阻塞可能会持续到分钟级别。</p>
+<ul>
+<li><h3 id="WAL数量大于相关阈值"><a href="#WAL数量大于相关阈值" class="headerlink" title="WAL数量大于相关阈值"></a><strong>WAL数量大于相关阈值</strong></h3></li>
+</ul>
+<p>WAL(Write-ahead log，预写日志)用来解决宕机之后的操作恢复问题的。数据到达 Region 的时候是先写入 WAL，然后再被写到 Memstore 的。如果 WAL 的数量越来越大，这就意味着 MemStore 中未持久化到磁盘的数据越来越多。当 RS 挂掉的时候，恢复时间将会变成，所以有必要在 WAL 到达一定的数量时进行一次刷写操作。阈值 maxLogs 的计算公式如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// Schedule a WAL roll when the WAL is 50% of the HDFS block size. Scheduling at 50% of block</span>
+<span class="token comment" spellcheck="true">// size should make it so WAL rolls before we get to the end-of-block (Block transitions cost</span>
+<span class="token comment" spellcheck="true">// some latency). In hbase-1 we did this differently. We scheduled a roll when we hit 95% of</span>
+<span class="token comment" spellcheck="true">// the block size but experience from the field has it that this was not enough time for the</span>
+<span class="token comment" spellcheck="true">// roll to happen before end-of-block. So the new accounting makes WALs of about the same</span>
+<span class="token comment" spellcheck="true">// size as those made in hbase-1 (to prevent surprise), we now have default block size as</span>
+<span class="token comment" spellcheck="true">// 2 times the DFS default: i.e. 2 * DFS default block size rolling at 50% full will generally</span>
+<span class="token comment" spellcheck="true">// make similar size logs to 1 * DFS default block size rolling at 95% full. See HBASE-19148.</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>blocksize <span class="token operator">=</span> WALUtil<span class="token punctuation">.</span><span class="token function">getWALBlockSize</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>conf<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>fs<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>walDir<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> multiplier <span class="token operator">=</span> conf<span class="token punctuation">.</span><span class="token function">getFloat</span><span class="token punctuation">(</span><span class="token string">"hbase.regionserver.logroll.multiplier"</span><span class="token punctuation">,</span> <span class="token number">0.5f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>logrollsize <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>blocksize <span class="token operator">*</span> multiplier<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>maxLogs <span class="token operator">=</span> conf<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span><span class="token string">"hbase.regionserver.maxlogs"</span><span class="token punctuation">,</span>
+      Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">,</span> <span class="token function">calculateMaxLogFiles</span><span class="token punctuation">(</span>conf<span class="token punctuation">,</span> logrollsize<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+  * Public because of FSHLog. Should be package-private
+  * @param isRecoverEdits the created writer is for recovered edits or WAL.
+  *                       For recovered edits, it is true and for WAL it is false.
+  */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">getWALBlockSize</span><span class="token punctuation">(</span>Configuration conf<span class="token punctuation">,</span> FileSystem fs<span class="token punctuation">,</span> Path dir<span class="token punctuation">,</span>
+     <span class="token keyword">boolean</span> isRecoverEdits<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+  <span class="token keyword">long</span> defaultBlockSize <span class="token operator">=</span> CommonFSUtils<span class="token punctuation">.</span><span class="token function">getDefaultBlockSize</span><span class="token punctuation">(</span>fs<span class="token punctuation">,</span> dir<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isRecoverEdits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">return</span> conf<span class="token punctuation">.</span><span class="token function">getLong</span><span class="token punctuation">(</span><span class="token string">"hbase.regionserver.recoverededits.blocksize"</span><span class="token punctuation">,</span> defaultBlockSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> conf<span class="token punctuation">.</span><span class="token function">getLong</span><span class="token punctuation">(</span><span class="token string">"hbase.regionserver.hlog.blocksize"</span><span class="token punctuation">,</span> defaultBlockSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">calculateMaxLogFiles</span><span class="token punctuation">(</span>Configuration conf<span class="token punctuation">,</span> <span class="token keyword">long</span> logRollSize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Pair<span class="token operator">&lt;</span>Long<span class="token punctuation">,</span> MemoryType<span class="token operator">></span> globalMemstoreSize <span class="token operator">=</span> MemorySizeUtil<span class="token punctuation">.</span><span class="token function">getGlobalMemStoreSize</span><span class="token punctuation">(</span>conf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>globalMemstoreSize<span class="token punctuation">.</span><span class="token function">getFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">/</span> logRollSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>也就是说，如果设置 hbase.regionserver.maxlogs，那就是这个参数的值；否则是 max(32, hbase_heapsize <em> hbase.regionserver.global.memstore.size </em> 2 / logRollSize)。如果某个 RegionServer 的 WAL 数量大于 maxLogs 就会触发 MemStore 的刷写。</p>
+<p>WAL 数量触发的刷写策略是，找到最旧的 un-archived WAL 文件，并找到这个 WAL 文件对应的 Regions， 然后对这些 Regions 进行刷写。</p>
+<ul>
+<li><h3 id="定期自动刷写"><a href="#定期自动刷写" class="headerlink" title="定期自动刷写"></a><strong>定期自动刷写</strong></h3></li>
+</ul>
+<p>如果我们很久没有对 HBase 的数据进行更新，这时候就可以依赖定期刷写策略了。RegionServer 在启动的时候会启动一个线程 PeriodicMemStoreFlusher 每隔 hbase.server.thread.wakefrequency 时间检查属于这个 RegionServer 的 Region 有没有超过一定时间都没有刷写，这个时间是由 hbase.regionserver.optionalcacheflushinterval 参数控制的，默认是 3600000，也就是1小时会进行一次刷写。如果设定为0，则意味着关闭定时自动刷写。</p>
+<p>为了防止一次性有过多的 MemStore 刷写，定期自动刷写会有 0 ~ 5 分钟的延迟，具体参见 PeriodicMemStoreFlusher 类的实现。</p>
+<ul>
+<li><h3 id="数据更新超过一定阈值"><a href="#数据更新超过一定阈值" class="headerlink" title="数据更新超过一定阈值"></a><strong>数据更新超过一定阈值</strong></h3></li>
+</ul>
+<p>如果 HBase 的某个 Region 更新的很频繁，而且既没有达到自动刷写阀值，也没有达到内存的使用限制，但是内存中的更新数量已经足够多，比如超过 hbase.regionserver.flush.per.changes 参数配置，默认为30000000，那么也是会触发刷写的。</p>
+<ul>
+<li><h3 id="手动触发刷写"><a href="#手动触发刷写" class="headerlink" title="手动触发刷写"></a><strong>手动触发刷写</strong></h3></li>
+</ul>
+<p>除了 HBase 内部一些条件触发的刷写之外，我们还可以通过执行相关命令或 API 来触发 MemStore 的刷写操作。比如调用可以调用 Admin 接口提供的方法：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+  * Flush a table. Synchronous operation.
+  *
+  * @param tableName table to flush
+  * @throws IOException if a remote or network exception occurs
+  */</span>
+<span class="token keyword">void</span> <span class="token function">flush</span><span class="token punctuation">(</span>TableName tableName<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+  * Flush an individual region. Synchronous operation.
+  *
+  * @param regionName region to flush
+  * @throws IOException if a remote or network exception occurs
+  */</span>
+<span class="token keyword">void</span> <span class="token function">flushRegion</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> regionName<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+  * Flush all regions on the region server. Synchronous operation.
+  * @param serverName the region server name to flush
+  * @throws IOException if a remote or network exception occurs
+  */</span>
+<span class="token keyword">void</span> <span class="token function">flushRegionServer</span><span class="token punctuation">(</span>ServerName serverName<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">;</span>
+</code></pre>
+<p>分别对某张表、某个 Region 或者某个 RegionServer 进行刷写操作。也可以在 Shell 中通过执行 flush 命令：</p>
+<pre class=" language-java"><code class="language-java">hbase<span class="token operator">></span> flush <span class="token string">'TABLENAME'</span>
+hbase<span class="token operator">></span> flush <span class="token string">'REGIONNAME'</span>
+hbase<span class="token operator">></span> flush <span class="token string">'ENCODED_REGIONNAME'</span>
+hbase<span class="token operator">></span> flush <span class="token string">'REGION_SERVER_NAME'</span>
+</code></pre>
+<p>需要注意的是，以上所有条件触发的刷写操作最后都会检查对应的 HStore 包含的 StoreFiles 文件超过 hbase.hstore.blockingStoreFiles 参数配置的个数，默认值是16。如果满足这个条件，那么当前刷写会被推迟到 hbase.hstore.blockingWaitTime 参数设置的时间后再刷写。在阻塞刷写的同时，HBase 还会请求 Split 或 Compaction 操作。</p>
+<h2 id="什么操作触发-MemStore-Flush"><a href="#什么操作触发-MemStore-Flush" class="headerlink" title="什么操作触发 MemStore Flush"></a><strong>什么操作触发</strong> <strong>MemStore Flush</strong></h2><p>我们常见的 put、delete、append、increment、调用 flush 命令、Region 分裂、Region Merge、bulkLoad HFiles 以及给表做快照操作都会对上面的相关条件做检查，以便判断要不要做刷写操作。</p>
+<h2 id="MemStore-Flush策略-FlushPolicy"><a href="#MemStore-Flush策略-FlushPolicy" class="headerlink" title="MemStore Flush策略(FlushPolicy)"></a><strong>MemStore Flush策略(FlushPolicy)</strong></h2><p>在 HBase 1.1 之前，MemStore 刷写是 Region 级别的。就是说，如果要刷写某个 MemStore ，MemStore 所在的 Region 中其他 MemStore 也是会被一起刷写的！这会造成一定的问题，比如小文件问题，具体参见 <a href="https://mp.weixin.qq.com/s?__biz=MzA5MTc0NTMwNQ==&amp;mid=2650716323&amp;idx=1&amp;sn=ccace248f650d4a3bcc2ff60103fc4a1&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">《为什么不建议在 HBase 中使用过多的列族》</a>。针对这个问题，HBASE-10201/HBASE-3149引入列族级别的刷写。我们可以通过 hbase.regionserver.flush.policy 参数选择不同的刷写策略。</p>
+<p>目前 HBase 2.0.2 的刷写策略全部都是实现 FlushPolicy 抽象类的。并且自带三种刷写策略：FlushAllLargeStoresPolicy、FlushNonSloppyStoresFirstPolicy 以及 FlushAllStoresPolicy。</p>
+<ul>
+<li><h3 id="FlushAllStoresPolicy"><a href="#FlushAllStoresPolicy" class="headerlink" title="FlushAllStoresPolicy"></a><strong>FlushAllStoresPolicy</strong></h3></li>
+</ul>
+<p>这种刷写策略实现最简单，直接返回当前 Region 对应的所有 MemStore。也就是每次刷写都是对 Region 里面所有的 MemStore 进行的，这个行为和 HBase 1.1 之前是一样的。</p>
+<ul>
+<li><h3 id="FlushAllLargeStoresPolicy"><a href="#FlushAllLargeStoresPolicy" class="headerlink" title="FlushAllLargeStoresPolicy"></a><strong>FlushAllLargeStoresPolicy</strong></h3></li>
+</ul>
+<p>在 HBase 2.0 之前版本是 FlushLargeStoresPolicy，后面被拆分成分 FlushAllLargeStoresPolicy 和FlushNonSloppyStoresFirstPolicy，参见 HBASE-14920。</p>
+<p>这种策略会先判断 Region 中每个 MemStore 的使用内存(OnHeap+OffHeap)是否大于某个阀值，大于这个阀值的 MemStore 将会被刷写。阀值的计算是由 hbase.hregion.percolumnfamilyflush.size.lower.bound 、hbase.hregion.percolumnfamilyflush.size.lower.bound.min 以及 hbase.hregion.memstore.flush.size 参数决定的。计算逻辑如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//region.getMemStoreFlushSize() / familyNumber</span>
+<span class="token comment" spellcheck="true">//就是 hbase.hregion.memstore.flush.size 参数的值除以相关表列族的个数</span>
+flushSizeLowerBound <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span>region<span class="token punctuation">.</span><span class="token function">getMemStoreFlushSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> familyNumber<span class="token punctuation">,</span> hbase<span class="token punctuation">.</span>hregion<span class="token punctuation">.</span>percolumnfamilyflush<span class="token punctuation">.</span>size<span class="token punctuation">.</span>lower<span class="token punctuation">.</span>bound<span class="token punctuation">.</span>min<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//如果设置了 hbase.hregion.percolumnfamilyflush.size.lower.bound</span>
+flushSizeLowerBound <span class="token operator">=</span> hbase<span class="token punctuation">.</span>hregion<span class="token punctuation">.</span>percolumnfamilyflush<span class="token punctuation">.</span>size<span class="token punctuation">.</span>lower<span class="token punctuation">.</span>bound
+</code></pre>
+<p>hbase.hregion.percolumnfamilyflush.size.lower.bound.min 默认值为 16MB，而 hbase.hregion.percolumnfamilyflush.size.lower.bound 没有设置。</p>
+<p>比如当前表有3个列族，其他用默认的值，那么 flushSizeLowerBound = max((long)128 / 3, 16) = 42。</p>
+<p>如果当前 Region 中没有 MemStore 的使用内存大于上面的阀值，FlushAllLargeStoresPolicy 策略就退化成 FlushAllStoresPolicy 策略了，也就是会对 Region 里面所有的 MemStore 进行 Flush。</p>
+<ul>
+<li><h3 id="FlushNonSloppyStoresFirstPolicy"><a href="#FlushNonSloppyStoresFirstPolicy" class="headerlink" title="FlushNonSloppyStoresFirstPolicy"></a><strong>FlushNonSloppyStoresFirstPolicy</strong></h3></li>
+</ul>
+<p>HBase 2.0 引入了 in-memory compaction，参见 HBASE-13408。如果我们对相关列族 hbase.hregion.compacting.memstore.type 参数的值不是 NONE，那么这个 MemStore 的 isSloppyMemStore 值就是 true，否则就是 false。</p>
+<p>FlushNonSloppyStoresFirstPolicy 策略将 Region 中的 MemStore 按照 isSloppyMemStore 分到两个 HashSet 里面（sloppyStores 和 regularStores）。然后</p>
+<ul>
+<li>判断 regularStores 里面是否有 MemStore 内存占用大于相关阀值的 MemStore ，有的话就会对这些 MemStore 进行刷写，其他的不做处理，这个阀值计算和 FlushAllLargeStoresPolicy 的阀值计算逻辑一致。</li>
+<li>如果 regularStores 里面没有 MemStore 内存占用大于相关阀值的 MemStore，这时候就开始在 sloppyStores 里面寻找是否有 MemStore 内存占用大于相关阀值的 MemStore，有的话就会对这些 MemStore 进行刷写，其他的不做处理。</li>
+<li>如果上面 sloppyStores 和 regularStores 都没有满足条件的 MemStore 需要刷写，这时候就 FlushNonSloppyStoresFirstPolicy 策略久退化成 FlushAllStoresPolicy 策略了。</li>
+</ul>
+<h2 id="MemStore-Flush-刷写过程"><a href="#MemStore-Flush-刷写过程" class="headerlink" title="MemStore Flush 刷写过程"></a><strong>MemStore Flush</strong> <strong>刷写过程</strong></h2><p>MemStore 的刷写过程很复杂，很多操作都可能触发，但是这些条件触发的刷写最终都是调用 HRegion 类中的 internalFlushcache 方法。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+  * Flush the memstore. Flushing the memstore is a little tricky. We have a lot of updates in the
+  * memstore, all of which have also been written to the wal. We need to write those updates in the
+  * memstore out to disk, while being able to process reads/writes as much as possible during the
+  * flush operation.
+  * &lt;p>
+  * This method may block for some time. Every time you call it, we up the regions sequence id even
+  * if we don't flush; i.e. the returned region id will be at least one larger than the last edit
+  * applied to this region. The returned id does not refer to an actual edit. The returned id can
+  * be used for say installing a bulk loaded file just ahead of the last hfile that was the result
+  * of this flush, etc.
+  * @param wal Null if we're NOT to go via wal.
+  * @param myseqid The seqid to use if &lt;code>wal&lt;/code> is null writing out flush file.
+  * @param storesToFlush The list of stores to flush.
+  * @return object describing the flush's state
+  * @throws IOException general io exceptions
+  * @throws DroppedSnapshotException Thrown when replay of WAL is required.
+  */</span>
+<span class="token keyword">protected</span> FlushResultImpl <span class="token function">internalFlushcache</span><span class="token punctuation">(</span>WAL wal<span class="token punctuation">,</span> <span class="token keyword">long</span> myseqid<span class="token punctuation">,</span>
+     Collection<span class="token operator">&lt;</span>HStore<span class="token operator">></span> storesToFlush<span class="token punctuation">,</span> MonitoredTask status<span class="token punctuation">,</span> <span class="token keyword">boolean</span> writeFlushWalMarker<span class="token punctuation">,</span>
+     FlushLifeCycleTracker tracker<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+   PrepareFlushResult result <span class="token operator">=</span>
+       <span class="token function">internalPrepareFlushCache</span><span class="token punctuation">(</span>wal<span class="token punctuation">,</span> myseqid<span class="token punctuation">,</span> storesToFlush<span class="token punctuation">,</span> status<span class="token punctuation">,</span> writeFlushWalMarker<span class="token punctuation">,</span> tracker<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span>result <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">return</span> <span class="token function">internalFlushCacheAndCommit</span><span class="token punctuation">(</span>wal<span class="token punctuation">,</span> status<span class="token punctuation">,</span> result<span class="token punctuation">,</span> storesToFlush<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+     <span class="token keyword">return</span> result<span class="token punctuation">.</span>result<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// early exit due to failure from prepare stage</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>从上面的实现可以看出，Flush 操作主要分以下几步做的</p>
+<ul>
+<li><p><strong>prepareFlush</strong> 阶段：刷写的第一步是对 MemStore 做 snapshot，为了防止刷写过程中更新的数据同时在 snapshot 和 MemStore 中而造成后续处理的困难，所以在刷写期间需要持有 updateLock 。持有了 updateLock 之后，这将阻塞客户端的写操作。所以只在创建 snapshot 期间持有 updateLock，而且 snapshot 的创建非常快，所以此锁期间对客户的影响一般非常小。对 MemStore 做 snapshot 是 internalPrepareFlushCache 里面进行的。</p>
+</li>
+<li><p><strong>flushCache</strong> 阶段：如果创建快照没问题，那么返回的 result.result 将为 null。这时候我们就可以进行下一步 internalFlushCacheAndCommit。其实 internalFlushCacheAndCommit 里面包含两个步骤：flushCache 和 commit 阶段。flushCache 阶段其实就是将 prepareFlush 阶段创建好的快照写到临时文件里面，临时文件是存放在对应 Region 文件夹下面的 .tmp 目录里面。</p>
+</li>
+<li><p><strong>commit</strong> 阶段：将 flushCache 阶段生产的临时文件移到(rename)对应的列族目录下面，并做一些清理工作，比如删除第一步生成的 snapshot。</p>
+</li>
+</ul>
+<h2 id="1-HBase多模式"><a href="#1-HBase多模式" class="headerlink" title="1.HBase多模式"></a><strong>1.HBase多模式</strong></h2><p>分享专家：明惠(网名：过往记忆)-阿里云数据架构师</p>
+<p>分享主题：HBase多模式</p>
+<p>视频地址：<a href="https://yunqivedio.alicdn.com/od/s5xhh1542269262038.mp4" target="_blank" rel="noopener">https://yunqivedio.alicdn.com/od/s5xhh1542269262038.mp4</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3033" target="_blank" rel="noopener">https://yq.aliyun.com/download/3033</a></p>
+<h2 id="2-HBase内核及能力"><a href="#2-HBase内核及能力" class="headerlink" title="2.HBase内核及能力"></a><strong>2.HBase内核及能力</strong></h2><p>分享专家：正研-阿里巴巴技术专家</p>
+<p>分享主题：HBase内核及能力</p>
+<p>视频地址：<a href="https://yunqivedio.alicdn.com/od/i43cD1542260050827.mp4" target="_blank" rel="noopener">https://yunqivedio.alicdn.com/od/i43cD1542260050827.mp4</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3091" target="_blank" rel="noopener">https://yq.aliyun.com/download/3091</a></p>
+<p><strong>3.Spark介绍及Spark多数据源分析</strong></p>
+<p>分享专家：沐远-阿里多模型数据库专家</p>
+<p>分享主题：Spark介绍及Spark多数据源分析</p>
+<p>视频地址：<a href="https://yunqivedio.alicdn.com/od/Fni7p1542851946894.mp4" target="_blank" rel="noopener">https://yunqivedio.alicdn.com/od/Fni7p1542851946894.mp4</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3104" target="_blank" rel="noopener">https://yq.aliyun.com/download/3104</a></p>
+<p><strong>4.Phoenix=HBase+SQL 让HBase插上了翅膀</strong></p>
+<p>分享专家：张赟-阿里多模型数据库专家</p>
+<p>分享主题：Phoenix 基本介绍及二级索引</p>
+<p>视频地址：<a href="https://yunqivedio.alicdn.com/od/Fni7p1542851946894.mp4" target="_blank" rel="noopener">https://yunqivedio.alicdn.com/od/Fni7p1542851946894.mp4</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3111" target="_blank" rel="noopener">https://yq.aliyun.com/download/3111</a></p>
+<p><strong>5.HBase备份恢复</strong></p>
+<p>分享专家：玄陵-阿里多模型数据库专家</p>
+<p>分享主题：HBase备份恢复</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/688" target="_blank" rel="noopener">https://yq.aliyun.com/live/688</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3126" target="_blank" rel="noopener">https://yq.aliyun.com/download/3126</a><br><strong>6.HBaseOnOSS冷数据存储</strong></p>
+<p>分享专家：陆豪-阿里多模型数据库专家</p>
+<p>分享主题：HBaseOnOSS冷数据存储</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/709" target="_blank" rel="noopener">https://yq.aliyun.com/live/709</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3137" target="_blank" rel="noopener">https://yq.aliyun.com/download/3137</a></p>
+<p><strong>7.HBase高效一键迁移的设计与实践</strong></p>
+<p>分享专家：侧田-阿里高级开发工程师</p>
+<p>分享主题：HBase高效一键迁移的设计与实践</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/730" target="_blank" rel="noopener">https://yq.aliyun.com/live/730</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3145" target="_blank" rel="noopener">https://yq.aliyun.com/download/3145</a></p>
+<p><strong>8.GeoMesa时空基础及应用场景</strong></p>
+<p>分享专家：肖斐-阿里云数据库技术专家</p>
+<p>分享主题：GeoMesa时空基础及应用场景</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/793" target="_blank" rel="noopener">https://yq.aliyun.com/live/793</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3266" target="_blank" rel="noopener">https://yq.aliyun.com/download/3266</a></p>
+<p><strong>9.Graph图数据库基础介绍及场景</strong></p>
+<p>分享专家：陈江(恬泰)-阿里数据库技术专家</p>
+<p>分享主题：Graph图数据库基础介绍及场景</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/805" target="_blank" rel="noopener">https://yq.aliyun.com/live/805</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3270" target="_blank" rel="noopener">https://yq.aliyun.com/download/3270</a></p>
+<p><strong>10.Solr增强HBase检索能力基础介绍及场景</strong></p>
+<p>分享专家：天斯-阿里高级开发工程师</p>
+<p>分享主题：Solr增强HBase检索能力基础介绍及场景</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/814" target="_blank" rel="noopener">https://yq.aliyun.com/live/814</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3273" target="_blank" rel="noopener">https://yq.aliyun.com/download/3273</a></p>
+<p><strong>11.**</strong>Phoenix全局索引原理与实践**</p>
+<p>分享专家：瑾谦-阿里数据库产品专家</p>
+<p>分享主题：Phoenix全局索引原理与实践</p>
+<p>视频地址：<a href="https://yq.aliyun.com/live/843" target="_blank" rel="noopener">https://yq.aliyun.com/live/843</a></p>
+<p>PPT 地址：<a href="https://yq.aliyun.com/download/3300" target="_blank" rel="noopener">https://yq.aliyun.com/download/3300</a></p>
+<p>转载自：<a href="https://mp.weixin.qq.com/s/lEfTrbd7bB4Xi0s86drr3g" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/27/hbase/hbase-yuan-li-shu-ju-shua-xie-memstore-flush-pou-xi/" class="b-link-green">HBase原理-数据刷写MemStore Flush剖析</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/01/27/hbase/hbase-yuan-li-shu-ju-shua-xie-memstore-flush-pou-xi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="HBase原理-数据刷写MemStore Flush剖析">
+                        
+                        <span class="card-title">HBase原理-数据刷写MemStore Flush剖析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">HBase原理-数据刷写MemStore Flush剖析接触过 HBase 的同学应该对 HBase 写数据的过程比较熟悉(不熟悉也没关系)。HBase 写数据(比如 put、delete)的时候，都是写 WAL(假设 WAL 没有被关闭)</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                    Hbase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hbase/" target="_blank">
+                        <span class="chip bg-color">Hbase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/01/25/java/java-rong-qi/hong-hei-shu-de-li-jie-yu-java-shi-xian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="红黑树的理解与Java实现">
+                        
+                        <span class="card-title">红黑树的理解与Java实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">红黑树的理解与Java实现摘要： 红黑树原理 红黑树（Red-Black Tree，简称R-B Tree），它是一种特殊的二叉查找树。首先它满足二叉查找树的特征：任意结点结点包含的键值，大于左孩子的键值，小于右孩子的键值。
+红黑树原理红黑树</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java容器/" target="_blank">
+                        <span class="chip bg-color">java容器</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">203k</span>
+            
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
