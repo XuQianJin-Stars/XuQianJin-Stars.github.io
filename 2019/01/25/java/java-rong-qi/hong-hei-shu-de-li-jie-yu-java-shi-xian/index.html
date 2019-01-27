@@ -6,8 +6,8 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="红黑树的理解与Java实现, 大数据 实时计算 机器学习">
-    <meta name="description" content="红黑树的理解与Java实现本文转载自: 原文
-">
+    <meta name="description" content="红黑树的理解与Java实现摘要： 红黑树原理 红黑树（Red-Black Tree，简称R-B Tree），它是一种特殊的二叉查找树。首先它满足二叉查找树的特征：任意结点结点包含的键值，大于左孩子的键值，小于右孩子的键值。
+红黑树原理红黑树">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -364,14 +364,14 @@
                     
                     <span class="post-word-count">
                         <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
-                        17
+                        7.2k
                     </span>
                     
 
                     
                     <span class="post-word-count">
                         <i class="fa fa-clock-o fa-fw"></i>readTimes:&nbsp;&nbsp;
-                        1 Minutes
+                        31 Minutes
                     </span>
                     
                 
@@ -387,7 +387,1235 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="红黑树的理解与Java实现"><a href="#红黑树的理解与Java实现" class="headerlink" title="红黑树的理解与Java实现"></a>红黑树的理解与Java实现</h1><p>本文转载自: <a href="https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/9-WeakHashMap.md">原文</a></p>
+                <h1 id="红黑树的理解与Java实现"><a href="#红黑树的理解与Java实现" class="headerlink" title="红黑树的理解与Java实现"></a>红黑树的理解与Java实现</h1><p><em>摘要：</em> 红黑树原理 红黑树（Red-Black Tree，简称R-B Tree），它是一种特殊的二叉查找树。首先它满足二叉查找树的特征：任意结点结点包含的键值，大于左孩子的键值，小于右孩子的键值。</p>
+<h2 id="红黑树原理"><a href="#红黑树原理" class="headerlink" title="红黑树原理"></a>红黑树原理</h2><p>红黑树（Red-Black Tree，简称R-B Tree），它是一种特殊的二叉查找树。首先它满足二叉查找树的特征：任意结点结点包含的键值，大于左孩子的键值，小于右孩子的键值。<br>除此之外，红黑树的每个结点都有存储位来表示结点的颜色，不是红（Red）就是 黑（Black）。<br>红黑树的特性：</p>
+<blockquote>
+<ul>
+<li>1.每个结点或是红色的，或是黑色的。</li>
+<li>2.根结点是黑色的。</li>
+<li>3.每个叶结点（NIL）是黑色的。（最后的叶结点就是空的，或者用一个哨兵替换掉所有的空结点）</li>
+<li>4.如果一个结点是红色的，那么它的两个子结点都是黑色的。</li>
+<li>5.对每个结点，从该结点到其所有后代叶结点的简单路径上，均包含相同数目的黑色结点。</li>
+</ul>
+</blockquote>
+<p>关于它的特性，需要注意：<br>第一，特性 3 中的叶子结点，是为空（NIL或null）的结点<br>第二，特性 5 ，确保没有一条路径会比其他路径长出2倍，因而是近似平衡的。</p>
+<p>红黑树的图如下（直接借用算法导论中的图，其中<strong>浅色的为红色，深色的为黑色</strong>）：</p>
+<p><img src="https://yqfile.alicdn.com/img_914a0fbb1748fa36335cbf1e6bf9e28b.png" alt="img_914a0fbb1748fa36335cbf1e6bf9e28b.png"></p>
+<h2 id="红黑树的java代码实现"><a href="#红黑树的java代码实现" class="headerlink" title="红黑树的java代码实现"></a>红黑树的java代码实现</h2><p>红黑树的基本操作是查找，选择，添加，删除。查找就省略了，和二叉树的查找区别不大。在添加和删除后，都会用到红黑树的旋转。因为修改红黑树之后，会破坏红黑树的性质，所以需要旋转满足这几条性质。<br>旋转包括两种：<strong>左旋</strong>和<strong>右旋</strong></p>
+<h3 id="1-基本定义"><a href="#1-基本定义" class="headerlink" title="1.基本定义"></a>1.基本定义</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RBTree</span><span class="token operator">&lt;</span>T <span class="token keyword">extends</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>T<span class="token operator">>></span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> mRoot<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//根结点</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> RED <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> BLACK <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RBTNode</span><span class="token operator">&lt;</span>T <span class="token keyword">extends</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>T<span class="token operator">>></span><span class="token punctuation">{</span>
+        <span class="token keyword">boolean</span> color<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//颜色</span>
+        T key<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//关键字（键值）</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> left<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//左孩子</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> right<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//右孩子</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//父节点</span>
+
+        <span class="token keyword">public</span> <span class="token function">RBTNode</span><span class="token punctuation">(</span>T key<span class="token punctuation">,</span> <span class="token keyword">boolean</span> color<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> left<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>key <span class="token operator">=</span> key<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>parent <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>left <span class="token operator">=</span> left<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>right <span class="token operator">=</span> right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>说明：RBTree是红黑树对应的类，RBTNode是红黑树的结点类。在RBTree中包含了根节点mRoot和红黑树的相关API。</p>
+<h3 id="2-左旋"><a href="#2-左旋" class="headerlink" title="2.左旋"></a>2.左旋</h3><p><img src="https://yqfile.alicdn.com/img_14fa2b534b7f4d58238f3cf9e9e8317e.png" alt="img_14fa2b534b7f4d58238f3cf9e9e8317e.png"></p>
+<p>对x进行左旋，意味着将x变成一个左结点。</p>
+<p>左旋代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/* 
+     * 对红黑树的节点(x)进行左旋转
+     *
+     * 左旋示意图(对节点x进行左旋)：
+     *      px                              px
+     *     /                               /
+     *    x                               y                
+     *   /  \      --(左旋)-.           / \                #
+     *  lx   y                          x  ry     
+     *     /   \                       /  \
+     *    ly   ry                     lx  ly  
+     *
+     *
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">leftRotate</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//设置x的右孩子为y</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//将 "y的左孩子" 设为 "x的右孩子"</span>
+        <span class="token comment" spellcheck="true">//如果y的左孩子非空，将 "x" 设为 "y的左孩子的父亲"</span>
+        x<span class="token punctuation">.</span>right <span class="token operator">=</span> y<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            y<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">//将 "x的父亲" 设为 "y的父亲"</span>
+        y<span class="token punctuation">.</span>parent <span class="token operator">=</span> x<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>parent <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> y<span class="token punctuation">;</span>          <span class="token comment" spellcheck="true">//如果 "x的父亲" 是空结点，则将y设为根结点</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> x<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                x<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> y<span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//如果 x是它父节点的左孩子，则将y设置为 "x的父节点的左孩子"</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                x<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> y<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//如果 x是它父节点的右孩子，则将y设置为 "x的父节点的右孩子"</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 将 “x” 设为 “y的左孩子”</span>
+        y<span class="token punctuation">.</span>left <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 将 “x的父节点” 设为 “y”</span>
+        x<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h3 id="3-右旋"><a href="#3-右旋" class="headerlink" title="3.右旋"></a>3.右旋</h3><p><img src="https://yqfile.alicdn.com/img_34d5409f96cce7b6029bdeb8f62d4e87.png" alt="img_34d5409f96cce7b6029bdeb8f62d4e87.png"></p>
+<p>对y进行左旋，意味着”将y变成一个右节点”。</p>
+<p>右旋代码：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/* 
+ * 对红黑树的节点(y)进行右旋转
+ *
+ * 右旋示意图(对节点y进行左旋)：
+ *            py                               py
+ *           /                                /
+ *          y                                x                  
+ *         /  \      --(右旋)-.            /  \                     #
+ *        x   ry                           lx   y  
+ *       / \                                   / \                   #
+ *      lx  rx                                rx  ry
+ * 
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">rightRotate</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 设置x是当前节点的左孩子。</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x <span class="token operator">=</span> y<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 将 “x的右孩子” 设为 “y的左孩子”；</span>
+    <span class="token comment" spellcheck="true">// 如果"x的右孩子"不为空的话，将 “y” 设为 “x的右孩子的父亲”</span>
+    y<span class="token punctuation">.</span>left <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+        x<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 将 “y的父亲” 设为 “x的父亲”</span>
+    x<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>y<span class="token punctuation">.</span>parent <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> x<span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">// 如果 “y的父亲” 是空节点，则将x设为根节点</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>y <span class="token operator">==</span> y<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+            y<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> x<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”</span>
+        <span class="token keyword">else</span>
+            y<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> x<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 将 “y” 设为 “x的右孩子”</span>
+    x<span class="token punctuation">.</span>right <span class="token operator">=</span> y<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 将 “y的父节点” 设为 “x”</span>
+    y<span class="token punctuation">.</span>parent <span class="token operator">=</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="4-添加"><a href="#4-添加" class="headerlink" title="4.添加"></a>4.添加</h3><p>将结点插入红黑树时，首先将红黑树当作一棵二叉查找树，然后将结点插入；然后将结点着色为红色，再通过“旋转和重新着色”等操作修正该树，使其成为一棵红黑树。详细步骤如下：<br><strong>第一步：将红黑树当作一棵二叉查找树，将结点插入</strong>（这个简单，不展开）。</p>
+<p><strong>第二步：将插入的结点着色为“红色”</strong><br>为什么着色为红色，而不是黑色？可以观测红黑树的5个特性，发现不会违背“特性（5）”，当然有可能违背其他特性，但只是可能，不一定会，所以遵循着违背的越少越好的原则，将插入的结点着色为红色。</p>
+<p><strong>第三步：通过一系列的选择或者着色等操作，使其重新成为红黑树</strong><br>第二步中，将插入节点着色为”红色”之后，不会违背”特性(5)”。那它到底会违背哪些特性呢？<br>对于”特性(1)”，显然不会违背了。因为我们已经将它涂成红色了。<br>对于”特性(2)”，显然也不会违背。在第一步中，我们是将红黑树当作二叉查找树，然后执行的插入操作。而根据二叉查找数的特点，插入操作不会改变根节点。所以，根节点仍然是黑色。<br>对于”特性(3)”，显然不会违背了。这里的叶子节点是指的空叶子节点，插入非空节点并不会对它们造成影响。<br>对于”特性(4)”，是有可能违背的！<br>那接下来，想办法使之”满足特性(4)”，就可以将树重新构造成红黑树了。</p>
+<p>添加操作的实现代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/* 
+ * 将结点插入到红黑树中
+ *
+ * 参数说明：
+ *     node 插入的结点        // 对应《算法导论》中的node
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> cmp<span class="token punctuation">;</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 1. 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中。</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        y <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        cmp <span class="token operator">=</span> node<span class="token punctuation">.</span>key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            x <span class="token operator">=</span> x<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            x <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    node<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>y<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        cmp <span class="token operator">=</span> node<span class="token punctuation">.</span>key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            y<span class="token punctuation">.</span>left <span class="token operator">=</span> node<span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            y<span class="token punctuation">.</span>right <span class="token operator">=</span> node<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> node<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 2. 设置节点的颜色为红色</span>
+    node<span class="token punctuation">.</span>color <span class="token operator">=</span> RED<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 3. 将它重新修正为一颗二叉查找树</span>
+    <span class="token function">insertFixUp</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/* 
+ * 新建结点(key)，并将其插入到红黑树中
+ *
+ * 参数说明：
+ *     key 插入结点的键值
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">RBTNode</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>BLACK<span class="token punctuation">,</span>null<span class="token punctuation">,</span>null<span class="token punctuation">,</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 如果新建结点失败，则返回。</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+        <span class="token function">insert</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>内部接口</strong> – insert(node)的作用是将”node”节点插入到红黑树中。<br><strong>外部接口</strong> – insert(key)的作用是将”key”添加到红黑树中。</p>
+<p>添加修正操作的实现代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * 红黑树插入修正函数
+ *
+ * 在向红黑树中插入节点之后(失去平衡)，再调用该函数；
+ * 目的是将它重新塑造成一颗红黑树。
+ *
+ * 参数说明：
+ *     node 插入的结点        // 对应《算法导论》中的z
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">insertFixUp</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">,</span> gparent<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 若“父节点存在，并且父节点的颜色是红色”</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isRed</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        gparent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//若“父节点”是“祖父节点的左孩子”</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">==</span> gparent<span class="token punctuation">.</span>left<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// Case 1条件：叔叔节点是红色</span>
+            RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> uncle <span class="token operator">=</span> gparent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>uncle<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isRed</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                node <span class="token operator">=</span> gparent<span class="token punctuation">;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// Case 2条件：叔叔是黑色，且当前节点是右孩子</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>right <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tmp<span class="token punctuation">;</span>
+                <span class="token function">leftRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                tmp <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                parent <span class="token operator">=</span> node<span class="token punctuation">;</span>
+                node <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// Case 3条件：叔叔是黑色，且当前节点是左孩子。</span>
+            <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">rightRotate</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">//若“z的父节点”是“z的祖父节点的右孩子”</span>
+            <span class="token comment" spellcheck="true">// Case 1条件：叔叔节点是红色</span>
+            RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> uncle <span class="token operator">=</span> gparent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>uncle<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isRed</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                node <span class="token operator">=</span> gparent<span class="token punctuation">;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// Case 2条件：叔叔是黑色，且当前节点是左孩子</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tmp<span class="token punctuation">;</span>
+                <span class="token function">rightRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                tmp <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                parent <span class="token operator">=</span> node<span class="token punctuation">;</span>
+                node <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// Case 3条件：叔叔是黑色，且当前节点是右孩子。</span>
+            <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">leftRotate</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 将根节点设为黑色</span>
+    <span class="token function">setBlack</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>insertFixUp(node)的作用是对应”上面所讲的第三步”。它是一个内部接口。</p>
+<h3 id="5-删除操作"><a href="#5-删除操作" class="headerlink" title="5.删除操作"></a>5.删除操作</h3><p>将红黑树内的某一个节点删除。需要执行的操作依次是：首先，将红黑树当作一颗二叉查找树，将该节点从二叉查找树中删除；然后，通过”旋转和重新着色”等一系列来修正该树，使之重新成为一棵红黑树。详细描述如下：<br><strong>第一步：将红黑树当作一棵二叉查找树，将结点删除</strong><br>这和”删除常规二叉查找树中删除节点的方法是一样的”。分3种情况：<br>① 被删除节点没有儿子，即为叶节点。那么，直接将该节点删除就OK了。<br>② 被删除节点只有一个儿子。那么，直接删除该节点，并用该节点的唯一子节点顶替它的位置。<br>③ 被删除节点有两个儿子。那么，先找出它的后继节点；然后把“它的后继节点的内容”复制给“该节点的内容”；之后，删除“它的后继节点”。在这里，后继节点相当于替身，在将后继节点的内容复制给”被删除节点”之后，再将后继节点删除。这样就巧妙的将问题转换为”删除后继节点”的情况了，下面就考虑后继节点。 在”被删除节点”有两个非空子节点的情况下，它的后继节点不可能是双子非空。既然”的后继节点”不可能双子都非空，就意味着”该节点的后继节点”要么没有儿子，要么只有一个儿子。若没有儿子，则按”情况① “进行处理；若只有一个儿子，则按”情况② “进行处理。</p>
+<p><strong>第二步：通过“旋转和重新着色”等一系列操作修正该树，使其重新成为一棵红黑树。</strong><br>因为”第一步”中删除节点之后，可能会违背红黑树的特性。所以需要通过”旋转和重新着色”来修正该树，使之重新成为一棵红黑树。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/* 
+ * 删除结点(node)，并返回被删除的结点
+ *
+ * 参数说明：
+ *     node 删除的结点
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> child<span class="token punctuation">,</span> parent<span class="token punctuation">;</span>
+    <span class="token keyword">boolean</span> color<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 被删除节点的"左右孩子都不为空"的情况。</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 被删节点的后继节点。(称为"取代节点")</span>
+        <span class="token comment" spellcheck="true">// 用它来取代"被删节点"的位置，然后再将"被删节点"去掉。</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> replace <span class="token operator">=</span> node<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 获取后继节点</span>
+        replace <span class="token operator">=</span> replace<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>replace<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            replace <span class="token operator">=</span> replace<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// "node节点"不是根节点(只有根节点不存在父节点)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span>
+                <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">.</span>left <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">.</span>right <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// "node节点"是根节点，更新根节点。</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// child是"取代节点"的右孩子，也是需要"调整的节点"。</span>
+        <span class="token comment" spellcheck="true">// "取代节点"肯定不存在左孩子！因为它是一个后继节点。</span>
+        child <span class="token operator">=</span> replace<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>replace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 保存"取代节点"的颜色</span>
+        color <span class="token operator">=</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>replace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// "被删除节点"是"它的后继节点的父节点"</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// child不为空</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>child<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+                <span class="token function">setParent</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            parent<span class="token punctuation">.</span>left <span class="token operator">=</span> child<span class="token punctuation">;</span>
+
+            replace<span class="token punctuation">.</span>right <span class="token operator">=</span> node<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token function">setParent</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> replace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        replace<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+        replace<span class="token punctuation">.</span>color <span class="token operator">=</span> node<span class="token punctuation">.</span>color<span class="token punctuation">;</span>
+        replace<span class="token punctuation">.</span>left <span class="token operator">=</span> node<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+        node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>color <span class="token operator">==</span> BLACK<span class="token punctuation">)</span>
+            <span class="token function">removeFixUp</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        node <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>left <span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        child <span class="token operator">=</span> node<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        child <span class="token operator">=</span> node<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 保存"取代节点"的颜色</span>
+    color <span class="token operator">=</span> node<span class="token punctuation">.</span>color<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>child<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+        child<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// "node节点"不是根节点</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span>
+            parent<span class="token punctuation">.</span>left <span class="token operator">=</span> child<span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            parent<span class="token punctuation">.</span>right <span class="token operator">=</span> child<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> child<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>color <span class="token operator">==</span> BLACK<span class="token punctuation">)</span>
+        <span class="token function">removeFixUp</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    node <span class="token operator">=</span> null<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/* 
+ * 删除结点(z)，并返回被删除的结点
+ *
+ * 参数说明：
+ *     tree 红黑树的根结点
+ *     z 删除的结点
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">;</span> 
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>node <span class="token operator">=</span> <span class="token function">search</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+        <span class="token function">remove</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>内部接口</strong> – remove(node)的作用是将”node”节点插入到红黑树中。<br><strong>外部接口</strong> – remove(key)删除红黑树中键值为key的节点。</p>
+<p>删除修正操作的实现代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * 红黑树删除修正函数
+ *
+ * 在从红黑树中删除插入节点之后(红黑树失去平衡)，再调用该函数；
+ * 目的是将它重新塑造成一颗红黑树。
+ *
+ * 参数说明：
+ *     node 待修正的节点
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">removeFixUp</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> other<span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>node<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>node <span class="token operator">!=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            other <span class="token operator">=</span> parent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Case 1: x的兄弟w是红色的  </span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">leftRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                other <span class="token operator">=</span> parent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                <span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Case 2: x的兄弟w是黑色，且w的俩个孩子也都是黑色的  </span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                node <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// Case 3: x的兄弟w是黑色的，并且w的左孩子是红色，右孩子为黑色。  </span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">rightRotate</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    other <span class="token operator">=</span> parent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">// Case 4: x的兄弟w是黑色的；并且w的右孩子是红色的，左孩子任意颜色。</span>
+                <span class="token function">setColor</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">leftRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                node <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+            other <span class="token operator">=</span> parent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Case 1: x的兄弟w是红色的  </span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">rightRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                other <span class="token operator">=</span> parent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                <span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Case 2: x的兄弟w是黑色，且w的俩个孩子也都是黑色的  </span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                node <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// Case 3: x的兄弟w是黑色的，并且w的左孩子是红色，右孩子为黑色。  </span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">leftRotate</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    other <span class="token operator">=</span> parent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token comment" spellcheck="true">// Case 4: x的兄弟w是黑色的；并且w的右孩子是红色的，左孩子任意颜色。</span>
+                <span class="token function">setColor</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">rightRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                node <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+        <span class="token function">setBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>removeFixup(node, parent)是对应”上面所讲的第三步”。它是一个内部接口。</p>
+<h2 id="红黑树的完整源码"><a href="#红黑树的完整源码" class="headerlink" title="红黑树的完整源码"></a>红黑树的完整源码</h2><p>下面是红黑树实现的完整代码和相应的测试程序。<br>(1) 除了上面所说的”左旋”、”右旋”、”添加”、”删除”等基本操作之后，还实现了”遍历”、”查找”、”打印”、”最小值”、”最大值”、”创建”、”销毁”等接口。<br>(2) 函数接口大多分为内部接口和外部接口。内部接口是private函数，外部接口则是public函数。<br>(3) 测试代码中提供了”插入”和”删除”动作的检测开关。默认是关闭的，打开方法可以参考”代码中的说明”。建议在打开开关后，在草稿上自己动手绘制一下红黑树。</p>
+<p>红黑树的实现文件(RBTree.java)</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Java 语言: 红黑树
+ *
+ * @author skywang
+ * @date 2013/11/07
+ */</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RBTree</span><span class="token operator">&lt;</span>T <span class="token keyword">extends</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> mRoot<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 根结点</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> RED   <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> BLACK <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RBTNode</span><span class="token operator">&lt;</span>T <span class="token keyword">extends</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token punctuation">{</span>
+        <span class="token keyword">boolean</span> color<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// 颜色</span>
+        T key<span class="token punctuation">;</span>                <span class="token comment" spellcheck="true">// 关键字(键值)</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> left<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 左孩子</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> right<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 右孩子</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 父结点</span>
+
+        <span class="token keyword">public</span> <span class="token function">RBTNode</span><span class="token punctuation">(</span>T key<span class="token punctuation">,</span> <span class="token keyword">boolean</span> color<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> left<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>key <span class="token operator">=</span> key<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>parent <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>left <span class="token operator">=</span> left<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>right <span class="token operator">=</span> right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> T <span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> key<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token operator">+</span>key<span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>color<span class="token operator">==</span>RED<span class="token operator">?</span><span class="token string">"(R)"</span><span class="token operator">:</span><span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">RBTree</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mRoot<span class="token operator">=</span>null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">parentOf</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> node<span class="token operator">!=</span>null <span class="token operator">?</span> node<span class="token punctuation">.</span>parent <span class="token operator">:</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> node<span class="token operator">!=</span>null <span class="token operator">?</span> node<span class="token punctuation">.</span>color <span class="token operator">:</span> BLACK<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isRed</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>color<span class="token operator">==</span>RED<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token boolean">true</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">!</span><span class="token function">isRed</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setBlack</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+            node<span class="token punctuation">.</span>color <span class="token operator">=</span> BLACK<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setRed</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+            node<span class="token punctuation">.</span>color <span class="token operator">=</span> RED<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setParent</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+            node<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setColor</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">,</span> <span class="token keyword">boolean</span> color<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+            node<span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * 前序遍历"红黑树"
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">preOrder</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>tree <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>key<span class="token operator">+</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">preOrder</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">preOrder</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">preOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">preOrder</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * 中序遍历"红黑树"
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">inOrder</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>tree <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">inOrder</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>key<span class="token operator">+</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">inOrder</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">inOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">inOrder</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/*
+     * 后序遍历"红黑树"
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">postOrder</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>tree <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token function">postOrder</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">postOrder</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>key<span class="token operator">+</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">postOrder</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/*
+     * (递归实现)查找"红黑树x"中键值为key的节点
+     */</span>
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">search</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x<span class="token punctuation">,</span> T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token operator">==</span>null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> cmp <span class="token operator">=</span> key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token function">search</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>left<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token function">search</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>right<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">search</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">search</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * (非递归实现)查找"红黑树x"中键值为key的节点
+     */</span>
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">iterativeSearch</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x<span class="token punctuation">,</span> T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>x<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> cmp <span class="token operator">=</span> key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> 
+                x <span class="token operator">=</span> x<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> 
+                x <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">iterativeSearch</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">iterativeSearch</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 查找最小结点：返回tree为根结点的红黑树的最小结点。
+     */</span>
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">minimum</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tree <span class="token operator">==</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            tree <span class="token operator">=</span> tree<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> tree<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> T <span class="token function">minimum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> p <span class="token operator">=</span> <span class="token function">minimum</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> p<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 查找最大结点：返回tree为根结点的红黑树的最大结点。
+     */</span>
+    <span class="token keyword">private</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">maximum</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tree <span class="token operator">==</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            tree <span class="token operator">=</span> tree<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> tree<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> T <span class="token function">maximum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> p <span class="token operator">=</span> <span class="token function">maximum</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> p<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 找结点(x)的后继结点。即，查找"红黑树中数据值大于该结点"的"最小结点"。
+     */</span>
+    <span class="token keyword">public</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">successor</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 如果x存在右孩子，则"x的后继结点"为 "以其右孩子为根的子树的最小结点"。</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token function">minimum</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 如果x没有右孩子。则x有以下两种可能：</span>
+        <span class="token comment" spellcheck="true">// (01) x是"一个左孩子"，则"x的后继结点"为 "它的父结点"。</span>
+        <span class="token comment" spellcheck="true">// (02) x是"一个右孩子"，则查找"x的最低的父结点，并且该父结点要具有左孩子"，找到的这个"最低的父结点"就是"x的后继结点"。</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y <span class="token operator">=</span> x<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>y<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>x<span class="token operator">==</span>y<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            x <span class="token operator">=</span> y<span class="token punctuation">;</span>
+            y <span class="token operator">=</span> y<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> y<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 找结点(x)的前驱结点。即，查找"红黑树中数据值小于该结点"的"最大结点"。
+     */</span>
+    <span class="token keyword">public</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">predecessor</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 如果x存在左孩子，则"x的前驱结点"为 "以其左孩子为根的子树的最大结点"。</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token function">maximum</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 如果x没有左孩子。则x有以下两种可能：</span>
+        <span class="token comment" spellcheck="true">// (01) x是"一个右孩子"，则"x的前驱结点"为 "它的父结点"。</span>
+        <span class="token comment" spellcheck="true">// (01) x是"一个左孩子"，则查找"x的最低的父结点，并且该父结点要具有右孩子"，找到的这个"最低的父结点"就是"x的前驱结点"。</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y <span class="token operator">=</span> x<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>y<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>x<span class="token operator">==</span>y<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            x <span class="token operator">=</span> y<span class="token punctuation">;</span>
+            y <span class="token operator">=</span> y<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> y<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 对红黑树的节点(x)进行左旋转
+     *
+     * 左旋示意图(对节点x进行左旋)：
+     *      px                              px
+     *     /                               /
+     *    x                               y                
+     *   /  \      --(左旋)-.           / \                #
+     *  lx   y                          x  ry     
+     *     /   \                       /  \
+     *    ly   ry                     lx  ly  
+     *
+     *
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">leftRotate</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 设置x的右孩子为y</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 将 “y的左孩子” 设为 “x的右孩子”；</span>
+        <span class="token comment" spellcheck="true">// 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”</span>
+        x<span class="token punctuation">.</span>right <span class="token operator">=</span> y<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>y<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            y<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> x<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 将 “x的父亲” 设为 “y的父亲”</span>
+        y<span class="token punctuation">.</span>parent <span class="token operator">=</span> x<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span>parent <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> y<span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">// 如果 “x的父亲” 是空节点，则将y设为根节点</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> x<span class="token punctuation">)</span>
+                x<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> y<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”</span>
+            <span class="token keyword">else</span>
+                x<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> y<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 将 “x” 设为 “y的左孩子”</span>
+        y<span class="token punctuation">.</span>left <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 将 “x的父节点” 设为 “y”</span>
+        x<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 对红黑树的节点(y)进行右旋转
+     *
+     * 右旋示意图(对节点y进行左旋)：
+     *            py                               py
+     *           /                                /
+     *          y                                x                  
+     *         /  \      --(右旋)-.            /  \                     #
+     *        x   ry                           lx   y  
+     *       / \                                   / \                   #
+     *      lx  rx                                rx  ry
+     * 
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">rightRotate</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 设置x是当前节点的左孩子。</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x <span class="token operator">=</span> y<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 将 “x的右孩子” 设为 “y的左孩子”；</span>
+        <span class="token comment" spellcheck="true">// 如果"x的右孩子"不为空的话，将 “y” 设为 “x的右孩子的父亲”</span>
+        y<span class="token punctuation">.</span>left <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            x<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 将 “y的父亲” 设为 “x的父亲”</span>
+        x<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>y<span class="token punctuation">.</span>parent <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> x<span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">// 如果 “y的父亲” 是空节点，则将x设为根节点</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>y <span class="token operator">==</span> y<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+                y<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> x<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”</span>
+            <span class="token keyword">else</span>
+                y<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> x<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 将 “y” 设为 “x的右孩子”</span>
+        x<span class="token punctuation">.</span>right <span class="token operator">=</span> y<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 将 “y的父节点” 设为 “x”</span>
+        y<span class="token punctuation">.</span>parent <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * 红黑树插入修正函数
+     *
+     * 在向红黑树中插入节点之后(失去平衡)，再调用该函数；
+     * 目的是将它重新塑造成一颗红黑树。
+     *
+     * 参数说明：
+     *     node 插入的结点        // 对应《算法导论》中的z
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">insertFixUp</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">,</span> gparent<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 若“父节点存在，并且父节点的颜色是红色”</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isRed</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            gparent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">//若“父节点”是“祖父节点的左孩子”</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">==</span> gparent<span class="token punctuation">.</span>left<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Case 1条件：叔叔节点是红色</span>
+                RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> uncle <span class="token operator">=</span> gparent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>uncle<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isRed</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> gparent<span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token comment" spellcheck="true">// Case 2条件：叔叔是黑色，且当前节点是右孩子</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>right <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tmp<span class="token punctuation">;</span>
+                    <span class="token function">leftRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    tmp <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                    parent <span class="token operator">=</span> node<span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token comment" spellcheck="true">// Case 3条件：叔叔是黑色，且当前节点是左孩子。</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">rightRotate</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">//若“z的父节点”是“z的祖父节点的右孩子”</span>
+                <span class="token comment" spellcheck="true">// Case 1条件：叔叔节点是红色</span>
+                RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> uncle <span class="token operator">=</span> gparent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>uncle<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isRed</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> gparent<span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token comment" spellcheck="true">// Case 2条件：叔叔是黑色，且当前节点是左孩子</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tmp<span class="token punctuation">;</span>
+                    <span class="token function">rightRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    tmp <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                    parent <span class="token operator">=</span> node<span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token comment" spellcheck="true">// Case 3条件：叔叔是黑色，且当前节点是右孩子。</span>
+                <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setRed</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">leftRotate</span><span class="token punctuation">(</span>gparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 将根节点设为黑色</span>
+        <span class="token function">setBlack</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 将结点插入到红黑树中
+     *
+     * 参数说明：
+     *     node 插入的结点        // 对应《算法导论》中的node
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> cmp<span class="token punctuation">;</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> y <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> x <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 1. 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中。</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            y <span class="token operator">=</span> x<span class="token punctuation">;</span>
+            cmp <span class="token operator">=</span> node<span class="token punctuation">.</span>key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                x <span class="token operator">=</span> x<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                x <span class="token operator">=</span> x<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        node<span class="token punctuation">.</span>parent <span class="token operator">=</span> y<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>y<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cmp <span class="token operator">=</span> node<span class="token punctuation">.</span>key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>cmp <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                y<span class="token punctuation">.</span>left <span class="token operator">=</span> node<span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                y<span class="token punctuation">.</span>right <span class="token operator">=</span> node<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> node<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 2. 设置节点的颜色为红色</span>
+        node<span class="token punctuation">.</span>color <span class="token operator">=</span> RED<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 3. 将它重新修正为一颗二叉查找树</span>
+        <span class="token function">insertFixUp</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 新建结点(key)，并将其插入到红黑树中
+     *
+     * 参数说明：
+     *     key 插入结点的键值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">RBTNode</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>BLACK<span class="token punctuation">,</span>null<span class="token punctuation">,</span>null<span class="token punctuation">,</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 如果新建结点失败，则返回。</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token function">insert</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/*
+     * 红黑树删除修正函数
+     *
+     * 在从红黑树中删除插入节点之后(红黑树失去平衡)，再调用该函数；
+     * 目的是将它重新塑造成一颗红黑树。
+     *
+     * 参数说明：
+     *     node 待修正的节点
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">removeFixUp</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">,</span> RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> other<span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>node<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>node <span class="token operator">!=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                other <span class="token operator">=</span> parent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// Case 1: x的兄弟w是红色的  </span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">leftRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    other <span class="token operator">=</span> parent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                    <span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// Case 2: x的兄弟w是黑色，且w的俩个孩子也都是黑色的  </span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                    parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment" spellcheck="true">// Case 3: x的兄弟w是黑色的，并且w的左孩子是红色，右孩子为黑色。  </span>
+                        <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">rightRotate</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        other <span class="token operator">=</span> parent<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token comment" spellcheck="true">// Case 4: x的兄弟w是黑色的；并且w的右孩子是红色的，左孩子任意颜色。</span>
+                    <span class="token function">setColor</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">leftRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+                other <span class="token operator">=</span> parent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// Case 1: x的兄弟w是红色的  </span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">rightRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    other <span class="token operator">=</span> parent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                    <span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// Case 2: x的兄弟w是黑色，且w的俩个孩子也都是黑色的  </span>
+                    <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+                    parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token function">isBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment" spellcheck="true">// Case 3: x的兄弟w是黑色的，并且w的左孩子是红色，右孩子为黑色。  </span>
+                        <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">setRed</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">leftRotate</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        other <span class="token operator">=</span> parent<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token comment" spellcheck="true">// Case 4: x的兄弟w是黑色的；并且w的右孩子是红色的，左孩子任意颜色。</span>
+                    <span class="token function">setColor</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setBlack</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">rightRotate</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    node <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot<span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+            <span class="token function">setBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 删除结点(node)，并返回被删除的结点
+     *
+     * 参数说明：
+     *     node 删除的结点
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> child<span class="token punctuation">,</span> parent<span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> color<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 被删除节点的"左右孩子都不为空"的情况。</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 被删节点的后继节点。(称为"取代节点")</span>
+            <span class="token comment" spellcheck="true">// 用它来取代"被删节点"的位置，然后再将"被删节点"去掉。</span>
+            RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> replace <span class="token operator">=</span> node<span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// 获取后继节点</span>
+            replace <span class="token operator">=</span> replace<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>replace<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+                replace <span class="token operator">=</span> replace<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// "node节点"不是根节点(只有根节点不存在父节点)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span>
+                    <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">.</span>left <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                    <span class="token function">parentOf</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">.</span>right <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// "node节点"是根节点，更新根节点。</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// child是"取代节点"的右孩子，也是需要"调整的节点"。</span>
+            <span class="token comment" spellcheck="true">// "取代节点"肯定不存在左孩子！因为它是一个后继节点。</span>
+            child <span class="token operator">=</span> replace<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            parent <span class="token operator">=</span> <span class="token function">parentOf</span><span class="token punctuation">(</span>replace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 保存"取代节点"的颜色</span>
+            color <span class="token operator">=</span> <span class="token function">colorOf</span><span class="token punctuation">(</span>replace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// "被删除节点"是"它的后继节点的父节点"</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">==</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                parent <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// child不为空</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>child<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+                    <span class="token function">setParent</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                parent<span class="token punctuation">.</span>left <span class="token operator">=</span> child<span class="token punctuation">;</span>
+
+                replace<span class="token punctuation">.</span>right <span class="token operator">=</span> node<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token function">setParent</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> replace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            replace<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+            replace<span class="token punctuation">.</span>color <span class="token operator">=</span> node<span class="token punctuation">.</span>color<span class="token punctuation">;</span>
+            replace<span class="token punctuation">.</span>left <span class="token operator">=</span> node<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+            node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> replace<span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>color <span class="token operator">==</span> BLACK<span class="token punctuation">)</span>
+                <span class="token function">removeFixUp</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            node <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>left <span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            child <span class="token operator">=</span> node<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            child <span class="token operator">=</span> node<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 保存"取代节点"的颜色</span>
+        color <span class="token operator">=</span> node<span class="token punctuation">.</span>color<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>child<span class="token operator">!=</span>null<span class="token punctuation">)</span>
+            child<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// "node节点"不是根节点</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token operator">!=</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> node<span class="token punctuation">)</span>
+                parent<span class="token punctuation">.</span>left <span class="token operator">=</span> child<span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                parent<span class="token punctuation">.</span>right <span class="token operator">=</span> child<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mRoot <span class="token operator">=</span> child<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>color <span class="token operator">==</span> BLACK<span class="token punctuation">)</span>
+            <span class="token function">removeFixUp</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        node <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* 
+     * 删除结点(z)，并返回被删除的结点
+     *
+     * 参数说明：
+     *     tree 红黑树的根结点
+     *     z 删除的结点
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> node<span class="token punctuation">;</span> 
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>node <span class="token operator">=</span> <span class="token function">search</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token function">remove</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * 销毁红黑树
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tree<span class="token operator">==</span>null<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token function">destroy</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token function">destroy</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        tree<span class="token operator">=</span>null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">destroy</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mRoot <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * 打印"红黑树"
+     *
+     * key        -- 节点的键值 
+     * direction  --  0，表示该节点是根节点;
+     *               -1，表示该节点是它的父结点的左孩子;
+     *                1，表示该节点是它的父结点的右孩子。
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span>RBTNode<span class="token operator">&lt;</span>T<span class="token operator">></span> tree<span class="token punctuation">,</span> T key<span class="token punctuation">,</span> <span class="token keyword">int</span> direction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>tree <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">if</span><span class="token punctuation">(</span>direction<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">// tree是根节点</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d(B) is root\n"</span><span class="token punctuation">,</span> tree<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span>                <span class="token comment" spellcheck="true">// tree是分支节点</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d(%s) is %2d's %6s child\n"</span><span class="token punctuation">,</span> tree<span class="token punctuation">.</span>key<span class="token punctuation">,</span> <span class="token function">isRed</span><span class="token punctuation">(</span>tree<span class="token punctuation">)</span><span class="token operator">?</span><span class="token string">"R"</span><span class="token operator">:</span><span class="token string">"B"</span><span class="token punctuation">,</span> key<span class="token punctuation">,</span> direction<span class="token operator">==</span><span class="token number">1</span><span class="token operator">?</span><span class="token string">"right"</span> <span class="token operator">:</span> <span class="token string">"left"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">print</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>left<span class="token punctuation">,</span> tree<span class="token punctuation">.</span>key<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>tree<span class="token punctuation">.</span>right<span class="token punctuation">,</span>tree<span class="token punctuation">.</span>key<span class="token punctuation">,</span>  <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>mRoot <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>mRoot<span class="token punctuation">,</span> mRoot<span class="token punctuation">.</span>key<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>红黑树的测试文件(RBTreeTest.java)</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Java 语言: 二叉查找树
+ *
+ * @author skywang
+ * @date 2013/11/07
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RBTreeTest</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> mDebugInsert <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// "插入"动作的检测开关(false，关闭；true，打开)</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> mDebugDelete <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// "删除"动作的检测开关(false，关闭；true，打开)</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> i<span class="token punctuation">,</span> ilen <span class="token operator">=</span> a<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        RBTree<span class="token operator">&lt;</span>Integer<span class="token operator">></span> tree<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">RBTree</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 原始数据: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>ilen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>ilen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            tree<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置mDebugInsert=true,测试"添加函数"</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mDebugInsert<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 添加节点: %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 树的详细信息: \n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                tree<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 前序遍历: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tree<span class="token punctuation">.</span><span class="token function">preOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n== 中序遍历: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tree<span class="token punctuation">.</span><span class="token function">inOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n== 后序遍历: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tree<span class="token punctuation">.</span><span class="token function">postOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 最小值: %s\n"</span><span class="token punctuation">,</span> tree<span class="token punctuation">.</span><span class="token function">minimum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 最大值: %s\n"</span><span class="token punctuation">,</span> tree<span class="token punctuation">.</span><span class="token function">maximum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 树的详细信息: \n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tree<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 设置mDebugDelete=true,测试"删除函数"</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>mDebugDelete<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>ilen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                tree<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 删除节点: %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"== 树的详细信息: \n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                tree<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 销毁二叉树</span>
+        tree<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>真的很感谢这位博主的解析，让我等也能窥探红黑树的代码魅力。<br>1.<a href="http://www.cnblogs.com/skywang12345/p/3624343.html?spm=a2c4e.11153940.blogcont669575.7.646b2f61DGLaUU" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/3624343.html</a></p>
+<p>本文转载自: <a href="https://yq.aliyun.com/articles/669575" target="_blank" rel="noopener">原文</a></p>
 
             </div>
             <hr>
@@ -564,8 +1792,8 @@
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">红黑树的理解与Java实现本文转载自: 原文
-</div>
+                    <div class="summary">红黑树的理解与Java实现摘要： 红黑树原理 红黑树（Red-Black Tree，简称R-B Tree），它是一种特殊的二叉查找树。首先它满足二叉查找树的特征：任意结点结点包含的键值，大于左孩子的键值，小于右孩子的键值。
+红黑树原理红黑树</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-25
@@ -747,7 +1975,7 @@
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">191.9k</span>
+                <span class="white-color">199.1k</span>
             
 
             
