@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-27T10:36:17.980Z</updated>
+  <updated>2019-01-28T15:04:46.403Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Phoenix入门到精通</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/28/hbase/phoenix-ru-men-dao-jing-tong/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/28/hbase/phoenix-ru-men-dao-jing-tong/</id>
+    <published>2019-01-28T15:04:00.000Z</published>
+    <updated>2019-01-28T15:04:46.403Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Phoenix入门到精通&quot;&gt;&lt;a href=&quot;#Phoenix入门到精通&quot; class=&quot;headerlink&quot; title=&quot;Phoenix入门到精通&quot;&gt;&lt;/a&gt;Phoenix入门到精通&lt;/h1&gt;&lt;p&gt;&lt;em&gt;摘要：&lt;/em&gt;
+        
+      
+    
+    </summary>
+    
+      <category term="Hbase" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/Hbase/"/>
+    
+    
+      <category term="Hbase" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/Hbase/"/>
+    
+      <category term="Phoenix" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/Phoenix/"/>
+    
+  </entry>
   
   <entry>
     <title>HBase原理-数据刷写MemStore Flush剖析</title>
@@ -125,58 +153,6 @@
   </entry>
   
   <entry>
-    <title>WeakHashMap</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/</id>
-    <published>2019-01-20T16:00:00.000Z</published>
-    <updated>2019-01-20T16:07:50.030Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;WeakHashMap&quot;&gt;&lt;a href=&quot;#WeakHashMap&quot; class=&quot;headerlink&quot; title=&quot;WeakHashMap&quot;&gt;&lt;/a&gt;WeakHashMap&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a href=&quot;#总体介绍&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LinkedHashSet and LinkedHashMap</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/</id>
-    <published>2019-01-20T16:00:00.000Z</published>
-    <updated>2019-01-20T16:04:06.536Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;LinkedHashSet-and-LinkedHashMap&quot;&gt;&lt;a href=&quot;#LinkedHashSet-and-LinkedHashMap&quot; class=&quot;headerlink&quot; title=&quot;LinkedHashSet and
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>PriorityQueue</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/priorityqueue/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/priorityqueue/</id>
@@ -242,6 +218,58 @@
         
         
           &lt;h1 id=&quot;LinkedList&quot;&gt;&lt;a href=&quot;#LinkedList&quot; class=&quot;headerlink&quot; title=&quot;LinkedList&quot;&gt;&lt;/a&gt;LinkedList&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a href=&quot;#总体介绍&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WeakHashMap</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/</id>
+    <published>2019-01-20T16:00:00.000Z</published>
+    <updated>2019-01-20T16:07:50.030Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;WeakHashMap&quot;&gt;&lt;a href=&quot;#WeakHashMap&quot; class=&quot;headerlink&quot; title=&quot;WeakHashMap&quot;&gt;&lt;/a&gt;WeakHashMap&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a href=&quot;#总体介绍&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LinkedHashSet and LinkedHashMap</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/</id>
+    <published>2019-01-20T16:00:00.000Z</published>
+    <updated>2019-01-20T16:04:06.536Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;LinkedHashSet-and-LinkedHashMap&quot;&gt;&lt;a href=&quot;#LinkedHashSet-and-LinkedHashMap&quot; class=&quot;headerlink&quot; title=&quot;LinkedHashSet and
         
       
     
@@ -518,34 +546,6 @@
       <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
     
       <category term="排序" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java命令--jhat命令使用</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/14/chang-yong-gong-ju/java-ming-ling-jhat-ming-ling-shi-yong/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/14/chang-yong-gong-ju/java-ming-ling-jhat-ming-ling-shi-yong/</id>
-    <published>2019-01-14T10:30:00.000Z</published>
-    <updated>2019-01-14T10:35:20.234Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Java命令–jhat命令使用&quot;&gt;&lt;a href=&quot;#Java命令–jhat命令使用&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="java虚拟机" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
   </entry>
   
