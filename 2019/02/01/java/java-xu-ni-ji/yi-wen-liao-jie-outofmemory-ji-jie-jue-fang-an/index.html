@@ -1,0 +1,930 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="一文了解 OutOfMemory 及解决方案, 大数据 实时计算 机器学习">
+    <meta name="description" content="一文了解 OutOfMemory 及解决方案1. Java 堆空间发生频率5颗星
+造成原因
+无法在 Java 堆中分配对象
+吞吐量增加
+应用程序无意中保存了对象引用，对象无法被 GC 回收
+应用程序过度使用 finalizer。finali">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>一文了解 OutOfMemory 及解决方案 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        一文了解 OutOfMemory 及解决方案
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/java虚拟机/" target="_blank">
+                                <span class="chip bg-color">java虚拟机</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <span class="post-date">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2019-02-01
+                </span>
+
+                
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
+                        810
+                    </span>
+                    
+
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-clock-o fa-fw"></i>readTimes:&nbsp;&nbsp;
+                        2 Minutes
+                    </span>
+                    
+                
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+				
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="一文了解-OutOfMemory-及解决方案"><a href="#一文了解-OutOfMemory-及解决方案" class="headerlink" title="一文了解 OutOfMemory 及解决方案"></a>一文了解 OutOfMemory 及解决方案</h1><h3 id="1-Java-堆空间"><a href="#1-Java-堆空间" class="headerlink" title="1. Java 堆空间"></a><strong>1. Java 堆空间</strong></h3><h4 id="发生频率"><a href="#发生频率" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>5颗星</p>
+<h4 id="造成原因"><a href="#造成原因" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>无法在 Java 堆中分配对象</li>
+<li>吞吐量增加</li>
+<li>应用程序无意中保存了对象引用，对象无法被 GC 回收</li>
+<li>应用程序过度使用 finalizer。finalizer 对象不能被 GC 立刻回收。finalizer 由结束队列服务的守护线程调用，有时 finalizer 线程的处理能力无法跟上结束队列的增长</li>
+</ol>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><blockquote>
+<p>单位对应：GB -&gt; G, g；MB -&gt; M, m；KB -&gt; K, k</p>
+</blockquote>
+<ol>
+<li>使用 -Xmx 增加堆大小</li>
+<li>修复应用程序中的内存泄漏</li>
+</ol>
+<h3 id="2-GC-开销超过限制"><a href="#2-GC-开销超过限制" class="headerlink" title="2. GC 开销超过限制"></a><strong>2. GC 开销超过限制</strong></h3><h4 id="发生频率-1"><a href="#发生频率-1" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>5颗星</p>
+<h4 id="造成原因-1"><a href="#造成原因-1" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>Java 进程98%的时间在进行垃圾回收，恢复了不到2%的堆空间，最后连续5个（编译时常量）垃圾回收一直如此。 </li>
+</ol>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li>使用 -Xmx 增加堆大小</li>
+<li>使用 -XX:-UseGCOverheadLimit 取消 GC 开销限制</li>
+<li>修复应用程序中的内存泄漏</li>
+</ol>
+<h3 id="3-请求的数组大小超过虚拟机限制"><a href="#3-请求的数组大小超过虚拟机限制" class="headerlink" title="3. 请求的数组大小超过虚拟机限制"></a><strong>3. 请求的数组大小超过虚拟机限制</strong></h3><h3 id="发生频率-2"><a href="#发生频率-2" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h3><p>2颗星</p>
+<h4 id="造成原因-2"><a href="#造成原因-2" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>应用程序试图分配一个超过堆大小的数组</li>
+</ol>
+<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li>使用 -Xmx 增加堆大小</li>
+<li>修复应用程序中分配巨大数组的 bug</li>
+</ol>
+<h3 id="4-Permgen-空间"><a href="#4-Permgen-空间" class="headerlink" title="4. Permgen 空间"></a><strong>4. Permgen 空间</strong></h3><h4 id="发生频率-3"><a href="#发生频率-3" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>3颗星</p>
+<h4 id="造成原因-3"><a href="#造成原因-3" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><p>Permgen 空间包含：</p>
+<ul>
+<li>类的名字、字段、方法</li>
+<li>与类相关的对象数组和类型数组</li>
+<li>JIT 编译器优化</li>
+</ul>
+<p>当 Permgen 空间用尽时，将抛出异常。</p>
+<h4 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li>使用 -XX: MaxPermSize 增加 Permgen 大小</li>
+<li>不重启应用部署应用程序可能会导致此问题。重启 JVM 解决</li>
+</ol>
+<h3 id="5-Metaspace"><a href="#5-Metaspace" class="headerlink" title="5. Metaspace"></a><strong>5. Metaspace</strong></h3><h4 id="发生频率-4"><a href="#发生频率-4" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>3颗星</p>
+<h4 id="造成原因-4"><a href="#造成原因-4" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>从 Java 8 开始 Permgen 改成了 Metaspace，在本机内存中分配 class 元数据（称为 metaspace）。如果 metaspace 耗尽，则抛出异常</li>
+</ol>
+<h4 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li>通过命令行设置 -XX: MaxMetaSpaceSize 增加 metaspace 大小</li>
+<li>取消 -XX: maxmetsspacedize</li>
+<li>减小 Java 堆大小,为 MetaSpace 提供更多的可用空间</li>
+<li>为服务器分配更多的内存</li>
+<li>可能是应用程序 bug，修复 bug</li>
+</ol>
+<h3 id="6-无法新建本机线程"><a href="#6-无法新建本机线程" class="headerlink" title="6. 无法新建本机线程"></a><strong>6. 无法新建本机线程</strong></h3><h4 id="发生频率-5"><a href="#发生频率-5" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>5颗星</p>
+<h4 id="造成原因-5"><a href="#造成原因-5" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>内存不足，无法创建新线程。由于线程在本机内存中创建，报告这个错误表明本机内存空间不足</li>
+</ol>
+<h4 id="解决方案-5"><a href="#解决方案-5" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li><p>为机器分配更多的内存</p>
+</li>
+<li><p>减少 Java 堆空间</p>
+</li>
+<li><p>修复应用程序中的线程泄漏。</p>
+</li>
+<li><p>增加操作系统级别的限制</p>
+</li>
+<li><ul>
+<li>ulimit -a</li>
+<li>用户进程数增大 (-u) 1800</li>
+</ul>
+</li>
+<li><p>使用 -Xss 减小线程堆栈大小</p>
+</li>
+</ol>
+<h3 id="7-杀死进程或子进程"><a href="#7-杀死进程或子进程" class="headerlink" title="7. 杀死进程或子进程"></a><strong>7. 杀死进程或子进程</strong></h3><h4 id="发生频率-6"><a href="#发生频率-6" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>1颗星</p>
+<h4 id="造成原因-6"><a href="#造成原因-6" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>内核任务：内存不足结束器，在可用内存极低的情况下会杀死进程</li>
+</ol>
+<h4 id="解决方案-6"><a href="#解决方案-6" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li>将进程迁移到不同的机器上</li>
+<li>给机器增加更多内存</li>
+</ol>
+<p>与其他 OOM 错误不同，这是由操作系统而非 JVM 触发的。</p>
+<h3 id="8-发生-stack-trace-with-native-method"><a href="#8-发生-stack-trace-with-native-method" class="headerlink" title="8. 发生 stack_trace_with_native_method"></a><strong>8. 发生 stack_trace_with_native_method</strong></h3><h4 id="发生频率-7"><a href="#发生频率-7" class="headerlink" title="发生频率"></a><strong>发生频率</strong></h4><p>1颗星</p>
+<h4 id="造成原因-7"><a href="#造成原因-7" class="headerlink" title="造成原因"></a><strong>造成原因</strong></h4><ol>
+<li>本机方法（native method）分配失败</li>
+<li>打印的堆栈跟踪信息，最顶层的帧是本机方法</li>
+</ol>
+<h4 id="解决方案-7"><a href="#解决方案-7" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><ol>
+<li>使用操作系统本地工具进行诊断</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/02/01/java/java-xu-ni-ji/yi-wen-liao-jie-outofmemory-ji-jie-jue-fang-an/" class="b-link-green">一文了解 OutOfMemory 及解决方案</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/02/01/java/java-xu-ni-ji/yi-wen-liao-jie-outofmemory-ji-jie-jue-fang-an/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="一文了解 OutOfMemory 及解决方案">
+                        
+                        <span class="card-title">一文了解 OutOfMemory 及解决方案</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一文了解 OutOfMemory 及解决方案1. Java 堆空间发生频率5颗星
+造成原因
+无法在 Java 堆中分配对象
+吞吐量增加
+应用程序无意中保存了对象引用，对象无法被 GC 回收
+应用程序过度使用 finalizer。finali</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java虚拟机/" target="_blank">
+                        <span class="chip bg-color">java虚拟机</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/01/30/java/ding-shi-qi-de-ji-chong-shi-xian-fang-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="定时器的几种实现方式">
+                        
+                        <span class="card-title">定时器的几种实现方式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">定时器的几种实现方式1 前言在开始正题之前，先闲聊几句。有人说，计算机科学这个学科，软件方向研究到头就是数学，硬件方向研究到头就是物理，最轻松的是中间这批使用者，可以不太懂物理，不太懂数学，依旧可以使用计算机作为自己谋生的工具。这个规律具有</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/编程开发/" target="_blank">
+                        <span class="chip bg-color">编程开发</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">207.9k</span>
+            
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

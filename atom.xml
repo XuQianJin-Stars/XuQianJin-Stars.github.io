@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-01-30T09:32:55.294Z</updated>
+  <updated>2019-02-01T06:40:13.784Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一文了解 OutOfMemory 及解决方案</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/01/java/java-xu-ni-ji/yi-wen-liao-jie-outofmemory-ji-jie-jue-fang-an/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/01/java/java-xu-ni-ji/yi-wen-liao-jie-outofmemory-ji-jie-jue-fang-an/</id>
+    <published>2019-02-01T06:35:00.000Z</published>
+    <updated>2019-02-01T06:40:13.784Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一文了解-OutOfMemory-及解决方案&quot;&gt;&lt;a href=&quot;#一文了解-OutOfMemory-及解决方案&quot; class=&quot;headerlink&quot; title=&quot;一文了解 OutOfMemory 及解决方案&quot;&gt;&lt;/a&gt;一文了解 OutOfMemory
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java虚拟机" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>定时器的几种实现方式</title>
@@ -179,32 +205,6 @@
   </entry>
   
   <entry>
-    <title>PriorityQueue</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/priorityqueue/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/priorityqueue/</id>
-    <published>2019-01-20T16:00:00.000Z</published>
-    <updated>2019-01-20T16:06:06.683Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;PriorityQueue&quot;&gt;&lt;a href=&quot;#PriorityQueue&quot; class=&quot;headerlink&quot; title=&quot;PriorityQueue&quot;&gt;&lt;/a&gt;PriorityQueue&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>LinkedList</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedlist/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedlist/</id>
@@ -218,32 +218,6 @@
         
         
           &lt;h1 id=&quot;LinkedList&quot;&gt;&lt;a href=&quot;#LinkedList&quot; class=&quot;headerlink&quot; title=&quot;LinkedList&quot;&gt;&lt;/a&gt;LinkedList&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a href=&quot;#总体介绍&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WeakHashMap</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/</id>
-    <published>2019-01-20T16:00:00.000Z</published>
-    <updated>2019-01-20T16:07:50.030Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;WeakHashMap&quot;&gt;&lt;a href=&quot;#WeakHashMap&quot; class=&quot;headerlink&quot; title=&quot;WeakHashMap&quot;&gt;&lt;/a&gt;WeakHashMap&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a href=&quot;#总体介绍&quot;
         
       
     
@@ -283,6 +257,32 @@
   </entry>
   
   <entry>
+    <title>WeakHashMap</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/</id>
+    <published>2019-01-20T16:00:00.000Z</published>
+    <updated>2019-01-20T16:07:50.030Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;WeakHashMap&quot;&gt;&lt;a href=&quot;#WeakHashMap&quot; class=&quot;headerlink&quot; title=&quot;WeakHashMap&quot;&gt;&lt;/a&gt;WeakHashMap&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a href=&quot;#总体介绍&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>LinkedHashSet and LinkedHashMap</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/</id>
@@ -296,6 +296,32 @@
         
         
           &lt;h1 id=&quot;LinkedHashSet-and-LinkedHashMap&quot;&gt;&lt;a href=&quot;#LinkedHashSet-and-LinkedHashMap&quot; class=&quot;headerlink&quot; title=&quot;LinkedHashSet and
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PriorityQueue</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/priorityqueue/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/priorityqueue/</id>
+    <published>2019-01-20T16:00:00.000Z</published>
+    <updated>2019-01-20T16:06:06.683Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;PriorityQueue&quot;&gt;&lt;a href=&quot;#PriorityQueue&quot; class=&quot;headerlink&quot; title=&quot;PriorityQueue&quot;&gt;&lt;/a&gt;PriorityQueue&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a
         
       
     
@@ -518,32 +544,6 @@
       <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
     
       <category term="排序" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HBase写吞吐场景资源消耗量化分析及优化</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/16/hbase/hbase-xie-tun-tu-chang-jing-zi-yuan-xiao-hao-liang-hua-fen-xi-ji-you-hua/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/16/hbase/hbase-xie-tun-tu-chang-jing-zi-yuan-xiao-hao-liang-hua-fen-xi-ji-you-hua/</id>
-    <published>2019-01-16T08:59:00.000Z</published>
-    <updated>2019-01-16T09:10:34.631Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;HBase写吞吐场景资源消耗量化分析及优化&quot;&gt;&lt;a href=&quot;#HBase写吞吐场景资源消耗量化分析及优化&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Hbase" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/Hbase/"/>
-    
-    
-      <category term="Hbase" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/Hbase/"/>
     
   </entry>
   
