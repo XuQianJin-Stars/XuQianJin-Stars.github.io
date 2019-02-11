@@ -1,0 +1,869 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Hbase hbck深入, 大数据 实时计算 机器学习">
+    <meta name="description" content="Hbase hbck深入官网介绍:http://hbase.apache.org/book.html#hbck.in.depthHBaseFsck（hbck）是一个用于检查区域一致性和表完整性问题并修复损坏的HBase的工具。它工作在两种基">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Hbase hbck深入 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Hbase hbck深入
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Hbase/" target="_blank">
+                                <span class="chip bg-color">Hbase</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                Hbase
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <span class="post-date">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2019-02-11
+                </span>
+
+                
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
+                        2.4k
+                    </span>
+                    
+
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-clock-o fa-fw"></i>readTimes:&nbsp;&nbsp;
+                        8 Minutes
+                    </span>
+                    
+                
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+				
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Hbase-hbck深入"><a href="#Hbase-hbck深入" class="headerlink" title="Hbase hbck深入"></a>Hbase hbck深入</h1><p>官网介绍:<a href="http://hbase.apache.org/book.html#hbck.in.depth" target="_blank" rel="noopener">http://hbase.apache.org/book.html#hbck.in.depth</a><br>HBaseFsck（hbck）是一个用于检查区域一致性和表完整性问题并修复损坏的HBase的工具。它工作在两种基本模式 - 只读不一致识别模式和多阶段读写修复模式。</p>
+<h2 id="1-运行hbck来识别不一致"><a href="#1-运行hbck来识别不一致" class="headerlink" title="1. 运行hbck来识别不一致"></a>1. 运行hbck来识别不一致</h2><p>要检查您的HBase集群是否损坏，请针对您的HBase集群运行hbck：</p>
+<p>$ ./bin/hbase hbck<br>在命令输出结束时，它会打印OK或告诉您存在的INCONSISTENCIES数量。您可能还想运行hbck几次，因为一些不一致可能是暂时的（例如，群集正在启动或区域正在分裂）。在操作上，您可能希望定期运行hbck并在其重复报告不一致时设置警报（例如通过nagios）。一连串的hbck将报告不一致的列表以及受影响的区域和表格的简要描述。使用该-details选项将报告更多细节，包括所有表格中所有分割的代表性列表。</p>
+<p>$ ./bin/hbase hbck -details<br>如果您只想知道某些表是否已损坏，则可以限制hbck以仅在特定表中标识不一致。例如，以下命令只会尝试检查表TableFoo和TableBar。好处是hbck运行时间更短。</p>
+<p>$ ./bin/hbase hbck TableFoo TableBar</p>
+<h2 id="2-不一致性"><a href="#2-不一致性" class="headerlink" title="2. 不一致性"></a>2. 不一致性</h2><p>如果经过多次运行，不一致仍会继续报告，您可能会遇到腐败现象。这些应该是罕见的，但是如果它们发生在较新版本的HBase中，则包括启用了自动修复选项的hbck工具。</p>
+<p>有两个不变式在违反HBase时会产生不一致：</p>
+<p>如果每个区域都被分配和部署在一个区域服务器上，并且这个状态保存的所有地方都是一致的，那么HBase的区域一致性不变是满足的。</p>
+<p>如果对于每个表，每个可能的行键只解析为一个区域，HBase的表完整性不变是满足的。</p>
+<p>修复通常分三个阶段进行：识别不一致的只读信息收集阶段，恢复表完整性不变的表完整性修复阶段，以及最后恢复区域一致性不变的区域一致性修复阶段。从版本0.90.0开始，hbck可以检测关于可能的表完整性问题的子集的区域一致性问题报告。它还包括自动修复最常见的不一致性，区域分配和部署一致性问题的能力。此修复可以通过使用-fix命令行选项完成。如果这些问题在错误的服务器或多个区域服务器上打开，则这些问题会关闭区域，并且如果区域服务器未打开，也会将区域分配给区域服务器</p>
+<p>从HBase版本0.90.7,0.92.2和0.94.0开始，引入了几个新的命令行选项来帮助修复损坏的HBase。这个hbck有时会被昵称“uberhbck”取代。每个特定版本的uber hbck都与相同主版本的HBase兼容（0.90.7 uberhbck可以修复0.90.4）。但是，版本.90.90.6和版本⇐0.92.1可能需要重新启动主节点或故障转移到备份主节点。</p>
+<h2 id="3-本地化维修"><a href="#3-本地化维修" class="headerlink" title="3. 本地化维修"></a>3. 本地化维修</h2><p>修复损坏的HBase时，最好先修复最低风险的不一致。这些通常是区域一致性修复 - 局部单一区域修复，它只修改内存数据，临时动物园管理员数据或META表中的修补程序漏洞。区域一致性要求HBase实例具有HDFS（.regioninfo文件）中区域数据的状态，hbase：meta表中的区域行，以及区域服务器和主区域上的区域部署/分配。修复区域一致性的选项包括：</p>
+<p>-fixAssignments（相当于0.90 -fix选项）可修复未分配，错误分配或乘数分配的区域。</p>
+<p>-fixMeta当HDFS中不存在相应的区域时删除元行，并且如果它们的区域存在于HDFS中而不在META中则添加新的元行。要修复部署和分配问题，您可以运行以下命令：</p>
+<p>$ ./bin/hbase hbck -fixAssignments<br>要修复部署和分配问题以及修复不正确的元行，您可以运行以下命令：</p>
+<p>$ ./bin/hbase hbck -fixAssignments -fixMeta<br>有几类表完整性问题是低风险修复。前两个是简并（startkey == endkey）区域和向后区域（startkey&gt; endkey）。这些通过将数据旁路到临时目录（/ hbck / xxxx）来自动处理。第三个低风险类是hdfs地区漏洞。这可以通过使用以下来修复：</p>
+<p>-fixHdfsHoles选项用于在文件系统上制作新的空白区域。如果检测到漏洞，则可以使用-fixHdfsHoles，并应包含-fixMeta和-fixAssignments以使新区域保持一致。</p>
+<p>$ ./bin/hbase hbck -fixAssignments -fixMeta -fixHdfsHoles<br>由于这是一种常见操作，因此我们添加了一个-repairHoles与上一个命令等效的标志：</p>
+<p>$ ./bin/hbase hbck -repairHoles<br>如果这些步骤之后仍然存在不一致问题，则很可能出现与孤立或重叠区域相关的表完整性问题。</p>
+<h2 id="4-地区重叠修理"><a href="#4-地区重叠修理" class="headerlink" title="4. 地区重叠修理"></a>4. 地区重叠修理</h2><p>表完整性问题可能需要处理重叠的修复。这是一项风险较大的操作，因为它需要修改文件系统，需要做出一些决策，并且可能需要一些手动步骤。对于这些修理，最好分析一次hbck -details 运行的输出，以便在检查发现问题时仅隔离维修尝试。因为这是更危险的，所以应该使用保护来限制维修的范围。警告：这是一个相对较新的版本，只在线上测试过，但闲置的HBase实例（没有读/写）。在积极的生产环境中使用您自己的风险！修复表完整性违规的选项包括：</p>
+<p>-fixHdfsOrphans 选择“采用”缺少区域元数据文件（.regioninfo文件）的区域目录。</p>
+<p>-fixHdfsOverlaps固定重叠区域的能力</p>
+<p>在修复重叠区域时，可以通过两种方式在文件系统上修改区域的数据：1）通过将区域合并到更大的区域中或2）通过将数据移动到稍后可以恢复数据的“sideline”目录的旁路区域。合并大量区域在技术上是正确的，但可能导致需要一系列昂贵的压缩和分裂操作的非常大的区域。在这些情况下，最好将与其他大多数地区（可能是最大范围）重叠的地区划分开来，以便合并可以在更合理的范围内进行。由于这些边界区域已经布局在HBase的本地目录和HFile格式中，因此可以使用HBase的批量加载机制进行恢复。默认的保障阈值是保守的。</p>
+<p>-maxMerge <n> 最大数量的重叠区域要合并</n></p>
+<p>-sidelineBigOverlaps 如果超过maxMerge区域重叠，副业尝试旁路与其他大多数区域重叠的区域。</p>
+<p>-maxOverlapsToSideline <n> 如果大面积重叠的地区，副业最多n个地区。</n></p>
+<p>由于您经常只想修复表格，因此您可以使用此选项打开所有修复选项：</p>
+<p>-repair 包括所有区域一致性选项以及只有孔修复表完整性选项。</p>
+<p>最后，还有一些保护措施可以限制对特定表格的修复。例如，以下命令只会尝试检查并修复表格TableFoo和TableBar。</p>
+<p>$ ./bin/hbase hbck -repair TableFoo TableBar</p>
+<h3 id="4-1-特殊情况：Meta未正确分配"><a href="#4-1-特殊情况：Meta未正确分配" class="headerlink" title="4.1. 特殊情况：Meta未正确分配"></a>4.1. 特殊情况：Meta未正确分配</h3><p>有一些hbck可以处理的特殊情况。有时，元表唯一的区域不一致地分配或部署。在这种情况下，有一个特殊-fixMetaOnly选项可以尝试修复元分配。</p>
+<p>$ ./bin/hbase hbck -fixMetaOnly -fixAssignments</p>
+<h3 id="4-2-特殊情况：HBase版本文件丢失"><a href="#4-2-特殊情况：HBase版本文件丢失" class="headerlink" title="4.2. 特殊情况：HBase版本文件丢失"></a>4.2. 特殊情况：HBase版本文件丢失</h3><p>HBase的文件系统数据需要一个版本文件才能启动。如果缺少这个文件，您可以使用该-fixVersionFile选项来制作新的HBase版本文件。这假设您正在运行的hbck版本是适用于HBase集群的版本。</p>
+<h3 id="4-3-特例：Root和META已损坏。"><a href="#4-3-特例：Root和META已损坏。" class="headerlink" title="4.3. 特例：Root和META已损坏。"></a>4.3. 特例：Root和META已损坏。</h3><p>最严重的腐败情况是ROOT或META损坏且HBase无法启动的情况。在这种情况下，您可以使用OfflineMetaRepair工具创建新的ROOT和META区域和表格。该工具假定HBase处于离线状态。然后通过现有的HBase主目录进行游览，从文件系统尽可能多地从区域元数据文件（.regioninfo文件）中加载信息。如果区域元数据具有适当的表完整性，则会旁路原始根目录和元目录表目录，并使用指向区域目录及其数据的指针构建新的目录。</p>
+<p>$ ./bin/hbase org.apache.hadoop.hbase.util.hbck.OfflineMetaRepair<br>这个工具不像uberhbck那样聪明，但可以用来引导uberhbck可以完成的修复。如果工具成功，您应该能够启动hbase并在必要时运行联机修复。</p>
+<h3 id="4-4-特殊情况：离线分离父母"><a href="#4-4-特殊情况：离线分离父母" class="headerlink" title="4.4. 特殊情况：离线分离父母"></a>4.4. 特殊情况：离线分离父母</h3><p>一旦区域被拆分，离线父母将自动清理。有时，女儿地区在父母清理之前会再次分裂。HBase可以按照正确的顺序清理父母。但是，有时候可能会有一些徘徊在离线分裂的父母身上。他们在META中，在HDFS中，没有部署。但是HBase无法清理它们。在这种情况下，您可以使用该-fixSplitParents选项在META中重置它们以联机并且不拆分。因此，如果使用修复重叠区域选项，hbck可以将它们与其他区域合并。</p>
+<p>这个选项通常不应该被使用，并且它不在-fixAll。</p>
+<p>转载自：<a href="https://blog.csdn.net/xfg0218/article/details/79542284" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/02/11/hbase/hbase-hbck-shen-ru/" class="b-link-green">Hbase hbck深入</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/02/11/hbase/hbase-hbck-shen-ru/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Hbase hbck深入">
+                        
+                        <span class="card-title">Hbase hbck深入</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Hbase hbck深入官网介绍:http://hbase.apache.org/book.html#hbck.in.depthHBaseFsck（hbck）是一个用于检查区域一致性和表完整性问题并修复损坏的HBase的工具。它工作在两种基</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                    Hbase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hbase/" target="_blank">
+                        <span class="chip bg-color">Hbase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/02/06/mian-shi-xi-lie/2018-nian-mian-shi-guo-a-li-wang-yi-hai-kang-de-da-shu-ju-zong-jie-de-mian-shi-ti/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="2018年面试过阿里、网易、海康的大数据总结的面试题">
+                        
+                        <span class="card-title">2018年面试过阿里、网易、海康的大数据总结的面试题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">2018年面试过阿里、网易、海康的大数据总结的面试题(1)spark运行流程、源码架构
+(2)Hbase主键设计、hbase为啥比mysql快、为什么项目选用hbase
+(3)Hbase读写流程，数据compact流程
+(4)Hadoop </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/面试系列/" class="post-category" target="_blank">
+                                    面试系列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/大数据/" target="_blank">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">210.8k</span>
+            
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
