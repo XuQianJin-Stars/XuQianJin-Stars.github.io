@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-02-13T14:31:17.087Z</updated>
+  <updated>2019-02-15T05:14:30.421Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>按照顺时针的顺序，逐层遍历并打印N阶方阵</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/15/suan-fa/an-zhao-shun-shi-zhen-de-shun-xu-zhu-ceng-bian-li-bing-da-yin-n-jie-fang-zhen/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/15/suan-fa/an-zhao-shun-shi-zhen-de-shun-xu-zhu-ceng-bian-li-bing-da-yin-n-jie-fang-zhen/</id>
+    <published>2019-02-15T05:13:00.000Z</published>
+    <updated>2019-02-15T05:14:30.421Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;按照顺时针的顺序，逐层遍历并打印N阶方阵&quot;&gt;&lt;a href=&quot;#按照顺时针的顺序，逐层遍历并打印N阶方阵&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>青蛙跳台阶一阶、两阶，求n阶的台阶一共几种跳法</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/15/suan-fa/qing-wa-tiao-tai-jie-yi-jie-liang-jie-qiu-n-jie-de-tai-jie-yi-gong-ji-chong-tiao-fa/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/15/suan-fa/qing-wa-tiao-tai-jie-yi-jie-liang-jie-qiu-n-jie-de-tai-jie-yi-gong-ji-chong-tiao-fa/</id>
+    <published>2019-02-15T04:51:00.000Z</published>
+    <updated>2019-02-15T04:55:22.834Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;青蛙跳台阶一阶、两阶，求n阶的台阶一共几种跳法&quot;&gt;&lt;a href=&quot;#青蛙跳台阶一阶、两阶，求n阶的台阶一共几种跳法&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>拍平二叉树</title>
@@ -489,58 +541,6 @@
     
     
       <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TreeSet and TreeMap</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/19/java/java-rong-qi/treeset-and-treemap/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/19/java/java-rong-qi/treeset-and-treemap/</id>
-    <published>2019-01-19T15:45:00.000Z</published>
-    <updated>2019-01-19T15:46:52.900Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;TreeSet-and-TreeMap&quot;&gt;&lt;a href=&quot;#TreeSet-and-TreeMap&quot; class=&quot;headerlink&quot; title=&quot;TreeSet and TreeMap&quot;&gt;&lt;/a&gt;TreeSet and TreeMap&lt;/h1&gt;&lt;h1
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用日志框架(log4j，slf4j，logback)有啥区别</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/19/chang-yong-gong-ju/chang-yong-ri-zhi-kuang-jia-log4j-slf4j-logback-you-sha-qu-bie/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/19/chang-yong-gong-ju/chang-yong-ri-zhi-kuang-jia-log4j-slf4j-logback-you-sha-qu-bie/</id>
-    <published>2019-01-19T15:31:00.000Z</published>
-    <updated>2019-01-19T15:31:58.317Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;常用日志框架-log4j，slf4j，logback-有啥区别&quot;&gt;&lt;a href=&quot;#常用日志框架-log4j，slf4j，logback-有啥区别&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
