@@ -5,9 +5,15 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="数据流中第 K 大的元素, 大数据 实时计算 机器学习">
-    <meta name="description" content="数据流中第 K 大的元素问题
-这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，整数数组作为初始数据流。第二个是 add 函数，接收一个整数表">
+    <meta name="keywords" content="拍平二叉树, 大数据 实时计算 机器学习">
+    <meta name="description" content="拍平二叉树问题
+这个题目说的是，给你一棵二叉树，你要将它拍平，使得每个节点都只有右子树，并且拍平后的二叉树从上到下的节点是原二叉树前序遍历的结果。
+比如说，给你的二叉树是：
+
+      0
+    /   \
+   1     2
+  /">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +21,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>数据流中第 K 大的元素 | ForwardXu</title>
+    <title>拍平二叉树 | ForwardXu</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -214,13 +220,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        数据流中第 K 大的元素
+                        拍平二叉树
                     </div>
                 </div>
             </div>
@@ -337,6 +343,10 @@
                                 <span class="chip bg-color">algorithm</span>
                             </a>
                         
+                            <a href="/tags/二叉树/" target="_blank">
+                                <span class="chip bg-color">二叉树</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -357,14 +367,14 @@
             <div class="post-info">
                 <span class="post-date">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
-                    2018-12-09
+                    2019-02-13
                 </span>
 
                 
                     
                     <span class="post-word-count">
                         <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
-                        289
+                        225
                     </span>
                     
 
@@ -387,48 +397,73 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="数据流中第-K-大的元素"><a href="#数据流中第-K-大的元素" class="headerlink" title="数据流中第 K 大的元素"></a>数据流中第 K 大的元素</h2><p><strong>问题</strong></p>
-<p>这个题目说的是，你要实现一个类，用来求数据流中第 K 大的元素。你需要实现这个类中的两个函数。第一个是构造函数，它接收一个整数数组以及一个整数 K，<strong>整数数组作为初始数据流</strong>。第二个是 add 函数，接收一个整数表示新流入的数据，然后返回当前第 K 大的元素。</p>
-<pre class=" language-markdown"><code class="language-markdown">比如说，给你的 K 是 3，初始的数组是：
+                <h2 id="拍平二叉树"><a href="#拍平二叉树" class="headerlink" title="拍平二叉树"></a>拍平二叉树</h2><p><strong>问题</strong></p>
+<p>这个题目说的是，给你一棵二叉树，你要将它拍平，使得每个节点都只有右子树，并且拍平后的二叉树从上到下的节点是原二叉树前序遍历的结果。</p>
+<pre class=" language-markdown"><code class="language-markdown">比如说，给你的二叉树是：
 
-1, 5, 2, 8
+<span class="token code keyword">      0</span>
+<span class="token code keyword">    /   \</span>
+   1     2
+  / \     \
+ 4   8    16
 
-这时假如调用 add 函数增加一个数字 9，数据流变成：
+将它拍平后，得到的二叉树是：
 
-1, 5, 2, 8, 9
-
-你要返回第 3 大的元素是 5。
-
-假如再调用 add 函数增加一个数字 0，数据流变成：
-
-1, 5, 2, 8, 9, 0
-
-这时你要返回的第 3 大元素仍然是 5。
+  0
+   \
+<span class="token code keyword">    1</span>
+<span class="token code keyword">     \</span>
+<span class="token code keyword">      4</span>
+<span class="token code keyword">       \</span>
+<span class="token code keyword">        8</span>
+<span class="token code keyword">         \</span>
+<span class="token code keyword">          2</span>
+<span class="token code keyword">           \</span>
+<span class="token code keyword">           16</span>
 </code></pre>
 <p><strong>代码</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlgoCasts</span> <span class="token punctuation">{</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">KthLargestElementInStream</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TreeNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    TreeNode left<span class="token punctuation">;</span>
+    TreeNode right<span class="token punctuation">;</span>
 
-    <span class="token keyword">private</span> Queue<span class="token operator">&lt;</span>Integer<span class="token operator">></span> minHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PriorityQueue</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> k<span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// Time: O(n*log(k))</span>
-    <span class="token keyword">public</span> <span class="token function">KthLargestElementInStream</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>k <span class="token operator">=</span> k<span class="token punctuation">;</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">TreeNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      val <span class="token operator">=</span> x<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 
-    <span class="token comment" spellcheck="true">// Time: O(log(k))</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>minHeap<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        minHeap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>val <span class="token operator">></span> minHeap<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        minHeap<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        minHeap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token keyword">return</span> minHeap<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">preorder</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>TreeNode<span class="token operator">></span> list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">preorder</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">preorder</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">flattenPreorder</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    List<span class="token operator">&lt;</span>TreeNode<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">preorder</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    TreeNode cur <span class="token operator">=</span> root<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      cur<span class="token punctuation">.</span>left <span class="token operator">=</span> null<span class="token punctuation">;</span>
+      cur<span class="token punctuation">.</span>right <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">private</span> TreeNode prev <span class="token operator">=</span> null<span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// Time: O(n), Space: O(n)</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">flattenReversePreorder</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token function">flattenReversePreorder</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">flattenReversePreorder</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    root<span class="token punctuation">.</span>left <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    root<span class="token punctuation">.</span>right <span class="token operator">=</span> prev<span class="token punctuation">;</span>
+    prev <span class="token operator">=</span> root<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
@@ -573,7 +608,7 @@
                     </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2018/12/09/suan-fa/shu-ju-liu-zhong-di-k-da-de-yuan-su/" class="b-link-green">数据流中第 K 大的元素</a>
+                    <a href="/2019/02/13/suan-fa/er-cha-shu/pai-ping-er-cha-shu/" class="b-link-green">拍平二叉树</a>
                 </p>
             </div>
         </div>
@@ -596,29 +631,31 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/zui-chang-hui-wen-chuan-de-chang-du/">
+                <a href="/2019/02/13/suan-fa/er-cha-shu/pai-ping-er-cha-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="最长回文串的长度">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="拍平二叉树">
                         
-                        <span class="card-title">最长回文串的长度</span>
+                        <span class="card-title">拍平二叉树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">最长回文串的长度问题
-这个题目说的是，给你一个包含大小写英文字母的字符串，你要用这些字母构建一个最长的回文字符串，并返回它的长度。
-比如说，给你的字符串 s 是：
+                    <div class="summary">拍平二叉树问题
+这个题目说的是，给你一棵二叉树，你要将它拍平，使得每个节点都只有右子树，并且拍平后的二叉树从上到下的节点是原二叉树前序遍历的结果。
+比如说，给你的二叉树是：
 
-aaabccdd
-
-你能用它构建的回文串的最大长度是 7，因此你要返回的就</div>
+      0
+    /   \
+   1     2
+  /</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -631,11 +668,16 @@ aaabccdd
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/algorithm/" target="_blank">
                         <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/二叉树/" target="_blank">
+                        <span class="chip bg-color">二叉树</span>
                     </a>
                     
                 </div>
@@ -649,25 +691,21 @@ aaabccdd
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/12/09/suan-fa/xun-zhao-tian-ji-xian/">
+                <a href="/2019/02/13/suan-fa/shi-yong-zhan-shi-xian-dui-lie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="寻找天际线">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="使用栈实现队列">
                         
-                        <span class="card-title">寻找天际线</span>
+                        <span class="card-title">使用栈实现队列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">寻找天际线问题
-这个题目说的是，给你一组矩形表示的楼房，它们的底边在同一水平线上，并且楼房之间可以相邻，也可以重叠。你要找到这组楼房的轮廓线或者叫天际线，并返回这个轮廓线的关键点。
-代码
-public class AlgoCasts {
-
-</div>
+                    <div class="summary">使用栈实现队列问题
+这个题目说的是，你要使用栈来实现一个队列，需要实现队列中常用的 4 个函数。其中，push 函数往队尾加入一个元素；pop 函数把队首元素移除；peek 函数返回队首元素；empty 函数返回队列是否为空。另外你的实现不</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-13
                             </span>
                         <span class="publish-author">
                             

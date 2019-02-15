@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-02-13T14:09:40.811Z</updated>
+  <updated>2019-02-13T14:31:17.087Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>拍平二叉树</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/13/suan-fa/er-cha-shu/pai-ping-er-cha-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/13/suan-fa/er-cha-shu/pai-ping-er-cha-shu/</id>
+    <published>2019-02-13T14:29:00.000Z</published>
+    <updated>2019-02-13T14:31:17.087Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;拍平二叉树&quot;&gt;&lt;a href=&quot;#拍平二叉树&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="二叉树" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>使用栈实现队列</title>
@@ -283,6 +311,32 @@
   </entry>
   
   <entry>
+    <title>Stack and Queue</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/stack-and-queue/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/stack-and-queue/</id>
+    <published>2019-01-20T16:00:00.000Z</published>
+    <updated>2019-01-20T16:00:56.942Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Stack-and-Queue&quot;&gt;&lt;a href=&quot;#Stack-and-Queue&quot; class=&quot;headerlink&quot; title=&quot;Stack and Queue&quot;&gt;&lt;/a&gt;Stack and Queue&lt;/h1&gt;&lt;h1 id=&quot;前言&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
+    
+    
+      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>WeakHashMap</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/weakhashmap/</id>
@@ -335,11 +389,11 @@
   </entry>
   
   <entry>
-    <title>Stack and Queue</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/stack-and-queue/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/stack-and-queue/</id>
+    <title>LinkedHashSet and LinkedHashMap</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/</id>
     <published>2019-01-20T16:00:00.000Z</published>
-    <updated>2019-01-20T16:00:56.942Z</updated>
+    <updated>2019-01-20T16:04:06.536Z</updated>
     
     <summary type="html">
     
@@ -347,7 +401,7 @@
       
         
         
-          &lt;h1 id=&quot;Stack-and-Queue&quot;&gt;&lt;a href=&quot;#Stack-and-Queue&quot; class=&quot;headerlink&quot; title=&quot;Stack and Queue&quot;&gt;&lt;/a&gt;Stack and Queue&lt;/h1&gt;&lt;h1 id=&quot;前言&quot;&gt;&lt;a
+          &lt;h1 id=&quot;LinkedHashSet-and-LinkedHashMap&quot;&gt;&lt;a href=&quot;#LinkedHashSet-and-LinkedHashMap&quot; class=&quot;headerlink&quot; title=&quot;LinkedHashSet and
         
       
     
@@ -374,32 +428,6 @@
         
         
           &lt;h1 id=&quot;PriorityQueue&quot;&gt;&lt;a href=&quot;#PriorityQueue&quot; class=&quot;headerlink&quot; title=&quot;PriorityQueue&quot;&gt;&lt;/a&gt;PriorityQueue&lt;/h1&gt;&lt;h1 id=&quot;总体介绍&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LinkedHashSet and LinkedHashMap</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/21/java/java-rong-qi/linkedhashset-and-linkedhashmap/</id>
-    <published>2019-01-20T16:00:00.000Z</published>
-    <updated>2019-01-20T16:04:06.536Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;LinkedHashSet-and-LinkedHashMap&quot;&gt;&lt;a href=&quot;#LinkedHashSet-and-LinkedHashMap&quot; class=&quot;headerlink&quot; title=&quot;LinkedHashSet and
         
       
     
@@ -513,32 +541,6 @@
     
     
       <category term="开发工具" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图解Java常用数据结构</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/17/java/java-rong-qi/tu-jie-java-chang-yong-shu-ju-jie-gou/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/01/17/java/java-rong-qi/tu-jie-java-chang-yong-shu-ju-jie-gou/</id>
-    <published>2019-01-17T06:52:00.000Z</published>
-    <updated>2019-01-17T06:54:11.985Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;图解Java常用数据结构&quot;&gt;&lt;a href=&quot;#图解Java常用数据结构&quot; class=&quot;headerlink&quot; title=&quot;图解Java常用数据结构&quot;&gt;&lt;/a&gt;图解Java常用数据结构&lt;/h2&gt;&lt;p&gt;最近在整理数据结构方面的知识,
-        
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/java/"/>
-    
-    
-      <category term="java容器" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java%E5%AE%B9%E5%99%A8/"/>
     
   </entry>
   
