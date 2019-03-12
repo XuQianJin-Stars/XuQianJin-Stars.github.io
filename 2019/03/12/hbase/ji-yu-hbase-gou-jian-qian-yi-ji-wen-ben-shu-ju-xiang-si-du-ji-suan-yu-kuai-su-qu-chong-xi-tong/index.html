@@ -1,0 +1,1183 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="基于HBase构建千亿级文本数据相似度计算与快速去重系统, 大数据 实时计算 机器学习">
+    <meta name="description" content="基于HBase构建千亿级文本数据相似度计算与快速去重系统
+前言：随着大数据时代的到来，数据信息在给我们生活带来便利的同时，同样也给我们带来了一系列的考验与挑战。本文主要介绍了基于 Apache HBase 与 Google SimHash ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>基于HBase构建千亿级文本数据相似度计算与快速去重系统 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        基于HBase构建千亿级文本数据相似度计算与快速去重系统
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Hbase/" target="_blank">
+                                <span class="chip bg-color">Hbase</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                Hbase
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <span class="post-date">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2019-03-12
+                </span>
+
+                
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
+                        4.1k
+                    </span>
+                    
+
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-clock-o fa-fw"></i>readTimes:&nbsp;&nbsp;
+                        16 Minutes
+                    </span>
+                    
+                
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+				
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="基于HBase构建千亿级文本数据相似度计算与快速去重系统"><a href="#基于HBase构建千亿级文本数据相似度计算与快速去重系统" class="headerlink" title="基于HBase构建千亿级文本数据相似度计算与快速去重系统"></a>基于HBase构建千亿级文本数据相似度计算与快速去重系统</h1><blockquote>
+<p><strong>前言</strong>：随着大数据时代的到来，数据信息在给我们生活带来便利的同时，同样也给我们带来了一系列的考验与挑战。本文主要介绍了基于 Apache HBase 与 Google SimHash 等多种算法共同实现的一套支持百亿级文本数据相似度计算与快速去重系统的设计与实现。该方案在公司业务层面彻底解决了多主题海量文本数据所面临的存储与计算慢的问题。</p>
+</blockquote>
+<h2 id="一-面临的问题"><a href="#一-面临的问题" class="headerlink" title="一. 面临的问题"></a>一. 面临的问题</h2><h3 id="1-如何选择文本的相似度计算或去重算法？"><a href="#1-如何选择文本的相似度计算或去重算法？" class="headerlink" title="1. 如何选择文本的相似度计算或去重算法？"></a>1. 如何选择文本的相似度计算或去重算法？</h3><p>常见的有余弦夹角算法、欧式距离、Jaccard 相似度、最长公共子串、编辑距离等。这些算法对于待比较的文本数据不多时还比较好用，但在海量数据背景下，如果每天产生的数据以千万计算，我们如何对于这些海量千万级的数据进行高效的合并去重和相似度计算呢？</p>
+<h3 id="2-如何实现快速计算文本相似度或去重呢？"><a href="#2-如何实现快速计算文本相似度或去重呢？" class="headerlink" title="2. 如何实现快速计算文本相似度或去重呢？"></a>2. 如何实现快速计算文本相似度或去重呢？</h3><p>如果我们选好了相似度计算和去重的相关算法，那我们怎么去做呢？如果待比较的文本数据少，我们简单遍历所有文本进行比较即可，那对于巨大的数据集我们该怎么办呢？遍历很明显是不可取的。</p>
+<h3 id="3-海量数据的存储与快速读写"><a href="#3-海量数据的存储与快速读写" class="headerlink" title="3. 海量数据的存储与快速读写"></a>3. 海量数据的存储与快速读写</h3><h2 id="二-SimHash-算法引入"><a href="#二-SimHash-算法引入" class="headerlink" title="二. SimHash 算法引入"></a>二. SimHash 算法引入</h2><p>基于问题一，我们引入了 <strong>SimHash 算法</strong> 来实现海量文本的相似度计算与快速去重。下面我们简单了解下该算法。</p>
+<h3 id="1-局部敏感哈希"><a href="#1-局部敏感哈希" class="headerlink" title="1. 局部敏感哈希"></a>1. 局部敏感哈希</h3><p>在介绍 SimHash 算法之前，我们先简单介绍下局部敏感哈希是什么。</p>
+<p>局部敏感哈希的基本思想类似于一种空间域转换思想，LSH 算法基于一个假设，如果两个文本在原有的数据空间是相似的，那么分别经过哈希函数转换以后的它们也具有很高的相似度；相反，如果它们本身是不相似的，那么经过转换后它们应仍不具有相似性。</p>
+<p>局部敏感哈希的最大特点就在于保持数据的相似性，举一个小小的例子说明一下：对A文章微调后我们称其为B文章（可能只是多了一个<strong>的</strong>字），如果此时我们计算两篇文章的 MD5 值，那么必将大相径庭。而局部敏感哈希的好处是经过哈希函数转换后的值也只是发生了微小的变化，即如果两篇文章相似度很高，那么在算法转换后其相似度也会很高。</p>
+<p>MinHash 与 SimHash 算法都属于局部敏感哈希，一般情况若每个 Feature 无权重，则 MinHash 效果优于 SimHash 有权重时 SimHash 合适。长文本使用 Simhash 效果很好，短文本使用 Simhash 准备度不高。</p>
+<h3 id="2-SimHash-算法"><a href="#2-SimHash-算法" class="headerlink" title="2. SimHash 算法"></a>2. SimHash 算法</h3><p>SimHash 是 Google 在2007年发表的论文《Detecting Near-Duplicates for Web Crawling 》中提到的一种指纹生成算法或者叫指纹提取算法，被 Google 广泛应用在亿级的网页去重的 Job 中，其主要思想是<strong>降维</strong>，经过simhash降维后，可能仅仅得到一个长度为32或64位的二进制由01组成的字符串。而一维查询则是非常快速的。</p>
+<p>SimHash的工作原理我们这里略过，大家可以简单理解为：我们可以利用SimHash算法为每一个网页/文章生成一个长度为32或64位的二进制由01组成的字符串（向量指纹），形如：1000010010101101111111100000101011010001001111100001001011001011。</p>
+<h3 id="3-海明距离"><a href="#3-海明距离" class="headerlink" title="3. 海明距离"></a>3. 海明距离</h3><p>两个码字的对应比特取值不同的比特数称为这两个码字的海明距离。在一个有效编码集中,任意两个码字的海明距离的最小值称为该编码集的海明距离。举例如下：10101和00110从第一位开始依次有第一位、第四、第五位不同，则海明距离为3。</p>
+<p><strong>在 google 的论文给出的数据中，64位的签名，在海明距离为3的情况下，可认为两篇文档是相似的或者是重复的，当然这个值只是参考值。</strong></p>
+<p>这样，基于 SimHash 算法，我们就可以将百亿千亿级的高维特征文章转变为一维字符串后再通过计算其海明距离判断网页/文章的相似度，可想效率必将大大提高。</p>
+<h2 id="三-效率问题"><a href="#三-效率问题" class="headerlink" title="三. 效率问题"></a>三. 效率问题</h2><p>到这里相似度问题基本解决，但是按这个思路，在海量数据几百亿的数量下，效率问题还是没有解决的，因为数据是不断添加进来的，不可能每来一条数据，都要和全库的数据做一次比较，按照这种思路，处理速度会越来越慢，线性增长。</p>
+<p>这里，我们要引入一个新的概念：<strong>抽屉原理</strong>，也称鸽巢原理。下面我们简单举例说一下：</p>
+<p>桌子上有四个苹果，但只有三个抽屉，如果要将四个苹果放入三个抽屉里，那么必然有一个抽屉中放入了两个苹果。如果每个抽屉代表一个集合，每一个苹果就可以代表一个元素，假如有n+1个元素放到n个集合中去，其中必定有一个集合里至少有两个元素。</p>
+<p>抽屉原理就是这么简单，那如果用它来解决我们海量数据的遍历问题呢？</p>
+<p>针对海量数据的去重效率，我们可以将64位指纹，切分为4份16位的数据块，<strong>根据抽屉原理在海明距离为3的情况，如果两个文档相似，那么它必有一个块的数据是相等的。</strong></p>
+<p>那也就是说，我们可以以某文本的 SimHash 的每个16位截断指纹为 Key，Value 为 Key 相等时文本的 SimHash 集合存入 K-V 数据库即可，查询时候，精确匹配这个指纹的4个16位截断指纹所对应的4个 SimHash 集合即可。</p>
+<p>如此，假设样本库，有2^37 条数据（1375亿数据），假设数据均匀分布，则每个16位（16个01数字随机组成的组合为2^16 个）倒排返回的最大数量为<br>(2^37)<em>4/(2^16)=8388608个候选结果，4个16位截断索引，总的结果为：4</em>8388608=33554432，<strong>约为3356万</strong>，通过<br>这样一来的降维处理，<strong>原来需要比较1375亿次，现在只需要比较3356万次即可得到结果</strong>，这样以来大大提升了计算效率。</p>
+<p>根据网上测试数据显示，普通 PC 比较1000万次海明距离大约需要 300ms，也就是说3356万次（1375亿数据）只需花费3356/1000*0.3=1.0068s。那也就是说对于<strong>千亿级</strong>文本数据（如果每个文本1kb，约<strong>100TB</strong>数据）的相似度计算与去重工作我们最多只需要<strong>一秒</strong>的时间即可得出结果。</p>
+<h2 id="四-HBase-存储设计"><a href="#四-HBase-存储设计" class="headerlink" title="四. HBase 存储设计"></a>四. HBase 存储设计</h2><p>饶了这么大一周，我们终于将需要讲明的理论知识给大家过了一遍。为了阐述的尽量清晰易懂，文中很多理论知识的理解借鉴了大量博主大牛的博客，<strong>原文链接已在文末附上</strong>，有不太明白的地方快快跪拜大牛们的博客吧，哈哈！</p>
+<p>下面我们着重介绍一下 HBase 存储表的设计与实现。</p>
+<p>基于上文我们可以大概知道，如果将64位指纹平分四份，<strong>海明距离取3，那么必有一段16位截取指纹的数据是相等的</strong>。而每一段16位截取指纹对应一个64位指纹集合，且该集合中的每个64位指纹必有一段16位截取指纹与该段16位截取指纹重合。我们可以简单表示(以8位非01指纹举例)为：</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value(set)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>[12345678,12345679]</td>
+</tr>
+<tr>
+<td>23</td>
+<td>[12345678,12345679,23456789]</td>
+</tr>
+</tbody>
+</table>
+<p>那如果基于 HBase 去实现的话，我们大概对比<strong>三种</strong>可能的设计方案。</p>
+<h3 id="方案一："><a href="#方案一：" class="headerlink" title="方案一："></a>方案一：</h3><p>以 16 位指纹作为 HBase 数据表的行键，将每一个与之可能相似的64位指纹作为 HBase 的列，列值存文章id值，即<strong>构建一张大宽表</strong>。如下表所示(以8位非01指纹举例)：</p>
+<table>
+<thead>
+<tr>
+<th>rowkey</th>
+<th>column1</th>
+<th>column2</th>
+<th>column3</th>
+<th>…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>实际数据表可能是这个样子：</p>
+<table>
+<thead>
+<tr>
+<th>rowkey</th>
+<th>12345678</th>
+<th>32234567</th>
+<th>23456789</th>
+<th>12456789</th>
+<th>…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>1102101</td>
+<td></td>
+<td></td>
+<td>1102102</td>
+<td>…</td>
+</tr>
+<tr>
+<td>23</td>
+<td></td>
+<td>1102104</td>
+<td>1102105</td>
+<td></td>
+<td>…</td>
+</tr>
+<tr>
+<td>34</td>
+<td>1102106</td>
+<td></td>
+<td></td>
+<td></td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>那其实这样设计表的话该 HBase 表 Rowkey 的个数就是一个确定的数值：16个01数字随机组成的组合为2^16 个。也就是共2^16=65536行。 列的个数其实也是固定的，即2^64=<strong>184467440737亿万列</strong>。</p>
+<p>此时，比如说我们比较56431234与库中所有文本的相似度，只需拉去rowkey in (56,43,12,34) 四行数据遍历每行列，由于 HBase 空值不进行存储，所有只会遍历存在值的列名。</p>
+<p>由上文我们计算出1350亿数据如果平均分布的话每行大约有<strong>839万列</strong>，且不说我们的数据量可能远远大于千亿级别，也不说以64位字符串作为列名所占的存储空间有多大，单单千亿级数据量 HBase 每行就大约839万列，虽说HBase号称支持千万行百万列数据存储，但总归还是设计太不合理。数据不会理想化均匀分布，总列数高达184467440737亿万列也令人堪忧。</p>
+<h3 id="方案二："><a href="#方案二：" class="headerlink" title="方案二："></a>方案二：</h3><p>以 16 位指纹与64位指纹拼接后作为 HBase 数据表的行键，该表只有一列，列值存文章id值，即<strong>构建一张窄长表</strong>。如下表所示(以8位非01指纹举例)：</p>
+<table>
+<thead>
+<tr>
+<th>rowkey</th>
+<th>id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>124</td>
+<td>456</td>
+</tr>
+</tbody>
+</table>
+<p>实际数据表可能是这个样子：</p>
+<table>
+<thead>
+<tr>
+<th>rowkey</th>
+<th>id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12_12345678</td>
+<td>1</td>
+</tr>
+<tr>
+<td>34_12345678</td>
+<td>1</td>
+</tr>
+<tr>
+<td>56_12345678</td>
+<td>1</td>
+</tr>
+<tr>
+<td>78_12345678</td>
+<td>1</td>
+</tr>
+<tr>
+<td>34_22345678</td>
+<td>2</td>
+</tr>
+<tr>
+<td>23_12235678</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>如此设计感觉要比第一种方法要好一些，每一篇文章会被存为四行。但同样有诸多缺点，一是 Rowkey 过长，二是即便我们通过某种转变设计解决了问题一，那获取数据时我们也只能将 Get 请求转为四个Scan并发扫描+StartEnKey 去扫描表获取数据。当然，如果想实现顺序扫描还可能存在热点问题。在存储上，也造成了数据大量冗余。</p>
+<h3 id="方案三："><a href="#方案三：" class="headerlink" title="方案三："></a>方案三：</h3><p>在真实生产环境中，我们采取该方案来避免上述两个方案中出现的问题与不足。下面简单介绍一下（<strong>如果您有更好更优的方案，欢迎留言，先表示感谢！</strong>）</p>
+<p>简言之呢，就是自己在 HBase 端维护了一个 Set 集合（<strong>协处理器</strong>），并以 Json 串进行存储，格式如下：</p>
+<pre><code>{
+    &quot;64SimHash1&quot;:&quot;id1&quot;,
+    &quot;64SimHash2&quot;:&quot;id2&quot;,
+    ...
+    ...
+}
+</code></pre><p>基于公司存在多种主题类型的文本数据，且互相隔离，去重与相似度计算也是分主题进行，我们的 Rowkey 设计大致如下：</p>
+<p>Rowkey (共24位)：HashNumber_ContentType_16SimHash </p>
+<ul>
+<li>HashNumber： 为防热点，对表进行Hash预分区（64个预分区），占2个字符<br>计算公式如下：<strong>String.format(“%02x”, Math.abs(key.hashCode()) % 64)</strong></li>
+<li>ContentType ：内容主题类型，占4个字符</li>
+<li>16SimHash： 16位 SimHash 截取指纹，由01组成</li>
+</ul>
+<p>表结构大致如下：</p>
+<table>
+<thead>
+<tr>
+<th>rowkey</th>
+<th>si</th>
+<th>s0</th>
+<th>s1</th>
+<th>s2</th>
+<th>s3</th>
+<th>…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01_news_010101010101010101</td>
+<td>value</td>
+<td>1</td>
+<td>Json 串</td>
+<td></td>
+<td></td>
+<td>…</td>
+</tr>
+<tr>
+<td>02_news_010101010101010110</td>
+<td>value</td>
+<td>2</td>
+<td>Json 串</td>
+<td>Json 串</td>
+<td></td>
+<td>…</td>
+</tr>
+<tr>
+<td>03_news_100101010101010110</td>
+<td>value</td>
+<td>3</td>
+<td>Json 串</td>
+<td>Json 串</td>
+<td>Json 串</td>
+<td>…</td>
+</tr>
+<tr>
+<td>01_xbbs_010101010101010101</td>
+<td>value</td>
+<td>1</td>
+<td>Json 串</td>
+<td></td>
+<td></td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>si：客户端传递过来的欲存储的值，由64位 Simhash 与 Id 通过双下划线拼接而成，诸如 Simhash__Id 的形式。<br>s0：记录该行数据共有多少个 Set 集合，每一个 Set 集合存储<strong>10000</strong>个K-V对儿（约1MB）。<br>s1：第一个 Set 集合，Json 串存储，如果 Size &gt; 10000 ，之后来的数据将存入s2。<br>s2：以此类推。</p>
+<p>当然最核心的部分是s1/s2/s3 中 Json 串中要<strong>排重</strong>。最简单的办法无非是每次存入数据前先将所有 Set 集合中的数据读到客户端，将欲存的数据与集合中所有数据比对后再次插入。这将带来大量往返IO开销，影响写性能。因此，我们在此引入了 HBase 协处理器技术来规避这个问题，即在服务端完成所有排重操作。大致代码如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>learn<span class="token punctuation">.</span>share<span class="token punctuation">.</span>scenarios<span class="token punctuation">.</span>observers<span class="token punctuation">;</span>
+
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>gson<span class="token punctuation">.</span>Gson<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>gson<span class="token punctuation">.</span>JsonObject<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>commons<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>StringUtils<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>Cell<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>CellUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>CoprocessorEnvironment<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>client<span class="token punctuation">.</span>Durability<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>client<span class="token punctuation">.</span>Get<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>client<span class="token punctuation">.</span>Put<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>client<span class="token punctuation">.</span>Result<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>coprocessor<span class="token punctuation">.</span>BaseRegionObserver<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>coprocessor<span class="token punctuation">.</span>ObserverContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>coprocessor<span class="token punctuation">.</span>RegionCoprocessorEnvironment<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>regionserver<span class="token punctuation">.</span>wal<span class="token punctuation">.</span>WALEdit<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hbase<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Bytes<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>LoggerFactory<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ *  基于协处理器构建百亿级文本去重系统
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HBaseSimHashSetBuildSystem</span> <span class="token keyword">extends</span> <span class="token class-name">BaseRegionObserver</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> Logger logger <span class="token operator">=</span> LoggerFactory<span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span>HBaseSimHashSetBuildSystem<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span>CoprocessorEnvironment e<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Coprocessor opration start..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param e
+     * @param put
+     * @param edit
+     * @param durability
+     * @throws IOException
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">prePut</span><span class="token punctuation">(</span>ObserverContext<span class="token operator">&lt;</span>RegionCoprocessorEnvironment<span class="token operator">></span> e<span class="token punctuation">,</span> Put put<span class="token punctuation">,</span> WALEdit edit<span class="token punctuation">,</span> Durability durability<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// test flag</span>
+        logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"do something before Put Opration..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        List<span class="token operator">&lt;</span>Cell<span class="token operator">></span> cells <span class="token operator">=</span> put<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"si"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cells <span class="token operator">==</span> null <span class="token operator">||</span> cells<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        String simhash__itemid <span class="token operator">=</span> Bytes<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>CellUtil<span class="token punctuation">.</span><span class="token function">cloneValue</span><span class="token punctuation">(</span>cells<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>simhash__itemid<span class="token punctuation">)</span><span class="token operator">||</span>simhash__itemid<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"__"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token operator">!=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        String simhash <span class="token operator">=</span> simhash__itemid<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"__"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        String itemid <span class="token operator">=</span> simhash__itemid<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"__"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 获取Put Rowkey</span>
+        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> row <span class="token operator">=</span> put<span class="token punctuation">.</span><span class="token function">getRow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 通过Rowkey构造Get对象</span>
+        Get get <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Get</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        get<span class="token punctuation">.</span><span class="token function">setMaxVersions</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        get<span class="token punctuation">.</span><span class="token function">addFamily</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Result result <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRegion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>get<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Cell columnCell <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getColumnLatestCell</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// set size</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>columnCell <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 第一次存储数据，将size初始化为1</span>
+            logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"第一次存储数据，将size初始化为1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            JsonObject jsonObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            jsonObject<span class="token punctuation">.</span><span class="token function">addProperty</span><span class="token punctuation">(</span>simhash<span class="token punctuation">,</span>itemid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Gson gson <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            String json <span class="token operator">=</span> gson<span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>jsonObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            put<span class="token punctuation">.</span><span class="token function">addColumn</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s1"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// json 数组</span>
+            put<span class="token punctuation">.</span><span class="token function">addColumn</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s0"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 初始化</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> sizebyte <span class="token operator">=</span> CellUtil<span class="token punctuation">.</span><span class="token function">cloneValue</span><span class="token punctuation">(</span>columnCell<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> size <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>sizebyte<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"非第一次存储数据 ----> Rowkey `"</span><span class="token operator">+</span>Bytes<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"` simhash set size is : "</span><span class="token operator">+</span>size <span class="token operator">+</span><span class="token string">", the current value is : "</span><span class="token operator">+</span>simhash__itemid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                Cell cell1 <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getColumnLatestCell</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s"</span><span class="token operator">+</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                String jsonBefore <span class="token operator">=</span> Bytes<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>CellUtil<span class="token punctuation">.</span><span class="token function">cloneValue</span><span class="token punctuation">(</span>cell1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Gson gson <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                JsonObject jsonObject <span class="token operator">=</span> gson<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>jsonBefore<span class="token punctuation">,</span> JsonObject<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> sizeBefore <span class="token operator">=</span> jsonObject<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">==</span>size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>jsonObject<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>simhash<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>sizeBefore<span class="token operator">==</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                            JsonObject jsonone <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            jsonone<span class="token punctuation">.</span><span class="token function">addProperty</span><span class="token punctuation">(</span>simhash<span class="token punctuation">,</span>itemid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            String jsonstrone <span class="token operator">=</span> gson<span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>jsonone<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            put<span class="token punctuation">.</span><span class="token function">addColumn</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s"</span><span class="token operator">+</span><span class="token punctuation">(</span>size<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span>jsonstrone<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// json 数组</span>
+                            put<span class="token punctuation">.</span><span class="token function">addColumn</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s0"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token punctuation">(</span>size<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 初始化</span>
+                        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                            jsonObject<span class="token punctuation">.</span><span class="token function">addProperty</span><span class="token punctuation">(</span>simhash<span class="token punctuation">,</span>itemid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            String jsonAfter <span class="token operator">=</span> gson<span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>jsonObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            put<span class="token punctuation">.</span><span class="token function">addColumn</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"s"</span><span class="token operator">+</span>size<span class="token punctuation">)</span><span class="token punctuation">,</span> Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span>jsonAfter<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// json 数组</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>jsonObject<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>simhash<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如此，当我们需要对某一文本指纹与库中数据进行比对时，只需一个Table.Get(List) 操作即可返回所有的数据，然后基于s0依次获取各个 Set 集合中的数据即可。</p>
+<p>下面我们算一笔账，假设我们某主题类型数据依然有 2^37 条数据（1375亿数据），假设数据均匀分布，则每个16位（16个01数字随机组成的组合为2^16 个）倒排返回的最大数量为 (2^37) * 4 / (2^16) =8388608个候选结果，即每行约839个 Set 集合，每个Set 集合大约1M 的话，数据存储量也必然不会太大。</p>
+<p>你如果有十种不同主题的数据，HBase 行数无非也才 (2^16)*10 = 655360 行而已。</p>
+<p>如果再加上 Snappy 压缩呢？<br>如果再加上 Fast-Diff 编码呢？<br>如果再开启 Mob 对象存储呢？ 每个 Set 是不是可以存10万个键值对？每行只需90个 Set 集合。</p>
+<p>也或许，如果数据量小的话，使用 Redis 是不是更好呢？</p>
+<p>总之，优化完善和不完美的地方还很多，本文也就简单叙述到此，如果您有好的建议或是不同看法，<strong>欢迎留言哦！感恩~</strong> </p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>1.<a href="https://blog.csdn.net/u010454030/article/details/49102565" target="_blank" rel="noopener">https://blog.csdn.net/u010454030/article/details/49102565</a><br>2.<a href="http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity2-html.html" target="_blank" rel="noopener">http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity2-html.html</a><br>3.<a href="https://cloud.tencent.com/developer/news/218062" target="_blank" rel="noopener">https://cloud.tencent.com/developer/news/218062</a><br>4.<a href="https://blog.csdn.net/qq_36142114/article/details/80540303" target="_blank" rel="noopener">https://blog.csdn.net/qq_36142114/article/details/80540303</a><br>5.<a href="https://blog.csdn.net/u011467621/article/details/49685107" target="_blank" rel="noopener">https://blog.csdn.net/u011467621/article/details/49685107</a> </p>
+<p>转载自：<a href="https://mp.weixin.qq.com/s/UZmksFBTKFzF4jrXGnw2fg" target="_blank" rel="noopener">原文</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/03/12/hbase/ji-yu-hbase-gou-jian-qian-yi-ji-wen-ben-shu-ju-xiang-si-du-ji-suan-yu-kuai-su-qu-chong-xi-tong/" class="b-link-green">基于HBase构建千亿级文本数据相似度计算与快速去重系统</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/03/12/hbase/ji-yu-hbase-gou-jian-qian-yi-ji-wen-ben-shu-ju-xiang-si-du-ji-suan-yu-kuai-su-qu-chong-xi-tong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="基于HBase构建千亿级文本数据相似度计算与快速去重系统">
+                        
+                        <span class="card-title">基于HBase构建千亿级文本数据相似度计算与快速去重系统</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">基于HBase构建千亿级文本数据相似度计算与快速去重系统
+前言：随着大数据时代的到来，数据信息在给我们生活带来便利的同时，同样也给我们带来了一系列的考验与挑战。本文主要介绍了基于 Apache HBase 与 Google SimHash </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hbase/" class="post-category" target="_blank">
+                                    Hbase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hbase/" target="_blank">
+                        <span class="chip bg-color">Hbase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/03/11/chang-yong-gong-ju/linux-xing-neng-fen-xi-gong-ju-hui-zong-he-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Linux性能分析工具汇总合集">
+                        
+                        <span class="card-title">Linux性能分析工具汇总合集</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Linux性能分析工具汇总合集出于对Linux操作系统的兴趣，以及对底层知识的强烈欲望，因此整理了这篇文章。本文也可以作为检验基础知识的指标，另外文章涵盖了一个系统的方方面面。如果没有完善的计算机系统知识，网络知识和操作系统知识，文档中的工</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/开发工具/" target="_blank">
+                        <span class="chip bg-color">开发工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">230k</span>
+            
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
