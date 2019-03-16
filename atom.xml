@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-03-16T04:17:25.486Z</updated>
+  <updated>2019-03-16T07:40:20.534Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小岛数量</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/16/suan-fa/xiao-dao-shu-liang/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/16/suan-fa/xiao-dao-shu-liang/</id>
+    <published>2019-03-16T07:39:00.000Z</published>
+    <updated>2019-03-16T07:40:20.534Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;小岛数量&quot;&gt;&lt;a href=&quot;#小岛数量&quot; class=&quot;headerlink&quot; title=&quot;小岛数量&quot;&gt;&lt;/a&gt;小岛数量&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个题目说的是，给你一个包含 0/1 字符的二维数组，字符 1
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="DFS" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/DFS/"/>
+    
+      <category term="BFS" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/BFS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>旋转有序数组的最小值</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/16/suan-fa/shu-zu/xuan-zhuan-you-xu-shu-zu-de-zui-xiao-zhi/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/16/suan-fa/shu-zu/xuan-zhuan-you-xu-shu-zu-de-zui-xiao-zhi/</id>
+    <published>2019-03-16T04:48:00.000Z</published>
+    <updated>2019-03-16T04:48:13.098Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;旋转有序数组的最小值&quot;&gt;&lt;a href=&quot;#旋转有序数组的最小值&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="二分搜索" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/"/>
+    
+      <category term="数组" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
   
   <entry>
     <title>最长递增子序列的长度</title>
@@ -374,6 +435,34 @@
   </entry>
   
   <entry>
+    <title>删除链表节点</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
+    <published>2019-02-20T13:40:00.000Z</published>
+    <updated>2019-02-20T15:07:46.118Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="链表" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>反转单链表2</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/</id>
@@ -403,60 +492,6 @@
   </entry>
   
   <entry>
-    <title>删除链表节点</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
-    <published>2019-02-20T13:40:00.000Z</published>
-    <updated>2019-02-20T15:07:46.118Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="链表" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>求和为给定值的组合</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/qiu-he-wei-gei-ding-zhi-de-zu-he/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/qiu-he-wei-gei-ding-zhi-de-zu-he/</id>
-    <published>2019-02-17T14:58:00.000Z</published>
-    <updated>2019-02-17T15:13:40.537Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
     <title>第 n 个斐波那契数</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/di-n-ge-fei-bo-na-qi-shu/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/di-n-ge-fei-bo-na-qi-shu/</id>
@@ -470,32 +505,6 @@
         
         
           &lt;h1 id=&quot;第-n-个斐波那契数&quot;&gt;&lt;a href=&quot;#第-n-个斐波那契数&quot; class=&quot;headerlink&quot; title=&quot;第 n 个斐波那契数&quot;&gt;&lt;/a&gt;第 n
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>整数 1 到 n 中 1 出现的次数</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/zheng-shu-1-dao-n-zhong-1-chu-xian-de-ci-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/zheng-shu-1-dao-n-zhong-1-chu-xian-de-ci-shu/</id>
-    <published>2019-02-17T14:58:00.000Z</published>
-    <updated>2019-02-17T15:05:28.768Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;整数-1-到-n-中-1-出现的次数&quot;&gt;&lt;a href=&quot;#整数-1-到-n-中-1-出现的次数&quot; class=&quot;headerlink&quot; title=&quot;整数 1 到 n 中 1 出现的次数&quot;&gt;&lt;/a&gt;整数 1 到 n 中 1
         
       
     
@@ -535,11 +544,11 @@
   </entry>
   
   <entry>
-    <title>按照顺时针的顺序，逐层遍历并打印N阶方阵</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/15/suan-fa/an-zhao-shun-shi-zhen-de-shun-xu-zhu-ceng-bian-li-bing-da-yin-n-jie-fang-zhen/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/15/suan-fa/an-zhao-shun-shi-zhen-de-shun-xu-zhu-ceng-bian-li-bing-da-yin-n-jie-fang-zhen/</id>
-    <published>2019-02-15T05:13:00.000Z</published>
-    <updated>2019-02-15T05:14:30.421Z</updated>
+    <title>整数 1 到 n 中 1 出现的次数</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/zheng-shu-1-dao-n-zhong-1-chu-xian-de-ci-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/zheng-shu-1-dao-n-zhong-1-chu-xian-de-ci-shu/</id>
+    <published>2019-02-17T14:58:00.000Z</published>
+    <updated>2019-02-17T15:05:28.768Z</updated>
     
     <summary type="html">
     
@@ -547,7 +556,7 @@
       
         
         
-          &lt;h2 id=&quot;按照顺时针的顺序，逐层遍历并打印N阶方阵&quot;&gt;&lt;a href=&quot;#按照顺时针的顺序，逐层遍历并打印N阶方阵&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;整数-1-到-n-中-1-出现的次数&quot;&gt;&lt;a href=&quot;#整数-1-到-n-中-1-出现的次数&quot; class=&quot;headerlink&quot; title=&quot;整数 1 到 n 中 1 出现的次数&quot;&gt;&lt;/a&gt;整数 1 到 n 中 1
         
       
     
