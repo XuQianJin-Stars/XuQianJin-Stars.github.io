@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-03-18T11:39:04.840Z</updated>
+  <updated>2019-03-29T06:27:58.412Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Elasticsearch索引原理</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/29/elasticsearch/elasticsearch-suo-yin-yuan-li/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/29/elasticsearch/elasticsearch-suo-yin-yuan-li/</id>
+    <published>2019-03-29T06:25:00.000Z</published>
+    <updated>2019-03-29T06:27:58.412Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Elasticsearch索引原理&quot;&gt;&lt;a href=&quot;#Elasticsearch索引原理&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="ElasticSearch" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/ElasticSearch/"/>
+    
+    
+      <category term="ElasticSearch" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/ElasticSearch/"/>
+    
+      <category term="搜索引擎" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
   
   <entry>
     <title>JAVA多线程和并发基础面试问答</title>
@@ -324,11 +352,11 @@
   </entry>
   
   <entry>
-    <title>树 t 是否等于树 s 的子树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/</id>
+    <title>二叉树中和为给定值的路径</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/</id>
     <published>2019-02-26T14:42:00.000Z</published>
-    <updated>2019-02-26T14:43:07.728Z</updated>
+    <updated>2019-03-10T04:48:55.522Z</updated>
     
     <summary type="html">
     
@@ -336,7 +364,7 @@
       
         
         
-          &lt;h2 id=&quot;树-t-是否等于树-s-的子树&quot;&gt;&lt;a href=&quot;#树-t-是否等于树-s-的子树&quot; class=&quot;headerlink&quot; title=&quot;树 t 是否等于树 s 的子树&quot;&gt;&lt;/a&gt;树 t 是否等于树 s
+          &lt;h2 id=&quot;二叉树中和为给定值的路径&quot;&gt;&lt;a href=&quot;#二叉树中和为给定值的路径&quot; class=&quot;headerlink&quot;
         
       
     
@@ -352,11 +380,11 @@
   </entry>
   
   <entry>
-    <title>二叉树中和为给定值的路径</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/</id>
+    <title>树 t 是否等于树 s 的子树</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/</id>
     <published>2019-02-26T14:42:00.000Z</published>
-    <updated>2019-03-10T04:48:55.522Z</updated>
+    <updated>2019-02-26T14:43:07.728Z</updated>
     
     <summary type="html">
     
@@ -364,7 +392,7 @@
       
         
         
-          &lt;h2 id=&quot;二叉树中和为给定值的路径&quot;&gt;&lt;a href=&quot;#二叉树中和为给定值的路径&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;树-t-是否等于树-s-的子树&quot;&gt;&lt;a href=&quot;#树-t-是否等于树-s-的子树&quot; class=&quot;headerlink&quot; title=&quot;树 t 是否等于树 s 的子树&quot;&gt;&lt;/a&gt;树 t 是否等于树 s
         
       
     
@@ -520,11 +548,11 @@
   </entry>
   
   <entry>
-    <title>旋转二维数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/xuan-zhuan-er-wei-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/xuan-zhuan-er-wei-shu-zu/</id>
+    <title>求和为给定值的组合</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/qiu-he-wei-gei-ding-zhi-de-zu-he/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/qiu-he-wei-gei-ding-zhi-de-zu-he/</id>
     <published>2019-02-17T14:58:00.000Z</published>
-    <updated>2019-02-17T15:10:06.841Z</updated>
+    <updated>2019-02-17T15:13:40.537Z</updated>
     
     <summary type="html">
     
@@ -532,33 +560,7 @@
       
         
         
-          &lt;h1 id=&quot;旋转二维数组&quot;&gt;&lt;a href=&quot;#旋转二维数组&quot; class=&quot;headerlink&quot; title=&quot;旋转二维数组&quot;&gt;&lt;/a&gt;旋转二维数组&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;题目描述&lt;/strong&gt;&lt;br&gt;这个题目说的是，给你一个 n x n
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>整数 1 到 n 中 1 出现的次数</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/zheng-shu-1-dao-n-zhong-1-chu-xian-de-ci-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/zheng-shu-1-dao-n-zhong-1-chu-xian-de-ci-shu/</id>
-    <published>2019-02-17T14:58:00.000Z</published>
-    <updated>2019-02-17T15:05:28.768Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;整数-1-到-n-中-1-出现的次数&quot;&gt;&lt;a href=&quot;#整数-1-到-n-中-1-出现的次数&quot; class=&quot;headerlink&quot; title=&quot;整数 1 到 n 中 1 出现的次数&quot;&gt;&lt;/a&gt;整数 1 到 n 中 1
+          &lt;h1 id=&quot;求和为给定值的组合&quot;&gt;&lt;a href=&quot;#求和为给定值的组合&quot; class=&quot;headerlink&quot;
         
       
     
