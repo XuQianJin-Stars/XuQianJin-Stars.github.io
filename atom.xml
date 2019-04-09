@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-03-29T06:27:58.412Z</updated>
+  <updated>2019-04-09T04:57:15.144Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二叉树高频面试题和答案</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/04/09/mian-shi-xi-lie/er-cha-shu-gao-pin-mian-shi-ti-he-da-an/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/04/09/mian-shi-xi-lie/er-cha-shu-gao-pin-mian-shi-ti-he-da-an/</id>
+    <published>2019-04-09T04:57:00.000Z</published>
+    <updated>2019-04-09T04:57:15.144Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;二叉树高频面试题和答案&quot;&gt;&lt;a href=&quot;#二叉树高频面试题和答案&quot; class=&quot;headerlink&quot; title=&quot;二叉树高频面试题和答案&quot;&gt;&lt;/a&gt;二叉树高频面试题和答案&lt;/h1&gt;&lt;p&gt;先上二叉树的数据结构：&lt;/p&gt;
+&lt;pre class=&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="面试系列" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>Elasticsearch索引原理</title>
@@ -268,34 +295,6 @@
   </entry>
   
   <entry>
-    <title>连续自然数二进制中 1 的个数</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/10/suan-fa/wei-yun-suan/lian-xu-zi-ran-shu-er-jin-zhi-zhong-1-de-ge-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/10/suan-fa/wei-yun-suan/lian-xu-zi-ran-shu-er-jin-zhi-zhong-1-de-ge-shu/</id>
-    <published>2019-03-10T04:02:00.000Z</published>
-    <updated>2019-03-10T04:04:05.965Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;连续自然数二进制中-1-的个数&quot;&gt;&lt;a href=&quot;#连续自然数二进制中-1-的个数&quot; class=&quot;headerlink&quot; title=&quot;连续自然数二进制中 1 的个数&quot;&gt;&lt;/a&gt;连续自然数二进制中 1
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="位运算" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
-  </entry>
-  
-  <entry>
     <title>荷兰国旗问题</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/10/suan-fa/pai-xu/he-lan-guo-qi-wen-ti/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/10/suan-fa/pai-xu/he-lan-guo-qi-wen-ti/</id>
@@ -320,6 +319,34 @@
       <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
     
       <category term="排序" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>连续自然数二进制中 1 的个数</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/10/suan-fa/wei-yun-suan/lian-xu-zi-ran-shu-er-jin-zhi-zhong-1-de-ge-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/03/10/suan-fa/wei-yun-suan/lian-xu-zi-ran-shu-er-jin-zhi-zhong-1-de-ge-shu/</id>
+    <published>2019-03-10T04:02:00.000Z</published>
+    <updated>2019-03-10T04:04:05.965Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;连续自然数二进制中-1-的个数&quot;&gt;&lt;a href=&quot;#连续自然数二进制中-1-的个数&quot; class=&quot;headerlink&quot; title=&quot;连续自然数二进制中 1 的个数&quot;&gt;&lt;/a&gt;连续自然数二进制中 1
+        
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="位运算" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
@@ -352,11 +379,11 @@
   </entry>
   
   <entry>
-    <title>二叉树中和为给定值的路径</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/</id>
+    <title>树 t 是否等于树 s 的子树</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/</id>
     <published>2019-02-26T14:42:00.000Z</published>
-    <updated>2019-03-10T04:48:55.522Z</updated>
+    <updated>2019-02-26T14:43:07.728Z</updated>
     
     <summary type="html">
     
@@ -364,7 +391,7 @@
       
         
         
-          &lt;h2 id=&quot;二叉树中和为给定值的路径&quot;&gt;&lt;a href=&quot;#二叉树中和为给定值的路径&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;树-t-是否等于树-s-的子树&quot;&gt;&lt;a href=&quot;#树-t-是否等于树-s-的子树&quot; class=&quot;headerlink&quot; title=&quot;树 t 是否等于树 s 的子树&quot;&gt;&lt;/a&gt;树 t 是否等于树 s
         
       
     
@@ -380,11 +407,11 @@
   </entry>
   
   <entry>
-    <title>树 t 是否等于树 s 的子树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/</id>
+    <title>二叉树中和为给定值的路径</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/</id>
     <published>2019-02-26T14:42:00.000Z</published>
-    <updated>2019-02-26T14:43:07.728Z</updated>
+    <updated>2019-03-10T04:48:55.522Z</updated>
     
     <summary type="html">
     
@@ -392,7 +419,7 @@
       
         
         
-          &lt;h2 id=&quot;树-t-是否等于树-s-的子树&quot;&gt;&lt;a href=&quot;#树-t-是否等于树-s-的子树&quot; class=&quot;headerlink&quot; title=&quot;树 t 是否等于树 s 的子树&quot;&gt;&lt;/a&gt;树 t 是否等于树 s
+          &lt;h2 id=&quot;二叉树中和为给定值的路径&quot;&gt;&lt;a href=&quot;#二叉树中和为给定值的路径&quot; class=&quot;headerlink&quot;
         
       
     
@@ -491,34 +518,6 @@
   </entry>
   
   <entry>
-    <title>删除链表节点</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
-    <published>2019-02-20T13:40:00.000Z</published>
-    <updated>2019-02-20T15:07:46.118Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="链表" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>反转单链表2</title>
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/</id>
@@ -548,11 +547,11 @@
   </entry>
   
   <entry>
-    <title>旋转二维数组</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/xuan-zhuan-er-wei-shu-zu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/17/suan-fa/xuan-zhuan-er-wei-shu-zu/</id>
-    <published>2019-02-17T14:58:00.000Z</published>
-    <updated>2019-02-17T15:10:06.841Z</updated>
+    <title>删除链表节点</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
+    <published>2019-02-20T13:40:00.000Z</published>
+    <updated>2019-02-20T15:07:46.118Z</updated>
     
     <summary type="html">
     
@@ -560,7 +559,7 @@
       
         
         
-          &lt;h1 id=&quot;旋转二维数组&quot;&gt;&lt;a href=&quot;#旋转二维数组&quot; class=&quot;headerlink&quot; title=&quot;旋转二维数组&quot;&gt;&lt;/a&gt;旋转二维数组&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;题目描述&lt;/strong&gt;&lt;br&gt;这个题目说的是，给你一个 n x n
+          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
         
       
     
@@ -570,6 +569,8 @@
     
     
       <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
+    
+      <category term="链表" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
