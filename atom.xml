@@ -518,11 +518,11 @@
   </entry>
   
   <entry>
-    <title>反转单链表2</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/</id>
+    <title>删除链表节点</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
     <published>2019-02-20T13:40:00.000Z</published>
-    <updated>2019-02-25T02:56:05.565Z</updated>
+    <updated>2019-02-20T15:07:46.118Z</updated>
     
     <summary type="html">
     
@@ -530,8 +530,7 @@
       
         
         
-          &lt;h2 id=&quot;反转单链表2&quot;&gt;&lt;a href=&quot;#反转单链表2&quot; class=&quot;headerlink&quot; title=&quot;反转单链表2&quot;&gt;&lt;/a&gt;反转单链表2&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;反转从位置 m 到 n
+          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
         
       
     
@@ -547,11 +546,11 @@
   </entry>
   
   <entry>
-    <title>删除链表节点</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
+    <title>反转单链表2</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/</id>
     <published>2019-02-20T13:40:00.000Z</published>
-    <updated>2019-02-20T15:07:46.118Z</updated>
+    <updated>2019-02-25T02:56:05.565Z</updated>
     
     <summary type="html">
     
@@ -559,7 +558,8 @@
       
         
         
-          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;反转单链表2&quot;&gt;&lt;a href=&quot;#反转单链表2&quot; class=&quot;headerlink&quot; title=&quot;反转单链表2&quot;&gt;&lt;/a&gt;反转单链表2&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;反转从位置 m 到 n
         
       
     
