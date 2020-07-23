@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2020-07-23T06:20:34.951Z</updated>
+  <updated>2020-07-23T12:54:58.693Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2020/07/23/kubernetes/kubectl-chang-yong-ming-ling-xiang-jie/"/>
     <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2020/07/23/kubernetes/kubectl-chang-yong-ming-ling-xiang-jie/</id>
     <published>2020-07-23T03:30:00.000Z</published>
-    <updated>2020-07-23T06:20:34.951Z</updated>
+    <updated>2020-07-23T12:54:58.693Z</updated>
     
     <summary type="html">
     
@@ -407,11 +407,11 @@
   </entry>
   
   <entry>
-    <title>二叉树中和为给定值的路径</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/</id>
+    <title>树 t 是否等于树 s 的子树</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/</id>
     <published>2019-02-26T14:42:00.000Z</published>
-    <updated>2019-03-10T04:48:55.522Z</updated>
+    <updated>2019-02-26T14:43:07.728Z</updated>
     
     <summary type="html">
     
@@ -419,7 +419,7 @@
       
         
         
-          &lt;h2 id=&quot;二叉树中和为给定值的路径&quot;&gt;&lt;a href=&quot;#二叉树中和为给定值的路径&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;树-t-是否等于树-s-的子树&quot;&gt;&lt;a href=&quot;#树-t-是否等于树-s-的子树&quot; class=&quot;headerlink&quot; title=&quot;树 t 是否等于树 s 的子树&quot;&gt;&lt;/a&gt;树 t 是否等于树 s
         
       
     
@@ -435,11 +435,11 @@
   </entry>
   
   <entry>
-    <title>树 t 是否等于树 s 的子树</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/shu-t-shi-fou-deng-yu-shu-s-de-zi-shu/</id>
+    <title>二叉树中和为给定值的路径</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/26/suan-fa/er-cha-shu/er-cha-shu-zhong-he-wei-gei-ding-zhi-de-lu-jing/</id>
     <published>2019-02-26T14:42:00.000Z</published>
-    <updated>2019-02-26T14:43:07.728Z</updated>
+    <updated>2019-03-10T04:48:55.522Z</updated>
     
     <summary type="html">
     
@@ -447,7 +447,7 @@
       
         
         
-          &lt;h2 id=&quot;树-t-是否等于树-s-的子树&quot;&gt;&lt;a href=&quot;#树-t-是否等于树-s-的子树&quot; class=&quot;headerlink&quot; title=&quot;树 t 是否等于树 s 的子树&quot;&gt;&lt;/a&gt;树 t 是否等于树 s
+          &lt;h2 id=&quot;二叉树中和为给定值的路径&quot;&gt;&lt;a href=&quot;#二叉树中和为给定值的路径&quot; class=&quot;headerlink&quot;
         
       
     
@@ -546,11 +546,11 @@
   </entry>
   
   <entry>
-    <title>反转单链表2</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/</id>
+    <title>删除链表节点</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/shan-chu-lian-biao-jie-dian/</id>
     <published>2019-02-20T13:40:00.000Z</published>
-    <updated>2019-02-25T02:56:05.565Z</updated>
+    <updated>2019-02-20T15:07:46.118Z</updated>
     
     <summary type="html">
     
@@ -558,8 +558,7 @@
       
         
         
-          &lt;h2 id=&quot;反转单链表2&quot;&gt;&lt;a href=&quot;#反转单链表2&quot; class=&quot;headerlink&quot; title=&quot;反转单链表2&quot;&gt;&lt;/a&gt;反转单链表2&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;反转从位置 m 到 n
+          &lt;h2 id=&quot;删除链表节点&quot;&gt;&lt;a href=&quot;#删除链表节点&quot; class=&quot;headerlink&quot;
         
       
     

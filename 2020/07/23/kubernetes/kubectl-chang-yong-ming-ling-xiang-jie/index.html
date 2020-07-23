@@ -373,7 +373,7 @@
                     
                     <span class="post-word-count">
                         <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
-                        825
+                        855
                     </span>
                     
 
@@ -404,36 +404,60 @@
 </code></pre>
 <h3 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h3><h4 id="创建资源"><a href="#创建资源" class="headerlink" title="创建资源"></a>创建资源</h4><pre class=" language-shell"><code class="language-shell"># 创建资源
 kubectl create -f foo.yaml 
-kubectl create deployment my-dep --image=busybox        # 创建一个deplpyme
-kubectl expose rc nginx --port=80 --target-port=8000    # 创建一个svc，暴露 nginx 这个rc
+# 创建一个deplpyme
+kubectl create deployment my-dep --image=busybox  
+# 创建一个svc，暴露 nginx 这个rc
+kubectl expose rc nginx --port=80 --target-port=8000    
 </code></pre>
-<h4 id="更新资源"><a href="#更新资源" class="headerlink" title="更新资源"></a>更新资源</h4><pre class=" language-shell"><code class="language-shell">kubectl scale --replicas=3 -f foo.yaml                     # 将foo.yaml中描述的对象扩展为3个
-kubectl annotate pods foo description='my frontend'        # 增加description='my frontend'备注,已有保留不覆盖
-kubectl label --overwrite pods foo status=unhealthy        # 增加status=unhealthy 标签，已有则覆盖
+<h4 id="更新资源"><a href="#更新资源" class="headerlink" title="更新资源"></a>更新资源</h4><pre class=" language-shell"><code class="language-shell"># 将foo.yaml中描述的对象扩展为3个
+kubectl scale --replicas=3 -f foo.yaml   
+# 增加description='my frontend'备注,已有保留不覆盖
+kubectl annotate pods foo description='my frontend' 
+# 增加status=unhealthy 标签，已有则覆盖
+kubectl label --overwrite pods foo status=unhealthy        
 </code></pre>
-<h4 id="删除资源"><a href="#删除资源" class="headerlink" title="删除资源"></a>删除资源</h4><pre class=" language-shell"><code class="language-shell">kubectl delete -f xxx.yaml                      # 删除一个配置文件对应的资源对象  
-kubectl delete pod,service baz foo              # 删除名字为baz或foo的pod和service  
-kubectl delete pods,services -l name=myLabel    # -l 参数可以删除包含指定label的资源对象                            
-kubectl delete pod foo --grace-period=0 --force # 强制删除一个pod，在各种原因pod一直terminate不掉的时候很有用
+<h4 id="删除资源"><a href="#删除资源" class="headerlink" title="删除资源"></a>删除资源</h4><pre class=" language-shell"><code class="language-shell"># 删除一个配置文件对应的资源对象
+kubectl delete -f xxx.yaml      
+# 删除名字为baz或foo的pod和service  
+kubectl delete pod,service baz foo    
+# -l 参数可以删除包含指定label的资源对象     
+kubectl delete pods,services -l name=myLabel 
+# 强制删除一个pod，在各种原因pod一直terminate不掉的时候很有用
+kubectl delete pod foo --grace-period=0 --force 
 </code></pre>
 <h4 id="查看资源"><a href="#查看资源" class="headerlink" title="查看资源"></a>查看资源</h4><h5 id="get"><a href="#get" class="headerlink" title="get"></a>get</h5><pre class=" language-shell"><code class="language-shell"># Usage:
   kubectl get
 [(-o|--output=)](TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags] 
 [options]
 # Examples: 
-kubectl get services                          # 列出当前NS中所有service资源
-kubectl get pods --all-namespaces             # 列出集群所有NS中所有的Pod
-kubectl get pods -o wide                      # -o wide也比较常用，可以显示更多资源信息，比如pod的IP等
-kubectl get deployment my-dep                 # 可以直接指定资源名查看
-kubectl get deployment my-dep --watch         # --watch 参数可以监控资源的状态，在状态变换时输出。在跟踪服务部署情况时很有用
-kubectl get pod my-pod -o yaml                # 查看yaml格式的资源配置，这里包括资实际的status，可以用--export排除
-kubectl get pod my-pod -l app=nginx           # 查看所有带有标签app: nginx的pod
+# 列出当前NS中所有service资源
+kubectl get services     
+# 列出集群所有NS中所有的Pod
+kubectl get pods --all-namespaces   
+# -o wide也比较常用，可以显示更多资源信息，比如pod的IP等
+kubectl get pods -o wide       
+# 可以直接指定资源名查看
+kubectl get deployment my-dep   
+# --watch 参数可以监控资源的状态，在状态变换时输出。在跟踪服务部署情况时很有用
+kubectl get deployment my-dep --watch  
+# 查看yaml格式的资源配置，这里包括资实际的status，可以用--export排除
+kubectl get pod my-pod -o yaml       
+# 查看所有带有标签app: nginx的pod
+kubectl get pod my-pod -l app=nginx           
 </code></pre>
 <h5 id="describe"><a href="#describe" class="headerlink" title="describe"></a>describe</h5><pre class=" language-shell"><code class="language-shell"># Usage:
 kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME) [options]
 # Examples: 
-kubectl describe nodes my-node    # 查看节点my-node的详细信息
-kubectl describe pods my-pod      # 查看pod my-pod的详细信息
+# 查看节点my-node的详细信息
+kubectl describe nodes my-node   
+# 查看pod my-pod的详细信息
+kubectl describe pods my-pod      
+</code></pre>
+<h3 id="部署管理"><a href="#部署管理" class="headerlink" title="部署管理"></a>部署管理</h3><h4 id="查看部署deployment"><a href="#查看部署deployment" class="headerlink" title="查看部署deployment"></a>查看部署deployment</h4><pre class=" language-shell"><code class="language-shell"> # Examples: 
+ kubectl get deployment  -n kube-system
+</code></pre>
+<h4 id="删除部署deployment"><a href="#删除部署deployment" class="headerlink" title="删除部署deployment"></a>删除部署deployment</h4><pre class=" language-shell"><code class="language-shell">  # Examples: 
+  kubectl delete deployment kubernetes-dashboard -n kube-system 
 </code></pre>
 <h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><h4 id="动态预分配-PersistentVolume"><a href="#动态预分配-PersistentVolume" class="headerlink" title="动态预分配 PersistentVolume"></a>动态预分配 PersistentVolume</h4><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># pvc-demo.yaml</span>
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -453,15 +477,20 @@ kubectl describe pods my-pod      # 查看pod my-pod的详细信息
 <h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class=" language-shell"><code class="language-shell"># Usage:
 kubectl exec POD [-c CONTAINER] -- COMMAND [args...] [options]
 # Examples:
-kubectl exec my-pod ls                         # 对my-pod执行ls命令
-kubectl exec -t -i nginx-78f5d695bd-czm8z bash # 进入pod的shell，并打开伪终端和标准输入
+# 对my-pod执行ls命令
+kubectl exec my-pod ls 
+# 进入pod的shell，并打开伪终端和标准输入
+kubectl exec -t -i nginx-78f5d695bd-czm8z bash 
 </code></pre>
 <h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><pre class=" language-shell"><code class="language-shell"># Usage:
 kubectl cp <file-spec-src> <file-spec-dest> [options]
 # Examples:  
-kubectl cp /tmp/foo_dir <some-pod>:/tmp/bar_dir                 # 拷贝宿主机本地文件夹到pod
-kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar        # 指定namespace的拷贝pod文件到宿主机本地目录
-kubectl cp /tmp/foo <some-pod>:/tmp/bar -c <specific-container> # 对于多容器pod，用-c指定容器名
+# 拷贝宿主机本地文件夹到pod
+kubectl cp /tmp/foo_dir <some-pod>:/tmp/bar_dir  
+# 指定namespace的拷贝pod文件到宿主机本地目录
+kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar
+# 对于多容器pod，用-c指定容器名
+kubectl cp /tmp/foo <some-pod>:/tmp/bar -c <specific-container> 
 </specific-container></some-pod></some-pod></some-namespace></some-pod></file-spec-dest></file-spec-src></code></pre>
 <h3 id="日志查看"><a href="#日志查看" class="headerlink" title="日志查看"></a>日志查看</h3><pre class=" language-shell"><code class="language-shell"># Usage:
   kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER] [options]
@@ -851,7 +880,7 @@ class TreeNode{
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">248.4k</span>
+                <span class="white-color">248.5k</span>
             
 
             
