@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/"/>
-  <updated>2019-04-09T05:06:12.528Z</updated>
+  <updated>2020-07-23T05:17:32.518Z</updated>
   <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kubectl常用命令详解</title>
+    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2020/07/23/kubernetes/kubectl-chang-yong-ming-ling-xiang-jie/"/>
+    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2020/07/23/kubernetes/kubectl-chang-yong-ming-ling-xiang-jie/</id>
+    <published>2020-07-23T03:30:00.000Z</published>
+    <updated>2020-07-23T05:17:32.518Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;常用命令详解&quot;&gt;&lt;a href=&quot;#常用命令详解&quot; class=&quot;headerlink&quot; title=&quot;常用命令详解&quot;&gt;&lt;/a&gt;常用命令详解&lt;/h2&gt;&lt;h3 id=&quot;语法&quot;&gt;&lt;a href=&quot;#语法&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Kubernetes" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/Kubernetes/"/>
+    
+    
+      <category term="云原生,K8s" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E4%BA%91%E5%8E%9F%E7%94%9F-K8s/"/>
+    
+  </entry>
   
   <entry>
     <title>二叉树高频面试题和答案</title>
@@ -514,35 +540,6 @@
     
     
       <category term="java" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>反转单链表2</title>
-    <link href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/"/>
-    <id>https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/2019/02/20/suan-fa/lian-biao/fan-zhuan-dan-lian-biao-2/</id>
-    <published>2019-02-20T13:40:00.000Z</published>
-    <updated>2019-02-25T02:56:05.565Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;反转单链表2&quot;&gt;&lt;a href=&quot;#反转单链表2&quot; class=&quot;headerlink&quot; title=&quot;反转单链表2&quot;&gt;&lt;/a&gt;反转单链表2&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;反转从位置 m 到 n
-        
-      
-    
-    </summary>
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/categories/algorithm/"/>
-    
-    
-      <category term="algorithm" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/algorithm/"/>
-    
-      <category term="链表" scheme="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
