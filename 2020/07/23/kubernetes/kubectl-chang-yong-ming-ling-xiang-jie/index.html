@@ -338,8 +338,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/云原生-K8s/" target="_blank">
-                                <span class="chip bg-color">-云原生 -K8s</span>
+                            <a href="/tags/云原生/" target="_blank">
+                                <span class="chip bg-color">云原生</span>
+                            </a>
+                        
+                            <a href="/tags/K8s/" target="_blank">
+                                <span class="chip bg-color">K8s</span>
                             </a>
                         
                     </div>
@@ -369,7 +373,7 @@
                     
                     <span class="post-word-count">
                         <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
-                        753
+                        825
                     </span>
                     
 
@@ -430,6 +434,21 @@ kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME) [opti
 # Examples: 
 kubectl describe nodes my-node    # 查看节点my-node的详细信息
 kubectl describe pods my-pod      # 查看pod my-pod的详细信息
+</code></pre>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><h4 id="动态预分配-PersistentVolume"><a href="#动态预分配-PersistentVolume" class="headerlink" title="动态预分配 PersistentVolume"></a>动态预分配 PersistentVolume</h4><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># pvc-demo.yaml</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pvc<span class="token punctuation">-</span>demo
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteOnce
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 30Gi
+</code></pre>
+<p>在您使用 kubectl apply -f pvc-demo.yaml 创建此 PersistentVolumeClaim 后，Kubernetes 会动态创建对应的 PersistentVolume 对象。以下示例展示了已创建的 PersistentVolume。</p>
+<h4 id="查看-PersistentVolume"><a href="#查看-PersistentVolume" class="headerlink" title="查看 PersistentVolume"></a>查看 PersistentVolume</h4><pre class=" language-shell"><code class="language-shell">kubectl get PersistentVolume --all-namespaces
 </code></pre>
 <h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class=" language-shell"><code class="language-shell"># Usage:
 kubectl exec POD [-c CONTAINER] -- COMMAND [args...] [options]
@@ -665,8 +684,12 @@ kubectl logs my-pod  --since=1h
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/云原生-K8s/" target="_blank">
-                        <span class="chip bg-color">-云原生 -K8s</span>
+                    <a href="/tags/云原生/" target="_blank">
+                        <span class="chip bg-color">云原生</span>
+                    </a>
+                    
+                    <a href="/tags/K8s/" target="_blank">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
                 </div>
