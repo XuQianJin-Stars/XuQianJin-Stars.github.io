@@ -1,0 +1,973 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="helm v3 安装以及使用指南, 大数据 实时计算 机器学习">
+    <meta name="description" content="helm v3 安装以及使用指南安装 helm这里参考官方文档 安装 helm
+helm 此时已发布了 v3，本篇文章关于 helm 安装及使用指南以 helm v3 为基础。
+
+helm 在 helm v2 时分为客户端 (helm cl">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>helm v3 安装以及使用指南 | ForwardXu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">ForwardXu</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>主页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ForwardXu</div>
+        <div class="logo-desc">
+            
+            当你的才华还撑不起你的野心时，你就应该静下心来学习。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                主页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        helm v3 安装以及使用指南
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s6">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/云原生/" target="_blank">
+                                <span class="chip bg-color">云原生</span>
+                            </a>
+                        
+                            <a href="/tags/K8s/" target="_blank">
+                                <span class="chip bg-color">K8s</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s6 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Kubernetes/" class="post-category" target="_blank">
+                                Kubernetes
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <span class="post-date">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
+                    2020-07-25
+                </span>
+
+                
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-file-word-o fa-fw"></i>wordCount:&nbsp;&nbsp;
+                        1.1k
+                    </span>
+                    
+
+                    
+                    <span class="post-word-count">
+                        <i class="fa fa-clock-o fa-fw"></i>readTimes:&nbsp;&nbsp;
+                        5 Minutes
+                    </span>
+                    
+                
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                        <i class="fa fa-eye fa-fw"></i>readCount:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+				
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="helm-v3-安装以及使用指南"><a href="#helm-v3-安装以及使用指南" class="headerlink" title="helm v3 安装以及使用指南"></a>helm v3 安装以及使用指南</h1><h2 id="安装-helm"><a href="#安装-helm" class="headerlink" title="安装 helm"></a>安装 helm</h2><p>这里参考官方文档 <a href="https://helm.sh/docs/intro/install/" target="_blank" rel="noopener">安装 helm</a></p>
+<p><code>helm</code> 此时已发布了 v3，本篇文章关于 <code>helm</code> 安装及使用指南以 <code>helm v3</code> 为基础。</p>
+<blockquote>
+<p><code>helm</code> 在 helm v2 时分为客户端 (helm client，即命令行工具) 与服务端 (helm server) 两部分，在服务端又叫 <code>Tiller</code>，安装 <code>Tiller</code> 时会在集群中部署一个 <code>Pod</code>，用以接替资源部署。</p>
+</blockquote>
+<h3 id="安装客户端-helm-client"><a href="#安装客户端-helm-client" class="headerlink" title="安装客户端 (helm client)"></a>安装客户端 (helm client)</h3><p>helm client 需要安装在你可以访问 k8s 集群的任何服务器，如同 <code>kubectl</code>，你既可以安装在你自己的 <code>PC/Mac</code> 中，也可以安装在 <code>kubectl</code> 集群环境的主节点</p>
+<p>在 mac 上进行安装</p>
+<pre class=" language-shell"><code class="language-shell">$ brew install kubernetes-helm
+</code></pre>
+<p>在 linux 上进行安装</p>
+<pre><code>$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+</code></pre><p>根据二进制包进行安装，比较推荐，毕竟使用以上两种方案在目标机可能有网络问题</p>
+<pre class=" language-shell"><code class="language-shell"># 下载 MAC 上适用的软件包
+# -L: 追踪重定向链接
+# -O: 保存到本地
+# -S: 打印错误
+$ curl -SLO https://get.helm.sh/helm-v3.2.4-darwin-amd64.tar.gz 
+
+# 下载 CentOS 上适用的软件包
+$ curl -SLO https://get.helm.sh/helm-v3.2.4-linux-amd64.tar.gz
+
+# 如果有网络问题，请在代理节点下载并 rsync 到目标节点，如果没有，跳过此步
+$ rsync -avhzP proxy:/root/helm-v3.2.4-linux-amd64.tar.gz .
+
+# 如果在 mac 上
+$ tar -zxvf helm-v3.2.4-darwin-amd64.tar.gz 
+
+# 如果在 centos 上
+$ tar -zxvf helm-v3.2.4-linux-amd64.tar.gz
+
+# 进入相应目录，移至 /bin 目录
+$ mv linux-amd64/helm /usr/local/bin/helm
+</code></pre>
+<p>此时 <code>helm v3</code> 安装成功，使用 <code>helm version</code> 查看版本号</p>
+<pre class=" language-shell"><code class="language-shell">$ helm version
+version.BuildInfo{Version:"v3.2.4", GitCommit:"8f832046e258e2cb800894579b1b3b50c2d83492"
+</code></pre>
+<h2 id="helm-介绍"><a href="#helm-介绍" class="headerlink" title="helm 介绍"></a>helm 介绍</h2><p>在 <code>helm</code> 中有三个关键概念：<code>Chart</code>，<code>Repo</code> 及 <code>Release</code></p>
+<ul>
+<li><code>Chart</code>: 一系列 k8s 资源集合的命名，它包含一系列 k8s 资源配置文件的模板与参数，可供灵活配置</li>
+<li><code>Repo</code>: 即 chart 的仓库，其中有很多个 chart 可供选择，如官方 <a href="https://github.com/helm/charts">helm/charts</a></li>
+<li><code>Release</code>: 当一个 Chart 部署后生成一个 release</li>
+</ul>
+<h3 id="Chart-简介"><a href="#Chart-简介" class="headerlink" title="Chart 简介"></a>Chart 简介</h3><p>使用 <code>helm create</code> 创建一个 chart，了解简单 chart 的目录结构</p>
+<pre class=" language-shell"><code class="language-shell"># 创建一个 chart
+$ helm create todo
+Creating todo
+
+$ cd todo
+
+# 打印 chart 目录，主要文件有 Chart.yaml 与 values.yaml
+# --dirsfirst 先打印文件夹名称
+$ tree --dirsfirst
+.
+├── charts
+├── templates
+│   ├── tests
+│   │   └── test-connection.yaml
+│   ├── NOTES.txt
+│   ├── _helpers.tpl
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   └── service.yaml
+├── Chart.yaml
+└── values.yaml
+
+3 directories, 8 files
+</code></pre>
+<p>查看主要的两个文件目录</p>
+<ul>
+<li><code>templates/</code>: 这是运维大哥写的配置文件模板，示例是最简单应用的资源配置，但复杂应用还会有 pvc，role，service-acount 等等</li>
+<li><code>values.yaml</code>: 这是给开发小弟写的可选参数，但是大部分参数都被运维大哥给内置了</li>
+</ul>
+<h2 id="使用-helm-部署基础服务"><a href="#使用-helm-部署基础服务" class="headerlink" title="使用 helm 部署基础服务"></a>使用 helm 部署基础服务</h2><h3 id="添加repo"><a href="#添加repo" class="headerlink" title="添加repo"></a>添加repo</h3><pre class=" language-shell"><code class="language-shell"># 国内
+helm repo add stable https://apphub.aliyuncs.com/stable
+# kubernetes
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+</code></pre>
+<h3 id="查找相关Chart"><a href="#查找相关Chart" class="headerlink" title="查找相关Chart"></a>查找相关Chart</h3><p>使用 <code>helm search hub</code></p>
+<pre class=" language-shell"><code class="language-shell">$ helm search repo redis
+NAME                                    CHART VERSION   APP VERSION     DESCRIPTION
+apphub/prometheus-redis-exporter        3.1.0           1.0.4           Prometheus exporter for Redis metrics
+apphub/redis                            9.3.1           5.0.5           Open source, advanced key-value store. It is of...
+apphub/redis-cache                      0.4.1           4.0.12-alpine   A pure in-memory redis cache, using statefulset...
+apphub/redis-ha                         3.8.0           5.0.5           Highly available Kubernetes implementation of R...
+apphub/redis-operator                   1.0.0                           Redis Operator provides high availability redis...
+apphub/redispapa                        0.0.1           0.0.1           利用redis的info信息对redis的使用情况进行监控的一...
+bitnami/redis                           10.7.1          6.0.5           Open source, advanced key-value store. It is of...
+bitnami/redis-cluster                   2.3.1           6.0.5           Open source, advanced key-value store. It is of...
+stable/prometheus-redis-exporter        3.4.1           1.3.4           Prometheus exporter for Redis metrics
+stable/redis                            10.5.7          5.0.7           DEPRECATED Open source, advanced key-value stor...
+stable/redis-ha                         4.4.4           5.0.6           Highly available Kubernetes implementation of R...
+apphub/codis                            3.2             3.2             A Helm chart for Codis
+</code></pre>
+<h3 id="选定-Chart，跟进-Chart-的官方文档"><a href="#选定-Chart，跟进-Chart-的官方文档" class="headerlink" title="选定 Chart，跟进 Chart 的官方文档"></a>选定 Chart，跟进 Chart 的官方文档</h3><p>我们选定 <a href="https://hub.helm.sh/charts/bitnami/redis" target="_blank" rel="noopener">stable/redis</a> 这个 chart。</p>
+<p>跟踪官方文档，设置相关参数，存储为 <code>values-production.yaml</code></p>
+<pre><code># Production configuration
+$ helm install redis bitami/redis --values values-production.yaml
+复制代码
+</code></pre><p>如何部署完成，可以查看安装某个 <code>Release</code> 时的 <code>values</code></p>
+<pre><code>$ helm get values redis
+复制代码
+</code></pre><p>如果需要升级，使用 <code>helm upgrade</code></p>
+<pre><code>$ helm upgrade redis bitnami/redis --values values-production.yaml
+</code></pre><h3 id="校验部署状态"><a href="#校验部署状态" class="headerlink" title="校验部署状态"></a>校验部署状态</h3><p>这与需要部署的资源有关，不过一般也就分为 <code>Service</code>，<code>Pod</code> 和 <code>PVC</code></p>
+<pre class=" language-shell"><code class="language-shell">helm status redis
+NAME: redis
+LAST DEPLOYED: Fri Nov  8 21:07:24 2019
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+NOTES:
+** Please be patient while the chart is being deployed **
+Redis can be accessed via port 6379 on the following DNS name from within your cluster:
+
+redis-master.default.svc.cluster.local
+</code></pre>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2020/07/25/kubernetes/helm-v3-an-zhuang-ji-shi-yong-zhi-nan/" class="b-link-green">helm v3 安装以及使用指南</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/07/25/kubernetes/helm-v3-an-zhuang-ji-shi-yong-zhi-nan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="helm v3 安装以及使用指南">
+                        
+                        <span class="card-title">helm v3 安装以及使用指南</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">helm v3 安装以及使用指南安装 helm这里参考官方文档 安装 helm
+helm 此时已发布了 v3，本篇文章关于 helm 安装及使用指南以 helm v3 为基础。
+
+helm 在 helm v2 时分为客户端 (helm cl</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category" target="_blank">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/云原生/" target="_blank">
+                        <span class="chip bg-color">云原生</span>
+                    </a>
+                    
+                    <a href="/tags/K8s/" target="_blank">
+                        <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/07/23/kubernetes/kubectl-chang-yong-ming-ling-xiang-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="kubectl常用命令详解">
+                        
+                        <span class="card-title">kubectl常用命令详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">常用命令详解语法$ kubectl [command] [TYPE] [NAME] [flags]
+
+资源对象kubectl api-resources
+
+全局参数kubectl options [-n] [-s] [-v]
+
+资源管理创建</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category" target="_blank">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/云原生/" target="_blank">
+                        <span class="chip bg-color">云原生</span>
+                    </a>
+                    
+                    <a href="/tags/K8s/" target="_blank">
+                        <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: ForwardXu<br />'
+            + '作者: ForwardXu<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xuqianjin-stars.github.io/" target="_blank">ForwardXu</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">249.6k</span>
+            
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/XuQianJin-Stars" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="232619158@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 232619158" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131393275-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131393275-1');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
