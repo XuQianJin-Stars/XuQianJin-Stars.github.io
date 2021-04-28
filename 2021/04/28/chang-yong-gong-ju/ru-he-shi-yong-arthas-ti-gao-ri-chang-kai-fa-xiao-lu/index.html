@@ -357,7 +357,7 @@
             <div class="post-info">
                 <span class="post-date">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>publishDate:&nbsp;&nbsp;
-                    2019-03-11
+                    2021-04-28
                 </span>
 
                 
@@ -391,11 +391,11 @@
 <p>开始之前，可以先浏览下上面推荐的这些文章，下面所使用到的东西在以上的文章都有详细的讲解。大家也可以先浏览下面的内容，确定所描述的确实可以提高开发效率，再去看上面的文章也是可以的。</p>
 <p>首先我们要安装两个插件“arthas idea” 和 “ArthasHotSwap”，IDEA可以直接安装使用。“arthas idea”是为了高效率生成Arthas命令，“ArthasHotSwap”可以实现简单快捷的热部署。接下来我们通过几个场景来看如何使用Arthas提高日开发常效率。</p>
 <h2 id="二-5分钟解决一个问题"><a href="#二-5分钟解决一个问题" class="headerlink" title="二 5分钟解决一个问题"></a><strong>二 5分钟解决一个问题</strong></h2><h3 id="1-问题表象"><a href="#1-问题表象" class="headerlink" title="1 问题表象"></a>1 问题表象</h3><p>问题的表象是预发接口返回参数为空，不知道为什么为空，关键地方又没有打日志。怎么办，debug？debug端口不好申请，而且一直占用环境引起公愤。加日志重新部署？部署时间太长，而且不一定查看日志就能发现问题。接下去我将使用Arthas排查问题。</p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz_png/Z6bicxIx5naLzW2PXcDiazKGLRHhht1C7VfoUianoA7FRFyFkmoSppf2sYBQXM7AOx7styCHI3xuW9ib15t8GDyIWA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_01.png" alt="图片"></p>
 <h3 id="2-如何发现问题"><a href="#2-如何发现问题" class="headerlink" title="2 如何发现问题"></a>2 如何发现问题</h3><h4 id="第一步：定位相关方法"><a href="#第一步：定位相关方法" class="headerlink" title="第一步：定位相关方法"></a><strong>第一步：定位相关方法</strong></h4><p>首先定位到相关的代码，代码如下图所示，方法执行结果应该要返回一个map，也就是上面问题的extraData，返回为空，肯定是这里有问题，但不知道那行代码的问题。借助Arthas可以想到的是，我能观测这个方法的出参和入参，说不定能发现问题。于是使用Arthas的watch命令观测方法执行情况。</p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz_png/Z6bicxIx5naLh7RnK6svIJzWvM3Adc5Rdyj11oFFepmX6kK38joWickZ1tT2ia6WSjXKicg4kkHRuib6XuyK0SYShfA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_02.png" alt="图片"></p>
 <h4 id="第二步：生成方法观测命令"><a href="#第二步：生成方法观测命令" class="headerlink" title="第二步：生成方法观测命令"></a><strong>第二步：生成方法观测命令</strong></h4><p>安装了“arthas idea”插件之后，在方法名上面单击右键，选择watch，如下图所示。</p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz_png/Z6bicxIx5naLh7RnK6svIJzWvM3Adc5RdjOKLhh2U2eDdC4Oic4Pic4FlJKemxMOHgGHp8cibRPvaIA31SVZDqsydA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_03.png" alt="图片"></p>
 <h4 id="第三步：登录应用服务器"><a href="#第三步：登录应用服务器" class="headerlink" title="第三步：登录应用服务器"></a><strong>第三步：登录应用服务器</strong></h4><p>一般应用都部署在云上或其他远程服务器，我们需要登录应用部署的服务器。</p>
 <h4 id="第四步：安装Arthas"><a href="#第四步：安装Arthas" class="headerlink" title="第四步：安装Arthas"></a><strong>第四步：安装Arthas</strong></h4><p>Arthas 支持在 Linux/Unix/Mac 等平台上一键安装，请复制以下内容，并粘贴到命令行中，敲 回车 执行即可。</p>
 <pre><code>curl -L https://arthas.aliyun.com/install.sh | sh
@@ -404,13 +404,13 @@
 <pre><code>watch com.**.**.endpoint.BargainPlayApplyCycleEndPoint fetchPlayDetailRenderData &#39;{params,returnObj,throwExp}&#39; -n 5 -x 3 &#39;params[0].getPlayToolDO().getId()==588&#39;
 </code></pre><p>命令解释：’{params,returnObj,throwExp}’ 表示观测对象，这里选择了入参、出参和异常，-n 5 表示观测到5次后停止，-x 3 表示打印观测对象的时候只打印3层嵌套结构，’params[0].getPlayToolDO().getId()==588’ 为条件表达式，满足该条件的才会被观测到。</p>
 <h4 id="第七步：查看观测结果"><a href="#第七步：查看观测结果" class="headerlink" title="第七步：查看观测结果"></a><strong>第七步：查看观测结果</strong></h4><p>前端重新触发执行后，得到观测结果如下所示，从入参可以看到playActivityApplyRequest中的targetId为null，实际上应该要取playActivityRecordDO中的targetId。从返回结果可以看到确实是因为商品ID不存在原因。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/Z6bicxIx5naLh7RnK6svIJzWvM3Adc5RdUl20fE6KOQMVO3HX7baHnscu2r864HPwGZVhPSZ42sgE5fTz0OdN3w/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_04.png" alt="图片"></p>
 <p>3 更进一步解决问题</p>
 <p>截止目前已经发现了问题所在，一般的同学都是修改代码重新部署，等上10多分钟。我们要做不一般的同学，接下去就轮到ArthasHotSwap热部署插件上场了。在IDEA的插件仓库搜索并安装ArthasHotSwap。</p>
 <h3 id="ArthasHotSwap-热部署"><a href="#ArthasHotSwap-热部署" class="headerlink" title="ArthasHotSwap 热部署"></a><strong>ArthasHotSwap 热部署</strong></h3><p>修改代码 -&gt; maven编译 -&gt; 单击右键选择swap this class -&gt; 热部署命令已经复制到粘贴板 -&gt; 登录远程服务器粘贴并执行热部署命令 -&gt; 热部署成功</p>
-<p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_05.png" alt="图片"></p>
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a><strong>问题解决</strong></h3><p>热部署成功，问题解决，前端重新请求，前端展示正常。</p>
-<p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_06.png" alt="图片"></p>
 <p>虽然整个链路看上去很长，但是都是一些很简单的复制粘贴操作，这是我在联调过程中处理的实际问题，整个过程差不多就是5分钟左右，切身感受到Arthas的便利，忍不住分享一下。</p>
 <p>4 一些限制</p>
 <p>arthas redefine有一些限制导致热部署也有同样的限制。热部署时候，不能修改方法名、属性字段，只能修改方法体里面的代码。</p>
@@ -419,10 +419,10 @@
 <p>在日常开发过程中，环境问题是非常影响开发效率的，特别是涉及其他团队的应用的时候，有时候希望上游再次触发一次调用都是很困难的一件事情。当你用上面的方法解决了你的问题之后，你想调试一下，发现已经夜深了，不好意思再让上游应用触发一次调用，该怎么办呢，自己根据watch观测的方法入参组装参数使用hsf控制台调用？我们要做不一般的同学，用工具解放生产力。</p>
 <h3 id="1-获取tt命令"><a href="#1-获取tt命令" class="headerlink" title="1 获取tt命令"></a>1 获取tt命令</h3><p>Arthas的tt命令可以获取方法执行数据的时空隧道，记录下指定方法每次调用的入参和返回信息，并能对这些不同的时间下调用进行观测。</p>
 <p>安装好arthas idea插件之后，在需要记录执行的方法上面单击右键，选择TimeTunnel Tt，出现下面的选择框，第一个红框是获取记录方法执行的命令。第二个红框是记录方法执行之后需要对记录进行的操作，包括查看记录列表、查看记录执行情况、重现调用等。</p>
-<p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_07.png" alt="图片"></p>
 <h3 id="2-记录方法执行"><a href="#2-记录方法执行" class="headerlink" title="2 记录方法执行"></a>2 记录方法执行</h3><p>登录远程服务器，运行以下两条运行arthas，然后执行从idea插件复制的tt -t命令来记录方法执行，如下图所示。如果想停止记录可以输入q，查看记录使用tt -l。</p>
 <pre><code>curl -L https://arthas.aliyun.com/install.sh | sh./as.sh
-</code></pre><p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+</code></pre><p><img src="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io/blob/master/medias/常用工具/Arthas_Tool_08.png" alt="图片"></p>
 <h3 id="3-搜索方法执行记录"><a href="#3-搜索方法执行记录" class="headerlink" title="3 搜索方法执行记录"></a>3 搜索方法执行记录</h3><p>tt -l可以查看所有的方法执行记录，但是我们要和我们相关的执行记录，那么可以使用tt -s命令进行搜索。tt -s 命令后面需要携带过滤条件。条件表达式是使用OGNL编写，下面介绍几个通常的过滤表达式。首先介绍下几个对象，params表示入参，params[0]表示第一个参数，params[1]表示第二个参数，returnObj表示返回对象。</p>
 <ul>
 <li>根据入参过滤：tt -s ‘params[2].getRecordId() == 110213603’</li>
@@ -575,7 +575,7 @@
                     </span>
                     <a href="https://github.com/XuQianJin-Stars/XuQianJin-Stars.github.io" class="b-link-green">ForwardXu</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/03/11/chang-yong-gong-ju/ru-he-shi-yong-arthas-ti-gao-ri-chang-kai-fa-xiao-lu/" class="b-link-green">如何使用Arthas提高日常开发效率？</a>
+                    <a href="/2021/04/28/chang-yong-gong-ju/ru-he-shi-yong-arthas-ti-gao-ri-chang-kai-fa-xiao-lu/" class="b-link-green">如何使用Arthas提高日常开发效率？</a>
                 </p>
             </div>
         </div>
@@ -598,23 +598,25 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/03/11/chang-yong-gong-ju/linux-xing-neng-fen-xi-gong-ju-hui-zong-he-ji/">
+                <a href="/2021/04/28/chang-yong-gong-ju/ru-he-shi-yong-arthas-ti-gao-ri-chang-kai-fa-xiao-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Linux性能分析工具汇总合集">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="如何使用Arthas提高日常开发效率？">
                         
-                        <span class="card-title">Linux性能分析工具汇总合集</span>
+                        <span class="card-title">如何使用Arthas提高日常开发效率？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Linux性能分析工具汇总合集出于对Linux操作系统的兴趣，以及对底层知识的强烈欲望，因此整理了这篇文章。本文也可以作为检验基础知识的指标，另外文章涵盖了一个系统的方方面面。如果没有完善的计算机系统知识，网络知识和操作系统知识，文档中的工</div>
+                    <div class="summary">如何使用Arthas提高日常开发效率？一 引言首先我们应该抛弃面向debug编程的思维，debug不一定是最高效的方法，遇到线上问题不能debug了怎么办。本文介绍如何使用Arthas代替debug提高日常开发效率。
+开始之前，可以先浏览下</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -627,6 +629,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -645,33 +648,30 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/10/suan-fa/wei-yun-suan/lian-xu-zi-ran-shu-er-jin-zhi-zhong-1-de-ge-shu/">
+                <a href="/2020/07/25/kubernetes/helm-v3-an-zhuang-ji-shi-yong-zhi-nan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="连续自然数二进制中 1 的个数">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="helm v3 安装以及使用指南">
                         
-                        <span class="card-title">连续自然数二进制中 1 的个数</span>
+                        <span class="card-title">helm v3 安装以及使用指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">连续自然数二进制中 1 的个数问题
-这个题目说的是，给你一个非负整数 n，你要分别计算出 0 ~ n 这 n + 1 个整数的二进制表示中 1 的个数，将结果以数组的形式返回。
-比如说，给你的整数 n 等于 4：
+                    <div class="summary">helm v3 安装以及使用指南安装 helm这里参考官方文档 安装 helm
+helm 此时已发布了 v3，本篇文章关于 helm 安装及使用指南以 helm v3 为基础。
 
-n = 4
-
-你要分别计</div>
+helm 在 helm v2 时分为客户端 (helm cl</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-10
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                    algorithm
+                            <a href="/categories/Kubernetes/" class="post-category" target="_blank">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -681,12 +681,12 @@ n = 4
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/algorithm/" target="_blank">
-                        <span class="chip bg-color">algorithm</span>
+                    <a href="/tags/云原生/" target="_blank">
+                        <span class="chip bg-color">云原生</span>
                     </a>
                     
-                    <a href="/tags/位运算/" target="_blank">
-                        <span class="chip bg-color">位运算</span>
+                    <a href="/tags/K8s/" target="_blank">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
                 </div>
